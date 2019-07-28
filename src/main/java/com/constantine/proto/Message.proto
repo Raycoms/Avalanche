@@ -1,0 +1,32 @@
+package proto;
+
+option java_package = ".";
+option java_outer_classname = "MessageProto";
+
+message Message
+{
+    oneof messages
+    {
+        TextMessage textMsg = 1;
+        IntMessage intMsg = 2;
+        RegisterMessage regMsg = 3;
+    }
+    required bytes signature = 4;
+}
+
+message TextMessage
+{
+    required string text = 1;
+}
+
+message IntMessage
+{
+    required int32 i = 1;
+}
+
+message RegisterMessage
+{
+    required int32 id = 1;
+    required string ip = 2;
+    required int32 port = 3;
+}
