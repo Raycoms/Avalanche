@@ -96,8 +96,8 @@ public class ServerData
     }
 
     /**
-     * Verify if this server signed a message.
-     * @param message the message.
+     * Verify if this server signed a handlers.
+     * @param message the handlers.
      * @param signature the signature.
      * @return true if valid.
      */

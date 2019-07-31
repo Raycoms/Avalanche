@@ -67,7 +67,7 @@ public class GlobalView
      */
     public ServerData getServer(final int id)
     {
-        return servers.get(id);
+        return servers.getOrDefault(id, null);
     }
 
     /**

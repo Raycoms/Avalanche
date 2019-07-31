@@ -1,7 +1,10 @@
 package com.constantine.communication;
 
+import com.constantine.communication.messages.IMessageWrapper;
+import com.constantine.communication.messages.IntMessageWrapper;
+import com.constantine.communication.messages.TextMessageWrapper;
 import com.constantine.proto.MessageProto;
-import com.constantine.communication.message.SizedMessage;
+import com.constantine.communication.handlers.SizedMessage;
 import com.constantine.server.Server;
 import com.constantine.server.ServerData;
 import com.constantine.utils.Log;
@@ -15,26 +18,25 @@ import io.netty.channel.SimpleChannelInboundHandler;
 public class NettySenderHandler extends SimpleChannelInboundHandler<SizedMessage>
 {
     /**
-     * message context.
+     * handlers context.
      */
     private ChannelHandlerContext ctx;
 
     /**
      * The ServerReceiver this client handler belongs to.
      */
-    private Server server;
+    private IServer server;
 
     /**
-     * The ServerReceiver this client handler connects to.
+     * The server data of this client.
      */
     private final ServerData serverData;
-
 
     /**
      * Start the NettySenderHandler with a server instance.
      * @param server the server instance to use.
      */
-    public NettySenderHandler(final Server server, final ServerData serverData)
+    public NettySenderHandler(final IServer server, final ServerData serverData)
     {
         this.server = server;
         this.serverData = serverData;
@@ -66,28 +68,20 @@ public class NettySenderHandler extends SimpleChannelInboundHandler<SizedMessage
         try
         {
             //Read input
+            //todo this is only for testing!
             final MessageProto.Message message = MessageProto.Message.parseFrom(msg.buffer);
-            final MessageProto.Message.Builder builder = MessageProto.Message.newBuilder();
-
             if (message.hasTextMsg())
             {
                 Log.getLogger().warn("ServerSender: " + server.getServerData().getId() + " received Text: " + message.getTextMsg().getText());
-                final MessageProto.TextMessage.Builder textBuilder = MessageProto.TextMessage.newBuilder();
-                builder.setTextMsg(textBuilder.setText(message.getTextMsg().getText() + " return!").build());
-
+                ctx.write(new TextMessageWrapper(message.getTextMsg().getText() + " return!", this.getId()));
             }
             else if (message.hasIntMsg())
             {
                 Log.getLogger().warn("ServerSender: " + server.getServerData().getId() + " received Int: " + message.getIntMsg().getI());
-                final MessageProto.IntMessage.Builder intBuilder = MessageProto.IntMessage.newBuilder();
-                builder.setIntMsg(intBuilder.setI(message.getIntMsg().getI() + 1).build());
+                ctx.write(new IntMessageWrapper(message.getIntMsg().getI() + 1, this.getId()));
             }
-
-            //Create message
-            final SizedMessage sizedMessage = new SizedMessage(builder.build().toByteArray());
-            ctx.write(sizedMessage);
         }
-        catch (InvalidProtocolBufferException e)
+        catch (final InvalidProtocolBufferException e)
         {
             e.printStackTrace();
         }
@@ -100,17 +94,12 @@ public class NettySenderHandler extends SimpleChannelInboundHandler<SizedMessage
     }
 
     /**
-     * Write a string message to the channel.
-     * @param string the string to write.
+     * Write a a IMessageWrapper and send it.
+     * @param msg the msg to send.
      */
-    public void write(final String string)
+    public void write(final IMessageWrapper msg)
     {
-        final MessageProto.Message.Builder builder = MessageProto.Message.newBuilder();
-        final MessageProto.IntMessage.Builder intBuilder = MessageProto.IntMessage.newBuilder();
-        builder.setIntMsg(intBuilder.setI(0).build());
-        final SizedMessage sizedMessage = new SizedMessage(builder.build().toByteArray());
-
-        this.ctx.writeAndFlush(sizedMessage);
+        this.ctx.writeAndFlush(msg.writeToSizedMessage());
     }
 
     /**

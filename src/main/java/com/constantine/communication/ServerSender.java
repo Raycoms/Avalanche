@@ -1,7 +1,10 @@
 package com.constantine.communication;
 
-import com.constantine.communication.message.MessageDecoder;
-import com.constantine.communication.message.MessageEncoder;
+import com.constantine.communication.handlers.SignedSizedMessageEncoder;
+import com.constantine.communication.handlers.SizedMessageDecoder;
+import com.constantine.communication.handlers.SizedMessageEncoder;
+import com.constantine.communication.messages.IMessageWrapper;
+import com.constantine.communication.operations.IOperation;
 import com.constantine.server.Server;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelInitializer;
@@ -13,18 +16,18 @@ import io.netty.channel.socket.nio.NioSocketChannel;
 import com.constantine.server.ServerData;
 import com.constantine.utils.Log;
 import com.constantine.views.GlobalView;
-import com.constantine.views.utils.ViewLoader;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
  * The server sender class.
  */
-public class ServerSender implements ISender
+public class ServerSender extends Thread implements ISender
 {
     /**
-     * Map of servers ids to handlers to message them.
+     * Map of servers ids to handlers to handlers them.
      */
     private final Map<Integer, NettySenderHandler> clients = new HashMap<>();
 
@@ -36,16 +39,21 @@ public class ServerSender implements ISender
     /**
      * The server this process belongs to.
      */
-    private final Server server;
+    private final IServer server;
 
+    /**
+     * The server own bootstrap instance.
+     */
     private final Bootstrap b;
 
     /**
      * Create the new client object and load its view.
+     * @param server the server establishing the connection.
+     * @param view the view of the network to connect to.
      */
-    public ServerSender(final String cfg, final Server server)
+    public ServerSender(final GlobalView view, final Server server)
     {
-        this.view = ViewLoader.loadView(cfg);
+        this.view = view;
         this.server = server;
 
         b = new Bootstrap();
@@ -54,6 +62,38 @@ public class ServerSender implements ISender
         b.channel(NioSocketChannel.class);
         b.option(ChannelOption.SO_KEEPALIVE, true);
         b.option(ChannelOption.TCP_NODELAY, true);
+    }
+
+    @Override
+    public void run()
+    {
+        startUp();
+
+        while (true)
+        {
+            if (server.hasMessageInOutputQueue())
+            {
+                try
+                {
+                    Thread.sleep(100);
+                }
+                catch (InterruptedException e)
+                {
+                    e.printStackTrace();
+                }
+                continue;
+            }
+            handleMessage(server.consumeMessageFromOutputQueue());
+        }
+    }
+
+    /**
+     * Handle a message from the queue.
+     * @param message the message to send.
+     */
+    public void handleMessage(final IOperation message)
+    {
+        message.executeOP(this);
     }
 
     @Override
@@ -109,8 +149,9 @@ public class ServerSender implements ISender
                 public void initChannel(SocketChannel ch)
                 {
                     ch.pipeline().addLast(
-                      new MessageEncoder(),
-                      new MessageDecoder(),
+                      new SignedSizedMessageEncoder(),
+                      new SizedMessageEncoder(),
+                      new SizedMessageDecoder(),
                       clientHandler);
                 }
             });
@@ -120,7 +161,7 @@ public class ServerSender implements ISender
     }
 
     @Override
-    public void unicast(final String message, final int id)
+    public void unicast(final IMessageWrapper message, final int id)
     {
         if (clients.containsKey(id))
         {
@@ -129,7 +170,7 @@ public class ServerSender implements ISender
     }
 
     @Override
-    public void multicast(final String message, final int... list)
+    public void multicast(final IMessageWrapper message, final List<Integer> list)
     {
         for (final int id : list)
         {
@@ -138,7 +179,7 @@ public class ServerSender implements ISender
     }
 
     @Override
-    public void broadcast(final String message)
+    public void broadcast(final IMessageWrapper message)
     {
         for (final NettySenderHandler handler : clients.values())
         {

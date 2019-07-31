@@ -136,9 +136,9 @@ public final class KeyUtilities
     }
 
     /**
-     * Verify the signature given the message, signature and public key.
+     * Verify the signature given the handlers, signature and public key.
      *
-     * @param message   the message.
+     * @param message   the handlers.
      * @param signature the signature.
      * @param publicKey the public key.
      * @return true if valid.
@@ -160,8 +160,8 @@ public final class KeyUtilities
     }
 
     /**
-     * Sign a message given the private key.
-     * @param message the message to sign.
+     * Sign a handlers given the private key.
+     * @param message the handlers to sign.
      * @param privateKey the private key to sign it with.
      * @return the resulting signature of null on failure.
      */
@@ -183,11 +183,11 @@ public final class KeyUtilities
     }
 
     /**
-     * Encrypt a message with a public key.
+     * Encrypt a handlers with a public key.
      *
-     * @param message   the message.
+     * @param message   the handlers.
 =     * @param publicKey the public key.
-     * @return the encrypted message.
+     * @return the encrypted handlers.
      */
     public static byte[] encryptMessage(@NotNull final byte[] message, @NotNull final PublicKey publicKey)
     {
@@ -205,10 +205,10 @@ public final class KeyUtilities
     }
 
     /**
-     * Decrypt a message with a given private key.
-     * @param message the message to decrypt.
+     * Decrypt a handlers with a given private key.
+     * @param message the handlers to decrypt.
      * @param privateKey the private key to use.
-     * @return the resulting message.
+     * @return the resulting handlers.
      */
     @Nullable
     public static byte[] decryptMessage(@NotNull final byte[] message, @NotNull final PrivateKey privateKey)

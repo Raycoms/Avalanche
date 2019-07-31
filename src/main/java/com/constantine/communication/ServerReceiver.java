@@ -1,7 +1,8 @@
 package com.constantine.communication;
 
-import com.constantine.communication.message.MessageDecoder;
-import com.constantine.communication.message.MessageEncoder;
+import com.constantine.communication.handlers.SignedSizedMessageEncoder;
+import com.constantine.communication.handlers.SizedMessageDecoder;
+import com.constantine.communication.handlers.SizedMessageEncoder;
 import com.constantine.server.Server;
 import com.constantine.utils.Log;
 import io.netty.bootstrap.ServerBootstrap;
@@ -55,8 +56,9 @@ public class ServerReceiver extends Thread
                 protected void initChannel(SocketChannel socketChannel)
                 {
                     socketChannel.pipeline().addLast(
-                      new MessageEncoder(),
-                      new MessageDecoder(),
+                      new SignedSizedMessageEncoder(),
+                      new SizedMessageEncoder(),
+                      new SizedMessageDecoder(),
                       new NettyReceiverHandler(server));
                 }
             });

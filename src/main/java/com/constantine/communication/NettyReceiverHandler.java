@@ -1,7 +1,11 @@
 package com.constantine.communication;
 
+import com.constantine.communication.messages.IntMessageWrapper;
+import com.constantine.communication.messages.JoinRequestMessageWrapper;
+import com.constantine.communication.messages.RegisterMessageWrapper;
+import com.constantine.communication.messages.TextMessageWrapper;
 import com.constantine.proto.MessageProto;
-import com.constantine.communication.message.SizedMessage;
+import com.constantine.communication.handlers.SizedMessage;
 import com.constantine.server.Server;
 import com.constantine.utils.Log;
 import com.google.protobuf.InvalidProtocolBufferException;
@@ -34,31 +38,27 @@ public class NettyReceiverHandler extends SimpleChannelInboundHandler<SizedMessa
         {
             //Read input
             final MessageProto.Message message = MessageProto.Message.parseFrom(msg.buffer);
-            final MessageProto.Message.Builder builder = MessageProto.Message.newBuilder();
-
             if (message.hasTextMsg())
             {
                 Log.getLogger().warn("ServerReceiver: " + server.getServerData().getId() + " received Text: " + message.getTextMsg().getText());
-                final MessageProto.TextMessage.Builder textBuilder = MessageProto.TextMessage.newBuilder();
-                builder.setTextMsg(textBuilder.setText(message.getTextMsg().getText() + " return!").build());
-
+                ctx.write(new TextMessageWrapper(message.getTextMsg().getText() + " return!", server.getServerData().getId()));
             }
             else if (message.hasIntMsg())
             {
                 Log.getLogger().warn("ServerReceiver: " + server.getServerData().getId() + " received Int: " + message.getIntMsg().getI());
-                final MessageProto.IntMessage.Builder intBuilder = MessageProto.IntMessage.newBuilder();
-                builder.setIntMsg(intBuilder.setI(message.getIntMsg().getI() + 1).build());
+                ctx.write(new IntMessageWrapper(message.getIntMsg().getI() + 1, server.getServerData().getId()));
+            }
+            else if (message.hasReqRegMsg())
+            {
+                Log.getLogger().warn("ServerSender: " + server.getServerData().getId() + " ");
+                server.inputQueue.add(new JoinRequestMessageWrapper(message.getReqRegMsg(), server.getServerData().getId()));
             }
             else if (message.hasRegMsg())
             {
-
+                server.inputQueue.add(new RegisterMessageWrapper(message.getRegMsg(), server.getServerData().getId()));
             }
-
-            //Create message
-            final SizedMessage sizedMessage = new SizedMessage(builder.build().toByteArray());
-            ctx.write(sizedMessage);
         }
-        catch (InvalidProtocolBufferException e)
+        catch (final InvalidProtocolBufferException e)
         {
             e.printStackTrace();
         }

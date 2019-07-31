@@ -1,7 +1,13 @@
 package com.constantine.communication;
 
+import com.constantine.communication.messages.IMessageWrapper;
 import com.constantine.server.ServerData;
 
+import java.util.List;
+
+/**
+ * Message sender interface.
+ */
 public interface ISender
 {
     /**
@@ -20,18 +26,18 @@ public interface ISender
      * @param message the message to send.
      * @param id the id of the server.
      */
-    public void unicast(final String message, final int id);
+    public void unicast(final IMessageWrapper message, final int id);
 
     /**
      * Start a multicast to a list of servers.
      * @param message the message to send.
      * @param list the list of servers.
      */
-    public void multicast(final String message, final int...list);
+    public void multicast(final IMessageWrapper message, final List<Integer> list);
 
     /**
      * Start a broadcast to all known servers.
      * @param message the message to broadcast.
      */
-    public void broadcast(final String message);
+    public void broadcast(final IMessageWrapper message);
 }
