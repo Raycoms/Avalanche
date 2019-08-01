@@ -71,11 +71,37 @@ public final class MessageProto {
     com.constantine.proto.MessageProto.RegisterMessageOrBuilder getRegMsgOrBuilder();
 
     /**
-     * <code>required bytes signature = 5;</code>
+     * <code>optional .proto.RequestUnregisterMessage reqUnregMsg = 5;</code>
+     */
+    boolean hasReqUnregMsg();
+    /**
+     * <code>optional .proto.RequestUnregisterMessage reqUnregMsg = 5;</code>
+     */
+    com.constantine.proto.MessageProto.RequestUnregisterMessage getReqUnregMsg();
+    /**
+     * <code>optional .proto.RequestUnregisterMessage reqUnregMsg = 5;</code>
+     */
+    com.constantine.proto.MessageProto.RequestUnregisterMessageOrBuilder getReqUnregMsgOrBuilder();
+
+    /**
+     * <code>optional .proto.UnregisterMessage unregMsg = 6;</code>
+     */
+    boolean hasUnregMsg();
+    /**
+     * <code>optional .proto.UnregisterMessage unregMsg = 6;</code>
+     */
+    com.constantine.proto.MessageProto.UnregisterMessage getUnregMsg();
+    /**
+     * <code>optional .proto.UnregisterMessage unregMsg = 6;</code>
+     */
+    com.constantine.proto.MessageProto.UnregisterMessageOrBuilder getUnregMsgOrBuilder();
+
+    /**
+     * <code>required bytes signature = 7;</code>
      */
     boolean hasSignature();
     /**
-     * <code>required bytes signature = 5;</code>
+     * <code>required bytes signature = 7;</code>
      */
     com.google.protobuf.ByteString getSignature();
 
@@ -178,7 +204,35 @@ public final class MessageProto {
               break;
             }
             case 42: {
-              bitField0_ |= 0x00000010;
+              com.constantine.proto.MessageProto.RequestUnregisterMessage.Builder subBuilder = null;
+              if (messagesCase_ == 5) {
+                subBuilder = ((com.constantine.proto.MessageProto.RequestUnregisterMessage) messages_).toBuilder();
+              }
+              messages_ =
+                  input.readMessage(com.constantine.proto.MessageProto.RequestUnregisterMessage.PARSER, extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom((com.constantine.proto.MessageProto.RequestUnregisterMessage) messages_);
+                messages_ = subBuilder.buildPartial();
+              }
+              messagesCase_ = 5;
+              break;
+            }
+            case 50: {
+              com.constantine.proto.MessageProto.UnregisterMessage.Builder subBuilder = null;
+              if (messagesCase_ == 6) {
+                subBuilder = ((com.constantine.proto.MessageProto.UnregisterMessage) messages_).toBuilder();
+              }
+              messages_ =
+                  input.readMessage(com.constantine.proto.MessageProto.UnregisterMessage.PARSER, extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom((com.constantine.proto.MessageProto.UnregisterMessage) messages_);
+                messages_ = subBuilder.buildPartial();
+              }
+              messagesCase_ = 6;
+              break;
+            }
+            case 58: {
+              bitField0_ |= 0x00000040;
               signature_ = input.readBytes();
               break;
             }
@@ -223,6 +277,8 @@ public final class MessageProto {
       INTMSG(2),
       REQREGMSG(3),
       REGMSG(4),
+      REQUNREGMSG(5),
+      UNREGMSG(6),
       MESSAGES_NOT_SET(0);
       private final int value;
       private MessagesCase(int value) {
@@ -242,6 +298,8 @@ public final class MessageProto {
           case 2: return INTMSG;
           case 3: return REQREGMSG;
           case 4: return REGMSG;
+          case 5: return REQUNREGMSG;
+          case 6: return UNREGMSG;
           case 0: return MESSAGES_NOT_SET;
           default: return null;
         }
@@ -361,16 +419,68 @@ public final class MessageProto {
       return com.constantine.proto.MessageProto.RegisterMessage.getDefaultInstance();
     }
 
-    public static final int SIGNATURE_FIELD_NUMBER = 5;
-    private com.google.protobuf.ByteString signature_;
+    public static final int REQUNREGMSG_FIELD_NUMBER = 5;
     /**
-     * <code>required bytes signature = 5;</code>
+     * <code>optional .proto.RequestUnregisterMessage reqUnregMsg = 5;</code>
      */
-    public boolean hasSignature() {
-      return ((bitField0_ & 0x00000010) != 0);
+    public boolean hasReqUnregMsg() {
+      return messagesCase_ == 5;
     }
     /**
-     * <code>required bytes signature = 5;</code>
+     * <code>optional .proto.RequestUnregisterMessage reqUnregMsg = 5;</code>
+     */
+    public com.constantine.proto.MessageProto.RequestUnregisterMessage getReqUnregMsg() {
+      if (messagesCase_ == 5) {
+         return (com.constantine.proto.MessageProto.RequestUnregisterMessage) messages_;
+      }
+      return com.constantine.proto.MessageProto.RequestUnregisterMessage.getDefaultInstance();
+    }
+    /**
+     * <code>optional .proto.RequestUnregisterMessage reqUnregMsg = 5;</code>
+     */
+    public com.constantine.proto.MessageProto.RequestUnregisterMessageOrBuilder getReqUnregMsgOrBuilder() {
+      if (messagesCase_ == 5) {
+         return (com.constantine.proto.MessageProto.RequestUnregisterMessage) messages_;
+      }
+      return com.constantine.proto.MessageProto.RequestUnregisterMessage.getDefaultInstance();
+    }
+
+    public static final int UNREGMSG_FIELD_NUMBER = 6;
+    /**
+     * <code>optional .proto.UnregisterMessage unregMsg = 6;</code>
+     */
+    public boolean hasUnregMsg() {
+      return messagesCase_ == 6;
+    }
+    /**
+     * <code>optional .proto.UnregisterMessage unregMsg = 6;</code>
+     */
+    public com.constantine.proto.MessageProto.UnregisterMessage getUnregMsg() {
+      if (messagesCase_ == 6) {
+         return (com.constantine.proto.MessageProto.UnregisterMessage) messages_;
+      }
+      return com.constantine.proto.MessageProto.UnregisterMessage.getDefaultInstance();
+    }
+    /**
+     * <code>optional .proto.UnregisterMessage unregMsg = 6;</code>
+     */
+    public com.constantine.proto.MessageProto.UnregisterMessageOrBuilder getUnregMsgOrBuilder() {
+      if (messagesCase_ == 6) {
+         return (com.constantine.proto.MessageProto.UnregisterMessage) messages_;
+      }
+      return com.constantine.proto.MessageProto.UnregisterMessage.getDefaultInstance();
+    }
+
+    public static final int SIGNATURE_FIELD_NUMBER = 7;
+    private com.google.protobuf.ByteString signature_;
+    /**
+     * <code>required bytes signature = 7;</code>
+     */
+    public boolean hasSignature() {
+      return ((bitField0_ & 0x00000040) != 0);
+    }
+    /**
+     * <code>required bytes signature = 7;</code>
      */
     public com.google.protobuf.ByteString getSignature() {
       return signature_;
@@ -411,6 +521,18 @@ public final class MessageProto {
           return false;
         }
       }
+      if (hasReqUnregMsg()) {
+        if (!getReqUnregMsg().isInitialized()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+      }
+      if (hasUnregMsg()) {
+        if (!getUnregMsg().isInitialized()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -430,8 +552,14 @@ public final class MessageProto {
       if (messagesCase_ == 4) {
         output.writeMessage(4, (com.constantine.proto.MessageProto.RegisterMessage) messages_);
       }
-      if (((bitField0_ & 0x00000010) != 0)) {
-        output.writeBytes(5, signature_);
+      if (messagesCase_ == 5) {
+        output.writeMessage(5, (com.constantine.proto.MessageProto.RequestUnregisterMessage) messages_);
+      }
+      if (messagesCase_ == 6) {
+        output.writeMessage(6, (com.constantine.proto.MessageProto.UnregisterMessage) messages_);
+      }
+      if (((bitField0_ & 0x00000040) != 0)) {
+        output.writeBytes(7, signature_);
       }
       unknownFields.writeTo(output);
     }
@@ -458,9 +586,17 @@ public final class MessageProto {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(4, (com.constantine.proto.MessageProto.RegisterMessage) messages_);
       }
-      if (((bitField0_ & 0x00000010) != 0)) {
+      if (messagesCase_ == 5) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(5, signature_);
+          .computeMessageSize(5, (com.constantine.proto.MessageProto.RequestUnregisterMessage) messages_);
+      }
+      if (messagesCase_ == 6) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(6, (com.constantine.proto.MessageProto.UnregisterMessage) messages_);
+      }
+      if (((bitField0_ & 0x00000040) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(7, signature_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -500,6 +636,14 @@ public final class MessageProto {
           if (!getRegMsg()
               .equals(other.getRegMsg())) return false;
           break;
+        case 5:
+          if (!getReqUnregMsg()
+              .equals(other.getReqUnregMsg())) return false;
+          break;
+        case 6:
+          if (!getUnregMsg()
+              .equals(other.getUnregMsg())) return false;
+          break;
         case 0:
         default:
       }
@@ -534,6 +678,14 @@ public final class MessageProto {
         case 4:
           hash = (37 * hash) + REGMSG_FIELD_NUMBER;
           hash = (53 * hash) + getRegMsg().hashCode();
+          break;
+        case 5:
+          hash = (37 * hash) + REQUNREGMSG_FIELD_NUMBER;
+          hash = (53 * hash) + getReqUnregMsg().hashCode();
+          break;
+        case 6:
+          hash = (37 * hash) + UNREGMSG_FIELD_NUMBER;
+          hash = (53 * hash) + getUnregMsg().hashCode();
           break;
         case 0:
         default:
@@ -672,7 +824,7 @@ public final class MessageProto {
       public Builder clear() {
         super.clear();
         signature_ = com.google.protobuf.ByteString.EMPTY;
-        bitField0_ = (bitField0_ & ~0x00000010);
+        bitField0_ = (bitField0_ & ~0x00000040);
         messagesCase_ = 0;
         messages_ = null;
         return this;
@@ -731,8 +883,22 @@ public final class MessageProto {
             result.messages_ = regMsgBuilder_.build();
           }
         }
-        if (((from_bitField0_ & 0x00000010) != 0)) {
-          to_bitField0_ |= 0x00000010;
+        if (messagesCase_ == 5) {
+          if (reqUnregMsgBuilder_ == null) {
+            result.messages_ = messages_;
+          } else {
+            result.messages_ = reqUnregMsgBuilder_.build();
+          }
+        }
+        if (messagesCase_ == 6) {
+          if (unregMsgBuilder_ == null) {
+            result.messages_ = messages_;
+          } else {
+            result.messages_ = unregMsgBuilder_.build();
+          }
+        }
+        if (((from_bitField0_ & 0x00000040) != 0)) {
+          to_bitField0_ |= 0x00000040;
         }
         result.signature_ = signature_;
         result.bitField0_ = to_bitField0_;
@@ -805,6 +971,14 @@ public final class MessageProto {
             mergeRegMsg(other.getRegMsg());
             break;
           }
+          case REQUNREGMSG: {
+            mergeReqUnregMsg(other.getReqUnregMsg());
+            break;
+          }
+          case UNREGMSG: {
+            mergeUnregMsg(other.getUnregMsg());
+            break;
+          }
           case MESSAGES_NOT_SET: {
             break;
           }
@@ -836,6 +1010,16 @@ public final class MessageProto {
         }
         if (hasRegMsg()) {
           if (!getRegMsg().isInitialized()) {
+            return false;
+          }
+        }
+        if (hasReqUnregMsg()) {
+          if (!getReqUnregMsg().isInitialized()) {
+            return false;
+          }
+        }
+        if (hasUnregMsg()) {
+          if (!getUnregMsg().isInitialized()) {
             return false;
           }
         }
@@ -1421,36 +1605,308 @@ public final class MessageProto {
         return regMsgBuilder_;
       }
 
-      private com.google.protobuf.ByteString signature_ = com.google.protobuf.ByteString.EMPTY;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.constantine.proto.MessageProto.RequestUnregisterMessage, com.constantine.proto.MessageProto.RequestUnregisterMessage.Builder, com.constantine.proto.MessageProto.RequestUnregisterMessageOrBuilder> reqUnregMsgBuilder_;
       /**
-       * <code>required bytes signature = 5;</code>
+       * <code>optional .proto.RequestUnregisterMessage reqUnregMsg = 5;</code>
        */
-      public boolean hasSignature() {
-        return ((bitField0_ & 0x00000010) != 0);
+      public boolean hasReqUnregMsg() {
+        return messagesCase_ == 5;
       }
       /**
-       * <code>required bytes signature = 5;</code>
+       * <code>optional .proto.RequestUnregisterMessage reqUnregMsg = 5;</code>
+       */
+      public com.constantine.proto.MessageProto.RequestUnregisterMessage getReqUnregMsg() {
+        if (reqUnregMsgBuilder_ == null) {
+          if (messagesCase_ == 5) {
+            return (com.constantine.proto.MessageProto.RequestUnregisterMessage) messages_;
+          }
+          return com.constantine.proto.MessageProto.RequestUnregisterMessage.getDefaultInstance();
+        } else {
+          if (messagesCase_ == 5) {
+            return reqUnregMsgBuilder_.getMessage();
+          }
+          return com.constantine.proto.MessageProto.RequestUnregisterMessage.getDefaultInstance();
+        }
+      }
+      /**
+       * <code>optional .proto.RequestUnregisterMessage reqUnregMsg = 5;</code>
+       */
+      public Builder setReqUnregMsg(com.constantine.proto.MessageProto.RequestUnregisterMessage value) {
+        if (reqUnregMsgBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          messages_ = value;
+          onChanged();
+        } else {
+          reqUnregMsgBuilder_.setMessage(value);
+        }
+        messagesCase_ = 5;
+        return this;
+      }
+      /**
+       * <code>optional .proto.RequestUnregisterMessage reqUnregMsg = 5;</code>
+       */
+      public Builder setReqUnregMsg(
+          com.constantine.proto.MessageProto.RequestUnregisterMessage.Builder builderForValue) {
+        if (reqUnregMsgBuilder_ == null) {
+          messages_ = builderForValue.build();
+          onChanged();
+        } else {
+          reqUnregMsgBuilder_.setMessage(builderForValue.build());
+        }
+        messagesCase_ = 5;
+        return this;
+      }
+      /**
+       * <code>optional .proto.RequestUnregisterMessage reqUnregMsg = 5;</code>
+       */
+      public Builder mergeReqUnregMsg(com.constantine.proto.MessageProto.RequestUnregisterMessage value) {
+        if (reqUnregMsgBuilder_ == null) {
+          if (messagesCase_ == 5 &&
+              messages_ != com.constantine.proto.MessageProto.RequestUnregisterMessage.getDefaultInstance()) {
+            messages_ = com.constantine.proto.MessageProto.RequestUnregisterMessage.newBuilder((com.constantine.proto.MessageProto.RequestUnregisterMessage) messages_)
+                .mergeFrom(value).buildPartial();
+          } else {
+            messages_ = value;
+          }
+          onChanged();
+        } else {
+          if (messagesCase_ == 5) {
+            reqUnregMsgBuilder_.mergeFrom(value);
+          }
+          reqUnregMsgBuilder_.setMessage(value);
+        }
+        messagesCase_ = 5;
+        return this;
+      }
+      /**
+       * <code>optional .proto.RequestUnregisterMessage reqUnregMsg = 5;</code>
+       */
+      public Builder clearReqUnregMsg() {
+        if (reqUnregMsgBuilder_ == null) {
+          if (messagesCase_ == 5) {
+            messagesCase_ = 0;
+            messages_ = null;
+            onChanged();
+          }
+        } else {
+          if (messagesCase_ == 5) {
+            messagesCase_ = 0;
+            messages_ = null;
+          }
+          reqUnregMsgBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>optional .proto.RequestUnregisterMessage reqUnregMsg = 5;</code>
+       */
+      public com.constantine.proto.MessageProto.RequestUnregisterMessage.Builder getReqUnregMsgBuilder() {
+        return getReqUnregMsgFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>optional .proto.RequestUnregisterMessage reqUnregMsg = 5;</code>
+       */
+      public com.constantine.proto.MessageProto.RequestUnregisterMessageOrBuilder getReqUnregMsgOrBuilder() {
+        if ((messagesCase_ == 5) && (reqUnregMsgBuilder_ != null)) {
+          return reqUnregMsgBuilder_.getMessageOrBuilder();
+        } else {
+          if (messagesCase_ == 5) {
+            return (com.constantine.proto.MessageProto.RequestUnregisterMessage) messages_;
+          }
+          return com.constantine.proto.MessageProto.RequestUnregisterMessage.getDefaultInstance();
+        }
+      }
+      /**
+       * <code>optional .proto.RequestUnregisterMessage reqUnregMsg = 5;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.constantine.proto.MessageProto.RequestUnregisterMessage, com.constantine.proto.MessageProto.RequestUnregisterMessage.Builder, com.constantine.proto.MessageProto.RequestUnregisterMessageOrBuilder> 
+          getReqUnregMsgFieldBuilder() {
+        if (reqUnregMsgBuilder_ == null) {
+          if (!(messagesCase_ == 5)) {
+            messages_ = com.constantine.proto.MessageProto.RequestUnregisterMessage.getDefaultInstance();
+          }
+          reqUnregMsgBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              com.constantine.proto.MessageProto.RequestUnregisterMessage, com.constantine.proto.MessageProto.RequestUnregisterMessage.Builder, com.constantine.proto.MessageProto.RequestUnregisterMessageOrBuilder>(
+                  (com.constantine.proto.MessageProto.RequestUnregisterMessage) messages_,
+                  getParentForChildren(),
+                  isClean());
+          messages_ = null;
+        }
+        messagesCase_ = 5;
+        onChanged();;
+        return reqUnregMsgBuilder_;
+      }
+
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.constantine.proto.MessageProto.UnregisterMessage, com.constantine.proto.MessageProto.UnregisterMessage.Builder, com.constantine.proto.MessageProto.UnregisterMessageOrBuilder> unregMsgBuilder_;
+      /**
+       * <code>optional .proto.UnregisterMessage unregMsg = 6;</code>
+       */
+      public boolean hasUnregMsg() {
+        return messagesCase_ == 6;
+      }
+      /**
+       * <code>optional .proto.UnregisterMessage unregMsg = 6;</code>
+       */
+      public com.constantine.proto.MessageProto.UnregisterMessage getUnregMsg() {
+        if (unregMsgBuilder_ == null) {
+          if (messagesCase_ == 6) {
+            return (com.constantine.proto.MessageProto.UnregisterMessage) messages_;
+          }
+          return com.constantine.proto.MessageProto.UnregisterMessage.getDefaultInstance();
+        } else {
+          if (messagesCase_ == 6) {
+            return unregMsgBuilder_.getMessage();
+          }
+          return com.constantine.proto.MessageProto.UnregisterMessage.getDefaultInstance();
+        }
+      }
+      /**
+       * <code>optional .proto.UnregisterMessage unregMsg = 6;</code>
+       */
+      public Builder setUnregMsg(com.constantine.proto.MessageProto.UnregisterMessage value) {
+        if (unregMsgBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          messages_ = value;
+          onChanged();
+        } else {
+          unregMsgBuilder_.setMessage(value);
+        }
+        messagesCase_ = 6;
+        return this;
+      }
+      /**
+       * <code>optional .proto.UnregisterMessage unregMsg = 6;</code>
+       */
+      public Builder setUnregMsg(
+          com.constantine.proto.MessageProto.UnregisterMessage.Builder builderForValue) {
+        if (unregMsgBuilder_ == null) {
+          messages_ = builderForValue.build();
+          onChanged();
+        } else {
+          unregMsgBuilder_.setMessage(builderForValue.build());
+        }
+        messagesCase_ = 6;
+        return this;
+      }
+      /**
+       * <code>optional .proto.UnregisterMessage unregMsg = 6;</code>
+       */
+      public Builder mergeUnregMsg(com.constantine.proto.MessageProto.UnregisterMessage value) {
+        if (unregMsgBuilder_ == null) {
+          if (messagesCase_ == 6 &&
+              messages_ != com.constantine.proto.MessageProto.UnregisterMessage.getDefaultInstance()) {
+            messages_ = com.constantine.proto.MessageProto.UnregisterMessage.newBuilder((com.constantine.proto.MessageProto.UnregisterMessage) messages_)
+                .mergeFrom(value).buildPartial();
+          } else {
+            messages_ = value;
+          }
+          onChanged();
+        } else {
+          if (messagesCase_ == 6) {
+            unregMsgBuilder_.mergeFrom(value);
+          }
+          unregMsgBuilder_.setMessage(value);
+        }
+        messagesCase_ = 6;
+        return this;
+      }
+      /**
+       * <code>optional .proto.UnregisterMessage unregMsg = 6;</code>
+       */
+      public Builder clearUnregMsg() {
+        if (unregMsgBuilder_ == null) {
+          if (messagesCase_ == 6) {
+            messagesCase_ = 0;
+            messages_ = null;
+            onChanged();
+          }
+        } else {
+          if (messagesCase_ == 6) {
+            messagesCase_ = 0;
+            messages_ = null;
+          }
+          unregMsgBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>optional .proto.UnregisterMessage unregMsg = 6;</code>
+       */
+      public com.constantine.proto.MessageProto.UnregisterMessage.Builder getUnregMsgBuilder() {
+        return getUnregMsgFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>optional .proto.UnregisterMessage unregMsg = 6;</code>
+       */
+      public com.constantine.proto.MessageProto.UnregisterMessageOrBuilder getUnregMsgOrBuilder() {
+        if ((messagesCase_ == 6) && (unregMsgBuilder_ != null)) {
+          return unregMsgBuilder_.getMessageOrBuilder();
+        } else {
+          if (messagesCase_ == 6) {
+            return (com.constantine.proto.MessageProto.UnregisterMessage) messages_;
+          }
+          return com.constantine.proto.MessageProto.UnregisterMessage.getDefaultInstance();
+        }
+      }
+      /**
+       * <code>optional .proto.UnregisterMessage unregMsg = 6;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.constantine.proto.MessageProto.UnregisterMessage, com.constantine.proto.MessageProto.UnregisterMessage.Builder, com.constantine.proto.MessageProto.UnregisterMessageOrBuilder> 
+          getUnregMsgFieldBuilder() {
+        if (unregMsgBuilder_ == null) {
+          if (!(messagesCase_ == 6)) {
+            messages_ = com.constantine.proto.MessageProto.UnregisterMessage.getDefaultInstance();
+          }
+          unregMsgBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              com.constantine.proto.MessageProto.UnregisterMessage, com.constantine.proto.MessageProto.UnregisterMessage.Builder, com.constantine.proto.MessageProto.UnregisterMessageOrBuilder>(
+                  (com.constantine.proto.MessageProto.UnregisterMessage) messages_,
+                  getParentForChildren(),
+                  isClean());
+          messages_ = null;
+        }
+        messagesCase_ = 6;
+        onChanged();;
+        return unregMsgBuilder_;
+      }
+
+      private com.google.protobuf.ByteString signature_ = com.google.protobuf.ByteString.EMPTY;
+      /**
+       * <code>required bytes signature = 7;</code>
+       */
+      public boolean hasSignature() {
+        return ((bitField0_ & 0x00000040) != 0);
+      }
+      /**
+       * <code>required bytes signature = 7;</code>
        */
       public com.google.protobuf.ByteString getSignature() {
         return signature_;
       }
       /**
-       * <code>required bytes signature = 5;</code>
+       * <code>required bytes signature = 7;</code>
        */
       public Builder setSignature(com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000010;
+  bitField0_ |= 0x00000040;
         signature_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required bytes signature = 5;</code>
+       * <code>required bytes signature = 7;</code>
        */
       public Builder clearSignature() {
-        bitField0_ = (bitField0_ & ~0x00000010);
+        bitField0_ = (bitField0_ & ~0x00000040);
         signature_ = getDefaultInstance().getSignature();
         onChanged();
         return this;
@@ -3382,6 +3838,781 @@ public final class MessageProto {
 
   }
 
+  public interface RequestUnregisterMessageOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:proto.RequestUnregisterMessage)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>required int32 id = 1;</code>
+     */
+    boolean hasId();
+    /**
+     * <code>required int32 id = 1;</code>
+     */
+    int getId();
+
+    /**
+     * <code>required string ip = 2;</code>
+     */
+    boolean hasIp();
+    /**
+     * <code>required string ip = 2;</code>
+     */
+    java.lang.String getIp();
+    /**
+     * <code>required string ip = 2;</code>
+     */
+    com.google.protobuf.ByteString
+        getIpBytes();
+
+    /**
+     * <code>required int32 port = 3;</code>
+     */
+    boolean hasPort();
+    /**
+     * <code>required int32 port = 3;</code>
+     */
+    int getPort();
+  }
+  /**
+   * Protobuf type {@code proto.RequestUnregisterMessage}
+   */
+  public  static final class RequestUnregisterMessage extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:proto.RequestUnregisterMessage)
+      RequestUnregisterMessageOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use RequestUnregisterMessage.newBuilder() to construct.
+    private RequestUnregisterMessage(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private RequestUnregisterMessage() {
+      ip_ = "";
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private RequestUnregisterMessage(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 8: {
+              bitField0_ |= 0x00000001;
+              id_ = input.readInt32();
+              break;
+            }
+            case 18: {
+              com.google.protobuf.ByteString bs = input.readBytes();
+              bitField0_ |= 0x00000002;
+              ip_ = bs;
+              break;
+            }
+            case 24: {
+              bitField0_ |= 0x00000004;
+              port_ = input.readInt32();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.constantine.proto.MessageProto.internal_static_proto_RequestUnregisterMessage_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.constantine.proto.MessageProto.internal_static_proto_RequestUnregisterMessage_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.constantine.proto.MessageProto.RequestUnregisterMessage.class, com.constantine.proto.MessageProto.RequestUnregisterMessage.Builder.class);
+    }
+
+    private int bitField0_;
+    public static final int ID_FIELD_NUMBER = 1;
+    private int id_;
+    /**
+     * <code>required int32 id = 1;</code>
+     */
+    public boolean hasId() {
+      return ((bitField0_ & 0x00000001) != 0);
+    }
+    /**
+     * <code>required int32 id = 1;</code>
+     */
+    public int getId() {
+      return id_;
+    }
+
+    public static final int IP_FIELD_NUMBER = 2;
+    private volatile java.lang.Object ip_;
+    /**
+     * <code>required string ip = 2;</code>
+     */
+    public boolean hasIp() {
+      return ((bitField0_ & 0x00000002) != 0);
+    }
+    /**
+     * <code>required string ip = 2;</code>
+     */
+    public java.lang.String getIp() {
+      java.lang.Object ref = ip_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          ip_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>required string ip = 2;</code>
+     */
+    public com.google.protobuf.ByteString
+        getIpBytes() {
+      java.lang.Object ref = ip_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        ip_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int PORT_FIELD_NUMBER = 3;
+    private int port_;
+    /**
+     * <code>required int32 port = 3;</code>
+     */
+    public boolean hasPort() {
+      return ((bitField0_ & 0x00000004) != 0);
+    }
+    /**
+     * <code>required int32 port = 3;</code>
+     */
+    public int getPort() {
+      return port_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      if (!hasId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasIp()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasPort()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (((bitField0_ & 0x00000001) != 0)) {
+        output.writeInt32(1, id_);
+      }
+      if (((bitField0_ & 0x00000002) != 0)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, ip_);
+      }
+      if (((bitField0_ & 0x00000004) != 0)) {
+        output.writeInt32(3, port_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (((bitField0_ & 0x00000001) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(1, id_);
+      }
+      if (((bitField0_ & 0x00000002) != 0)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, ip_);
+      }
+      if (((bitField0_ & 0x00000004) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(3, port_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.constantine.proto.MessageProto.RequestUnregisterMessage)) {
+        return super.equals(obj);
+      }
+      com.constantine.proto.MessageProto.RequestUnregisterMessage other = (com.constantine.proto.MessageProto.RequestUnregisterMessage) obj;
+
+      if (hasId() != other.hasId()) return false;
+      if (hasId()) {
+        if (getId()
+            != other.getId()) return false;
+      }
+      if (hasIp() != other.hasIp()) return false;
+      if (hasIp()) {
+        if (!getIp()
+            .equals(other.getIp())) return false;
+      }
+      if (hasPort() != other.hasPort()) return false;
+      if (hasPort()) {
+        if (getPort()
+            != other.getPort()) return false;
+      }
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (hasId()) {
+        hash = (37 * hash) + ID_FIELD_NUMBER;
+        hash = (53 * hash) + getId();
+      }
+      if (hasIp()) {
+        hash = (37 * hash) + IP_FIELD_NUMBER;
+        hash = (53 * hash) + getIp().hashCode();
+      }
+      if (hasPort()) {
+        hash = (37 * hash) + PORT_FIELD_NUMBER;
+        hash = (53 * hash) + getPort();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.constantine.proto.MessageProto.RequestUnregisterMessage parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.constantine.proto.MessageProto.RequestUnregisterMessage parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.constantine.proto.MessageProto.RequestUnregisterMessage parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.constantine.proto.MessageProto.RequestUnregisterMessage parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.constantine.proto.MessageProto.RequestUnregisterMessage parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.constantine.proto.MessageProto.RequestUnregisterMessage parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.constantine.proto.MessageProto.RequestUnregisterMessage parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.constantine.proto.MessageProto.RequestUnregisterMessage parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.constantine.proto.MessageProto.RequestUnregisterMessage parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static com.constantine.proto.MessageProto.RequestUnregisterMessage parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.constantine.proto.MessageProto.RequestUnregisterMessage parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.constantine.proto.MessageProto.RequestUnregisterMessage parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.constantine.proto.MessageProto.RequestUnregisterMessage prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code proto.RequestUnregisterMessage}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:proto.RequestUnregisterMessage)
+        com.constantine.proto.MessageProto.RequestUnregisterMessageOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.constantine.proto.MessageProto.internal_static_proto_RequestUnregisterMessage_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.constantine.proto.MessageProto.internal_static_proto_RequestUnregisterMessage_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.constantine.proto.MessageProto.RequestUnregisterMessage.class, com.constantine.proto.MessageProto.RequestUnregisterMessage.Builder.class);
+      }
+
+      // Construct using com.constantine.proto.MessageProto.RequestUnregisterMessage.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        id_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        ip_ = "";
+        bitField0_ = (bitField0_ & ~0x00000002);
+        port_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000004);
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.constantine.proto.MessageProto.internal_static_proto_RequestUnregisterMessage_descriptor;
+      }
+
+      @java.lang.Override
+      public com.constantine.proto.MessageProto.RequestUnregisterMessage getDefaultInstanceForType() {
+        return com.constantine.proto.MessageProto.RequestUnregisterMessage.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.constantine.proto.MessageProto.RequestUnregisterMessage build() {
+        com.constantine.proto.MessageProto.RequestUnregisterMessage result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.constantine.proto.MessageProto.RequestUnregisterMessage buildPartial() {
+        com.constantine.proto.MessageProto.RequestUnregisterMessage result = new com.constantine.proto.MessageProto.RequestUnregisterMessage(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.id_ = id_;
+          to_bitField0_ |= 0x00000001;
+        }
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.ip_ = ip_;
+        if (((from_bitField0_ & 0x00000004) != 0)) {
+          result.port_ = port_;
+          to_bitField0_ |= 0x00000004;
+        }
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.constantine.proto.MessageProto.RequestUnregisterMessage) {
+          return mergeFrom((com.constantine.proto.MessageProto.RequestUnregisterMessage)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.constantine.proto.MessageProto.RequestUnregisterMessage other) {
+        if (other == com.constantine.proto.MessageProto.RequestUnregisterMessage.getDefaultInstance()) return this;
+        if (other.hasId()) {
+          setId(other.getId());
+        }
+        if (other.hasIp()) {
+          bitField0_ |= 0x00000002;
+          ip_ = other.ip_;
+          onChanged();
+        }
+        if (other.hasPort()) {
+          setPort(other.getPort());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        if (!hasId()) {
+          return false;
+        }
+        if (!hasIp()) {
+          return false;
+        }
+        if (!hasPort()) {
+          return false;
+        }
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.constantine.proto.MessageProto.RequestUnregisterMessage parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.constantine.proto.MessageProto.RequestUnregisterMessage) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private int id_ ;
+      /**
+       * <code>required int32 id = 1;</code>
+       */
+      public boolean hasId() {
+        return ((bitField0_ & 0x00000001) != 0);
+      }
+      /**
+       * <code>required int32 id = 1;</code>
+       */
+      public int getId() {
+        return id_;
+      }
+      /**
+       * <code>required int32 id = 1;</code>
+       */
+      public Builder setId(int value) {
+        bitField0_ |= 0x00000001;
+        id_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required int32 id = 1;</code>
+       */
+      public Builder clearId() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        id_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object ip_ = "";
+      /**
+       * <code>required string ip = 2;</code>
+       */
+      public boolean hasIp() {
+        return ((bitField0_ & 0x00000002) != 0);
+      }
+      /**
+       * <code>required string ip = 2;</code>
+       */
+      public java.lang.String getIp() {
+        java.lang.Object ref = ip_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            ip_ = s;
+          }
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>required string ip = 2;</code>
+       */
+      public com.google.protobuf.ByteString
+          getIpBytes() {
+        java.lang.Object ref = ip_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          ip_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>required string ip = 2;</code>
+       */
+      public Builder setIp(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+        ip_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string ip = 2;</code>
+       */
+      public Builder clearIp() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        ip_ = getDefaultInstance().getIp();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string ip = 2;</code>
+       */
+      public Builder setIpBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+        ip_ = value;
+        onChanged();
+        return this;
+      }
+
+      private int port_ ;
+      /**
+       * <code>required int32 port = 3;</code>
+       */
+      public boolean hasPort() {
+        return ((bitField0_ & 0x00000004) != 0);
+      }
+      /**
+       * <code>required int32 port = 3;</code>
+       */
+      public int getPort() {
+        return port_;
+      }
+      /**
+       * <code>required int32 port = 3;</code>
+       */
+      public Builder setPort(int value) {
+        bitField0_ |= 0x00000004;
+        port_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required int32 port = 3;</code>
+       */
+      public Builder clearPort() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        port_ = 0;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:proto.RequestUnregisterMessage)
+    }
+
+    // @@protoc_insertion_point(class_scope:proto.RequestUnregisterMessage)
+    private static final com.constantine.proto.MessageProto.RequestUnregisterMessage DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.constantine.proto.MessageProto.RequestUnregisterMessage();
+    }
+
+    public static com.constantine.proto.MessageProto.RequestUnregisterMessage getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<RequestUnregisterMessage>
+        PARSER = new com.google.protobuf.AbstractParser<RequestUnregisterMessage>() {
+      @java.lang.Override
+      public RequestUnregisterMessage parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new RequestUnregisterMessage(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<RequestUnregisterMessage> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<RequestUnregisterMessage> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.constantine.proto.MessageProto.RequestUnregisterMessage getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   public interface RegisterMessageOrBuilder extends
       // @@protoc_insertion_point(interface_extends:proto.RegisterMessage)
       com.google.protobuf.MessageOrBuilder {
@@ -4157,6 +5388,781 @@ public final class MessageProto {
 
   }
 
+  public interface UnregisterMessageOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:proto.UnregisterMessage)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>required int32 id = 1;</code>
+     */
+    boolean hasId();
+    /**
+     * <code>required int32 id = 1;</code>
+     */
+    int getId();
+
+    /**
+     * <code>required string ip = 2;</code>
+     */
+    boolean hasIp();
+    /**
+     * <code>required string ip = 2;</code>
+     */
+    java.lang.String getIp();
+    /**
+     * <code>required string ip = 2;</code>
+     */
+    com.google.protobuf.ByteString
+        getIpBytes();
+
+    /**
+     * <code>required int32 port = 3;</code>
+     */
+    boolean hasPort();
+    /**
+     * <code>required int32 port = 3;</code>
+     */
+    int getPort();
+  }
+  /**
+   * Protobuf type {@code proto.UnregisterMessage}
+   */
+  public  static final class UnregisterMessage extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:proto.UnregisterMessage)
+      UnregisterMessageOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use UnregisterMessage.newBuilder() to construct.
+    private UnregisterMessage(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private UnregisterMessage() {
+      ip_ = "";
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private UnregisterMessage(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 8: {
+              bitField0_ |= 0x00000001;
+              id_ = input.readInt32();
+              break;
+            }
+            case 18: {
+              com.google.protobuf.ByteString bs = input.readBytes();
+              bitField0_ |= 0x00000002;
+              ip_ = bs;
+              break;
+            }
+            case 24: {
+              bitField0_ |= 0x00000004;
+              port_ = input.readInt32();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.constantine.proto.MessageProto.internal_static_proto_UnregisterMessage_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.constantine.proto.MessageProto.internal_static_proto_UnregisterMessage_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.constantine.proto.MessageProto.UnregisterMessage.class, com.constantine.proto.MessageProto.UnregisterMessage.Builder.class);
+    }
+
+    private int bitField0_;
+    public static final int ID_FIELD_NUMBER = 1;
+    private int id_;
+    /**
+     * <code>required int32 id = 1;</code>
+     */
+    public boolean hasId() {
+      return ((bitField0_ & 0x00000001) != 0);
+    }
+    /**
+     * <code>required int32 id = 1;</code>
+     */
+    public int getId() {
+      return id_;
+    }
+
+    public static final int IP_FIELD_NUMBER = 2;
+    private volatile java.lang.Object ip_;
+    /**
+     * <code>required string ip = 2;</code>
+     */
+    public boolean hasIp() {
+      return ((bitField0_ & 0x00000002) != 0);
+    }
+    /**
+     * <code>required string ip = 2;</code>
+     */
+    public java.lang.String getIp() {
+      java.lang.Object ref = ip_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          ip_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>required string ip = 2;</code>
+     */
+    public com.google.protobuf.ByteString
+        getIpBytes() {
+      java.lang.Object ref = ip_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        ip_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int PORT_FIELD_NUMBER = 3;
+    private int port_;
+    /**
+     * <code>required int32 port = 3;</code>
+     */
+    public boolean hasPort() {
+      return ((bitField0_ & 0x00000004) != 0);
+    }
+    /**
+     * <code>required int32 port = 3;</code>
+     */
+    public int getPort() {
+      return port_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      if (!hasId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasIp()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasPort()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (((bitField0_ & 0x00000001) != 0)) {
+        output.writeInt32(1, id_);
+      }
+      if (((bitField0_ & 0x00000002) != 0)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, ip_);
+      }
+      if (((bitField0_ & 0x00000004) != 0)) {
+        output.writeInt32(3, port_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (((bitField0_ & 0x00000001) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(1, id_);
+      }
+      if (((bitField0_ & 0x00000002) != 0)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, ip_);
+      }
+      if (((bitField0_ & 0x00000004) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(3, port_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.constantine.proto.MessageProto.UnregisterMessage)) {
+        return super.equals(obj);
+      }
+      com.constantine.proto.MessageProto.UnregisterMessage other = (com.constantine.proto.MessageProto.UnregisterMessage) obj;
+
+      if (hasId() != other.hasId()) return false;
+      if (hasId()) {
+        if (getId()
+            != other.getId()) return false;
+      }
+      if (hasIp() != other.hasIp()) return false;
+      if (hasIp()) {
+        if (!getIp()
+            .equals(other.getIp())) return false;
+      }
+      if (hasPort() != other.hasPort()) return false;
+      if (hasPort()) {
+        if (getPort()
+            != other.getPort()) return false;
+      }
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (hasId()) {
+        hash = (37 * hash) + ID_FIELD_NUMBER;
+        hash = (53 * hash) + getId();
+      }
+      if (hasIp()) {
+        hash = (37 * hash) + IP_FIELD_NUMBER;
+        hash = (53 * hash) + getIp().hashCode();
+      }
+      if (hasPort()) {
+        hash = (37 * hash) + PORT_FIELD_NUMBER;
+        hash = (53 * hash) + getPort();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.constantine.proto.MessageProto.UnregisterMessage parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.constantine.proto.MessageProto.UnregisterMessage parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.constantine.proto.MessageProto.UnregisterMessage parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.constantine.proto.MessageProto.UnregisterMessage parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.constantine.proto.MessageProto.UnregisterMessage parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.constantine.proto.MessageProto.UnregisterMessage parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.constantine.proto.MessageProto.UnregisterMessage parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.constantine.proto.MessageProto.UnregisterMessage parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.constantine.proto.MessageProto.UnregisterMessage parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static com.constantine.proto.MessageProto.UnregisterMessage parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.constantine.proto.MessageProto.UnregisterMessage parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.constantine.proto.MessageProto.UnregisterMessage parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.constantine.proto.MessageProto.UnregisterMessage prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code proto.UnregisterMessage}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:proto.UnregisterMessage)
+        com.constantine.proto.MessageProto.UnregisterMessageOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.constantine.proto.MessageProto.internal_static_proto_UnregisterMessage_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.constantine.proto.MessageProto.internal_static_proto_UnregisterMessage_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.constantine.proto.MessageProto.UnregisterMessage.class, com.constantine.proto.MessageProto.UnregisterMessage.Builder.class);
+      }
+
+      // Construct using com.constantine.proto.MessageProto.UnregisterMessage.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        id_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        ip_ = "";
+        bitField0_ = (bitField0_ & ~0x00000002);
+        port_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000004);
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.constantine.proto.MessageProto.internal_static_proto_UnregisterMessage_descriptor;
+      }
+
+      @java.lang.Override
+      public com.constantine.proto.MessageProto.UnregisterMessage getDefaultInstanceForType() {
+        return com.constantine.proto.MessageProto.UnregisterMessage.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.constantine.proto.MessageProto.UnregisterMessage build() {
+        com.constantine.proto.MessageProto.UnregisterMessage result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.constantine.proto.MessageProto.UnregisterMessage buildPartial() {
+        com.constantine.proto.MessageProto.UnregisterMessage result = new com.constantine.proto.MessageProto.UnregisterMessage(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.id_ = id_;
+          to_bitField0_ |= 0x00000001;
+        }
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.ip_ = ip_;
+        if (((from_bitField0_ & 0x00000004) != 0)) {
+          result.port_ = port_;
+          to_bitField0_ |= 0x00000004;
+        }
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.constantine.proto.MessageProto.UnregisterMessage) {
+          return mergeFrom((com.constantine.proto.MessageProto.UnregisterMessage)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.constantine.proto.MessageProto.UnregisterMessage other) {
+        if (other == com.constantine.proto.MessageProto.UnregisterMessage.getDefaultInstance()) return this;
+        if (other.hasId()) {
+          setId(other.getId());
+        }
+        if (other.hasIp()) {
+          bitField0_ |= 0x00000002;
+          ip_ = other.ip_;
+          onChanged();
+        }
+        if (other.hasPort()) {
+          setPort(other.getPort());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        if (!hasId()) {
+          return false;
+        }
+        if (!hasIp()) {
+          return false;
+        }
+        if (!hasPort()) {
+          return false;
+        }
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.constantine.proto.MessageProto.UnregisterMessage parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.constantine.proto.MessageProto.UnregisterMessage) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private int id_ ;
+      /**
+       * <code>required int32 id = 1;</code>
+       */
+      public boolean hasId() {
+        return ((bitField0_ & 0x00000001) != 0);
+      }
+      /**
+       * <code>required int32 id = 1;</code>
+       */
+      public int getId() {
+        return id_;
+      }
+      /**
+       * <code>required int32 id = 1;</code>
+       */
+      public Builder setId(int value) {
+        bitField0_ |= 0x00000001;
+        id_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required int32 id = 1;</code>
+       */
+      public Builder clearId() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        id_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object ip_ = "";
+      /**
+       * <code>required string ip = 2;</code>
+       */
+      public boolean hasIp() {
+        return ((bitField0_ & 0x00000002) != 0);
+      }
+      /**
+       * <code>required string ip = 2;</code>
+       */
+      public java.lang.String getIp() {
+        java.lang.Object ref = ip_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            ip_ = s;
+          }
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>required string ip = 2;</code>
+       */
+      public com.google.protobuf.ByteString
+          getIpBytes() {
+        java.lang.Object ref = ip_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          ip_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>required string ip = 2;</code>
+       */
+      public Builder setIp(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+        ip_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string ip = 2;</code>
+       */
+      public Builder clearIp() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        ip_ = getDefaultInstance().getIp();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string ip = 2;</code>
+       */
+      public Builder setIpBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+        ip_ = value;
+        onChanged();
+        return this;
+      }
+
+      private int port_ ;
+      /**
+       * <code>required int32 port = 3;</code>
+       */
+      public boolean hasPort() {
+        return ((bitField0_ & 0x00000004) != 0);
+      }
+      /**
+       * <code>required int32 port = 3;</code>
+       */
+      public int getPort() {
+        return port_;
+      }
+      /**
+       * <code>required int32 port = 3;</code>
+       */
+      public Builder setPort(int value) {
+        bitField0_ |= 0x00000004;
+        port_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required int32 port = 3;</code>
+       */
+      public Builder clearPort() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        port_ = 0;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:proto.UnregisterMessage)
+    }
+
+    // @@protoc_insertion_point(class_scope:proto.UnregisterMessage)
+    private static final com.constantine.proto.MessageProto.UnregisterMessage DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.constantine.proto.MessageProto.UnregisterMessage();
+    }
+
+    public static com.constantine.proto.MessageProto.UnregisterMessage getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<UnregisterMessage>
+        PARSER = new com.google.protobuf.AbstractParser<UnregisterMessage>() {
+      @java.lang.Override
+      public UnregisterMessage parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new UnregisterMessage(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<UnregisterMessage> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<UnregisterMessage> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.constantine.proto.MessageProto.UnregisterMessage getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_proto_Message_descriptor;
   private static final 
@@ -4178,10 +6184,20 @@ public final class MessageProto {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_proto_RequestRegisterMessage_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_proto_RequestUnregisterMessage_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_proto_RequestUnregisterMessage_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_proto_RegisterMessage_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_proto_RegisterMessage_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_proto_UnregisterMessage_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_proto_UnregisterMessage_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -4191,18 +6207,23 @@ public final class MessageProto {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\rMessage.proto\022\005proto\"\322\001\n\007Message\022%\n\007te" +
+      "\n\rMessage.proto\022\005proto\"\270\002\n\007Message\022%\n\007te" +
       "xtMsg\030\001 \001(\0132\022.proto.TextMessageH\000\022#\n\006int" +
       "Msg\030\002 \001(\0132\021.proto.IntMessageH\000\0222\n\treqReg" +
       "Msg\030\003 \001(\0132\035.proto.RequestRegisterMessage" +
       "H\000\022(\n\006regMsg\030\004 \001(\0132\026.proto.RegisterMessa" +
-      "geH\000\022\021\n\tsignature\030\005 \002(\014B\n\n\010messages\"\033\n\013T" +
-      "extMessage\022\014\n\004text\030\001 \002(\t\"\027\n\nIntMessage\022\t" +
-      "\n\001i\030\001 \002(\005\">\n\026RequestRegisterMessage\022\n\n\002i" +
-      "d\030\001 \002(\005\022\n\n\002ip\030\002 \002(\t\022\014\n\004port\030\003 \002(\005\"7\n\017Reg" +
-      "isterMessage\022\n\n\002id\030\001 \002(\005\022\n\n\002ip\030\002 \002(\t\022\014\n\004" +
-      "port\030\003 \002(\005B%\n\025com.constantine.protoB\014Mes" +
-      "sageProto"
+      "geH\000\0226\n\013reqUnregMsg\030\005 \001(\0132\037.proto.Reques" +
+      "tUnregisterMessageH\000\022,\n\010unregMsg\030\006 \001(\0132\030" +
+      ".proto.UnregisterMessageH\000\022\021\n\tsignature\030" +
+      "\007 \002(\014B\n\n\010messages\"\033\n\013TextMessage\022\014\n\004text" +
+      "\030\001 \002(\t\"\027\n\nIntMessage\022\t\n\001i\030\001 \002(\005\">\n\026Reque" +
+      "stRegisterMessage\022\n\n\002id\030\001 \002(\005\022\n\n\002ip\030\002 \002(" +
+      "\t\022\014\n\004port\030\003 \002(\005\"@\n\030RequestUnregisterMess" +
+      "age\022\n\n\002id\030\001 \002(\005\022\n\n\002ip\030\002 \002(\t\022\014\n\004port\030\003 \002(" +
+      "\005\"7\n\017RegisterMessage\022\n\n\002id\030\001 \002(\005\022\n\n\002ip\030\002" +
+      " \002(\t\022\014\n\004port\030\003 \002(\005\"9\n\021UnregisterMessage\022" +
+      "\n\n\002id\030\001 \002(\005\022\n\n\002ip\030\002 \002(\t\022\014\n\004port\030\003 \002(\005B%\n" +
+      "\025com.constantine.protoB\014MessageProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -4221,7 +6242,7 @@ public final class MessageProto {
     internal_static_proto_Message_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_Message_descriptor,
-        new java.lang.String[] { "TextMsg", "IntMsg", "ReqRegMsg", "RegMsg", "Signature", "Messages", });
+        new java.lang.String[] { "TextMsg", "IntMsg", "ReqRegMsg", "RegMsg", "ReqUnregMsg", "UnregMsg", "Signature", "Messages", });
     internal_static_proto_TextMessage_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_proto_TextMessage_fieldAccessorTable = new
@@ -4240,11 +6261,23 @@ public final class MessageProto {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_RequestRegisterMessage_descriptor,
         new java.lang.String[] { "Id", "Ip", "Port", });
-    internal_static_proto_RegisterMessage_descriptor =
+    internal_static_proto_RequestUnregisterMessage_descriptor =
       getDescriptor().getMessageTypes().get(4);
+    internal_static_proto_RequestUnregisterMessage_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_proto_RequestUnregisterMessage_descriptor,
+        new java.lang.String[] { "Id", "Ip", "Port", });
+    internal_static_proto_RegisterMessage_descriptor =
+      getDescriptor().getMessageTypes().get(5);
     internal_static_proto_RegisterMessage_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_RegisterMessage_descriptor,
+        new java.lang.String[] { "Id", "Ip", "Port", });
+    internal_static_proto_UnregisterMessage_descriptor =
+      getDescriptor().getMessageTypes().get(6);
+    internal_static_proto_UnregisterMessage_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_proto_UnregisterMessage_descriptor,
         new java.lang.String[] { "Id", "Ip", "Port", });
   }
 

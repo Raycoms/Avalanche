@@ -9,8 +9,10 @@ message Message {
         IntMessage intMsg = 2;
         RequestRegisterMessage reqRegMsg = 3;
         RegisterMessage regMsg = 4;
+        RequestUnregisterMessage reqUnregMsg = 5;
+        UnregisterMessage unregMsg = 6;
     }
-    required bytes signature = 5;
+    required bytes signature = 7;
 }
 
 message TextMessage {
@@ -27,7 +29,19 @@ message RequestRegisterMessage {
     required int32 port = 3;
 }
 
+message RequestUnregisterMessage {
+    required int32 id = 1;
+    required string ip = 2;
+    required int32 port = 3;
+}
+
 message RegisterMessage {
+    required int32 id = 1;
+    required string ip = 2;
+    required int32 port = 3;
+}
+
+message UnregisterMessage {
     required int32 id = 1;
     required string ip = 2;
     required int32 port = 3;

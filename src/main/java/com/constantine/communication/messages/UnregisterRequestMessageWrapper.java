@@ -6,9 +6,9 @@ import com.constantine.server.ServerData;
 import com.google.protobuf.ByteString;
 
 /**
- * Example join request message wrapper.
+ * Example unregister request message wrapper.
  */
-public class JoinRequestMessageWrapper implements IMessageWrapper
+public class UnregisterRequestMessageWrapper implements IMessageWrapper
 {
     /**
      * The String of this message.
@@ -21,20 +21,20 @@ public class JoinRequestMessageWrapper implements IMessageWrapper
     public final int sender;
 
     /**
-     * Create an instance of the join request message wrapper.
+     * Create an instance of the unregister request message wrapper.
      * @param message the int to send.
      */
-    public JoinRequestMessageWrapper(final ServerData message, final int sender)
+    public UnregisterRequestMessageWrapper(final ServerData message, final int sender)
     {
         this.message = message;
         this.sender = sender;
     }
 
     /**
-     * Create an instance of the join request message wrapper.
+     * Create an instance of the unregister request message wrapper.
      * @param message the message to extract it from.
      */
-    public JoinRequestMessageWrapper(final MessageProto.RequestRegisterMessage message, final int sender)
+    public UnregisterRequestMessageWrapper(final MessageProto.RequestUnregisterMessage message, final int sender)
     {
         this.message = new ServerData(message.getId(), message.getIp(), message.getPort());
         this.sender = sender;
@@ -43,8 +43,8 @@ public class JoinRequestMessageWrapper implements IMessageWrapper
     @Override
     public SizedMessage writeToSizedMessage()
     {
-        final MessageProto.RequestRegisterMessage.Builder intBuilder = MessageProto.RequestRegisterMessage.newBuilder();
-        builder.setReqRegMsg(intBuilder.setId(this.message.getId()).setIp(message.getIp()).setPort(message.getPort()).build()).setSignature(ByteString.copyFrom(new byte[0]));
+        final MessageProto.RequestUnregisterMessage.Builder intBuilder = MessageProto.RequestUnregisterMessage.newBuilder();
+        builder.setReqUnregMsg(intBuilder.setId(this.message.getId()).setIp(message.getIp()).setPort(message.getPort()).build()).setSignature(ByteString.copyFrom(new byte[0]));
 
         return new SizedMessage(builder.build().toByteArray(), sender);
     }

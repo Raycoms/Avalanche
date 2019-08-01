@@ -22,6 +22,12 @@ public interface ISender
     public void connectToServer(final ServerData data);
 
     /**
+     * Disconnect an existing server.
+     * @param server the server to disconnect from.
+     */
+    void disconnectFromServer(ServerData server);
+
+    /**
      * Start an unicast to a server.
      * @param message the message to send.
      * @param id the id of the server.

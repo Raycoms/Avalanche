@@ -5,6 +5,7 @@ import com.constantine.communication.handlers.SizedMessageDecoder;
 import com.constantine.communication.handlers.SizedMessageEncoder;
 import com.constantine.communication.messages.IMessageWrapper;
 import com.constantine.communication.operations.IOperation;
+import com.constantine.server.IServer;
 import com.constantine.server.Server;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelInitializer;
@@ -71,7 +72,7 @@ public class ServerSender extends Thread implements ISender
 
         while (true)
         {
-            if (server.hasMessageInOutputQueue())
+            if (!server.hasMessageInOutputQueue())
             {
                 try
                 {
@@ -93,6 +94,7 @@ public class ServerSender extends Thread implements ISender
      */
     public void handleMessage(final IOperation message)
     {
+        Log.getLogger().warn("Sending message");
         message.executeOP(this);
     }
 
@@ -157,6 +159,16 @@ public class ServerSender extends Thread implements ISender
             });
             Log.getLogger().warn("Starting connection to ServerReceiver: " + data.getId());
             b.connect(data.getIp(), data.getPort());
+        }
+    }
+
+    @Override
+    public void disconnectFromServer(final ServerData data)
+    {
+        if (clients.containsKey(data.getId()))
+        {
+            final NettySenderHandler channel = clients.remove(data.getId());
+            channel.disconnect();
         }
     }
 

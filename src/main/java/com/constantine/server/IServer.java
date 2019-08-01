@@ -1,8 +1,7 @@
-package com.constantine.communication;
+package com.constantine.server;
 
 import com.constantine.communication.messages.IMessageWrapper;
 import com.constantine.communication.operations.IOperation;
-import com.constantine.server.ServerData;
 
 /**
  * Server interface.

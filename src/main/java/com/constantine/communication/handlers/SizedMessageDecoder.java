@@ -1,5 +1,6 @@
 package com.constantine.communication.handlers;
 
+import com.constantine.utils.Log;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageDecoder;
@@ -21,7 +22,6 @@ public class SizedMessageDecoder extends ByteToMessageDecoder
         in.markReaderIndex();
 
         final byte flag = in.readByte();
-
         if (flag == SizedMessage.FLAG)
         {
             final int id = in.readInt();

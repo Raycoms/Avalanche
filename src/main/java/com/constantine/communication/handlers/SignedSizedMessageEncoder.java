@@ -1,5 +1,6 @@
 package com.constantine.communication.handlers;
 
+import com.constantine.utils.Log;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToByteEncoder;
@@ -12,6 +13,7 @@ public class SignedSizedMessageEncoder extends MessageToByteEncoder<SignedSizedM
     @Override
     protected void encode(final ChannelHandlerContext ctx, final SignedSizedMessage msg, final ByteBuf out)
     {
+        out.writeByte(1);
         out.writeInt(msg.id);
         out.writeInt(msg.buffer.length);
         out.writeBytes(msg.buffer);

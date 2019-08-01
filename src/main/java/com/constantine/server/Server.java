@@ -1,6 +1,5 @@
 package com.constantine.server;
 
-import com.constantine.communication.IServer;
 import com.constantine.communication.ServerReceiver;
 import com.constantine.communication.ServerSender;
 import com.constantine.communication.messages.IMessageWrapper;
@@ -10,6 +9,7 @@ import com.constantine.communication.messages.TextMessageWrapper;
 import com.constantine.communication.operations.BroadcastOperation;
 import com.constantine.communication.operations.ConnectOperation;
 import com.constantine.communication.operations.IOperation;
+import com.constantine.communication.operations.UnicastOperation;
 import com.constantine.utils.KeyUtilities;
 import com.constantine.utils.Log;
 import com.constantine.views.GlobalView;
@@ -59,6 +59,7 @@ public class Server extends Thread implements IServer
     public Server(final int id, final String ip, final int port)
     {
         this.server = new ServerData(id, ip, port);
+        KeyUtilities.generateOrLoadKey(server, CONFIG_LOCATION);
         this.privateKey = KeyUtilities.loadPrivateKeyFromFile(CONFIG_LOCATION, this.server);
         this.view = ViewLoader.loadView(CONFIG_LOCATION + "view.json");
     }
@@ -67,9 +68,11 @@ public class Server extends Thread implements IServer
     public void run()
     {
         Log.getLogger().warn("Starting Server Thread for Server: " + server.getId());
+        boolean isInView = true;
         if (view.getServer(server.getId()) == null)
         {
             view.addServer(server);
+            isInView = false;
         }
 
         // This is an extra thread to start this async.
@@ -79,19 +82,24 @@ public class Server extends Thread implements IServer
         final ServerSender sender = new ServerSender(view, this);
         sender.start();
 
-        if (view.getServer(server.getId()) == null)
+        if (!isInView)
         {
-            sender.unicast(new JoinRequestMessageWrapper(server, server.getId()), view.getCoordinator());
+            outputQueue.add(new UnicastOperation(new JoinRequestMessageWrapper(server, server.getId()), view.getCoordinator()));
         }
 
 
         //todo remove, this is only test code
-        int nextId = server.getId() + 1;
-        if (nextId >= 4)
+        if (true)
         {
-            nextId = 0;
+            int nextId = server.getId() + 1;
+            if (nextId >= 4)
+            {
+                nextId = 0;
+            }
+            outputQueue.add(new UnicastOperation(new TextMessageWrapper("go", server.getId()), nextId));
         }
-        sender.unicast(new TextMessageWrapper("go", server.getId()), nextId);
+
+        //todo add a way to disconnect replica via message
 
         while (true)
         {
@@ -123,6 +131,7 @@ public class Server extends Thread implements IServer
             view.addServer(((RegisterMessageWrapper) message).getServerData());
             outputQueue.add(new ConnectOperation(((RegisterMessageWrapper) message).getServerData()));
         }
+        Log.getLogger().warn("Received!");
     }
 
     @Override

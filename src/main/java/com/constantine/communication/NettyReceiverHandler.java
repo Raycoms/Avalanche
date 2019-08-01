@@ -36,6 +36,7 @@ public class NettyReceiverHandler extends SimpleChannelInboundHandler<SizedMessa
     {
         try
         {
+            Log.getLogger().warn("msg!");
             //Read input
             final MessageProto.Message message = MessageProto.Message.parseFrom(msg.buffer);
             if (message.hasTextMsg())
@@ -50,7 +51,7 @@ public class NettyReceiverHandler extends SimpleChannelInboundHandler<SizedMessa
             }
             else if (message.hasReqRegMsg())
             {
-                Log.getLogger().warn("ServerSender: " + server.getServerData().getId() + " ");
+                Log.getLogger().warn("ServerReceiver received join request: " + server.getServerData().getId() + " ");
                 server.inputQueue.add(new JoinRequestMessageWrapper(message.getReqRegMsg(), server.getServerData().getId()));
             }
             else if (message.hasRegMsg())

@@ -5,7 +5,7 @@ import com.constantine.communication.messages.IntMessageWrapper;
 import com.constantine.communication.messages.TextMessageWrapper;
 import com.constantine.proto.MessageProto;
 import com.constantine.communication.handlers.SizedMessage;
-import com.constantine.server.Server;
+import com.constantine.server.IServer;
 import com.constantine.server.ServerData;
 import com.constantine.utils.Log;
 import com.google.protobuf.InvalidProtocolBufferException;
@@ -53,6 +53,8 @@ public class NettySenderHandler extends SimpleChannelInboundHandler<SizedMessage
     {
         super.channelInactive(ctx);
         this.ctx = null;
+        //todo attempt reconnect
+        //todo start moving messages into buffer
     }
 
     @Override
@@ -118,5 +120,17 @@ public class NettySenderHandler extends SimpleChannelInboundHandler<SizedMessage
     public int getId()
     {
         return server.getServerData().getId();
+    }
+
+    /**
+     * Disconnect the existing context.
+     */
+    public void disconnect()
+    {
+        if (ctx != null)
+        {
+            ctx.disconnect();
+            ctx = null;
+        }
     }
 }

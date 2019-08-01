@@ -2,6 +2,7 @@ package com.constantine.communication.messages;
 
 import com.constantine.communication.handlers.SizedMessage;
 import com.constantine.proto.MessageProto;
+import com.google.protobuf.ByteString;
 
 /**
  * Example String Message.
@@ -45,8 +46,7 @@ public class TextMessageWrapper implements IMessageWrapper
     public SizedMessage writeToSizedMessage()
     {
         final MessageProto.TextMessage.Builder intBuilder = MessageProto.TextMessage.newBuilder();
-        builder.setTextMsg(intBuilder.setText(this.message).build());
-
+        builder.setTextMsg(intBuilder.setText(this.message).build()).setSignature(ByteString.copyFrom(new byte[0]));
         return new SizedMessage(builder.build().toByteArray(), sender);
     }
 }
