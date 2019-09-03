@@ -5,6 +5,7 @@ import com.constantine.communication.handlers.SizedMessageDecoder;
 import com.constantine.communication.handlers.SizedMessageEncoder;
 import com.constantine.communication.messages.IMessageWrapper;
 import com.constantine.communication.operations.IOperation;
+import com.constantine.communication.recovery.ReconnectThread;
 import com.constantine.server.IServer;
 import com.constantine.server.Server;
 import io.netty.bootstrap.Bootstrap;
@@ -94,7 +95,7 @@ public class ServerSender extends Thread implements ISender
      */
     public void handleMessage(final IOperation message)
     {
-        Log.getLogger().warn("Sending message");
+        Log.getLogger().warn(server.getServerData().getId() + ": Sending message");
         message.executeOP(this);
     }
 
@@ -139,7 +140,7 @@ public class ServerSender extends Thread implements ISender
     {
         if (clients.containsKey(data.getId()))
         {
-            Log.getLogger().error("Already created a connection to the server: " + data.getId() + " on this client!");
+            Log.getLogger().error(server.getServerData().getId() + ": Already created a connection to the server: " + data.getId() + " on this client!");
         }
         else
         {
@@ -177,7 +178,15 @@ public class ServerSender extends Thread implements ISender
     {
         if (clients.containsKey(id))
         {
-            clients.get(id).write(message);
+            final NettySenderHandler conn = clients.get(id);
+            if (!conn.write(message))
+            {
+                Log.getLogger().warn("Unable to write");
+                if (!conn.isReconnecting())
+                {
+                    new ReconnectThread(clients.get(id), b).start();
+                }
+            }
         }
     }
 
@@ -195,7 +204,7 @@ public class ServerSender extends Thread implements ISender
     {
         for (final NettySenderHandler handler : clients.values())
         {
-            handler.write(message);
+            unicast(message, handler.getServerData().getId());
         }
     }
 }

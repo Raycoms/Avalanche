@@ -36,7 +36,6 @@ public class NettyReceiverHandler extends SimpleChannelInboundHandler<SizedMessa
     {
         try
         {
-            Log.getLogger().warn("msg!");
             //Read input
             final MessageProto.Message message = MessageProto.Message.parseFrom(msg.buffer);
             if (message.hasTextMsg())

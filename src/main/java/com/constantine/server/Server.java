@@ -16,6 +16,7 @@ import com.constantine.views.GlobalView;
 import com.constantine.views.utils.ViewLoader;
 
 import java.security.PrivateKey;
+import java.util.Arrays;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import static com.constantine.utils.Constants.CONFIG_LOCATION;
@@ -87,7 +88,6 @@ public class Server extends Thread implements IServer
             outputQueue.add(new UnicastOperation(new JoinRequestMessageWrapper(server, server.getId()), view.getCoordinator()));
         }
 
-
         //todo remove, this is only test code
         if (true)
         {
@@ -99,10 +99,16 @@ public class Server extends Thread implements IServer
             outputQueue.add(new UnicastOperation(new TextMessageWrapper("go", server.getId()), nextId));
         }
 
-        //todo add a way to disconnect replica via message
-
+        int counter = 0;
         while (true)
         {
+
+            //todo also remove
+            if (++counter%40==0)
+            {
+                outputQueue.add(new BroadcastOperation(new TextMessageWrapper("Heartbeat", server.getId())));
+            }
+
             if (inputQueue.isEmpty())
             {
                 try
@@ -131,7 +137,7 @@ public class Server extends Thread implements IServer
             view.addServer(((RegisterMessageWrapper) message).getServerData());
             outputQueue.add(new ConnectOperation(((RegisterMessageWrapper) message).getServerData()));
         }
-        Log.getLogger().warn("Received!");
+        Log.getLogger().warn(server.getId() + ": Received!");
     }
 
     @Override

@@ -9,12 +9,16 @@ import com.constantine.server.IServer;
 import com.constantine.server.ServerData;
 import com.constantine.utils.Log;
 import com.google.protobuf.InvalidProtocolBufferException;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
+
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 /**
  * Handles a server side sending channel.
  */
+@ChannelHandler.Sharable
 public class NettySenderHandler extends SimpleChannelInboundHandler<SizedMessage>
 {
     /**
@@ -28,9 +32,19 @@ public class NettySenderHandler extends SimpleChannelInboundHandler<SizedMessage
     private IServer server;
 
     /**
-     * The server data of this client.
+     * The server data we are sending the data to.
      */
     private final ServerData serverData;
+
+    /**
+     * If the client is currently trying to reconnect.
+     */
+    private boolean isReconnecting = false;
+
+    /**
+     * Cache which holds the messages to send in the future (due to downtime of connection)
+     */
+    public final ConcurrentLinkedQueue<IMessageWrapper> outputQueue = new ConcurrentLinkedQueue<>();
 
     /**
      * Start the NettySenderHandler with a server instance.
@@ -46,6 +60,7 @@ public class NettySenderHandler extends SimpleChannelInboundHandler<SizedMessage
     public void channelActive(ChannelHandlerContext channelHandlerContext)
     {
         ctx = channelHandlerContext;
+        isReconnecting = false;
     }
 
     @Override
@@ -53,8 +68,7 @@ public class NettySenderHandler extends SimpleChannelInboundHandler<SizedMessage
     {
         super.channelInactive(ctx);
         this.ctx = null;
-        //todo attempt reconnect
-        //todo start moving messages into buffer
+        isReconnecting = false;
     }
 
     @Override
@@ -62,6 +76,7 @@ public class NettySenderHandler extends SimpleChannelInboundHandler<SizedMessage
     {
         cause.printStackTrace();
         channelHandlerContext.close();
+        isReconnecting = false;
     }
 
     @Override
@@ -98,10 +113,32 @@ public class NettySenderHandler extends SimpleChannelInboundHandler<SizedMessage
     /**
      * Write a a IMessageWrapper and send it.
      * @param msg the msg to send.
+     * @return true if successful.
      */
-    public void write(final IMessageWrapper msg)
+    public boolean write(final IMessageWrapper msg)
     {
-        this.ctx.writeAndFlush(msg.writeToSizedMessage());
+        if (isActive())
+        {
+            // If there are still pending messages.
+            if (!outputQueue.isEmpty())
+            {
+                // Poll messages from buffer and send them.
+                while (outputQueue.peek() != null)
+                {
+                    Log.getLogger().warn("Sending out queued object!!!!");
+                    this.ctx.writeAndFlush(outputQueue.poll());
+                }
+            }
+
+            this.ctx.writeAndFlush(msg.writeToSizedMessage());
+            return true;
+        }
+        else
+        {
+            Log.getLogger().warn("Queue add");
+            outputQueue.add(msg);
+            return false;
+        }
     }
 
     /**
@@ -132,5 +169,32 @@ public class NettySenderHandler extends SimpleChannelInboundHandler<SizedMessage
             ctx.disconnect();
             ctx = null;
         }
+    }
+
+    /**
+     * Get the server associated to this connection.
+     * @return the data.
+     */
+    public ServerData getServerData()
+    {
+        return serverData;
+    }
+
+    /**
+     * Check if the server is currently reconnecting.
+     * @return true if so.
+     */
+    public boolean isReconnecting()
+    {
+        return isReconnecting;
+    }
+
+    /**
+     * Set that this is currently reconnecting.
+     * @param reconnecting true if so.
+     */
+    public void setReconnecting(final boolean reconnecting)
+    {
+        isReconnecting = reconnecting;
     }
 }
