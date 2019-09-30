@@ -1,6 +1,7 @@
 package com.constantine.server;
 
 import com.constantine.communication.MessageHandlerRegistry;
+import com.constantine.communication.ServerClientReceiver;
 import com.constantine.communication.ServerReceiver;
 import com.constantine.communication.ServerSender;
 import com.constantine.communication.messages.*;
@@ -14,6 +15,9 @@ import com.constantine.views.GlobalView;
 import com.constantine.views.utils.ViewLoader;
 
 import java.security.PrivateKey;
+import java.security.PublicKey;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import static com.constantine.utils.Constants.CONFIG_LOCATION;
@@ -44,9 +48,26 @@ public class Server extends Thread implements IServer
     public final ConcurrentLinkedQueue<IOperation> outputQueue = new ConcurrentLinkedQueue<>();
 
     /**
+     * Cache which holds the receives messages (Consumed by Server)
+     */
+    public final ConcurrentLinkedQueue<IMessageWrapper> clientInputQueue = new ConcurrentLinkedQueue<>();
+
+    /**
+     * Cache which holds the messages to send in the future (Produced by Server).
+     */
+    public final ConcurrentLinkedQueue<IOperation> clientOutputQueue = new ConcurrentLinkedQueue<>();
+
+    /**
      * The global view this server uses.
      */
     public final GlobalView view;
+
+    /**
+     * The current state of our servers. Client Public Key to Integer account balance.
+     */
+    public final HashMap<PublicKey, Integer> state = new HashMap<>();
+
+    //todo need a sender to the client, and a receiver on the client)
 
     /**
      * Create a server object.
@@ -76,6 +97,9 @@ public class Server extends Thread implements IServer
         // This is an extra thread to start this async.
         final ServerReceiver receiver = new ServerReceiver(this);
         receiver.start();
+
+        final ServerClientReceiver clientReceiver = new ServerClientReceiver(this);
+        clientReceiver.start();
 
         final ServerSender sender = new ServerSender(view, this);
         sender.start();

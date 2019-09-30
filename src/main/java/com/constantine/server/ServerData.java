@@ -28,6 +28,11 @@ public class ServerData
      */
     private int port;
 
+    /**
+     * The port the client connects to.
+     */
+    private int cport;
+
     @JsonIgnore
     private PublicKey publicKey;
 
@@ -43,6 +48,23 @@ public class ServerData
         this.id = id;
         this.ip = ip;
         this.port = port;
+        this.cport = port - 1020;
+    }
+
+    /**
+     * Create a server object.
+     *
+     * @param id   the server id.
+     * @param ip   the server ip.
+     * @param port the server port.
+     * @param cport the client server port.
+     */
+    public ServerData(final int id, final String ip, final int port, final int cport)
+    {
+        this.id = id;
+        this.ip = ip;
+        this.port = port;
+        this.cport = cport;
     }
 
     /**
@@ -73,6 +95,16 @@ public class ServerData
     public int getPort()
     {
         return port;
+    }
+
+    /**
+     * Get the client server port.
+     *
+     * @return the int port.
+     */
+    public int getCport()
+    {
+        return cport;
     }
 
     /**

@@ -1,7 +1,7 @@
 package com.constantine.communication;
 
-import com.constantine.communication.nettyhandlers.SizedMessageDecoder;
-import com.constantine.communication.nettyhandlers.SizedMessageEncoder;
+import com.constantine.nettyhandlers.SizedMessageDecoder;
+import com.constantine.nettyhandlers.SizedMessageEncoder;
 import com.constantine.communication.messages.IMessageWrapper;
 import com.constantine.communication.operations.IOperation;
 import com.constantine.communication.recovery.ReconnectThread;
@@ -30,7 +30,7 @@ public class ServerSender extends Thread implements ISender
     /**
      * Map of servers ids to handlers to handlers them.
      */
-    private final Map<Integer, NettySenderHandler> clients = new HashMap<>();
+    private final Map<Integer, ServerNettySenderHandler> clients = new HashMap<>();
 
     /**
      * The view this server process has.
@@ -111,7 +111,7 @@ public class ServerSender extends Thread implements ISender
         while (!allActive)
         {
             allActive = true;
-            for (final NettySenderHandler handler : clients.values())
+            for (final ServerNettySenderHandler handler : clients.values())
             {
                 if (!handler.isActive())
                 {
@@ -143,7 +143,7 @@ public class ServerSender extends Thread implements ISender
         }
         else
         {
-            final NettySenderHandler clientHandler = new NettySenderHandler(server, data);
+            final ServerNettySenderHandler clientHandler = new ServerNettySenderHandler(server, data);
             clients.put(data.getId(), clientHandler);
             b.handler(new ChannelInitializer<SocketChannel>()
             {
@@ -166,7 +166,7 @@ public class ServerSender extends Thread implements ISender
     {
         if (clients.containsKey(data.getId()))
         {
-            final NettySenderHandler channel = clients.remove(data.getId());
+            final ServerNettySenderHandler channel = clients.remove(data.getId());
             channel.disconnect();
         }
     }
@@ -176,7 +176,7 @@ public class ServerSender extends Thread implements ISender
     {
         if (clients.containsKey(id))
         {
-            final NettySenderHandler conn = clients.get(id);
+            final ServerNettySenderHandler conn = clients.get(id);
             if (!conn.write(message))
             {
                 Log.getLogger().warn("Unable to write");
@@ -200,7 +200,7 @@ public class ServerSender extends Thread implements ISender
     @Override
     public void broadcast(final IMessageWrapper message)
     {
-        for (final NettySenderHandler handler : clients.values())
+        for (final ServerNettySenderHandler handler : clients.values())
         {
             unicast(message, handler.getServerData().getId());
         }

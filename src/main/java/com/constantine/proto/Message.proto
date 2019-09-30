@@ -11,8 +11,10 @@ message Message {
         RegisterMessage regMsg = 4;
         RequestUnregisterMessage reqUnregMsg = 5;
         UnregisterMessage unregMsg = 6;
+        ClientMessage clientMsg = 7;
+        PersistClientMessage persClientMsg = 8;
     }
-    required bytes sig = 7;
+    required bytes sig = 9;
 }
 
 message TextMessage {
@@ -50,4 +52,16 @@ message UnregisterMessage {
     required string ip = 2;
     required int32 port = 3;
     required bytes signature = 7;
+}
+
+// Message sent by the client.
+message ClientMessage {
+    required int32 dif = 1;
+    required bytes pkey = 2;
+}
+
+// Message sent by the client.
+message PersistClientMessage {
+    required ClientMessage msg = 1;
+    required bytes sig = 2;
 }

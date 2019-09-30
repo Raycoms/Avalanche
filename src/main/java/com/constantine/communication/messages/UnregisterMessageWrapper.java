@@ -42,7 +42,7 @@ public class UnregisterMessageWrapper extends AbstractMessageWrapper
     }
 
     @Override
-    public byte[] buildMessage(final IServer serverSender)
+    public byte[] buildMessage()
     {
         return this.message.toByteArray();
     }

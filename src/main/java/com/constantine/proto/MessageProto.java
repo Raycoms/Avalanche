@@ -97,11 +97,37 @@ public final class MessageProto {
     com.constantine.proto.MessageProto.UnregisterMessageOrBuilder getUnregMsgOrBuilder();
 
     /**
-     * <code>required bytes sig = 7;</code>
+     * <code>optional .proto.ClientMessage clientMsg = 7;</code>
+     */
+    boolean hasClientMsg();
+    /**
+     * <code>optional .proto.ClientMessage clientMsg = 7;</code>
+     */
+    com.constantine.proto.MessageProto.ClientMessage getClientMsg();
+    /**
+     * <code>optional .proto.ClientMessage clientMsg = 7;</code>
+     */
+    com.constantine.proto.MessageProto.ClientMessageOrBuilder getClientMsgOrBuilder();
+
+    /**
+     * <code>optional .proto.PersistClientMessage persClientMsg = 8;</code>
+     */
+    boolean hasPersClientMsg();
+    /**
+     * <code>optional .proto.PersistClientMessage persClientMsg = 8;</code>
+     */
+    com.constantine.proto.MessageProto.PersistClientMessage getPersClientMsg();
+    /**
+     * <code>optional .proto.PersistClientMessage persClientMsg = 8;</code>
+     */
+    com.constantine.proto.MessageProto.PersistClientMessageOrBuilder getPersClientMsgOrBuilder();
+
+    /**
+     * <code>required bytes sig = 9;</code>
      */
     boolean hasSig();
     /**
-     * <code>required bytes sig = 7;</code>
+     * <code>required bytes sig = 9;</code>
      */
     com.google.protobuf.ByteString getSig();
 
@@ -232,7 +258,35 @@ public final class MessageProto {
               break;
             }
             case 58: {
-              bitField0_ |= 0x00000040;
+              com.constantine.proto.MessageProto.ClientMessage.Builder subBuilder = null;
+              if (messagesCase_ == 7) {
+                subBuilder = ((com.constantine.proto.MessageProto.ClientMessage) messages_).toBuilder();
+              }
+              messages_ =
+                  input.readMessage(com.constantine.proto.MessageProto.ClientMessage.PARSER, extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom((com.constantine.proto.MessageProto.ClientMessage) messages_);
+                messages_ = subBuilder.buildPartial();
+              }
+              messagesCase_ = 7;
+              break;
+            }
+            case 66: {
+              com.constantine.proto.MessageProto.PersistClientMessage.Builder subBuilder = null;
+              if (messagesCase_ == 8) {
+                subBuilder = ((com.constantine.proto.MessageProto.PersistClientMessage) messages_).toBuilder();
+              }
+              messages_ =
+                  input.readMessage(com.constantine.proto.MessageProto.PersistClientMessage.PARSER, extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom((com.constantine.proto.MessageProto.PersistClientMessage) messages_);
+                messages_ = subBuilder.buildPartial();
+              }
+              messagesCase_ = 8;
+              break;
+            }
+            case 74: {
+              bitField0_ |= 0x00000100;
               sig_ = input.readBytes();
               break;
             }
@@ -279,6 +333,8 @@ public final class MessageProto {
       REGMSG(4),
       REQUNREGMSG(5),
       UNREGMSG(6),
+      CLIENTMSG(7),
+      PERSCLIENTMSG(8),
       MESSAGES_NOT_SET(0);
       private final int value;
       private MessagesCase(int value) {
@@ -300,6 +356,8 @@ public final class MessageProto {
           case 4: return REGMSG;
           case 5: return REQUNREGMSG;
           case 6: return UNREGMSG;
+          case 7: return CLIENTMSG;
+          case 8: return PERSCLIENTMSG;
           case 0: return MESSAGES_NOT_SET;
           default: return null;
         }
@@ -471,16 +529,68 @@ public final class MessageProto {
       return com.constantine.proto.MessageProto.UnregisterMessage.getDefaultInstance();
     }
 
-    public static final int SIG_FIELD_NUMBER = 7;
-    private com.google.protobuf.ByteString sig_;
+    public static final int CLIENTMSG_FIELD_NUMBER = 7;
     /**
-     * <code>required bytes sig = 7;</code>
+     * <code>optional .proto.ClientMessage clientMsg = 7;</code>
      */
-    public boolean hasSig() {
-      return ((bitField0_ & 0x00000040) != 0);
+    public boolean hasClientMsg() {
+      return messagesCase_ == 7;
     }
     /**
-     * <code>required bytes sig = 7;</code>
+     * <code>optional .proto.ClientMessage clientMsg = 7;</code>
+     */
+    public com.constantine.proto.MessageProto.ClientMessage getClientMsg() {
+      if (messagesCase_ == 7) {
+         return (com.constantine.proto.MessageProto.ClientMessage) messages_;
+      }
+      return com.constantine.proto.MessageProto.ClientMessage.getDefaultInstance();
+    }
+    /**
+     * <code>optional .proto.ClientMessage clientMsg = 7;</code>
+     */
+    public com.constantine.proto.MessageProto.ClientMessageOrBuilder getClientMsgOrBuilder() {
+      if (messagesCase_ == 7) {
+         return (com.constantine.proto.MessageProto.ClientMessage) messages_;
+      }
+      return com.constantine.proto.MessageProto.ClientMessage.getDefaultInstance();
+    }
+
+    public static final int PERSCLIENTMSG_FIELD_NUMBER = 8;
+    /**
+     * <code>optional .proto.PersistClientMessage persClientMsg = 8;</code>
+     */
+    public boolean hasPersClientMsg() {
+      return messagesCase_ == 8;
+    }
+    /**
+     * <code>optional .proto.PersistClientMessage persClientMsg = 8;</code>
+     */
+    public com.constantine.proto.MessageProto.PersistClientMessage getPersClientMsg() {
+      if (messagesCase_ == 8) {
+         return (com.constantine.proto.MessageProto.PersistClientMessage) messages_;
+      }
+      return com.constantine.proto.MessageProto.PersistClientMessage.getDefaultInstance();
+    }
+    /**
+     * <code>optional .proto.PersistClientMessage persClientMsg = 8;</code>
+     */
+    public com.constantine.proto.MessageProto.PersistClientMessageOrBuilder getPersClientMsgOrBuilder() {
+      if (messagesCase_ == 8) {
+         return (com.constantine.proto.MessageProto.PersistClientMessage) messages_;
+      }
+      return com.constantine.proto.MessageProto.PersistClientMessage.getDefaultInstance();
+    }
+
+    public static final int SIG_FIELD_NUMBER = 9;
+    private com.google.protobuf.ByteString sig_;
+    /**
+     * <code>required bytes sig = 9;</code>
+     */
+    public boolean hasSig() {
+      return ((bitField0_ & 0x00000100) != 0);
+    }
+    /**
+     * <code>required bytes sig = 9;</code>
      */
     public com.google.protobuf.ByteString getSig() {
       return sig_;
@@ -533,6 +643,18 @@ public final class MessageProto {
           return false;
         }
       }
+      if (hasClientMsg()) {
+        if (!getClientMsg().isInitialized()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+      }
+      if (hasPersClientMsg()) {
+        if (!getPersClientMsg().isInitialized()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -558,8 +680,14 @@ public final class MessageProto {
       if (messagesCase_ == 6) {
         output.writeMessage(6, (com.constantine.proto.MessageProto.UnregisterMessage) messages_);
       }
-      if (((bitField0_ & 0x00000040) != 0)) {
-        output.writeBytes(7, sig_);
+      if (messagesCase_ == 7) {
+        output.writeMessage(7, (com.constantine.proto.MessageProto.ClientMessage) messages_);
+      }
+      if (messagesCase_ == 8) {
+        output.writeMessage(8, (com.constantine.proto.MessageProto.PersistClientMessage) messages_);
+      }
+      if (((bitField0_ & 0x00000100) != 0)) {
+        output.writeBytes(9, sig_);
       }
       unknownFields.writeTo(output);
     }
@@ -594,9 +722,17 @@ public final class MessageProto {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(6, (com.constantine.proto.MessageProto.UnregisterMessage) messages_);
       }
-      if (((bitField0_ & 0x00000040) != 0)) {
+      if (messagesCase_ == 7) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(7, sig_);
+          .computeMessageSize(7, (com.constantine.proto.MessageProto.ClientMessage) messages_);
+      }
+      if (messagesCase_ == 8) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(8, (com.constantine.proto.MessageProto.PersistClientMessage) messages_);
+      }
+      if (((bitField0_ & 0x00000100) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(9, sig_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -644,6 +780,14 @@ public final class MessageProto {
           if (!getUnregMsg()
               .equals(other.getUnregMsg())) return false;
           break;
+        case 7:
+          if (!getClientMsg()
+              .equals(other.getClientMsg())) return false;
+          break;
+        case 8:
+          if (!getPersClientMsg()
+              .equals(other.getPersClientMsg())) return false;
+          break;
         case 0:
         default:
       }
@@ -686,6 +830,14 @@ public final class MessageProto {
         case 6:
           hash = (37 * hash) + UNREGMSG_FIELD_NUMBER;
           hash = (53 * hash) + getUnregMsg().hashCode();
+          break;
+        case 7:
+          hash = (37 * hash) + CLIENTMSG_FIELD_NUMBER;
+          hash = (53 * hash) + getClientMsg().hashCode();
+          break;
+        case 8:
+          hash = (37 * hash) + PERSCLIENTMSG_FIELD_NUMBER;
+          hash = (53 * hash) + getPersClientMsg().hashCode();
           break;
         case 0:
         default:
@@ -824,7 +976,7 @@ public final class MessageProto {
       public Builder clear() {
         super.clear();
         sig_ = com.google.protobuf.ByteString.EMPTY;
-        bitField0_ = (bitField0_ & ~0x00000040);
+        bitField0_ = (bitField0_ & ~0x00000100);
         messagesCase_ = 0;
         messages_ = null;
         return this;
@@ -897,8 +1049,22 @@ public final class MessageProto {
             result.messages_ = unregMsgBuilder_.build();
           }
         }
-        if (((from_bitField0_ & 0x00000040) != 0)) {
-          to_bitField0_ |= 0x00000040;
+        if (messagesCase_ == 7) {
+          if (clientMsgBuilder_ == null) {
+            result.messages_ = messages_;
+          } else {
+            result.messages_ = clientMsgBuilder_.build();
+          }
+        }
+        if (messagesCase_ == 8) {
+          if (persClientMsgBuilder_ == null) {
+            result.messages_ = messages_;
+          } else {
+            result.messages_ = persClientMsgBuilder_.build();
+          }
+        }
+        if (((from_bitField0_ & 0x00000100) != 0)) {
+          to_bitField0_ |= 0x00000100;
         }
         result.sig_ = sig_;
         result.bitField0_ = to_bitField0_;
@@ -979,6 +1145,14 @@ public final class MessageProto {
             mergeUnregMsg(other.getUnregMsg());
             break;
           }
+          case CLIENTMSG: {
+            mergeClientMsg(other.getClientMsg());
+            break;
+          }
+          case PERSCLIENTMSG: {
+            mergePersClientMsg(other.getPersClientMsg());
+            break;
+          }
           case MESSAGES_NOT_SET: {
             break;
           }
@@ -1020,6 +1194,16 @@ public final class MessageProto {
         }
         if (hasUnregMsg()) {
           if (!getUnregMsg().isInitialized()) {
+            return false;
+          }
+        }
+        if (hasClientMsg()) {
+          if (!getClientMsg().isInitialized()) {
+            return false;
+          }
+        }
+        if (hasPersClientMsg()) {
+          if (!getPersClientMsg().isInitialized()) {
             return false;
           }
         }
@@ -1877,36 +2061,308 @@ public final class MessageProto {
         return unregMsgBuilder_;
       }
 
-      private com.google.protobuf.ByteString sig_ = com.google.protobuf.ByteString.EMPTY;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.constantine.proto.MessageProto.ClientMessage, com.constantine.proto.MessageProto.ClientMessage.Builder, com.constantine.proto.MessageProto.ClientMessageOrBuilder> clientMsgBuilder_;
       /**
-       * <code>required bytes sig = 7;</code>
+       * <code>optional .proto.ClientMessage clientMsg = 7;</code>
        */
-      public boolean hasSig() {
-        return ((bitField0_ & 0x00000040) != 0);
+      public boolean hasClientMsg() {
+        return messagesCase_ == 7;
       }
       /**
-       * <code>required bytes sig = 7;</code>
+       * <code>optional .proto.ClientMessage clientMsg = 7;</code>
+       */
+      public com.constantine.proto.MessageProto.ClientMessage getClientMsg() {
+        if (clientMsgBuilder_ == null) {
+          if (messagesCase_ == 7) {
+            return (com.constantine.proto.MessageProto.ClientMessage) messages_;
+          }
+          return com.constantine.proto.MessageProto.ClientMessage.getDefaultInstance();
+        } else {
+          if (messagesCase_ == 7) {
+            return clientMsgBuilder_.getMessage();
+          }
+          return com.constantine.proto.MessageProto.ClientMessage.getDefaultInstance();
+        }
+      }
+      /**
+       * <code>optional .proto.ClientMessage clientMsg = 7;</code>
+       */
+      public Builder setClientMsg(com.constantine.proto.MessageProto.ClientMessage value) {
+        if (clientMsgBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          messages_ = value;
+          onChanged();
+        } else {
+          clientMsgBuilder_.setMessage(value);
+        }
+        messagesCase_ = 7;
+        return this;
+      }
+      /**
+       * <code>optional .proto.ClientMessage clientMsg = 7;</code>
+       */
+      public Builder setClientMsg(
+          com.constantine.proto.MessageProto.ClientMessage.Builder builderForValue) {
+        if (clientMsgBuilder_ == null) {
+          messages_ = builderForValue.build();
+          onChanged();
+        } else {
+          clientMsgBuilder_.setMessage(builderForValue.build());
+        }
+        messagesCase_ = 7;
+        return this;
+      }
+      /**
+       * <code>optional .proto.ClientMessage clientMsg = 7;</code>
+       */
+      public Builder mergeClientMsg(com.constantine.proto.MessageProto.ClientMessage value) {
+        if (clientMsgBuilder_ == null) {
+          if (messagesCase_ == 7 &&
+              messages_ != com.constantine.proto.MessageProto.ClientMessage.getDefaultInstance()) {
+            messages_ = com.constantine.proto.MessageProto.ClientMessage.newBuilder((com.constantine.proto.MessageProto.ClientMessage) messages_)
+                .mergeFrom(value).buildPartial();
+          } else {
+            messages_ = value;
+          }
+          onChanged();
+        } else {
+          if (messagesCase_ == 7) {
+            clientMsgBuilder_.mergeFrom(value);
+          }
+          clientMsgBuilder_.setMessage(value);
+        }
+        messagesCase_ = 7;
+        return this;
+      }
+      /**
+       * <code>optional .proto.ClientMessage clientMsg = 7;</code>
+       */
+      public Builder clearClientMsg() {
+        if (clientMsgBuilder_ == null) {
+          if (messagesCase_ == 7) {
+            messagesCase_ = 0;
+            messages_ = null;
+            onChanged();
+          }
+        } else {
+          if (messagesCase_ == 7) {
+            messagesCase_ = 0;
+            messages_ = null;
+          }
+          clientMsgBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>optional .proto.ClientMessage clientMsg = 7;</code>
+       */
+      public com.constantine.proto.MessageProto.ClientMessage.Builder getClientMsgBuilder() {
+        return getClientMsgFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>optional .proto.ClientMessage clientMsg = 7;</code>
+       */
+      public com.constantine.proto.MessageProto.ClientMessageOrBuilder getClientMsgOrBuilder() {
+        if ((messagesCase_ == 7) && (clientMsgBuilder_ != null)) {
+          return clientMsgBuilder_.getMessageOrBuilder();
+        } else {
+          if (messagesCase_ == 7) {
+            return (com.constantine.proto.MessageProto.ClientMessage) messages_;
+          }
+          return com.constantine.proto.MessageProto.ClientMessage.getDefaultInstance();
+        }
+      }
+      /**
+       * <code>optional .proto.ClientMessage clientMsg = 7;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.constantine.proto.MessageProto.ClientMessage, com.constantine.proto.MessageProto.ClientMessage.Builder, com.constantine.proto.MessageProto.ClientMessageOrBuilder> 
+          getClientMsgFieldBuilder() {
+        if (clientMsgBuilder_ == null) {
+          if (!(messagesCase_ == 7)) {
+            messages_ = com.constantine.proto.MessageProto.ClientMessage.getDefaultInstance();
+          }
+          clientMsgBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              com.constantine.proto.MessageProto.ClientMessage, com.constantine.proto.MessageProto.ClientMessage.Builder, com.constantine.proto.MessageProto.ClientMessageOrBuilder>(
+                  (com.constantine.proto.MessageProto.ClientMessage) messages_,
+                  getParentForChildren(),
+                  isClean());
+          messages_ = null;
+        }
+        messagesCase_ = 7;
+        onChanged();;
+        return clientMsgBuilder_;
+      }
+
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.constantine.proto.MessageProto.PersistClientMessage, com.constantine.proto.MessageProto.PersistClientMessage.Builder, com.constantine.proto.MessageProto.PersistClientMessageOrBuilder> persClientMsgBuilder_;
+      /**
+       * <code>optional .proto.PersistClientMessage persClientMsg = 8;</code>
+       */
+      public boolean hasPersClientMsg() {
+        return messagesCase_ == 8;
+      }
+      /**
+       * <code>optional .proto.PersistClientMessage persClientMsg = 8;</code>
+       */
+      public com.constantine.proto.MessageProto.PersistClientMessage getPersClientMsg() {
+        if (persClientMsgBuilder_ == null) {
+          if (messagesCase_ == 8) {
+            return (com.constantine.proto.MessageProto.PersistClientMessage) messages_;
+          }
+          return com.constantine.proto.MessageProto.PersistClientMessage.getDefaultInstance();
+        } else {
+          if (messagesCase_ == 8) {
+            return persClientMsgBuilder_.getMessage();
+          }
+          return com.constantine.proto.MessageProto.PersistClientMessage.getDefaultInstance();
+        }
+      }
+      /**
+       * <code>optional .proto.PersistClientMessage persClientMsg = 8;</code>
+       */
+      public Builder setPersClientMsg(com.constantine.proto.MessageProto.PersistClientMessage value) {
+        if (persClientMsgBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          messages_ = value;
+          onChanged();
+        } else {
+          persClientMsgBuilder_.setMessage(value);
+        }
+        messagesCase_ = 8;
+        return this;
+      }
+      /**
+       * <code>optional .proto.PersistClientMessage persClientMsg = 8;</code>
+       */
+      public Builder setPersClientMsg(
+          com.constantine.proto.MessageProto.PersistClientMessage.Builder builderForValue) {
+        if (persClientMsgBuilder_ == null) {
+          messages_ = builderForValue.build();
+          onChanged();
+        } else {
+          persClientMsgBuilder_.setMessage(builderForValue.build());
+        }
+        messagesCase_ = 8;
+        return this;
+      }
+      /**
+       * <code>optional .proto.PersistClientMessage persClientMsg = 8;</code>
+       */
+      public Builder mergePersClientMsg(com.constantine.proto.MessageProto.PersistClientMessage value) {
+        if (persClientMsgBuilder_ == null) {
+          if (messagesCase_ == 8 &&
+              messages_ != com.constantine.proto.MessageProto.PersistClientMessage.getDefaultInstance()) {
+            messages_ = com.constantine.proto.MessageProto.PersistClientMessage.newBuilder((com.constantine.proto.MessageProto.PersistClientMessage) messages_)
+                .mergeFrom(value).buildPartial();
+          } else {
+            messages_ = value;
+          }
+          onChanged();
+        } else {
+          if (messagesCase_ == 8) {
+            persClientMsgBuilder_.mergeFrom(value);
+          }
+          persClientMsgBuilder_.setMessage(value);
+        }
+        messagesCase_ = 8;
+        return this;
+      }
+      /**
+       * <code>optional .proto.PersistClientMessage persClientMsg = 8;</code>
+       */
+      public Builder clearPersClientMsg() {
+        if (persClientMsgBuilder_ == null) {
+          if (messagesCase_ == 8) {
+            messagesCase_ = 0;
+            messages_ = null;
+            onChanged();
+          }
+        } else {
+          if (messagesCase_ == 8) {
+            messagesCase_ = 0;
+            messages_ = null;
+          }
+          persClientMsgBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>optional .proto.PersistClientMessage persClientMsg = 8;</code>
+       */
+      public com.constantine.proto.MessageProto.PersistClientMessage.Builder getPersClientMsgBuilder() {
+        return getPersClientMsgFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>optional .proto.PersistClientMessage persClientMsg = 8;</code>
+       */
+      public com.constantine.proto.MessageProto.PersistClientMessageOrBuilder getPersClientMsgOrBuilder() {
+        if ((messagesCase_ == 8) && (persClientMsgBuilder_ != null)) {
+          return persClientMsgBuilder_.getMessageOrBuilder();
+        } else {
+          if (messagesCase_ == 8) {
+            return (com.constantine.proto.MessageProto.PersistClientMessage) messages_;
+          }
+          return com.constantine.proto.MessageProto.PersistClientMessage.getDefaultInstance();
+        }
+      }
+      /**
+       * <code>optional .proto.PersistClientMessage persClientMsg = 8;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.constantine.proto.MessageProto.PersistClientMessage, com.constantine.proto.MessageProto.PersistClientMessage.Builder, com.constantine.proto.MessageProto.PersistClientMessageOrBuilder> 
+          getPersClientMsgFieldBuilder() {
+        if (persClientMsgBuilder_ == null) {
+          if (!(messagesCase_ == 8)) {
+            messages_ = com.constantine.proto.MessageProto.PersistClientMessage.getDefaultInstance();
+          }
+          persClientMsgBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              com.constantine.proto.MessageProto.PersistClientMessage, com.constantine.proto.MessageProto.PersistClientMessage.Builder, com.constantine.proto.MessageProto.PersistClientMessageOrBuilder>(
+                  (com.constantine.proto.MessageProto.PersistClientMessage) messages_,
+                  getParentForChildren(),
+                  isClean());
+          messages_ = null;
+        }
+        messagesCase_ = 8;
+        onChanged();;
+        return persClientMsgBuilder_;
+      }
+
+      private com.google.protobuf.ByteString sig_ = com.google.protobuf.ByteString.EMPTY;
+      /**
+       * <code>required bytes sig = 9;</code>
+       */
+      public boolean hasSig() {
+        return ((bitField0_ & 0x00000100) != 0);
+      }
+      /**
+       * <code>required bytes sig = 9;</code>
        */
       public com.google.protobuf.ByteString getSig() {
         return sig_;
       }
       /**
-       * <code>required bytes sig = 7;</code>
+       * <code>required bytes sig = 9;</code>
        */
       public Builder setSig(com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000040;
+  bitField0_ |= 0x00000100;
         sig_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required bytes sig = 7;</code>
+       * <code>required bytes sig = 9;</code>
        */
       public Builder clearSig() {
-        bitField0_ = (bitField0_ & ~0x00000040);
+        bitField0_ = (bitField0_ & ~0x00000100);
         sig_ = getDefaultInstance().getSig();
         onChanged();
         return this;
@@ -6292,6 +6748,1356 @@ public final class MessageProto {
 
   }
 
+  public interface ClientMessageOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:proto.ClientMessage)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>required int32 dif = 1;</code>
+     */
+    boolean hasDif();
+    /**
+     * <code>required int32 dif = 1;</code>
+     */
+    int getDif();
+
+    /**
+     * <code>required bytes pkey = 2;</code>
+     */
+    boolean hasPkey();
+    /**
+     * <code>required bytes pkey = 2;</code>
+     */
+    com.google.protobuf.ByteString getPkey();
+  }
+  /**
+   * <pre>
+   * Message sent by the client.
+   * </pre>
+   *
+   * Protobuf type {@code proto.ClientMessage}
+   */
+  public  static final class ClientMessage extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:proto.ClientMessage)
+      ClientMessageOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use ClientMessage.newBuilder() to construct.
+    private ClientMessage(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private ClientMessage() {
+      pkey_ = com.google.protobuf.ByteString.EMPTY;
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private ClientMessage(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 8: {
+              bitField0_ |= 0x00000001;
+              dif_ = input.readInt32();
+              break;
+            }
+            case 18: {
+              bitField0_ |= 0x00000002;
+              pkey_ = input.readBytes();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.constantine.proto.MessageProto.internal_static_proto_ClientMessage_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.constantine.proto.MessageProto.internal_static_proto_ClientMessage_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.constantine.proto.MessageProto.ClientMessage.class, com.constantine.proto.MessageProto.ClientMessage.Builder.class);
+    }
+
+    private int bitField0_;
+    public static final int DIF_FIELD_NUMBER = 1;
+    private int dif_;
+    /**
+     * <code>required int32 dif = 1;</code>
+     */
+    public boolean hasDif() {
+      return ((bitField0_ & 0x00000001) != 0);
+    }
+    /**
+     * <code>required int32 dif = 1;</code>
+     */
+    public int getDif() {
+      return dif_;
+    }
+
+    public static final int PKEY_FIELD_NUMBER = 2;
+    private com.google.protobuf.ByteString pkey_;
+    /**
+     * <code>required bytes pkey = 2;</code>
+     */
+    public boolean hasPkey() {
+      return ((bitField0_ & 0x00000002) != 0);
+    }
+    /**
+     * <code>required bytes pkey = 2;</code>
+     */
+    public com.google.protobuf.ByteString getPkey() {
+      return pkey_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      if (!hasDif()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasPkey()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (((bitField0_ & 0x00000001) != 0)) {
+        output.writeInt32(1, dif_);
+      }
+      if (((bitField0_ & 0x00000002) != 0)) {
+        output.writeBytes(2, pkey_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (((bitField0_ & 0x00000001) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(1, dif_);
+      }
+      if (((bitField0_ & 0x00000002) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(2, pkey_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.constantine.proto.MessageProto.ClientMessage)) {
+        return super.equals(obj);
+      }
+      com.constantine.proto.MessageProto.ClientMessage other = (com.constantine.proto.MessageProto.ClientMessage) obj;
+
+      if (hasDif() != other.hasDif()) return false;
+      if (hasDif()) {
+        if (getDif()
+            != other.getDif()) return false;
+      }
+      if (hasPkey() != other.hasPkey()) return false;
+      if (hasPkey()) {
+        if (!getPkey()
+            .equals(other.getPkey())) return false;
+      }
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (hasDif()) {
+        hash = (37 * hash) + DIF_FIELD_NUMBER;
+        hash = (53 * hash) + getDif();
+      }
+      if (hasPkey()) {
+        hash = (37 * hash) + PKEY_FIELD_NUMBER;
+        hash = (53 * hash) + getPkey().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.constantine.proto.MessageProto.ClientMessage parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.constantine.proto.MessageProto.ClientMessage parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.constantine.proto.MessageProto.ClientMessage parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.constantine.proto.MessageProto.ClientMessage parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.constantine.proto.MessageProto.ClientMessage parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.constantine.proto.MessageProto.ClientMessage parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.constantine.proto.MessageProto.ClientMessage parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.constantine.proto.MessageProto.ClientMessage parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.constantine.proto.MessageProto.ClientMessage parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static com.constantine.proto.MessageProto.ClientMessage parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.constantine.proto.MessageProto.ClientMessage parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.constantine.proto.MessageProto.ClientMessage parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.constantine.proto.MessageProto.ClientMessage prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     * Message sent by the client.
+     * </pre>
+     *
+     * Protobuf type {@code proto.ClientMessage}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:proto.ClientMessage)
+        com.constantine.proto.MessageProto.ClientMessageOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.constantine.proto.MessageProto.internal_static_proto_ClientMessage_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.constantine.proto.MessageProto.internal_static_proto_ClientMessage_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.constantine.proto.MessageProto.ClientMessage.class, com.constantine.proto.MessageProto.ClientMessage.Builder.class);
+      }
+
+      // Construct using com.constantine.proto.MessageProto.ClientMessage.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        dif_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        pkey_ = com.google.protobuf.ByteString.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.constantine.proto.MessageProto.internal_static_proto_ClientMessage_descriptor;
+      }
+
+      @java.lang.Override
+      public com.constantine.proto.MessageProto.ClientMessage getDefaultInstanceForType() {
+        return com.constantine.proto.MessageProto.ClientMessage.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.constantine.proto.MessageProto.ClientMessage build() {
+        com.constantine.proto.MessageProto.ClientMessage result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.constantine.proto.MessageProto.ClientMessage buildPartial() {
+        com.constantine.proto.MessageProto.ClientMessage result = new com.constantine.proto.MessageProto.ClientMessage(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.dif_ = dif_;
+          to_bitField0_ |= 0x00000001;
+        }
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.pkey_ = pkey_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.constantine.proto.MessageProto.ClientMessage) {
+          return mergeFrom((com.constantine.proto.MessageProto.ClientMessage)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.constantine.proto.MessageProto.ClientMessage other) {
+        if (other == com.constantine.proto.MessageProto.ClientMessage.getDefaultInstance()) return this;
+        if (other.hasDif()) {
+          setDif(other.getDif());
+        }
+        if (other.hasPkey()) {
+          setPkey(other.getPkey());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        if (!hasDif()) {
+          return false;
+        }
+        if (!hasPkey()) {
+          return false;
+        }
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.constantine.proto.MessageProto.ClientMessage parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.constantine.proto.MessageProto.ClientMessage) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private int dif_ ;
+      /**
+       * <code>required int32 dif = 1;</code>
+       */
+      public boolean hasDif() {
+        return ((bitField0_ & 0x00000001) != 0);
+      }
+      /**
+       * <code>required int32 dif = 1;</code>
+       */
+      public int getDif() {
+        return dif_;
+      }
+      /**
+       * <code>required int32 dif = 1;</code>
+       */
+      public Builder setDif(int value) {
+        bitField0_ |= 0x00000001;
+        dif_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required int32 dif = 1;</code>
+       */
+      public Builder clearDif() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        dif_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private com.google.protobuf.ByteString pkey_ = com.google.protobuf.ByteString.EMPTY;
+      /**
+       * <code>required bytes pkey = 2;</code>
+       */
+      public boolean hasPkey() {
+        return ((bitField0_ & 0x00000002) != 0);
+      }
+      /**
+       * <code>required bytes pkey = 2;</code>
+       */
+      public com.google.protobuf.ByteString getPkey() {
+        return pkey_;
+      }
+      /**
+       * <code>required bytes pkey = 2;</code>
+       */
+      public Builder setPkey(com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+        pkey_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required bytes pkey = 2;</code>
+       */
+      public Builder clearPkey() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        pkey_ = getDefaultInstance().getPkey();
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:proto.ClientMessage)
+    }
+
+    // @@protoc_insertion_point(class_scope:proto.ClientMessage)
+    private static final com.constantine.proto.MessageProto.ClientMessage DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.constantine.proto.MessageProto.ClientMessage();
+    }
+
+    public static com.constantine.proto.MessageProto.ClientMessage getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<ClientMessage>
+        PARSER = new com.google.protobuf.AbstractParser<ClientMessage>() {
+      @java.lang.Override
+      public ClientMessage parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new ClientMessage(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<ClientMessage> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<ClientMessage> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.constantine.proto.MessageProto.ClientMessage getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface PersistClientMessageOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:proto.PersistClientMessage)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>required .proto.ClientMessage msg = 1;</code>
+     */
+    boolean hasMsg();
+    /**
+     * <code>required .proto.ClientMessage msg = 1;</code>
+     */
+    com.constantine.proto.MessageProto.ClientMessage getMsg();
+    /**
+     * <code>required .proto.ClientMessage msg = 1;</code>
+     */
+    com.constantine.proto.MessageProto.ClientMessageOrBuilder getMsgOrBuilder();
+
+    /**
+     * <code>required bytes sig = 2;</code>
+     */
+    boolean hasSig();
+    /**
+     * <code>required bytes sig = 2;</code>
+     */
+    com.google.protobuf.ByteString getSig();
+  }
+  /**
+   * <pre>
+   * Message sent by the client.
+   * </pre>
+   *
+   * Protobuf type {@code proto.PersistClientMessage}
+   */
+  public  static final class PersistClientMessage extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:proto.PersistClientMessage)
+      PersistClientMessageOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use PersistClientMessage.newBuilder() to construct.
+    private PersistClientMessage(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private PersistClientMessage() {
+      sig_ = com.google.protobuf.ByteString.EMPTY;
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private PersistClientMessage(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              com.constantine.proto.MessageProto.ClientMessage.Builder subBuilder = null;
+              if (((bitField0_ & 0x00000001) != 0)) {
+                subBuilder = msg_.toBuilder();
+              }
+              msg_ = input.readMessage(com.constantine.proto.MessageProto.ClientMessage.PARSER, extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(msg_);
+                msg_ = subBuilder.buildPartial();
+              }
+              bitField0_ |= 0x00000001;
+              break;
+            }
+            case 18: {
+              bitField0_ |= 0x00000002;
+              sig_ = input.readBytes();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.constantine.proto.MessageProto.internal_static_proto_PersistClientMessage_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.constantine.proto.MessageProto.internal_static_proto_PersistClientMessage_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.constantine.proto.MessageProto.PersistClientMessage.class, com.constantine.proto.MessageProto.PersistClientMessage.Builder.class);
+    }
+
+    private int bitField0_;
+    public static final int MSG_FIELD_NUMBER = 1;
+    private com.constantine.proto.MessageProto.ClientMessage msg_;
+    /**
+     * <code>required .proto.ClientMessage msg = 1;</code>
+     */
+    public boolean hasMsg() {
+      return ((bitField0_ & 0x00000001) != 0);
+    }
+    /**
+     * <code>required .proto.ClientMessage msg = 1;</code>
+     */
+    public com.constantine.proto.MessageProto.ClientMessage getMsg() {
+      return msg_ == null ? com.constantine.proto.MessageProto.ClientMessage.getDefaultInstance() : msg_;
+    }
+    /**
+     * <code>required .proto.ClientMessage msg = 1;</code>
+     */
+    public com.constantine.proto.MessageProto.ClientMessageOrBuilder getMsgOrBuilder() {
+      return msg_ == null ? com.constantine.proto.MessageProto.ClientMessage.getDefaultInstance() : msg_;
+    }
+
+    public static final int SIG_FIELD_NUMBER = 2;
+    private com.google.protobuf.ByteString sig_;
+    /**
+     * <code>required bytes sig = 2;</code>
+     */
+    public boolean hasSig() {
+      return ((bitField0_ & 0x00000002) != 0);
+    }
+    /**
+     * <code>required bytes sig = 2;</code>
+     */
+    public com.google.protobuf.ByteString getSig() {
+      return sig_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      if (!hasMsg()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasSig()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!getMsg().isInitialized()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (((bitField0_ & 0x00000001) != 0)) {
+        output.writeMessage(1, getMsg());
+      }
+      if (((bitField0_ & 0x00000002) != 0)) {
+        output.writeBytes(2, sig_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (((bitField0_ & 0x00000001) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, getMsg());
+      }
+      if (((bitField0_ & 0x00000002) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(2, sig_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.constantine.proto.MessageProto.PersistClientMessage)) {
+        return super.equals(obj);
+      }
+      com.constantine.proto.MessageProto.PersistClientMessage other = (com.constantine.proto.MessageProto.PersistClientMessage) obj;
+
+      if (hasMsg() != other.hasMsg()) return false;
+      if (hasMsg()) {
+        if (!getMsg()
+            .equals(other.getMsg())) return false;
+      }
+      if (hasSig() != other.hasSig()) return false;
+      if (hasSig()) {
+        if (!getSig()
+            .equals(other.getSig())) return false;
+      }
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (hasMsg()) {
+        hash = (37 * hash) + MSG_FIELD_NUMBER;
+        hash = (53 * hash) + getMsg().hashCode();
+      }
+      if (hasSig()) {
+        hash = (37 * hash) + SIG_FIELD_NUMBER;
+        hash = (53 * hash) + getSig().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.constantine.proto.MessageProto.PersistClientMessage parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.constantine.proto.MessageProto.PersistClientMessage parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.constantine.proto.MessageProto.PersistClientMessage parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.constantine.proto.MessageProto.PersistClientMessage parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.constantine.proto.MessageProto.PersistClientMessage parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.constantine.proto.MessageProto.PersistClientMessage parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.constantine.proto.MessageProto.PersistClientMessage parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.constantine.proto.MessageProto.PersistClientMessage parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.constantine.proto.MessageProto.PersistClientMessage parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static com.constantine.proto.MessageProto.PersistClientMessage parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.constantine.proto.MessageProto.PersistClientMessage parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.constantine.proto.MessageProto.PersistClientMessage parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.constantine.proto.MessageProto.PersistClientMessage prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     * Message sent by the client.
+     * </pre>
+     *
+     * Protobuf type {@code proto.PersistClientMessage}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:proto.PersistClientMessage)
+        com.constantine.proto.MessageProto.PersistClientMessageOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.constantine.proto.MessageProto.internal_static_proto_PersistClientMessage_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.constantine.proto.MessageProto.internal_static_proto_PersistClientMessage_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.constantine.proto.MessageProto.PersistClientMessage.class, com.constantine.proto.MessageProto.PersistClientMessage.Builder.class);
+      }
+
+      // Construct using com.constantine.proto.MessageProto.PersistClientMessage.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+          getMsgFieldBuilder();
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        if (msgBuilder_ == null) {
+          msg_ = null;
+        } else {
+          msgBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000001);
+        sig_ = com.google.protobuf.ByteString.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.constantine.proto.MessageProto.internal_static_proto_PersistClientMessage_descriptor;
+      }
+
+      @java.lang.Override
+      public com.constantine.proto.MessageProto.PersistClientMessage getDefaultInstanceForType() {
+        return com.constantine.proto.MessageProto.PersistClientMessage.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.constantine.proto.MessageProto.PersistClientMessage build() {
+        com.constantine.proto.MessageProto.PersistClientMessage result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.constantine.proto.MessageProto.PersistClientMessage buildPartial() {
+        com.constantine.proto.MessageProto.PersistClientMessage result = new com.constantine.proto.MessageProto.PersistClientMessage(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          if (msgBuilder_ == null) {
+            result.msg_ = msg_;
+          } else {
+            result.msg_ = msgBuilder_.build();
+          }
+          to_bitField0_ |= 0x00000001;
+        }
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.sig_ = sig_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.constantine.proto.MessageProto.PersistClientMessage) {
+          return mergeFrom((com.constantine.proto.MessageProto.PersistClientMessage)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.constantine.proto.MessageProto.PersistClientMessage other) {
+        if (other == com.constantine.proto.MessageProto.PersistClientMessage.getDefaultInstance()) return this;
+        if (other.hasMsg()) {
+          mergeMsg(other.getMsg());
+        }
+        if (other.hasSig()) {
+          setSig(other.getSig());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        if (!hasMsg()) {
+          return false;
+        }
+        if (!hasSig()) {
+          return false;
+        }
+        if (!getMsg().isInitialized()) {
+          return false;
+        }
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.constantine.proto.MessageProto.PersistClientMessage parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.constantine.proto.MessageProto.PersistClientMessage) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private com.constantine.proto.MessageProto.ClientMessage msg_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.constantine.proto.MessageProto.ClientMessage, com.constantine.proto.MessageProto.ClientMessage.Builder, com.constantine.proto.MessageProto.ClientMessageOrBuilder> msgBuilder_;
+      /**
+       * <code>required .proto.ClientMessage msg = 1;</code>
+       */
+      public boolean hasMsg() {
+        return ((bitField0_ & 0x00000001) != 0);
+      }
+      /**
+       * <code>required .proto.ClientMessage msg = 1;</code>
+       */
+      public com.constantine.proto.MessageProto.ClientMessage getMsg() {
+        if (msgBuilder_ == null) {
+          return msg_ == null ? com.constantine.proto.MessageProto.ClientMessage.getDefaultInstance() : msg_;
+        } else {
+          return msgBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>required .proto.ClientMessage msg = 1;</code>
+       */
+      public Builder setMsg(com.constantine.proto.MessageProto.ClientMessage value) {
+        if (msgBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          msg_ = value;
+          onChanged();
+        } else {
+          msgBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000001;
+        return this;
+      }
+      /**
+       * <code>required .proto.ClientMessage msg = 1;</code>
+       */
+      public Builder setMsg(
+          com.constantine.proto.MessageProto.ClientMessage.Builder builderForValue) {
+        if (msgBuilder_ == null) {
+          msg_ = builderForValue.build();
+          onChanged();
+        } else {
+          msgBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000001;
+        return this;
+      }
+      /**
+       * <code>required .proto.ClientMessage msg = 1;</code>
+       */
+      public Builder mergeMsg(com.constantine.proto.MessageProto.ClientMessage value) {
+        if (msgBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) != 0) &&
+              msg_ != null &&
+              msg_ != com.constantine.proto.MessageProto.ClientMessage.getDefaultInstance()) {
+            msg_ =
+              com.constantine.proto.MessageProto.ClientMessage.newBuilder(msg_).mergeFrom(value).buildPartial();
+          } else {
+            msg_ = value;
+          }
+          onChanged();
+        } else {
+          msgBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000001;
+        return this;
+      }
+      /**
+       * <code>required .proto.ClientMessage msg = 1;</code>
+       */
+      public Builder clearMsg() {
+        if (msgBuilder_ == null) {
+          msg_ = null;
+          onChanged();
+        } else {
+          msgBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000001);
+        return this;
+      }
+      /**
+       * <code>required .proto.ClientMessage msg = 1;</code>
+       */
+      public com.constantine.proto.MessageProto.ClientMessage.Builder getMsgBuilder() {
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return getMsgFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>required .proto.ClientMessage msg = 1;</code>
+       */
+      public com.constantine.proto.MessageProto.ClientMessageOrBuilder getMsgOrBuilder() {
+        if (msgBuilder_ != null) {
+          return msgBuilder_.getMessageOrBuilder();
+        } else {
+          return msg_ == null ?
+              com.constantine.proto.MessageProto.ClientMessage.getDefaultInstance() : msg_;
+        }
+      }
+      /**
+       * <code>required .proto.ClientMessage msg = 1;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.constantine.proto.MessageProto.ClientMessage, com.constantine.proto.MessageProto.ClientMessage.Builder, com.constantine.proto.MessageProto.ClientMessageOrBuilder> 
+          getMsgFieldBuilder() {
+        if (msgBuilder_ == null) {
+          msgBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              com.constantine.proto.MessageProto.ClientMessage, com.constantine.proto.MessageProto.ClientMessage.Builder, com.constantine.proto.MessageProto.ClientMessageOrBuilder>(
+                  getMsg(),
+                  getParentForChildren(),
+                  isClean());
+          msg_ = null;
+        }
+        return msgBuilder_;
+      }
+
+      private com.google.protobuf.ByteString sig_ = com.google.protobuf.ByteString.EMPTY;
+      /**
+       * <code>required bytes sig = 2;</code>
+       */
+      public boolean hasSig() {
+        return ((bitField0_ & 0x00000002) != 0);
+      }
+      /**
+       * <code>required bytes sig = 2;</code>
+       */
+      public com.google.protobuf.ByteString getSig() {
+        return sig_;
+      }
+      /**
+       * <code>required bytes sig = 2;</code>
+       */
+      public Builder setSig(com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+        sig_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required bytes sig = 2;</code>
+       */
+      public Builder clearSig() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        sig_ = getDefaultInstance().getSig();
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:proto.PersistClientMessage)
+    }
+
+    // @@protoc_insertion_point(class_scope:proto.PersistClientMessage)
+    private static final com.constantine.proto.MessageProto.PersistClientMessage DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.constantine.proto.MessageProto.PersistClientMessage();
+    }
+
+    public static com.constantine.proto.MessageProto.PersistClientMessage getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<PersistClientMessage>
+        PARSER = new com.google.protobuf.AbstractParser<PersistClientMessage>() {
+      @java.lang.Override
+      public PersistClientMessage parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new PersistClientMessage(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<PersistClientMessage> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<PersistClientMessage> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.constantine.proto.MessageProto.PersistClientMessage getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_proto_Message_descriptor;
   private static final 
@@ -6327,6 +8133,16 @@ public final class MessageProto {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_proto_UnregisterMessage_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_proto_ClientMessage_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_proto_ClientMessage_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_proto_PersistClientMessage_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_proto_PersistClientMessage_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -6336,24 +8152,29 @@ public final class MessageProto {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\rMessage.proto\022\005proto\"\262\002\n\007Message\022%\n\007te" +
+      "\n\rMessage.proto\022\005proto\"\223\003\n\007Message\022%\n\007te" +
       "xtMsg\030\001 \001(\0132\022.proto.TextMessageH\000\022#\n\006int" +
       "Msg\030\002 \001(\0132\021.proto.IntMessageH\000\0222\n\treqReg" +
       "Msg\030\003 \001(\0132\035.proto.RequestRegisterMessage" +
       "H\000\022(\n\006regMsg\030\004 \001(\0132\026.proto.RegisterMessa" +
       "geH\000\0226\n\013reqUnregMsg\030\005 \001(\0132\037.proto.Reques" +
       "tUnregisterMessageH\000\022,\n\010unregMsg\030\006 \001(\0132\030" +
-      ".proto.UnregisterMessageH\000\022\013\n\003sig\030\007 \002(\014B" +
-      "\n\n\010messages\"\033\n\013TextMessage\022\014\n\004text\030\001 \002(\t" +
-      "\"\027\n\nIntMessage\022\t\n\001i\030\001 \002(\005\">\n\026RequestRegi" +
-      "sterMessage\022\n\n\002id\030\001 \002(\005\022\n\n\002ip\030\002 \002(\t\022\014\n\004p" +
-      "ort\030\003 \002(\005\"@\n\030RequestUnregisterMessage\022\n\n" +
-      "\002id\030\001 \002(\005\022\n\n\002ip\030\002 \002(\t\022\014\n\004port\030\003 \002(\005\"7\n\017R" +
+      ".proto.UnregisterMessageH\000\022)\n\tclientMsg\030" +
+      "\007 \001(\0132\024.proto.ClientMessageH\000\0224\n\rpersCli" +
+      "entMsg\030\010 \001(\0132\033.proto.PersistClientMessag" +
+      "eH\000\022\013\n\003sig\030\t \002(\014B\n\n\010messages\"\033\n\013TextMess" +
+      "age\022\014\n\004text\030\001 \002(\t\"\027\n\nIntMessage\022\t\n\001i\030\001 \002" +
+      "(\005\">\n\026RequestRegisterMessage\022\n\n\002id\030\001 \002(\005" +
+      "\022\n\n\002ip\030\002 \002(\t\022\014\n\004port\030\003 \002(\005\"@\n\030RequestUnr" +
       "egisterMessage\022\n\n\002id\030\001 \002(\005\022\n\n\002ip\030\002 \002(\t\022\014" +
-      "\n\004port\030\003 \002(\005\"L\n\021UnregisterMessage\022\n\n\002id\030" +
-      "\001 \002(\005\022\n\n\002ip\030\002 \002(\t\022\014\n\004port\030\003 \002(\005\022\021\n\tsigna" +
-      "ture\030\007 \002(\014B%\n\025com.constantine.protoB\014Mes" +
-      "sageProto"
+      "\n\004port\030\003 \002(\005\"7\n\017RegisterMessage\022\n\n\002id\030\001 " +
+      "\002(\005\022\n\n\002ip\030\002 \002(\t\022\014\n\004port\030\003 \002(\005\"L\n\021Unregis" +
+      "terMessage\022\n\n\002id\030\001 \002(\005\022\n\n\002ip\030\002 \002(\t\022\014\n\004po" +
+      "rt\030\003 \002(\005\022\021\n\tsignature\030\007 \002(\014\"*\n\rClientMes" +
+      "sage\022\013\n\003dif\030\001 \002(\005\022\014\n\004pkey\030\002 \002(\014\"F\n\024Persi" +
+      "stClientMessage\022!\n\003msg\030\001 \002(\0132\024.proto.Cli" +
+      "entMessage\022\013\n\003sig\030\002 \002(\014B%\n\025com.constanti" +
+      "ne.protoB\014MessageProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -6372,7 +8193,7 @@ public final class MessageProto {
     internal_static_proto_Message_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_Message_descriptor,
-        new java.lang.String[] { "TextMsg", "IntMsg", "ReqRegMsg", "RegMsg", "ReqUnregMsg", "UnregMsg", "Sig", "Messages", });
+        new java.lang.String[] { "TextMsg", "IntMsg", "ReqRegMsg", "RegMsg", "ReqUnregMsg", "UnregMsg", "ClientMsg", "PersClientMsg", "Sig", "Messages", });
     internal_static_proto_TextMessage_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_proto_TextMessage_fieldAccessorTable = new
@@ -6409,6 +8230,18 @@ public final class MessageProto {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_UnregisterMessage_descriptor,
         new java.lang.String[] { "Id", "Ip", "Port", "Signature", });
+    internal_static_proto_ClientMessage_descriptor =
+      getDescriptor().getMessageTypes().get(7);
+    internal_static_proto_ClientMessage_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_proto_ClientMessage_descriptor,
+        new java.lang.String[] { "Dif", "Pkey", });
+    internal_static_proto_PersistClientMessage_descriptor =
+      getDescriptor().getMessageTypes().get(8);
+    internal_static_proto_PersistClientMessage_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_proto_PersistClientMessage_descriptor,
+        new java.lang.String[] { "Msg", "Sig", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

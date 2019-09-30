@@ -1,4 +1,4 @@
-package com.constantine.communication.nettyhandlers;
+package com.constantine.nettyhandlers;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;

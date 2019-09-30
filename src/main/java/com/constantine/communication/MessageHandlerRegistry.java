@@ -4,13 +4,17 @@ import com.constantine.communication.messages.*;
 import com.constantine.communication.operations.BroadcastOperation;
 import com.constantine.communication.operations.ConnectOperation;
 import com.constantine.communication.operations.DisconnectOperation;
+import com.constantine.communication.operations.UnicastOperation;
 import com.constantine.proto.MessageProto;
 import com.constantine.server.Server;
 import com.constantine.server.ServerData;
 import com.constantine.utils.KeyUtilities;
 import com.constantine.utils.Log;
 import io.netty.channel.ChannelHandlerContext;
+import sun.security.rsa.RSAPublicKeyImpl;
 
+import java.security.InvalidKeyException;
+import java.security.PublicKey;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,6 +34,10 @@ public final class MessageHandlerRegistry
         handlers.add(new IntMessageHandler());
         handlers.add(new RegisterRequestMessage());
         handlers.add(new RegisterMessage());
+        handlers.add(new UnregisterMessage());
+        handlers.add(new UnregisterRequestMessage());
+        handlers.add(new ClientMessage());
+        handlers.add(new PersistClientMessage());
     }
 
     /**
@@ -194,6 +202,91 @@ public final class MessageHandlerRegistry
         public boolean canHandle(final MessageProto.Message message)
         {
             return message.hasRegMsg();
+        }
+    }
+
+    /**
+     * Handler for register messages.
+     */
+    private static class ClientMessage implements IMessageHandler
+    {
+        @Override
+        public void wrap(final MessageProto.Message message, final ChannelHandlerContext ctx, final Server server)
+        {
+            server.clientInputQueue.add(new ClientMessageWrapper(server, message));
+        }
+
+        @Override
+        public void handle(final IMessageWrapper message, final Server server)
+        {
+            if (((RegisterMessageWrapper) message).sender == server.view.getCoordinator())
+            {
+                server.outputQueue.add(new BroadcastOperation(new PersistClientMessageWrapper(server, message.getMessage().getClientMsg(), message.getMessage().getSig())));
+            }
+            else
+            {
+                server.outputQueue.add(new UnicastOperation(message, server.view.getCoordinator()));
+                Log.getLogger().warn("Non coordinator trying to register other replica!");
+            }
+        }
+
+        @Override
+        public boolean canHandle(final MessageProto.Message message)
+        {
+            return message.hasClientMsg();
+        }
+    }
+
+    /**
+     * Handler for leave request messages.
+     */
+    private static class PersistClientMessage implements IMessageHandler
+    {
+        @Override
+        public void wrap(final MessageProto.Message message, final ChannelHandlerContext ctx, final Server server)
+        {
+            Log.getLogger().warn("ServerReceiver received leave request: " + server.getServerData().getId() + " ");
+            server.inputQueue.add(new PersistClientMessageWrapper(server, message.getPersClientMsg()));
+        }
+
+        @Override
+        public void handle(final IMessageWrapper message, final Server server)
+        {
+            final MessageProto.ClientMessage msg = message.getMessage().getPersClientMsg().getMsg();
+
+            try
+            {
+                final PublicKey key = new RSAPublicKeyImpl(msg.getPkey().toByteArray());
+                if (!KeyUtilities.verifyKey(msg.toByteArray(), message.getMessage().getPersClientMsg().getSig().toByteArray(),key ))
+                {
+                    Log.getLogger().warn("Invalid signature from client!");
+                    return;
+                }
+
+                int tempState = server.state.get(key);
+                tempState += msg.getDif();
+                server.state.put(key, tempState);
+            }
+            catch (InvalidKeyException e)
+            {
+                Log.getLogger().warn("Invalid signature from client!");
+                return;
+            }
+
+            if (server.view.getCoordinator() == server.getId())
+            {
+                server.outputQueue.add(new BroadcastOperation(new UnregisterMessageWrapper(server, message.getMessage())));
+            }
+            else
+            {
+                Log.getLogger().warn("Received unregister request at non-coordinator replica --- ignoring");
+            }
+        }
+
+        @Override
+        public boolean canHandle(final MessageProto.Message message)
+        {
+            return message.hasReqUnregMsg();
         }
     }
 

@@ -1,4 +1,4 @@
-package com.constantine.communication.nettyhandlers;
+package com.constantine.nettyhandlers;
 
 /**
  * A generic handlers with a specific size and its buffer.

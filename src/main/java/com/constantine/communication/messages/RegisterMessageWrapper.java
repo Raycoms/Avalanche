@@ -30,7 +30,7 @@ public class RegisterMessageWrapper extends AbstractMessageWrapper
     }
 
     @Override
-    public byte[] buildMessage(final IServer serverSender)
+    public byte[] buildMessage()
     {
         return this.message.toByteArray();
     }

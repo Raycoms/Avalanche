@@ -1,7 +1,7 @@
 package com.constantine.communication;
 
 import com.constantine.proto.MessageProto;
-import com.constantine.communication.nettyhandlers.SizedMessage;
+import com.constantine.nettyhandlers.SizedMessage;
 import com.constantine.server.Server;
 import com.constantine.utils.KeyUtilities;
 import com.constantine.utils.Log;
@@ -12,7 +12,7 @@ import io.netty.channel.SimpleChannelInboundHandler;
 /**
  * Handles a server-side channel.
  */
-public class NettyReceiverHandler extends SimpleChannelInboundHandler<SizedMessage>
+public class ServerNettyReceiverHandler extends SimpleChannelInboundHandler<SizedMessage>
 {
     /**
      * The connected server instance.
@@ -23,7 +23,7 @@ public class NettyReceiverHandler extends SimpleChannelInboundHandler<SizedMessa
      * Constructor to create a new NettyReceiverHandler.
      * @param server the server it belongs to.
      */
-    public NettyReceiverHandler(final Server server)
+    public ServerNettyReceiverHandler(final Server server)
     {
         this.server = server;
     }

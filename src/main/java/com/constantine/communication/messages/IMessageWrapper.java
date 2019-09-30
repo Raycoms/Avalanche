@@ -1,6 +1,6 @@
 package com.constantine.communication.messages;
 
-import com.constantine.communication.nettyhandlers.SizedMessage;
+import com.constantine.nettyhandlers.SizedMessage;
 import com.constantine.proto.MessageProto;
 import com.constantine.server.IServer;
 
@@ -23,10 +23,9 @@ public interface IMessageWrapper
 
     /**
      * Build the byte array for the message.
-     * @param serverSender the sending server reference.
      * @return the byte array to send it.
      */
-    public byte[] buildMessage(final IServer serverSender);
+    public byte[] buildMessage();
 
     /**
      * Get the message from the wrapper.

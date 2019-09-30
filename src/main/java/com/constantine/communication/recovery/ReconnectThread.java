@@ -1,6 +1,6 @@
 package com.constantine.communication.recovery;
 
-import com.constantine.communication.NettySenderHandler;
+import com.constantine.communication.ServerNettySenderHandler;
 import com.constantine.server.ServerData;
 import com.constantine.utils.Log;
 import io.netty.bootstrap.Bootstrap;
@@ -13,7 +13,7 @@ public class ReconnectThread extends Thread
     /**
      * The sender handler.
      */
-    private final NettySenderHandler handler;
+    private final ServerNettySenderHandler handler;
 
     /**
      * The bootstrap instance to connect to.
@@ -25,7 +25,7 @@ public class ReconnectThread extends Thread
      * @param b the bootstrap instance.
      * @param handler the sender handler.
      */
-    public ReconnectThread(final NettySenderHandler handler, final Bootstrap b)
+    public ReconnectThread(final ServerNettySenderHandler handler, final Bootstrap b)
     {
         this.handler = handler;
         this.b = b;

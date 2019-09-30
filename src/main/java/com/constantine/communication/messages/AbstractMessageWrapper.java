@@ -1,6 +1,6 @@
 package com.constantine.communication.messages;
 
-import com.constantine.communication.nettyhandlers.SizedMessage;
+import com.constantine.nettyhandlers.SizedMessage;
 import com.constantine.proto.MessageProto;
 import com.constantine.server.IServer;
 
@@ -38,7 +38,7 @@ public abstract class AbstractMessageWrapper implements IMessageWrapper
     @Override
     public SizedMessage writeToSizedMessage(final IServer serverSender)
     {
-        return new SizedMessage(buildMessage(serverSender), sender);
+        return new SizedMessage(buildMessage(), sender);
     }
 
     @Override

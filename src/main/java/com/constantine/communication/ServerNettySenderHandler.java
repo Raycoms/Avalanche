@@ -4,7 +4,7 @@ import com.constantine.communication.messages.IMessageWrapper;
 import com.constantine.communication.messages.IntMessageWrapper;
 import com.constantine.communication.messages.TextMessageWrapper;
 import com.constantine.proto.MessageProto;
-import com.constantine.communication.nettyhandlers.SizedMessage;
+import com.constantine.nettyhandlers.SizedMessage;
 import com.constantine.server.IServer;
 import com.constantine.server.ServerData;
 import com.constantine.utils.Log;
@@ -19,7 +19,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
  * Handles a server side sending channel.
  */
 @ChannelHandler.Sharable
-public class NettySenderHandler extends SimpleChannelInboundHandler<SizedMessage>
+public class ServerNettySenderHandler extends SimpleChannelInboundHandler<SizedMessage>
 {
     /**
      * handlers context.
@@ -50,7 +50,7 @@ public class NettySenderHandler extends SimpleChannelInboundHandler<SizedMessage
      * Start the NettySenderHandler with a server instance.
      * @param server the server instance to use.
      */
-    public NettySenderHandler(final IServer server, final ServerData serverData)
+    public ServerNettySenderHandler(final IServer server, final ServerData serverData)
     {
         this.server = server;
         this.serverData = serverData;
