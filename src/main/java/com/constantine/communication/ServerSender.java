@@ -1,8 +1,7 @@
 package com.constantine.communication;
 
-import com.constantine.communication.handlers.SignedSizedMessageEncoder;
-import com.constantine.communication.handlers.SizedMessageDecoder;
-import com.constantine.communication.handlers.SizedMessageEncoder;
+import com.constantine.communication.nettyhandlers.SizedMessageDecoder;
+import com.constantine.communication.nettyhandlers.SizedMessageEncoder;
 import com.constantine.communication.messages.IMessageWrapper;
 import com.constantine.communication.operations.IOperation;
 import com.constantine.communication.recovery.ReconnectThread;
@@ -152,7 +151,6 @@ public class ServerSender extends Thread implements ISender
                 public void initChannel(SocketChannel ch)
                 {
                     ch.pipeline().addLast(
-                      new SignedSizedMessageEncoder(),
                       new SizedMessageEncoder(),
                       new SizedMessageDecoder(),
                       clientHandler);

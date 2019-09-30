@@ -1,14 +1,9 @@
 package com.constantine.communication.recovery;
 
 import com.constantine.communication.NettySenderHandler;
-import com.constantine.communication.handlers.SignedSizedMessageEncoder;
-import com.constantine.communication.handlers.SizedMessageDecoder;
-import com.constantine.communication.handlers.SizedMessageEncoder;
 import com.constantine.server.ServerData;
 import com.constantine.utils.Log;
 import io.netty.bootstrap.Bootstrap;
-import io.netty.channel.ChannelInitializer;
-import io.netty.channel.socket.SocketChannel;
 
 /**
  * Thread to reconnect to the sender.
@@ -57,7 +52,7 @@ public class ReconnectThread extends Thread
 
             try
             {
-                //todo we would also want to decide on this.
+                //todo we would also want a config value on this.
                 Thread.sleep(250);
             }
             catch (InterruptedException e)

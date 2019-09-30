@@ -1,11 +1,9 @@
 package com.constantine.server;
 
+import com.constantine.communication.MessageHandlerRegistry;
 import com.constantine.communication.ServerReceiver;
 import com.constantine.communication.ServerSender;
-import com.constantine.communication.messages.IMessageWrapper;
-import com.constantine.communication.messages.JoinRequestMessageWrapper;
-import com.constantine.communication.messages.RegisterMessageWrapper;
-import com.constantine.communication.messages.TextMessageWrapper;
+import com.constantine.communication.messages.*;
 import com.constantine.communication.operations.BroadcastOperation;
 import com.constantine.communication.operations.ConnectOperation;
 import com.constantine.communication.operations.IOperation;
@@ -16,7 +14,6 @@ import com.constantine.views.GlobalView;
 import com.constantine.views.utils.ViewLoader;
 
 import java.security.PrivateKey;
-import java.util.Arrays;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import static com.constantine.utils.Constants.CONFIG_LOCATION;
@@ -49,7 +46,7 @@ public class Server extends Thread implements IServer
     /**
      * The global view this server uses.
      */
-    private final GlobalView view;
+    public final GlobalView view;
 
     /**
      * Create a server object.
@@ -85,10 +82,10 @@ public class Server extends Thread implements IServer
 
         if (!isInView)
         {
-            outputQueue.add(new UnicastOperation(new JoinRequestMessageWrapper(server, server.getId()), view.getCoordinator()));
+            outputQueue.add(new UnicastOperation(new JoinRequestMessageWrapper(this, server), view.getCoordinator()));
         }
 
-        //todo remove, this is only test code
+        //todo remove in future, this is only test code
         if (true)
         {
             int nextId = server.getId() + 1;
@@ -96,23 +93,32 @@ public class Server extends Thread implements IServer
             {
                 nextId = 0;
             }
-            outputQueue.add(new UnicastOperation(new TextMessageWrapper("go", server.getId()), nextId));
+            outputQueue.add(new UnicastOperation(new TextMessageWrapper(this, "go"), nextId));
         }
 
         int counter = 0;
         while (true)
         {
 
-            //todo also remove
+            //todo also remove in future
             if (++counter%40==0)
             {
-                outputQueue.add(new BroadcastOperation(new TextMessageWrapper("Heartbeat", server.getId())));
+                outputQueue.add(new BroadcastOperation(new TextMessageWrapper(this, "Heartbeat")));
+            }
+
+            if (counter%4000==0)
+            {
+                if (isInView && server.getId() == 4)
+                {
+                    outputQueue.add(new UnicastOperation(new UnregisterRequestMessageWrapper(this, server), view.getCoordinator()));
+                }
             }
 
             if (inputQueue.isEmpty())
             {
                 try
                 {
+                    //todo config value on this too
                     Thread.sleep(100);
                 }
                 catch (InterruptedException e)
@@ -128,16 +134,7 @@ public class Server extends Thread implements IServer
     @Override
     public void handleMessage(final IMessageWrapper message)
     {
-        if (message instanceof JoinRequestMessageWrapper)
-        {
-            outputQueue.add(new BroadcastOperation(new RegisterMessageWrapper((JoinRequestMessageWrapper) message)));
-        }
-        else if (message instanceof RegisterMessageWrapper)
-        {
-            view.addServer(((RegisterMessageWrapper) message).getServerData());
-            outputQueue.add(new ConnectOperation(((RegisterMessageWrapper) message).getServerData()));
-        }
-        Log.getLogger().warn(server.getId() + ": Received!");
+        MessageHandlerRegistry.handle(message, this);
     }
 
     @Override

@@ -1,6 +1,5 @@
-package com.constantine.communication.handlers;
+package com.constantine.communication.nettyhandlers;
 
-import com.constantine.utils.Log;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToByteEncoder;

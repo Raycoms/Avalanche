@@ -4,7 +4,7 @@ import com.constantine.communication.messages.IMessageWrapper;
 import com.constantine.communication.messages.IntMessageWrapper;
 import com.constantine.communication.messages.TextMessageWrapper;
 import com.constantine.proto.MessageProto;
-import com.constantine.communication.handlers.SizedMessage;
+import com.constantine.communication.nettyhandlers.SizedMessage;
 import com.constantine.server.IServer;
 import com.constantine.server.ServerData;
 import com.constantine.utils.Log;
@@ -90,12 +90,12 @@ public class NettySenderHandler extends SimpleChannelInboundHandler<SizedMessage
             if (message.hasTextMsg())
             {
                 Log.getLogger().warn("ServerSender: " + server.getServerData().getId() + " received Text: " + message.getTextMsg().getText());
-                ctx.write(new TextMessageWrapper(message.getTextMsg().getText() + " return!", this.getId()));
+                ctx.write(new TextMessageWrapper(server, message.getTextMsg().getText() + " return!"));
             }
             else if (message.hasIntMsg())
             {
                 Log.getLogger().warn("ServerSender: " + server.getServerData().getId() + " received Int: " + message.getIntMsg().getI());
-                ctx.write(new IntMessageWrapper(message.getIntMsg().getI() + 1, this.getId()));
+                ctx.write(new IntMessageWrapper(server, message.getIntMsg().getI() + 1));
             }
         }
         catch (final InvalidProtocolBufferException e)
@@ -130,7 +130,7 @@ public class NettySenderHandler extends SimpleChannelInboundHandler<SizedMessage
                 }
             }
 
-            this.ctx.writeAndFlush(msg.writeToSizedMessage());
+            this.ctx.writeAndFlush(msg.writeToSizedMessage(server));
             return true;
         }
         else

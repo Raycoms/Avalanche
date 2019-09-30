@@ -1,52 +1,46 @@
 package com.constantine.communication.messages;
 
-import com.constantine.communication.handlers.SizedMessage;
 import com.constantine.proto.MessageProto;
+import com.constantine.server.IServer;
 import com.google.protobuf.ByteString;
 
 /**
  * Example String Message.
  */
-public class TextMessageWrapper implements IMessageWrapper
+public class TextMessageWrapper extends AbstractMessageWrapper
 {
     /**
-     * The String of this message.
+     * Create an instance of the string message wrapper.
+     * @param message the message to send.
+     * @param sender the sender.
      */
-    private final String message;
-
-    /**
-     * Id of the sender.
-     */
-    public final int sender;
+    public TextMessageWrapper(final IServer sender, final MessageProto.TextMessage message)
+    {
+        super(sender.getServerData().getId(), builder.setTextMsg(message).setSig(ByteString.copyFrom(sender.signMessage(message.toByteArray()))).build());
+    }
 
     /**
      * Create an instance of the String message.
      * @param message the String to send.
      * @param sender the sender.
-
      */
-    public TextMessageWrapper(final String message, final int sender)
+    public TextMessageWrapper(final IServer sender, final String message)
     {
-        this.message = message;
-        this.sender = sender;
-    }
-
-    /**
-     * Create an instance of the String message.
-     * @param message the Text message to create it from.
-     * @param sender the sender.
-     */
-    public TextMessageWrapper(final MessageProto.TextMessage message, final int sender)
-    {
-        this.message = message.getText();
-        this.sender = sender;
+        this(sender, MessageProto.TextMessage.newBuilder().setText(message).build());
     }
 
     @Override
-    public SizedMessage writeToSizedMessage()
+    public byte[] buildMessage(final IServer serverSender)
     {
-        final MessageProto.TextMessage.Builder intBuilder = MessageProto.TextMessage.newBuilder();
-        builder.setTextMsg(intBuilder.setText(this.message).build()).setSignature(ByteString.copyFrom(new byte[0]));
-        return new SizedMessage(builder.build().toByteArray(), sender);
+        return this.message.toByteArray();
+    }
+
+    /**
+     * Get the text from the text message.
+     * @return the string.
+     */
+    public String getString()
+    {
+        return this.message.getTextMsg().getText();
     }
 }

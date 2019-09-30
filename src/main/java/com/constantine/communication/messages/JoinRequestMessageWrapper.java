@@ -1,52 +1,39 @@
 package com.constantine.communication.messages;
 
-import com.constantine.communication.handlers.SizedMessage;
 import com.constantine.proto.MessageProto;
+import com.constantine.server.IServer;
 import com.constantine.server.ServerData;
 import com.google.protobuf.ByteString;
 
 /**
  * Example join request message wrapper.
  */
-public class JoinRequestMessageWrapper implements IMessageWrapper
+public class JoinRequestMessageWrapper extends AbstractMessageWrapper
 {
     /**
-     * The String of this message.
+     * Create an instance of the join request message wrapper.
+     * @param message the message to send.
+     * @param sender the sender.
      */
-    private final ServerData message;
-
-    /**
-     * Id of the sender.
-     */
-    public final int sender;
+    public JoinRequestMessageWrapper(final IServer sender, final MessageProto.RequestRegisterMessage message)
+    {
+        super(sender.getServerData().getId(), builder.setReqRegMsg(message).setSig(ByteString.copyFrom(sender.signMessage(message.toByteArray()))).build());
+    }
 
     /**
      * Create an instance of the join request message wrapper.
      * @param message the int to send.
+     * @param sender the sender.
      */
-    public JoinRequestMessageWrapper(final ServerData message, final int sender)
+    public JoinRequestMessageWrapper(final IServer sender, final ServerData message)
     {
-        this.message = message;
-        this.sender = sender;
-    }
-
-    /**
-     * Create an instance of the join request message wrapper.
-     * @param message the message to extract it from.
-     */
-    public JoinRequestMessageWrapper(final MessageProto.RequestRegisterMessage message, final int sender)
-    {
-        this.message = new ServerData(message.getId(), message.getIp(), message.getPort());
-        this.sender = sender;
+        this(sender, MessageProto.RequestRegisterMessage.newBuilder().setId(message.getId()).setIp(message.getIp()).setPort(message.getPort()).build());
     }
 
     @Override
-    public SizedMessage writeToSizedMessage()
+    public byte[] buildMessage(final IServer serverSender)
     {
-        final MessageProto.RequestRegisterMessage.Builder intBuilder = MessageProto.RequestRegisterMessage.newBuilder();
-        builder.setReqRegMsg(intBuilder.setId(this.message.getId()).setIp(message.getIp()).setPort(message.getPort()).build()).setSignature(ByteString.copyFrom(new byte[0]));
-
-        return new SizedMessage(builder.build().toByteArray(), sender);
+        return this.message.toByteArray();
     }
 
     /**
@@ -55,6 +42,7 @@ public class JoinRequestMessageWrapper implements IMessageWrapper
      */
     public ServerData getServerData()
     {
-        return message;
+        final MessageProto.RequestRegisterMessage msg = this.message.getReqRegMsg();
+        return new ServerData(msg.getId(), msg.getIp(), msg.getPort());
     }
 }

@@ -1,51 +1,46 @@
 package com.constantine.communication.messages;
 
-import com.constantine.communication.handlers.SizedMessage;
 import com.constantine.proto.MessageProto;
+import com.constantine.server.IServer;
+import com.google.protobuf.ByteString;
 
 /**
  * Example int Message.
  */
-public class IntMessageWrapper implements IMessageWrapper
+public class IntMessageWrapper extends AbstractMessageWrapper
 {
     /**
-     * The String of this message.
+     * Create an instance of the int message wrapper.
+     * @param message the message to send.
+     * @param sender the sender.
      */
-    private final int message;
-
-    /**
-     * Id of the sender.
-     */
-    public final int sender;
+    public IntMessageWrapper(final IServer sender, final MessageProto.IntMessage message)
+    {
+        super(sender.getServerData().getId(), builder.setIntMsg(message).setSig(ByteString.copyFrom(sender.signMessage(message.toByteArray()))).build());
+    }
 
     /**
      * Create an instance of the int message wrapper.
      * @param message the int to send.
      * @param sender the sender.
      */
-    public IntMessageWrapper(final int message, final int sender)
+    public IntMessageWrapper(final IServer sender, final int message)
     {
-        this.message = message;
-        this.sender = sender;
-    }
-
-    /**
-     * Create an instance of the int message wrapper.
-     * @param message the message to extract it from.
-     * @param sender the sender.
-     */
-    public IntMessageWrapper(final MessageProto.IntMessage message, final int sender)
-    {
-        this.message = message.getI();
-        this.sender = sender;
+        this(sender, MessageProto.IntMessage.newBuilder().setI(message).build());
     }
 
     @Override
-    public SizedMessage writeToSizedMessage()
+    public byte[] buildMessage(final IServer serverSender)
     {
-        final MessageProto.IntMessage.Builder intBuilder = MessageProto.IntMessage.newBuilder();
-        builder.setIntMsg(intBuilder.setI(this.message).build());
+        return message.toByteArray();
+    }
 
-        return new SizedMessage(builder.build().toByteArray(), sender);
+    /**
+     * Get the int message from the wrapper.
+     * @return the int.
+     */
+    public int getInt()
+    {
+        return this.message.getIntMsg().getI();
     }
 }

@@ -1,52 +1,38 @@
 package com.constantine.communication.messages;
 
-import com.constantine.communication.handlers.SizedMessage;
 import com.constantine.proto.MessageProto;
+import com.constantine.server.IServer;
 import com.constantine.server.ServerData;
 import com.google.protobuf.ByteString;
 
 /**
  * Example unregister request message wrapper.
  */
-public class UnregisterRequestMessageWrapper implements IMessageWrapper
+public class UnregisterRequestMessageWrapper extends AbstractMessageWrapper
 {
     /**
-     * The String of this message.
+     * Create an instance of the unregister message wrapper.
+     * @param message the message to extract it from.
+     * @param sender the sender.
      */
-    private final ServerData message;
-
-    /**
-     * Id of the sender.
-     */
-    public final int sender;
+    public UnregisterRequestMessageWrapper(final IServer sender, final MessageProto.RequestUnregisterMessage message)
+    {
+        super(sender.getServerData().getId(), builder.setReqUnregMsg(message).setSig(ByteString.copyFrom(sender.signMessage(message.toByteArray()))).build());
+    }
 
     /**
      * Create an instance of the unregister request message wrapper.
      * @param message the int to send.
      */
-    public UnregisterRequestMessageWrapper(final ServerData message, final int sender)
+    public UnregisterRequestMessageWrapper(final IServer sender, final ServerData message)
     {
-        this.message = message;
-        this.sender = sender;
-    }
-
-    /**
-     * Create an instance of the unregister request message wrapper.
-     * @param message the message to extract it from.
-     */
-    public UnregisterRequestMessageWrapper(final MessageProto.RequestUnregisterMessage message, final int sender)
-    {
-        this.message = new ServerData(message.getId(), message.getIp(), message.getPort());
-        this.sender = sender;
+        this(sender, MessageProto.RequestUnregisterMessage.newBuilder().setId(message.getId()).setIp(message.getIp()).setPort(message.getPort()).build());
     }
 
     @Override
-    public SizedMessage writeToSizedMessage()
+    public byte[] buildMessage(final IServer serverSender)
     {
-        final MessageProto.RequestUnregisterMessage.Builder intBuilder = MessageProto.RequestUnregisterMessage.newBuilder();
-        builder.setReqUnregMsg(intBuilder.setId(this.message.getId()).setIp(message.getIp()).setPort(message.getPort()).build()).setSignature(ByteString.copyFrom(new byte[0]));
-
-        return new SizedMessage(builder.build().toByteArray(), sender);
+        return this.message.toByteArray();
     }
 
     /**
@@ -55,6 +41,7 @@ public class UnregisterRequestMessageWrapper implements IMessageWrapper
      */
     public ServerData getServerData()
     {
-        return message;
+        final MessageProto.RequestUnregisterMessage msg = this.message.getReqUnregMsg();
+        return new ServerData(msg.getId(), msg.getIp(), msg.getPort());
     }
 }

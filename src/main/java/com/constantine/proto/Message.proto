@@ -12,7 +12,7 @@ message Message {
         RequestUnregisterMessage reqUnregMsg = 5;
         UnregisterMessage unregMsg = 6;
     }
-    required bytes signature = 7;
+    required bytes sig = 7;
 }
 
 message TextMessage {
@@ -23,26 +23,31 @@ message IntMessage {
     required int32 i = 1;
 }
 
+// Request by a replica to register with the network.
 message RequestRegisterMessage {
     required int32 id = 1;
     required string ip = 2;
     required int32 port = 3;
 }
 
+// Request by replica to unregister from the network.
 message RequestUnregisterMessage {
     required int32 id = 1;
     required string ip = 2;
     required int32 port = 3;
 }
 
+// Message sent by the coordinator to register a replica.
 message RegisterMessage {
     required int32 id = 1;
     required string ip = 2;
     required int32 port = 3;
 }
 
+// Message sent by the coordinator to unregister a replica.
 message UnregisterMessage {
     required int32 id = 1;
     required string ip = 2;
     required int32 port = 3;
+    required bytes signature = 7;
 }

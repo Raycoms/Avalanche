@@ -97,13 +97,13 @@ public final class MessageProto {
     com.constantine.proto.MessageProto.UnregisterMessageOrBuilder getUnregMsgOrBuilder();
 
     /**
-     * <code>required bytes signature = 7;</code>
+     * <code>required bytes sig = 7;</code>
      */
-    boolean hasSignature();
+    boolean hasSig();
     /**
-     * <code>required bytes signature = 7;</code>
+     * <code>required bytes sig = 7;</code>
      */
-    com.google.protobuf.ByteString getSignature();
+    com.google.protobuf.ByteString getSig();
 
     public com.constantine.proto.MessageProto.Message.MessagesCase getMessagesCase();
   }
@@ -120,7 +120,7 @@ public final class MessageProto {
       super(builder);
     }
     private Message() {
-      signature_ = com.google.protobuf.ByteString.EMPTY;
+      sig_ = com.google.protobuf.ByteString.EMPTY;
     }
 
     @java.lang.Override
@@ -233,7 +233,7 @@ public final class MessageProto {
             }
             case 58: {
               bitField0_ |= 0x00000040;
-              signature_ = input.readBytes();
+              sig_ = input.readBytes();
               break;
             }
             default: {
@@ -471,19 +471,19 @@ public final class MessageProto {
       return com.constantine.proto.MessageProto.UnregisterMessage.getDefaultInstance();
     }
 
-    public static final int SIGNATURE_FIELD_NUMBER = 7;
-    private com.google.protobuf.ByteString signature_;
+    public static final int SIG_FIELD_NUMBER = 7;
+    private com.google.protobuf.ByteString sig_;
     /**
-     * <code>required bytes signature = 7;</code>
+     * <code>required bytes sig = 7;</code>
      */
-    public boolean hasSignature() {
+    public boolean hasSig() {
       return ((bitField0_ & 0x00000040) != 0);
     }
     /**
-     * <code>required bytes signature = 7;</code>
+     * <code>required bytes sig = 7;</code>
      */
-    public com.google.protobuf.ByteString getSignature() {
-      return signature_;
+    public com.google.protobuf.ByteString getSig() {
+      return sig_;
     }
 
     private byte memoizedIsInitialized = -1;
@@ -493,7 +493,7 @@ public final class MessageProto {
       if (isInitialized == 1) return true;
       if (isInitialized == 0) return false;
 
-      if (!hasSignature()) {
+      if (!hasSig()) {
         memoizedIsInitialized = 0;
         return false;
       }
@@ -559,7 +559,7 @@ public final class MessageProto {
         output.writeMessage(6, (com.constantine.proto.MessageProto.UnregisterMessage) messages_);
       }
       if (((bitField0_ & 0x00000040) != 0)) {
-        output.writeBytes(7, signature_);
+        output.writeBytes(7, sig_);
       }
       unknownFields.writeTo(output);
     }
@@ -596,7 +596,7 @@ public final class MessageProto {
       }
       if (((bitField0_ & 0x00000040) != 0)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(7, signature_);
+          .computeBytesSize(7, sig_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -613,10 +613,10 @@ public final class MessageProto {
       }
       com.constantine.proto.MessageProto.Message other = (com.constantine.proto.MessageProto.Message) obj;
 
-      if (hasSignature() != other.hasSignature()) return false;
-      if (hasSignature()) {
-        if (!getSignature()
-            .equals(other.getSignature())) return false;
+      if (hasSig() != other.hasSig()) return false;
+      if (hasSig()) {
+        if (!getSig()
+            .equals(other.getSig())) return false;
       }
       if (!getMessagesCase().equals(other.getMessagesCase())) return false;
       switch (messagesCase_) {
@@ -658,9 +658,9 @@ public final class MessageProto {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
-      if (hasSignature()) {
-        hash = (37 * hash) + SIGNATURE_FIELD_NUMBER;
-        hash = (53 * hash) + getSignature().hashCode();
+      if (hasSig()) {
+        hash = (37 * hash) + SIG_FIELD_NUMBER;
+        hash = (53 * hash) + getSig().hashCode();
       }
       switch (messagesCase_) {
         case 1:
@@ -823,7 +823,7 @@ public final class MessageProto {
       @java.lang.Override
       public Builder clear() {
         super.clear();
-        signature_ = com.google.protobuf.ByteString.EMPTY;
+        sig_ = com.google.protobuf.ByteString.EMPTY;
         bitField0_ = (bitField0_ & ~0x00000040);
         messagesCase_ = 0;
         messages_ = null;
@@ -900,7 +900,7 @@ public final class MessageProto {
         if (((from_bitField0_ & 0x00000040) != 0)) {
           to_bitField0_ |= 0x00000040;
         }
-        result.signature_ = signature_;
+        result.sig_ = sig_;
         result.bitField0_ = to_bitField0_;
         result.messagesCase_ = messagesCase_;
         onBuilt();
@@ -951,8 +951,8 @@ public final class MessageProto {
 
       public Builder mergeFrom(com.constantine.proto.MessageProto.Message other) {
         if (other == com.constantine.proto.MessageProto.Message.getDefaultInstance()) return this;
-        if (other.hasSignature()) {
-          setSignature(other.getSignature());
+        if (other.hasSig()) {
+          setSig(other.getSig());
         }
         switch (other.getMessagesCase()) {
           case TEXTMSG: {
@@ -990,7 +990,7 @@ public final class MessageProto {
 
       @java.lang.Override
       public final boolean isInitialized() {
-        if (!hasSignature()) {
+        if (!hasSig()) {
           return false;
         }
         if (hasTextMsg()) {
@@ -1877,37 +1877,37 @@ public final class MessageProto {
         return unregMsgBuilder_;
       }
 
-      private com.google.protobuf.ByteString signature_ = com.google.protobuf.ByteString.EMPTY;
+      private com.google.protobuf.ByteString sig_ = com.google.protobuf.ByteString.EMPTY;
       /**
-       * <code>required bytes signature = 7;</code>
+       * <code>required bytes sig = 7;</code>
        */
-      public boolean hasSignature() {
+      public boolean hasSig() {
         return ((bitField0_ & 0x00000040) != 0);
       }
       /**
-       * <code>required bytes signature = 7;</code>
+       * <code>required bytes sig = 7;</code>
        */
-      public com.google.protobuf.ByteString getSignature() {
-        return signature_;
+      public com.google.protobuf.ByteString getSig() {
+        return sig_;
       }
       /**
-       * <code>required bytes signature = 7;</code>
+       * <code>required bytes sig = 7;</code>
        */
-      public Builder setSignature(com.google.protobuf.ByteString value) {
+      public Builder setSig(com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
   bitField0_ |= 0x00000040;
-        signature_ = value;
+        sig_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required bytes signature = 7;</code>
+       * <code>required bytes sig = 7;</code>
        */
-      public Builder clearSignature() {
+      public Builder clearSig() {
         bitField0_ = (bitField0_ & ~0x00000040);
-        signature_ = getDefaultInstance().getSignature();
+        sig_ = getDefaultInstance().getSig();
         onChanged();
         return this;
       }
@@ -3100,6 +3100,10 @@ public final class MessageProto {
     int getPort();
   }
   /**
+   * <pre>
+   * Request by a replica to register with the network.
+   * </pre>
+   *
    * Protobuf type {@code proto.RequestRegisterMessage}
    */
   public  static final class RequestRegisterMessage extends
@@ -3464,6 +3468,10 @@ public final class MessageProto {
       return builder;
     }
     /**
+     * <pre>
+     * Request by a replica to register with the network.
+     * </pre>
+     *
      * Protobuf type {@code proto.RequestRegisterMessage}
      */
     public static final class Builder extends
@@ -3875,6 +3883,10 @@ public final class MessageProto {
     int getPort();
   }
   /**
+   * <pre>
+   * Request by replica to unregister from the network.
+   * </pre>
+   *
    * Protobuf type {@code proto.RequestUnregisterMessage}
    */
   public  static final class RequestUnregisterMessage extends
@@ -4239,6 +4251,10 @@ public final class MessageProto {
       return builder;
     }
     /**
+     * <pre>
+     * Request by replica to unregister from the network.
+     * </pre>
+     *
      * Protobuf type {@code proto.RequestUnregisterMessage}
      */
     public static final class Builder extends
@@ -4650,6 +4666,10 @@ public final class MessageProto {
     int getPort();
   }
   /**
+   * <pre>
+   * Message sent by the coordinator to register a replica.
+   * </pre>
+   *
    * Protobuf type {@code proto.RegisterMessage}
    */
   public  static final class RegisterMessage extends
@@ -5014,6 +5034,10 @@ public final class MessageProto {
       return builder;
     }
     /**
+     * <pre>
+     * Message sent by the coordinator to register a replica.
+     * </pre>
+     *
      * Protobuf type {@code proto.RegisterMessage}
      */
     public static final class Builder extends
@@ -5423,8 +5447,21 @@ public final class MessageProto {
      * <code>required int32 port = 3;</code>
      */
     int getPort();
+
+    /**
+     * <code>required bytes signature = 7;</code>
+     */
+    boolean hasSignature();
+    /**
+     * <code>required bytes signature = 7;</code>
+     */
+    com.google.protobuf.ByteString getSignature();
   }
   /**
+   * <pre>
+   * Message sent by the coordinator to unregister a replica.
+   * </pre>
+   *
    * Protobuf type {@code proto.UnregisterMessage}
    */
   public  static final class UnregisterMessage extends
@@ -5438,6 +5475,7 @@ public final class MessageProto {
     }
     private UnregisterMessage() {
       ip_ = "";
+      signature_ = com.google.protobuf.ByteString.EMPTY;
     }
 
     @java.lang.Override
@@ -5478,6 +5516,11 @@ public final class MessageProto {
             case 24: {
               bitField0_ |= 0x00000004;
               port_ = input.readInt32();
+              break;
+            }
+            case 58: {
+              bitField0_ |= 0x00000008;
+              signature_ = input.readBytes();
               break;
             }
             default: {
@@ -5585,6 +5628,21 @@ public final class MessageProto {
       return port_;
     }
 
+    public static final int SIGNATURE_FIELD_NUMBER = 7;
+    private com.google.protobuf.ByteString signature_;
+    /**
+     * <code>required bytes signature = 7;</code>
+     */
+    public boolean hasSignature() {
+      return ((bitField0_ & 0x00000008) != 0);
+    }
+    /**
+     * <code>required bytes signature = 7;</code>
+     */
+    public com.google.protobuf.ByteString getSignature() {
+      return signature_;
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -5604,6 +5662,10 @@ public final class MessageProto {
         memoizedIsInitialized = 0;
         return false;
       }
+      if (!hasSignature()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -5619,6 +5681,9 @@ public final class MessageProto {
       }
       if (((bitField0_ & 0x00000004) != 0)) {
         output.writeInt32(3, port_);
+      }
+      if (((bitField0_ & 0x00000008) != 0)) {
+        output.writeBytes(7, signature_);
       }
       unknownFields.writeTo(output);
     }
@@ -5639,6 +5704,10 @@ public final class MessageProto {
       if (((bitField0_ & 0x00000004) != 0)) {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(3, port_);
+      }
+      if (((bitField0_ & 0x00000008) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(7, signature_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -5670,6 +5739,11 @@ public final class MessageProto {
         if (getPort()
             != other.getPort()) return false;
       }
+      if (hasSignature() != other.hasSignature()) return false;
+      if (hasSignature()) {
+        if (!getSignature()
+            .equals(other.getSignature())) return false;
+      }
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -5692,6 +5766,10 @@ public final class MessageProto {
       if (hasPort()) {
         hash = (37 * hash) + PORT_FIELD_NUMBER;
         hash = (53 * hash) + getPort();
+      }
+      if (hasSignature()) {
+        hash = (37 * hash) + SIGNATURE_FIELD_NUMBER;
+        hash = (53 * hash) + getSignature().hashCode();
       }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
@@ -5789,6 +5867,10 @@ public final class MessageProto {
       return builder;
     }
     /**
+     * <pre>
+     * Message sent by the coordinator to unregister a replica.
+     * </pre>
+     *
      * Protobuf type {@code proto.UnregisterMessage}
      */
     public static final class Builder extends
@@ -5832,6 +5914,8 @@ public final class MessageProto {
         bitField0_ = (bitField0_ & ~0x00000002);
         port_ = 0;
         bitField0_ = (bitField0_ & ~0x00000004);
+        signature_ = com.google.protobuf.ByteString.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000008);
         return this;
       }
 
@@ -5872,6 +5956,10 @@ public final class MessageProto {
           result.port_ = port_;
           to_bitField0_ |= 0x00000004;
         }
+        if (((from_bitField0_ & 0x00000008) != 0)) {
+          to_bitField0_ |= 0x00000008;
+        }
+        result.signature_ = signature_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -5932,6 +6020,9 @@ public final class MessageProto {
         if (other.hasPort()) {
           setPort(other.getPort());
         }
+        if (other.hasSignature()) {
+          setSignature(other.getSignature());
+        }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
@@ -5946,6 +6037,9 @@ public final class MessageProto {
           return false;
         }
         if (!hasPort()) {
+          return false;
+        }
+        if (!hasSignature()) {
           return false;
         }
         return true;
@@ -6110,6 +6204,41 @@ public final class MessageProto {
         onChanged();
         return this;
       }
+
+      private com.google.protobuf.ByteString signature_ = com.google.protobuf.ByteString.EMPTY;
+      /**
+       * <code>required bytes signature = 7;</code>
+       */
+      public boolean hasSignature() {
+        return ((bitField0_ & 0x00000008) != 0);
+      }
+      /**
+       * <code>required bytes signature = 7;</code>
+       */
+      public com.google.protobuf.ByteString getSignature() {
+        return signature_;
+      }
+      /**
+       * <code>required bytes signature = 7;</code>
+       */
+      public Builder setSignature(com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000008;
+        signature_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required bytes signature = 7;</code>
+       */
+      public Builder clearSignature() {
+        bitField0_ = (bitField0_ & ~0x00000008);
+        signature_ = getDefaultInstance().getSignature();
+        onChanged();
+        return this;
+      }
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -6207,23 +6336,24 @@ public final class MessageProto {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\rMessage.proto\022\005proto\"\270\002\n\007Message\022%\n\007te" +
+      "\n\rMessage.proto\022\005proto\"\262\002\n\007Message\022%\n\007te" +
       "xtMsg\030\001 \001(\0132\022.proto.TextMessageH\000\022#\n\006int" +
       "Msg\030\002 \001(\0132\021.proto.IntMessageH\000\0222\n\treqReg" +
       "Msg\030\003 \001(\0132\035.proto.RequestRegisterMessage" +
       "H\000\022(\n\006regMsg\030\004 \001(\0132\026.proto.RegisterMessa" +
       "geH\000\0226\n\013reqUnregMsg\030\005 \001(\0132\037.proto.Reques" +
       "tUnregisterMessageH\000\022,\n\010unregMsg\030\006 \001(\0132\030" +
-      ".proto.UnregisterMessageH\000\022\021\n\tsignature\030" +
-      "\007 \002(\014B\n\n\010messages\"\033\n\013TextMessage\022\014\n\004text" +
-      "\030\001 \002(\t\"\027\n\nIntMessage\022\t\n\001i\030\001 \002(\005\">\n\026Reque" +
-      "stRegisterMessage\022\n\n\002id\030\001 \002(\005\022\n\n\002ip\030\002 \002(" +
-      "\t\022\014\n\004port\030\003 \002(\005\"@\n\030RequestUnregisterMess" +
-      "age\022\n\n\002id\030\001 \002(\005\022\n\n\002ip\030\002 \002(\t\022\014\n\004port\030\003 \002(" +
-      "\005\"7\n\017RegisterMessage\022\n\n\002id\030\001 \002(\005\022\n\n\002ip\030\002" +
-      " \002(\t\022\014\n\004port\030\003 \002(\005\"9\n\021UnregisterMessage\022" +
-      "\n\n\002id\030\001 \002(\005\022\n\n\002ip\030\002 \002(\t\022\014\n\004port\030\003 \002(\005B%\n" +
-      "\025com.constantine.protoB\014MessageProto"
+      ".proto.UnregisterMessageH\000\022\013\n\003sig\030\007 \002(\014B" +
+      "\n\n\010messages\"\033\n\013TextMessage\022\014\n\004text\030\001 \002(\t" +
+      "\"\027\n\nIntMessage\022\t\n\001i\030\001 \002(\005\">\n\026RequestRegi" +
+      "sterMessage\022\n\n\002id\030\001 \002(\005\022\n\n\002ip\030\002 \002(\t\022\014\n\004p" +
+      "ort\030\003 \002(\005\"@\n\030RequestUnregisterMessage\022\n\n" +
+      "\002id\030\001 \002(\005\022\n\n\002ip\030\002 \002(\t\022\014\n\004port\030\003 \002(\005\"7\n\017R" +
+      "egisterMessage\022\n\n\002id\030\001 \002(\005\022\n\n\002ip\030\002 \002(\t\022\014" +
+      "\n\004port\030\003 \002(\005\"L\n\021UnregisterMessage\022\n\n\002id\030" +
+      "\001 \002(\005\022\n\n\002ip\030\002 \002(\t\022\014\n\004port\030\003 \002(\005\022\021\n\tsigna" +
+      "ture\030\007 \002(\014B%\n\025com.constantine.protoB\014Mes" +
+      "sageProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -6242,7 +6372,7 @@ public final class MessageProto {
     internal_static_proto_Message_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_Message_descriptor,
-        new java.lang.String[] { "TextMsg", "IntMsg", "ReqRegMsg", "RegMsg", "ReqUnregMsg", "UnregMsg", "Signature", "Messages", });
+        new java.lang.String[] { "TextMsg", "IntMsg", "ReqRegMsg", "RegMsg", "ReqUnregMsg", "UnregMsg", "Sig", "Messages", });
     internal_static_proto_TextMessage_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_proto_TextMessage_fieldAccessorTable = new
@@ -6278,7 +6408,7 @@ public final class MessageProto {
     internal_static_proto_UnregisterMessage_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_UnregisterMessage_descriptor,
-        new java.lang.String[] { "Id", "Ip", "Port", });
+        new java.lang.String[] { "Id", "Ip", "Port", "Signature", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

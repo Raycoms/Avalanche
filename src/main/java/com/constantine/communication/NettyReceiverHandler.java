@@ -1,12 +1,9 @@
 package com.constantine.communication;
 
-import com.constantine.communication.messages.IntMessageWrapper;
-import com.constantine.communication.messages.JoinRequestMessageWrapper;
-import com.constantine.communication.messages.RegisterMessageWrapper;
-import com.constantine.communication.messages.TextMessageWrapper;
 import com.constantine.proto.MessageProto;
-import com.constantine.communication.handlers.SizedMessage;
+import com.constantine.communication.nettyhandlers.SizedMessage;
 import com.constantine.server.Server;
+import com.constantine.utils.KeyUtilities;
 import com.constantine.utils.Log;
 import com.google.protobuf.InvalidProtocolBufferException;
 import io.netty.channel.ChannelHandlerContext;
@@ -38,25 +35,19 @@ public class NettyReceiverHandler extends SimpleChannelInboundHandler<SizedMessa
         {
             //Read input
             final MessageProto.Message message = MessageProto.Message.parseFrom(msg.buffer);
-            if (message.hasTextMsg())
+            if (message.hasSig())
             {
-                Log.getLogger().warn("ServerReceiver: " + server.getServerData().getId() + " received Text: " + message.getTextMsg().getText());
-                ctx.write(new TextMessageWrapper(message.getTextMsg().getText() + " return!", server.getServerData().getId()));
+                if (!KeyUtilities.verifyKey(msg.buffer, message.getSig().toByteArray(), server.view.getServer(msg.id).getPublicKey()))
+                {
+                    Log.getLogger().error("----------------------------------------------------------");
+                    Log.getLogger().error("Received invalid signature supposedly from replica: " + msg.id);
+                    Log.getLogger().error("Discarding Message");
+                    Log.getLogger().error("----------------------------------------------------------");
+                    return;
+                }
             }
-            else if (message.hasIntMsg())
-            {
-                Log.getLogger().warn("ServerReceiver: " + server.getServerData().getId() + " received Int: " + message.getIntMsg().getI());
-                ctx.write(new IntMessageWrapper(message.getIntMsg().getI() + 1, server.getServerData().getId()));
-            }
-            else if (message.hasReqRegMsg())
-            {
-                Log.getLogger().warn("ServerReceiver received join request: " + server.getServerData().getId() + " ");
-                server.inputQueue.add(new JoinRequestMessageWrapper(message.getReqRegMsg(), server.getServerData().getId()));
-            }
-            else if (message.hasRegMsg())
-            {
-                server.inputQueue.add(new RegisterMessageWrapper(message.getRegMsg(), server.getServerData().getId()));
-            }
+
+            MessageHandlerRegistry.wrap(message, ctx, server);
         }
         catch (final InvalidProtocolBufferException e)
         {
