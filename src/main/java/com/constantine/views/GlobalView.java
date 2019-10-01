@@ -1,6 +1,7 @@
 package com.constantine.views;
 
 import com.constantine.server.ServerData;
+import org.boon.json.annotations.JsonIgnore;
 import org.boon.json.annotations.JsonInclude;
 
 import java.util.ArrayList;
@@ -28,6 +29,12 @@ public class GlobalView
      */
     @JsonInclude
     private int coordinator;
+
+    /**
+     * The config location.
+     */
+    @JsonIgnore
+    private String configLocation = "";
 
     /**
      * Instantiate the global view.
@@ -102,17 +109,28 @@ public class GlobalView
      */
     public void addServer(final ServerData server)
     {
+        server.loadPublicKey(this.configLocation);
         servers.put(server.getId(), server);
     }
 
     /**
      * Remove a server from the map.
      * @param id the id of the server to remove.
-     * @return the removed server instance.
      */
-    public ServerData removeServer(final int id)
+    public void removeServer(final int id)
     {
-        return servers.remove(id);
+        servers.remove(id);
+    }
+
+    /**
+     * Set the location the view is at.
+     * @param configLocation the relative location.
+     * @return this view.
+     */
+    public GlobalView setConfigLocation(final String configLocation)
+    {
+        this.configLocation = configLocation;
+        return this;
     }
 
     @Override

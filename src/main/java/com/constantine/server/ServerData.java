@@ -128,6 +128,15 @@ public class ServerData
     }
 
     /**
+     * Load the public key from file.
+     * @param location the location.
+     */
+    public void loadPublicKey(final String location)
+    {
+        this.publicKey = KeyUtilities.loadPublicKeyFromFile(location, this);
+    }
+
+    /**
      * Verify if this server signed a handlers.
      * @param message the handlers.
      * @param signature the signature.

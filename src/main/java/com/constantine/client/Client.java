@@ -38,7 +38,7 @@ public class Client extends Thread
     /**
      * The global system server view.
      */
-    private final GlobalView view;
+    public final GlobalView view;
 
     /**
      * The private key which belongs to the client.
@@ -61,17 +61,26 @@ public class Client extends Thread
     private ClientNettySenderHandler clientHandler;
 
     /**
+     * The client data.
+     */
+    private ClientData clientData;
+
+    /**
      * Instantiate the client process and load the view.
      * @param serverId the server id to connect to.
      * @param gen the key generator.
+     * @param ip the ip.
+     * @param port the port.
      */
-    public Client(final int serverId, final RSAKeyPairGenerator gen)
+    public Client(final int serverId, final RSAKeyPairGenerator gen, final String ip, final int port)
     {
         this.serverId = serverId;
-        this.view = ViewLoader.loadView(CONFIG_LOCATION + "view.json");
+        this.view = ViewLoader.loadView(CONFIG_LOCATION, "view.json");
         final KeyPair keyPair = gen.generateKeyPair();
         this.publicKey = keyPair.getPublic();
         this.privateKey = keyPair.getPrivate();
+
+        this.clientData = new ClientData(publicKey, ip, port);
     }
 
     /**
@@ -108,9 +117,9 @@ public class Client extends Thread
     public void run()
     {
         final Scanner in = new Scanner(System.in);
-        while (!in.hasNext())
+        while (!in.hasNextLine())
         {
-            final MessageProto.ClientMessage msg = MessageProto.ClientMessage.newBuilder().setDif(10).setPkey(publicKey.toString()).build();
+            final MessageProto.ClientMessage msg = MessageProto.ClientMessage.newBuilder().setDif(10).setPkey(ByteString.copyFrom(publicKey.getEncoded())).build();
             builder.setClientMsg(msg).setSig(ByteString.copyFrom(KeyUtilities.signMessage(msg.toByteArray(), this.privateKey))).build();
 
             try
@@ -133,43 +142,66 @@ public class Client extends Thread
      * Create a client thread, connect and start it.
      * @param serverId the server id to connect to.
      * @param gen key gen to generate keypair.
+     * @param ip the ip.
+     * @param port the port.
      */
-    public static void createClient(final int serverId, final RSAKeyPairGenerator gen)
+    public static void createClient(final int serverId, final RSAKeyPairGenerator gen, final String ip, final int port)
     {
-        final Client client = new Client(serverId, gen);
+        final Client client = new Client(serverId, gen, ip, port);
         client.connect();
+
+        client.setupReceiver();
+
         client.start();
+    }
+
+    /**
+     * Setup the client receiver.
+     */
+    private void setupReceiver()
+    {
+        final ClientReceiver receiver = new ClientReceiver(this);
+        receiver.start();
+    }
+
+    /**
+     * Get the client data of this client.
+     * @return the client data.
+     */
+    public ClientData getClientData()
+    {
+        return this.clientData;
     }
 
     /**
      * Method to start the client handler.
      * Two Modes:
-     * 1: Arg1: Number of Clients Arg2: Server to connect to.
-     * 2: Arg1: Server to connect to. (1 Client only).
+     * 1: Arg1: Number of Clients Arg2: Server to connect to. Arg3: Ip, Arg:4 Starting port
+     * 2: Arg1: Server to connect to. (1 Client only), Arg2: Ip, Arg3: Port
      * @param args the arguments to start the client.
      */
     public static void main(final String...args)
     {
         if (args == null || args.length == 0)
         {
-            Log.getLogger().warn("Empty Arguments to start Client - aborting");
+            Log.getLogger().warn("Invalid input parameters. #ServerId (int) #ClientIp (String) #ClientPort (int) or #NumberOfClients (int) #ServerId (int) #ClientIp (String) #ClientPort (int)");
             return;
         }
 
         final RSAKeyPairGenerator gen = new RSAKeyPairGenerator();
 
-        if (args.length == 1)
+        if (args.length == 3)
         {
             try
             {
-                createClient(Integer.parseInt(args[0]), gen);
+                createClient(Integer.parseInt(args[0]), gen, args[1], Integer.parseInt(args[2]));
             }
             catch (final NumberFormatException ex)
             {
-                Log.getLogger().warn("Invalid number for server id to connect to when starting client - aborting");
+                Log.getLogger().warn("Invalid input parameters. #ServerId (int) #ClientIp (String) #ClientPort (int) or #NumberOfClients (int) #ServerId (int) #ClientIp (String) #ClientPort (int)");
             }
         }
-        else
+        else if (args.length == 4)
         {
             try
             {
@@ -178,13 +210,17 @@ public class Client extends Thread
 
                 for (int i = 0; i < numberOfServers; i++)
                 {
-                    createClient(serverId, gen);
+                    createClient(serverId, gen, args[2], Integer.parseInt(args[3]));
                 }
             }
             catch (final NumberFormatException ex)
             {
-                Log.getLogger().warn("Invalid number starting client - aborting");
+                Log.getLogger().warn("Invalid input parameters. #ServerId (int) #ClientIp (String) #ClientPort (int) or #NumberOfClients (int) #ServerId (int) #ClientIp (String) #ClientPort (int)");
             }
+        }
+        else
+        {
+            Log.getLogger().warn("Invalid input parameters. #ServerId (int) #ClientIp (String) #ClientPort (int) or #NumberOfClients (int) #ServerId (int) #ClientIp (String) #ClientPort (int)");
         }
     }
 }

@@ -1,15 +1,16 @@
 package com.constantine.communication;
 
 import com.constantine.communication.messages.*;
-import com.constantine.communication.operations.BroadcastOperation;
-import com.constantine.communication.operations.ConnectOperation;
-import com.constantine.communication.operations.DisconnectOperation;
-import com.constantine.communication.operations.UnicastOperation;
+import com.constantine.communication.serveroperations.BroadcastOperation;
+import com.constantine.communication.serveroperations.ConnectOperation;
+import com.constantine.communication.serveroperations.DisconnectOperation;
+import com.constantine.communication.serveroperations.UnicastOperation;
 import com.constantine.proto.MessageProto;
 import com.constantine.server.Server;
 import com.constantine.server.ServerData;
 import com.constantine.utils.KeyUtilities;
 import com.constantine.utils.Log;
+import com.google.protobuf.GeneratedMessageV3;
 import io.netty.channel.ChannelHandlerContext;
 import sun.security.rsa.RSAPublicKeyImpl;
 
@@ -56,14 +57,15 @@ public final class MessageHandlerRegistry
      * @param message the incoming message.
      * @param ctx the message context.
      * @param server the receiving server.
+     * @param sender the actual sender.
      */
-    public static void wrap(final MessageProto.Message message, final ChannelHandlerContext ctx, final Server server)
+    public static void wrap(final MessageProto.Message message, final ChannelHandlerContext ctx, final Server server, final int sender)
     {
         for (final IMessageHandler handler : handlers)
         {
             if (handler.canHandle(message))
             {
-                handler.wrap(message, ctx, server);
+                handler.wrap(message, ctx, server, sender);
                 return;
             }
         }
@@ -88,15 +90,31 @@ public final class MessageHandlerRegistry
     }
 
     /**
+     * Method to get the inner message of an incoming message.
+     * Loops through all existing message handlers.
+     * @param message the incoming message.
+     */
+    public static byte[] getMsg(final MessageProto.Message message)
+    {
+        for (final IMessageHandler handler : handlers)
+        {
+            if (handler.canHandle(message))
+            {
+                return handler.getMessage(message).toByteArray();
+            }
+        }
+        return new byte[0];
+    }
+
+    /**
      * Handler for text messages.
      */
     private static class TextMessageHandler implements IMessageHandler
     {
         @Override
-        public void wrap(final MessageProto.Message message, final ChannelHandlerContext ctx, final Server server)
+        public void wrap(final MessageProto.Message message, final ChannelHandlerContext ctx, final Server server, final int sender)
         {
             Log.getLogger().warn("ServerReceiver: " + server.getServerData().getId() + " received Text: " + message.getTextMsg().getText());
-            ctx.write(new TextMessageWrapper(server, message.getTextMsg().getText() + " return!"));
         }
 
         @Override
@@ -112,6 +130,12 @@ public final class MessageHandlerRegistry
         {
             return message.hasTextMsg();
         }
+
+        @Override
+        public GeneratedMessageV3 getMessage(final MessageProto.Message message)
+        {
+            return message.getTextMsg();
+        }
     }
 
     /**
@@ -120,10 +144,10 @@ public final class MessageHandlerRegistry
     private static class IntMessageHandler implements IMessageHandler
     {
         @Override
-        public void wrap(final MessageProto.Message message, final ChannelHandlerContext ctx, final Server server)
+        public void wrap(final MessageProto.Message message, final ChannelHandlerContext ctx, final Server server, final int sender)
         {
             Log.getLogger().warn("ServerReceiver: " + server.getServerData().getId() + " received Int: " + message.getIntMsg().getI());
-            ctx.write(new IntMessageWrapper(server, message.getIntMsg().getI() + 1));
+            ctx.write(new IntMessageWrapper(sender, message));
         }
 
         @Override
@@ -139,6 +163,12 @@ public final class MessageHandlerRegistry
         {
             return message.hasIntMsg();
         }
+
+        @Override
+        public GeneratedMessageV3 getMessage(final MessageProto.Message message)
+        {
+            return message.getIntMsg();
+        }
     }
 
     /**
@@ -147,16 +177,16 @@ public final class MessageHandlerRegistry
     private static class RegisterRequestMessage implements IMessageHandler
     {
         @Override
-        public void wrap(final MessageProto.Message message, final ChannelHandlerContext ctx, final Server server)
+        public void wrap(final MessageProto.Message message, final ChannelHandlerContext ctx, final Server server, final int sender)
         {
             Log.getLogger().warn("ServerReceiver received join request: " + server.getServerData().getId() + " ");
-            server.inputQueue.add(new JoinRequestMessageWrapper(server, message.getReqRegMsg()));
+            server.inputQueue.add(new JoinRequestMessageWrapper(sender, message));
         }
 
         @Override
         public void handle(final IMessageWrapper message, final Server server)
         {
-            if (server.view.getCoordinator() == server.getId())
+            if (server.view.getCoordinator() == server.getServerData().getId())
             {
                 server.outputQueue.add(new BroadcastOperation(new RegisterMessageWrapper(server, (JoinRequestMessageWrapper) message)));
             }
@@ -171,6 +201,12 @@ public final class MessageHandlerRegistry
         {
             return message.hasReqRegMsg();
         }
+
+        @Override
+        public GeneratedMessageV3 getMessage(final MessageProto.Message message)
+        {
+            return message.getReqRegMsg();
+        }
     }
 
     /**
@@ -179,9 +215,9 @@ public final class MessageHandlerRegistry
     private static class RegisterMessage implements IMessageHandler
     {
         @Override
-        public void wrap(final MessageProto.Message message, final ChannelHandlerContext ctx, final Server server)
+        public void wrap(final MessageProto.Message message, final ChannelHandlerContext ctx, final Server server, final int sender)
         {
-            server.inputQueue.add(new RegisterMessageWrapper(server, message.getRegMsg()));
+            server.inputQueue.add(new RegisterMessageWrapper(sender, message));
         }
 
         @Override
@@ -203,6 +239,12 @@ public final class MessageHandlerRegistry
         {
             return message.hasRegMsg();
         }
+
+        @Override
+        public GeneratedMessageV3 getMessage(final MessageProto.Message message)
+        {
+            return message.getRegMsg();
+        }
     }
 
     /**
@@ -211,9 +253,9 @@ public final class MessageHandlerRegistry
     private static class ClientMessage implements IMessageHandler
     {
         @Override
-        public void wrap(final MessageProto.Message message, final ChannelHandlerContext ctx, final Server server)
+        public void wrap(final MessageProto.Message message, final ChannelHandlerContext ctx, final Server server, final int sender)
         {
-            server.clientInputQueue.add(new ClientMessageWrapper(server, message));
+            server.clientInputQueue.add(new ClientMessageWrapper(sender, message));
         }
 
         @Override
@@ -226,7 +268,6 @@ public final class MessageHandlerRegistry
             else
             {
                 server.outputQueue.add(new UnicastOperation(message, server.view.getCoordinator()));
-                Log.getLogger().warn("Non coordinator trying to register other replica!");
             }
         }
 
@@ -234,6 +275,12 @@ public final class MessageHandlerRegistry
         public boolean canHandle(final MessageProto.Message message)
         {
             return message.hasClientMsg();
+        }
+
+        @Override
+        public GeneratedMessageV3 getMessage(final MessageProto.Message message)
+        {
+            return message.getClientMsg();
         }
     }
 
@@ -243,10 +290,10 @@ public final class MessageHandlerRegistry
     private static class PersistClientMessage implements IMessageHandler
     {
         @Override
-        public void wrap(final MessageProto.Message message, final ChannelHandlerContext ctx, final Server server)
+        public void wrap(final MessageProto.Message message, final ChannelHandlerContext ctx, final Server server, final int sender)
         {
             Log.getLogger().warn("ServerReceiver received leave request: " + server.getServerData().getId() + " ");
-            server.inputQueue.add(new PersistClientMessageWrapper(server, message.getPersClientMsg()));
+            server.inputQueue.add(new PersistClientMessageWrapper(sender, message));
         }
 
         @Override
@@ -273,7 +320,7 @@ public final class MessageHandlerRegistry
                 return;
             }
 
-            if (server.view.getCoordinator() == server.getId())
+            if (server.view.getCoordinator() == server.getServerData().getId())
             {
                 server.outputQueue.add(new BroadcastOperation(new UnregisterMessageWrapper(server, message.getMessage())));
             }
@@ -286,7 +333,13 @@ public final class MessageHandlerRegistry
         @Override
         public boolean canHandle(final MessageProto.Message message)
         {
-            return message.hasReqUnregMsg();
+            return message.hasPersClientMsg();
+        }
+
+        @Override
+        public GeneratedMessageV3 getMessage(final MessageProto.Message message)
+        {
+            return message.getPersClientMsg();
         }
     }
 
@@ -296,16 +349,16 @@ public final class MessageHandlerRegistry
     private static class UnregisterRequestMessage implements IMessageHandler
     {
         @Override
-        public void wrap(final MessageProto.Message message, final ChannelHandlerContext ctx, final Server server)
+        public void wrap(final MessageProto.Message message, final ChannelHandlerContext ctx, final Server server, final int sender)
         {
             Log.getLogger().warn("ServerReceiver received leave request: " + server.getServerData().getId() + " ");
-            server.inputQueue.add(new UnregisterRequestMessageWrapper(server, message.getReqUnregMsg()));
+            server.inputQueue.add(new UnregisterRequestMessageWrapper(sender, message));
         }
 
         @Override
         public void handle(final IMessageWrapper message, final Server server)
         {
-            if (server.view.getCoordinator() == server.getId())
+            if (server.view.getCoordinator() == server.getServerData().getId())
             {
                 server.outputQueue.add(new BroadcastOperation(new UnregisterMessageWrapper(server, message.getMessage())));
             }
@@ -320,6 +373,12 @@ public final class MessageHandlerRegistry
         {
             return message.hasReqUnregMsg();
         }
+
+        @Override
+        public GeneratedMessageV3 getMessage(final MessageProto.Message message)
+        {
+            return message.getReqUnregMsg();
+        }
     }
 
     /**
@@ -328,10 +387,10 @@ public final class MessageHandlerRegistry
     private static class UnregisterMessage implements IMessageHandler
     {
         @Override
-        public void wrap(final MessageProto.Message message, final ChannelHandlerContext ctx, final Server server)
+        public void wrap(final MessageProto.Message message, final ChannelHandlerContext ctx, final Server server, final int sender)
         {
             Log.getLogger().warn("ServerReceiver received leave request: " + server.getServerData().getId() + " ");
-            server.inputQueue.add(new UnregisterMessageWrapper(server, message));
+            server.inputQueue.add(new UnregisterMessageWrapper(sender, message));
         }
 
         @Override
@@ -362,6 +421,12 @@ public final class MessageHandlerRegistry
         public boolean canHandle(final MessageProto.Message message)
         {
             return message.hasUnregMsg();
+        }
+
+        @Override
+        public GeneratedMessageV3 getMessage(final MessageProto.Message message)
+        {
+            return message.getUnregMsg();
         }
     }
 }

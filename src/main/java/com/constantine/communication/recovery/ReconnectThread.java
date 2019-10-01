@@ -1,6 +1,6 @@
 package com.constantine.communication.recovery;
 
-import com.constantine.communication.ServerNettySenderHandler;
+import com.constantine.server.server.ServerNettySenderHandler;
 import com.constantine.server.ServerData;
 import com.constantine.utils.Log;
 import io.netty.bootstrap.Bootstrap;

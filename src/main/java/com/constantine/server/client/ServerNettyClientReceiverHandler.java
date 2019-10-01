@@ -1,5 +1,6 @@
-package com.constantine.communication;
+package com.constantine.server.client;
 
+import com.constantine.communication.MessageHandlerRegistry;
 import com.constantine.nettyhandlers.SizedMessage;
 import com.constantine.proto.MessageProto;
 import com.constantine.server.Server;
@@ -47,7 +48,7 @@ public class ServerNettyClientReceiverHandler extends SimpleChannelInboundHandle
                 }
             }
 
-            MessageHandlerRegistry.wrap(message, ctx, server);
+            MessageHandlerRegistry.wrap(message, ctx, server, msg.id);
         }
         catch (final InvalidProtocolBufferException e)
         {

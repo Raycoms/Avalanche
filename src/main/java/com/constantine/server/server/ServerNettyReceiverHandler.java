@@ -1,5 +1,6 @@
-package com.constantine.communication;
+package com.constantine.server.server;
 
+import com.constantine.communication.MessageHandlerRegistry;
 import com.constantine.proto.MessageProto;
 import com.constantine.nettyhandlers.SizedMessage;
 import com.constantine.server.Server;
@@ -35,9 +36,9 @@ public class ServerNettyReceiverHandler extends SimpleChannelInboundHandler<Size
         {
             //Read input
             final MessageProto.Message message = MessageProto.Message.parseFrom(msg.buffer);
-            if (message.hasSig())
+            if (message.hasSig() && server.view.getServer(msg.id) != null)
             {
-                if (!KeyUtilities.verifyKey(msg.buffer, message.getSig().toByteArray(), server.view.getServer(msg.id).getPublicKey()))
+                if (!KeyUtilities.verifyKey(MessageHandlerRegistry.getMsg(message), message.getSig().toByteArray(), server.view.getServer(msg.id).getPublicKey()))
                 {
                     Log.getLogger().error("----------------------------------------------------------");
                     Log.getLogger().error("Received invalid signature supposedly from replica: " + msg.id);
@@ -47,7 +48,7 @@ public class ServerNettyReceiverHandler extends SimpleChannelInboundHandler<Size
                 }
             }
 
-            MessageHandlerRegistry.wrap(message, ctx, server);
+            MessageHandlerRegistry.wrap(message, ctx, server, msg.id);
         }
         catch (final InvalidProtocolBufferException e)
         {

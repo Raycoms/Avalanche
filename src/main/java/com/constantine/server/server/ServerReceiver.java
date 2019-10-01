@@ -1,23 +1,24 @@
-package com.constantine.communication;
+package com.constantine.server.server;
 
 import com.constantine.nettyhandlers.SizedMessageDecoder;
 import com.constantine.nettyhandlers.SizedMessageEncoder;
 import com.constantine.server.Server;
-import com.constantine.server.ServerData;
 import com.constantine.utils.Log;
 import io.netty.bootstrap.ServerBootstrap;
+
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import com.constantine.server.ServerData;
 
 import java.net.InetSocketAddress;
 
 /**
  * Netty class to start a receiving server.
  */
-public class ServerClientReceiver extends Thread
+public class ServerReceiver extends Thread
 {
     /**
      * The server instance this server receiver is connected to.
@@ -28,7 +29,7 @@ public class ServerClientReceiver extends Thread
      * Constructor of the receiver.
      * @param server the server details.
      */
-    public ServerClientReceiver(final Server server)
+    public ServerReceiver(final Server server)
     {
         this.server = server;
     }
@@ -47,7 +48,7 @@ public class ServerClientReceiver extends Thread
             final ServerBootstrap serverBootstrap = new ServerBootstrap();
             serverBootstrap.group(acceptGroup, connectGroup);
             serverBootstrap.channel(NioServerSocketChannel.class);
-            serverBootstrap.localAddress(new InetSocketAddress(serverData.getIp(), serverData.getCport()));
+            serverBootstrap.localAddress(new InetSocketAddress(serverData.getIp(), serverData.getPort()));
 
             serverBootstrap.childHandler(new ChannelInitializer<SocketChannel>()
             {
@@ -56,11 +57,11 @@ public class ServerClientReceiver extends Thread
                     socketChannel.pipeline().addLast(
                       new SizedMessageEncoder(),
                       new SizedMessageDecoder(),
-                      new ServerNettyClientReceiverHandler(server));
+                      new ServerNettyReceiverHandler(server));
                 }
             });
-            Log.getLogger().warn("Start accepting connections at Server: " + server.getId());
-            final ChannelFuture f = serverBootstrap.bind(serverData.getCport()).sync(); // (7)
+            Log.getLogger().warn("Start accepting connections at Server: " + server.getServerData().getId());
+            final ChannelFuture f = serverBootstrap.bind(serverData.getPort()).sync(); // (7)
 
             // Wait until the server socket is closed.
             // In this example, this does not happen, but you can do that to gracefully

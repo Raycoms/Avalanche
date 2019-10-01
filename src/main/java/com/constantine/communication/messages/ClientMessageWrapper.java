@@ -18,6 +18,16 @@ public class ClientMessageWrapper extends AbstractMessageWrapper
         super(sender.getServerData().getId(), message);
     }
 
+    /**
+     * Create an instance of the register message wrapper.
+     * @param sender the sender.
+     * @param message the join request resulting in the register.
+     */
+    public ClientMessageWrapper(final int sender, final MessageProto.Message message)
+    {
+        super(sender, message);
+    }
+
     @Override
     public byte[] buildMessage()
     {

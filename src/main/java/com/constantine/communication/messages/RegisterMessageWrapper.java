@@ -29,6 +29,16 @@ public class RegisterMessageWrapper extends AbstractMessageWrapper
         this(sender, MessageProto.RegisterMessage.newBuilder().setId(message.getServerData().getId()).setIp(message.getServerData().getIp()).setPort(message.getServerData().getPort()).build());
     }
 
+    /**
+     * Create an instance of the register message wrapper.
+     * @param message the message to extract it from.
+     * @param sender the sender.
+     */
+    public RegisterMessageWrapper(final int sender, final MessageProto.Message message)
+    {
+        super(sender, message);
+    }
+
     @Override
     public byte[] buildMessage()
     {

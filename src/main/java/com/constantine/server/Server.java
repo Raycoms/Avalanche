@@ -1,14 +1,16 @@
 package com.constantine.server;
 
 import com.constantine.communication.MessageHandlerRegistry;
-import com.constantine.communication.ServerClientReceiver;
-import com.constantine.communication.ServerReceiver;
-import com.constantine.communication.ServerSender;
+import com.constantine.communication.clientoperations.IClientOperation;
+import com.constantine.server.client.ClientMessageHandler;
+import com.constantine.server.client.ServerClientReceiver;
+import com.constantine.server.client.ServerClientSender;
+import com.constantine.server.server.ServerMessageHandler;
+import com.constantine.server.server.ServerReceiver;
+import com.constantine.server.server.ServerSender;
 import com.constantine.communication.messages.*;
-import com.constantine.communication.operations.BroadcastOperation;
-import com.constantine.communication.operations.ConnectOperation;
-import com.constantine.communication.operations.IOperation;
-import com.constantine.communication.operations.UnicastOperation;
+import com.constantine.communication.serveroperations.IOperation;
+import com.constantine.communication.serveroperations.UnicastOperation;
 import com.constantine.utils.KeyUtilities;
 import com.constantine.utils.Log;
 import com.constantine.views.GlobalView;
@@ -17,8 +19,9 @@ import com.constantine.views.utils.ViewLoader;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.util.HashMap;
-import java.util.HashSet;
+import java.util.Scanner;
 import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import static com.constantine.utils.Constants.CONFIG_LOCATION;
 
@@ -43,11 +46,6 @@ public class Server extends Thread implements IServer
     public final ConcurrentLinkedQueue<IMessageWrapper> inputQueue = new ConcurrentLinkedQueue<>();
 
     /**
-     * Cache which holds the messages to send in the future (Produced by Server).
-     */
-    public final ConcurrentLinkedQueue<IOperation> outputQueue = new ConcurrentLinkedQueue<>();
-
-    /**
      * Cache which holds the receives messages (Consumed by Server)
      */
     public final ConcurrentLinkedQueue<IMessageWrapper> clientInputQueue = new ConcurrentLinkedQueue<>();
@@ -55,7 +53,12 @@ public class Server extends Thread implements IServer
     /**
      * Cache which holds the messages to send in the future (Produced by Server).
      */
-    public final ConcurrentLinkedQueue<IOperation> clientOutputQueue = new ConcurrentLinkedQueue<>();
+    public final ConcurrentLinkedQueue<IOperation> outputQueue = new ConcurrentLinkedQueue<>();
+
+    /**
+     * Cache which holds the messages to send in the future (Produced by Server).
+     */
+    public final ConcurrentLinkedQueue<IClientOperation> clientOutputQueue = new ConcurrentLinkedQueue<>();
 
     /**
      * The global view this server uses.
@@ -67,7 +70,10 @@ public class Server extends Thread implements IServer
      */
     public final HashMap<PublicKey, Integer> state = new HashMap<>();
 
-    //todo need a sender to the client, and a receiver on the client)
+    /**
+     * Var setting the server to be active.
+     */
+    public AtomicBoolean isActive = new AtomicBoolean(true);
 
     /**
      * Create a server object.
@@ -80,7 +86,11 @@ public class Server extends Thread implements IServer
         this.server = new ServerData(id, ip, port);
         KeyUtilities.generateOrLoadKey(server, CONFIG_LOCATION);
         this.privateKey = KeyUtilities.loadPrivateKeyFromFile(CONFIG_LOCATION, this.server);
-        this.view = ViewLoader.loadView(CONFIG_LOCATION + "view.json");
+        this.view = ViewLoader.loadView(CONFIG_LOCATION,  "view.json");
+        for (final ServerData data: view.getServers())
+        {
+            data.loadPublicKey(CONFIG_LOCATION);
+        }
     }
 
     @Override
@@ -104,54 +114,29 @@ public class Server extends Thread implements IServer
         final ServerSender sender = new ServerSender(view, this);
         sender.start();
 
+        final ServerClientSender clientSender = new ServerClientSender(this);
+        clientSender.start();
+
         if (!isInView)
         {
             outputQueue.add(new UnicastOperation(new JoinRequestMessageWrapper(this, server), view.getCoordinator()));
         }
 
-        //todo remove in future, this is only test code
-        if (true)
-        {
-            int nextId = server.getId() + 1;
-            if (nextId >= 4)
-            {
-                nextId = 0;
-            }
-            outputQueue.add(new UnicastOperation(new TextMessageWrapper(this, "go"), nextId));
-        }
+        final ServerMessageHandler serverMessageHandler = new ServerMessageHandler(this);
+        serverMessageHandler.start();
 
-        int counter = 0;
+        final ClientMessageHandler clientMessageHandler = new ClientMessageHandler(this);
+        clientMessageHandler.start();
+
+        final Scanner scanner = new Scanner(System.in);
+
         while (true)
         {
-
-            //todo also remove in future
-            if (++counter%40==0)
+            if (scanner.hasNextLine())
             {
-                outputQueue.add(new BroadcastOperation(new TextMessageWrapper(this, "Heartbeat")));
+                isActive.set(false);
+                return;
             }
-
-            if (counter%4000==0)
-            {
-                if (isInView && server.getId() == 4)
-                {
-                    outputQueue.add(new UnicastOperation(new UnregisterRequestMessageWrapper(this, server), view.getCoordinator()));
-                }
-            }
-
-            if (inputQueue.isEmpty())
-            {
-                try
-                {
-                    //todo config value on this too
-                    Thread.sleep(100);
-                }
-                catch (InterruptedException e)
-                {
-                    e.printStackTrace();
-                }
-                continue;
-            }
-            handleMessage(inputQueue.poll());
         }
     }
 
@@ -180,9 +165,27 @@ public class Server extends Thread implements IServer
     }
 
     @Override
+    public boolean hasMessageInClientOutputQueue()
+    {
+        return !clientOutputQueue.isEmpty();
+    }
+
+    @Override
     public IOperation consumeMessageFromOutputQueue()
     {
         return outputQueue.poll();
+    }
+
+    @Override
+    public IClientOperation consumeMessageFromClientOutputQueue()
+    {
+        return clientOutputQueue.poll();
+    }
+
+    @Override
+    public boolean isActive()
+    {
+        return isActive.get();
     }
 
     /**

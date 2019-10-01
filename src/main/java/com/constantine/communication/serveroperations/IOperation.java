@@ -1,4 +1,4 @@
-package com.constantine.communication.operations;
+package com.constantine.communication.serveroperations;
 
 import com.constantine.communication.ISender;
 

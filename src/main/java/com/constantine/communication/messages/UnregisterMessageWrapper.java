@@ -41,6 +41,16 @@ public class UnregisterMessageWrapper extends AbstractMessageWrapper
         this(sender, MessageProto.UnregisterMessage.newBuilder().setId(message.getReqUnregMsg().getId()).setIp(message.getReqUnregMsg().getIp()).setPort(message.getReqUnregMsg().getPort()).setSignature(message.getSig()).build());
     }
 
+    /**
+     * Create an instance of the unregister message wrapper.
+     * @param message the message to extract it from.
+     * @param sender the sender.
+     */
+    public UnregisterMessageWrapper(final int sender, final MessageProto.Message message)
+    {
+        super(sender, message);
+    }
+
     @Override
     public byte[] buildMessage()
     {

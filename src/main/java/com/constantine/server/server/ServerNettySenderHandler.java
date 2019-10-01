@@ -1,4 +1,4 @@
-package com.constantine.communication;
+package com.constantine.server.server;
 
 import com.constantine.communication.messages.IMessageWrapper;
 import com.constantine.communication.messages.IntMessageWrapper;
@@ -82,26 +82,9 @@ public class ServerNettySenderHandler extends SimpleChannelInboundHandler<SizedM
     @Override
     protected void channelRead0(final ChannelHandlerContext ctx, final SizedMessage msg) throws Exception
     {
-        try
-        {
-            //Read input
-            //todo this is only for testing!
-            final MessageProto.Message message = MessageProto.Message.parseFrom(msg.buffer);
-            if (message.hasTextMsg())
-            {
-                Log.getLogger().warn("ServerSender: " + server.getServerData().getId() + " received Text: " + message.getTextMsg().getText());
-                ctx.write(new TextMessageWrapper(server, message.getTextMsg().getText() + " return!"));
-            }
-            else if (message.hasIntMsg())
-            {
-                Log.getLogger().warn("ServerSender: " + server.getServerData().getId() + " received Int: " + message.getIntMsg().getI());
-                ctx.write(new IntMessageWrapper(server, message.getIntMsg().getI() + 1));
-            }
-        }
-        catch (final InvalidProtocolBufferException e)
-        {
-            e.printStackTrace();
-        }
+        /*
+         * Intentionally left empty.
+         */
     }
 
     @Override

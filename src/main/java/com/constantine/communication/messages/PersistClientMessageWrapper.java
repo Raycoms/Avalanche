@@ -29,6 +29,16 @@ public class PersistClientMessageWrapper extends AbstractMessageWrapper
         this(sender, MessageProto.PersistClientMessage.newBuilder().setMsg(message).setSig(sig).build());
     }
 
+    /**
+     * Create an instance of the register message wrapper.
+     * @param sender the sender.
+     * @param message the join request resulting in the register.
+     */
+    public PersistClientMessageWrapper(final int sender, final MessageProto.Message message)
+    {
+        super(sender, message);
+    }
+
     @Override
     public byte[] buildMessage()
     {

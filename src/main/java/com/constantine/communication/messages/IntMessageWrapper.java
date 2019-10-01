@@ -29,6 +29,16 @@ public class IntMessageWrapper extends AbstractMessageWrapper
         this(sender, MessageProto.IntMessage.newBuilder().setI(message).build());
     }
 
+    /**
+     * Copy an int message into the wrapper.
+     * @param sender the sender.
+     * @param message the message.
+     */
+    public IntMessageWrapper(final int sender, final MessageProto.Message message)
+    {
+        super(sender, message);
+    }
+
     @Override
     public byte[] buildMessage()
     {

@@ -13,8 +13,9 @@ message Message {
         UnregisterMessage unregMsg = 6;
         ClientMessage clientMsg = 7;
         PersistClientMessage persClientMsg = 8;
+        ClientResponse response = 9;
     }
-    required bytes sig = 9;
+    required bytes sig = 10;
 }
 
 message TextMessage {
@@ -64,4 +65,9 @@ message ClientMessage {
 message PersistClientMessage {
     required ClientMessage msg = 1;
     required bytes sig = 2;
+}
+
+// Message sent to the client as response.
+message ClientResponse {
+    required bool response = 1;
 }

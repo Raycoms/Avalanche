@@ -1,7 +1,8 @@
 package com.constantine.server;
 
+import com.constantine.communication.clientoperations.IClientOperation;
 import com.constantine.communication.messages.IMessageWrapper;
-import com.constantine.communication.operations.IOperation;
+import com.constantine.communication.serveroperations.IOperation;
 
 /**
  * Server interface.
@@ -39,4 +40,22 @@ public interface IServer
      * @return the message.
      */
     public IOperation consumeMessageFromOutputQueue();
+
+    /**
+     * Consume a messgage from the output queue.
+     * @return the message.
+     */
+    public IClientOperation consumeMessageFromClientOutputQueue();
+
+    /**
+     * Check if the server is still active or shut down already.
+     * @return true as long as active.
+     */
+    boolean isActive();
+
+    /**
+     * Check if there is a message in the client ouput queue.
+     * @return true if so.
+     */
+    boolean hasMessageInClientOutputQueue();
 }

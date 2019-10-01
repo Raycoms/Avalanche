@@ -20,11 +20,12 @@ public final class ViewLoader
      * Load the View from file.
      *
      * @param configLocation the location the file is at.
+     * @param subfix the file name.
      * @return the filled view class.
      */
-    public static GlobalView loadView(final String configLocation)
+    public static GlobalView loadView(final String configLocation, final String subfix)
     {
-        return MAPPER.readValue(new File(configLocation), GlobalView.class);
+        return MAPPER.readValue(new File(configLocation + subfix), GlobalView.class).setConfigLocation(configLocation);
     }
 
     /**

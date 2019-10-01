@@ -1,9 +1,10 @@
-package com.constantine.communication;
+package com.constantine.server.server;
 
+import com.constantine.communication.ISender;
 import com.constantine.nettyhandlers.SizedMessageDecoder;
 import com.constantine.nettyhandlers.SizedMessageEncoder;
 import com.constantine.communication.messages.IMessageWrapper;
-import com.constantine.communication.operations.IOperation;
+import com.constantine.communication.serveroperations.IOperation;
 import com.constantine.communication.recovery.ReconnectThread;
 import com.constantine.server.IServer;
 import com.constantine.server.Server;
@@ -70,7 +71,7 @@ public class ServerSender extends Thread implements ISender
     {
         startUp();
 
-        while (true)
+        while (server.isActive())
         {
             if (!server.hasMessageInOutputQueue())
             {
@@ -85,6 +86,11 @@ public class ServerSender extends Thread implements ISender
                 continue;
             }
             handleMessage(server.consumeMessageFromOutputQueue());
+        }
+
+        for (final ServerNettySenderHandler handler : clients.values())
+        {
+            handler.disconnect();
         }
     }
 

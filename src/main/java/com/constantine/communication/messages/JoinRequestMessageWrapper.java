@@ -30,6 +30,16 @@ public class JoinRequestMessageWrapper extends AbstractMessageWrapper
         this(sender, MessageProto.RequestRegisterMessage.newBuilder().setId(message.getId()).setIp(message.getIp()).setPort(message.getPort()).build());
     }
 
+    /**
+     * Create an instance of the join request message wrapper.
+     * @param message the int to send.
+     * @param sender the sender.
+     */
+    public JoinRequestMessageWrapper(final int sender, final MessageProto.Message message)
+    {
+        super(sender, message);
+    }
+
     @Override
     public byte[] buildMessage()
     {
