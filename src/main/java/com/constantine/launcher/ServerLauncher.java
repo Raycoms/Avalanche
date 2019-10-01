@@ -46,6 +46,10 @@ public class ServerLauncher
         }
     }
 
+    //todo issus:
+    //todo bug: Regularly invalid signature from a replica, what messages are those, why are they wrong?
+    //todo bug: Replicas are not printing reconnect (is my new replica registering regularly or is it making a new connection)
+
     /**
      * Simulate different behaviours of the group.
      *
@@ -74,10 +78,9 @@ public class ServerLauncher
         Log.getLogger().error("Force shutdown on replica");
         Log.getLogger().error("----------------------------------------------------------");
 
-
         server1.isActive.set(false);
 
-        Thread.sleep(10000);
+        Thread.sleep(30000);
 
         Log.getLogger().error("----------------------------------------------------------");
         Log.getLogger().error("Startup and register replica again");

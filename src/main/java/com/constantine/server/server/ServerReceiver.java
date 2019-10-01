@@ -26,6 +26,11 @@ public class ServerReceiver extends Thread
     private Server server;
 
     /**
+     * The channel future after connection.
+     */
+    private ChannelFuture f;
+
+    /**
      * Constructor of the receiver.
      * @param server the server details.
      */
@@ -37,6 +42,7 @@ public class ServerReceiver extends Thread
     /**
      * Method to startup the receiver.
      */
+    @Override
     public void run()
     {
         final NioEventLoopGroup acceptGroup = new NioEventLoopGroup();
@@ -61,7 +67,7 @@ public class ServerReceiver extends Thread
                 }
             });
             Log.getLogger().warn("Start accepting connections at Server: " + server.getServerData().getId());
-            final ChannelFuture f = serverBootstrap.bind(serverData.getPort()).sync(); // (7)
+            f = serverBootstrap.bind(serverData.getPort()).sync(); // (7)
 
             // Wait until the server socket is closed.
             // In this example, this does not happen, but you can do that to gracefully
@@ -77,5 +83,13 @@ public class ServerReceiver extends Thread
             acceptGroup.shutdownGracefully();
             connectGroup.shutdownGracefully();
         }
+    }
+
+    /**
+     * Disconnect the receiver too.
+     */
+    public void disconnect()
+    {
+        f.channel().disconnect();
     }
 }

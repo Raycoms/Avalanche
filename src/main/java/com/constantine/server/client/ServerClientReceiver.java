@@ -25,6 +25,11 @@ public class ServerClientReceiver extends Thread
     private Server server;
 
     /**
+     * The channel future after connection.
+     */
+    private ChannelFuture f;
+
+    /**
      * Constructor of the receiver.
      * @param server the server details.
      */
@@ -58,7 +63,7 @@ public class ServerClientReceiver extends Thread
                 }
             });
             Log.getLogger().warn("Start accepting connections from Clients at Server: " + server.getServerData().getId());
-            final ChannelFuture f = serverBootstrap.bind(serverData.getCport()).sync(); // (7)
+            f = serverBootstrap.bind(serverData.getCport()).sync(); // (7)
 
             // Wait until the server socket is closed.
             // In this example, this does not happen, but you can do that to gracefully
@@ -74,5 +79,13 @@ public class ServerClientReceiver extends Thread
             acceptGroup.shutdownGracefully();
             connectGroup.shutdownGracefully();
         }
+    }
+
+    /**
+     * Disconnect the receiver too.
+     */
+    public void disconnect()
+    {
+        f.channel().disconnect();
     }
 }

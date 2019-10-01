@@ -130,14 +130,23 @@ public class Server extends Thread implements IServer
 
         final Scanner scanner = new Scanner(System.in);
 
-        while (true)
+        while (isActive.get())
         {
-            if (scanner.hasNextLine())
+            try
             {
-                isActive.set(false);
-                return;
+                Thread.sleep(100);
+            }
+            catch (InterruptedException e)
+            {
+                /*
+                 * Nothing to do here.
+                 */
             }
         }
+
+        Log.getLogger().warn("Detected inactive!");
+        receiver.disconnect();
+        clientReceiver.disconnect();
     }
 
     @Override

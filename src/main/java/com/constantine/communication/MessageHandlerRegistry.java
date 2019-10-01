@@ -399,7 +399,7 @@ public final class MessageHandlerRegistry
             if (((UnregisterMessageWrapper) message).sender == server.view.getCoordinator())
             {
                 final ServerData data = ((UnregisterMessageWrapper) message).getServerData();
-                final byte[] msg = MessageProto.UnregisterMessage.newBuilder().setId(data.getId()).setIp(data.getIp()).setPort(data.getPort()).build().toByteArray();
+                final byte[] msg = MessageProto.RequestUnregisterMessage.newBuilder().setId(data.getId()).setIp(data.getIp()).setPort(data.getPort()).build().toByteArray();
 
                 if (KeyUtilities.verifyKey(msg, ((UnregisterMessageWrapper) message).getSig(), server.view.getServer(data.getId()).getPublicKey()))
                 {
