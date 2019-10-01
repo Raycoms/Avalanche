@@ -6,25 +6,25 @@
       "id": 0,
       "ip": "localhost",
       "port": 8080,
-      "cport": 6060
+      "cport": 7060
     },
     "1": {
       "id": 1,
       "ip": "localhost",
-      "port": 8081,
-      "cport": 6061
+      "port": 8082,
+      "cport": 7062
     },
     "2": {
       "id": 2,
       "ip": "localhost",
-      "port": 8082,
-      "cport": 6062
+      "port": 8084,
+      "cport": 7064
     },
     "3": {
       "id": 3,
       "ip": "localhost",
-      "port": 8083,
-      "cport": 6063
+      "port": 8086,
+      "cport": 7066
     }
   }
 }

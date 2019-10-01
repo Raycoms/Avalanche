@@ -1,19 +1,12 @@
 package util;
 
-import com.constantine.server.ServerData;
-import com.constantine.utils.KeyUtilities;
-import com.constantine.views.GlobalView;
-import com.constantine.views.utils.ViewLoader;
+import com.constantine.comm.server.ServerData;
+import com.constantine.comm.views.GlobalView;
+import com.constantine.comm.views.utils.ViewLoader;
 import org.junit.Test;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.security.PrivateKey;
-import java.security.PublicKey;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
 
 import static org.junit.Assert.*;
 

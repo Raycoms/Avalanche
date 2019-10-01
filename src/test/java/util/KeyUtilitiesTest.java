@@ -1,7 +1,7 @@
 package util;
 
-import com.constantine.server.ServerData;
-import com.constantine.utils.KeyUtilities;
+import com.constantine.comm.server.ServerData;
+import com.constantine.comm.utils.KeyUtilities;
 import org.junit.Test;
 
 import java.io.IOException;
