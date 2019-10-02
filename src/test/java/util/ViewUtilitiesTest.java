@@ -1,8 +1,8 @@
 package util;
 
-import com.constantine.comm.server.ServerData;
-import com.constantine.comm.views.GlobalView;
-import com.constantine.comm.views.utils.ViewLoader;
+import com.ray.mcu.server.ServerData;
+import com.ray.mcu.views.GlobalView;
+import com.ray.mcu.views.utils.ViewLoader;
 import org.junit.Test;
 
 import java.util.HashMap;

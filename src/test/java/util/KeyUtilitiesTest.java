@@ -1,7 +1,7 @@
 package util;
 
-import com.constantine.comm.server.ServerData;
-import com.constantine.comm.utils.KeyUtilities;
+import com.ray.mcu.server.ServerData;
+import com.ray.mcu.utils.KeyUtilities;
 import org.junit.Test;
 
 import java.io.IOException;
