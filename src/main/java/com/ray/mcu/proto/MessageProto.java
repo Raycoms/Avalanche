@@ -201,11 +201,37 @@ public final class MessageProto {
     com.ray.mcu.proto.MessageProto.RecoverCommitOrBuilder getRecoverCommitOrBuilder();
 
     /**
-     * <code>required bytes sig = 15;</code>
+     * <code>optional .proto.RequestRecoverPrePrepare requestRecoverPrePrepare = 15;</code>
+     */
+    boolean hasRequestRecoverPrePrepare();
+    /**
+     * <code>optional .proto.RequestRecoverPrePrepare requestRecoverPrePrepare = 15;</code>
+     */
+    com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepare getRequestRecoverPrePrepare();
+    /**
+     * <code>optional .proto.RequestRecoverPrePrepare requestRecoverPrePrepare = 15;</code>
+     */
+    com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepareOrBuilder getRequestRecoverPrePrepareOrBuilder();
+
+    /**
+     * <code>optional .proto.RequestRecoverCommit requestRecoverCommit = 16;</code>
+     */
+    boolean hasRequestRecoverCommit();
+    /**
+     * <code>optional .proto.RequestRecoverCommit requestRecoverCommit = 16;</code>
+     */
+    com.ray.mcu.proto.MessageProto.RequestRecoverCommit getRequestRecoverCommit();
+    /**
+     * <code>optional .proto.RequestRecoverCommit requestRecoverCommit = 16;</code>
+     */
+    com.ray.mcu.proto.MessageProto.RequestRecoverCommitOrBuilder getRequestRecoverCommitOrBuilder();
+
+    /**
+     * <code>required bytes sig = 17;</code>
      */
     boolean hasSig();
     /**
-     * <code>required bytes sig = 15;</code>
+     * <code>required bytes sig = 17;</code>
      */
     com.google.protobuf.ByteString getSig();
 
@@ -448,7 +474,35 @@ public final class MessageProto {
               break;
             }
             case 122: {
-              bitField0_ |= 0x00004000;
+              com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepare.Builder subBuilder = null;
+              if (messagesCase_ == 15) {
+                subBuilder = ((com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepare) messages_).toBuilder();
+              }
+              messages_ =
+                  input.readMessage(com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepare.PARSER, extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom((com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepare) messages_);
+                messages_ = subBuilder.buildPartial();
+              }
+              messagesCase_ = 15;
+              break;
+            }
+            case 130: {
+              com.ray.mcu.proto.MessageProto.RequestRecoverCommit.Builder subBuilder = null;
+              if (messagesCase_ == 16) {
+                subBuilder = ((com.ray.mcu.proto.MessageProto.RequestRecoverCommit) messages_).toBuilder();
+              }
+              messages_ =
+                  input.readMessage(com.ray.mcu.proto.MessageProto.RequestRecoverCommit.PARSER, extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom((com.ray.mcu.proto.MessageProto.RequestRecoverCommit) messages_);
+                messages_ = subBuilder.buildPartial();
+              }
+              messagesCase_ = 16;
+              break;
+            }
+            case 138: {
+              bitField0_ |= 0x00010000;
               sig_ = input.readBytes();
               break;
             }
@@ -503,6 +557,8 @@ public final class MessageProto {
       COMMIT(12),
       RECOVERPREPREPARE(13),
       RECOVERCOMMIT(14),
+      REQUESTRECOVERPREPREPARE(15),
+      REQUESTRECOVERCOMMIT(16),
       MESSAGES_NOT_SET(0);
       private final int value;
       private MessagesCase(int value) {
@@ -532,6 +588,8 @@ public final class MessageProto {
           case 12: return COMMIT;
           case 13: return RECOVERPREPREPARE;
           case 14: return RECOVERCOMMIT;
+          case 15: return REQUESTRECOVERPREPREPARE;
+          case 16: return REQUESTRECOVERCOMMIT;
           case 0: return MESSAGES_NOT_SET;
           default: return null;
         }
@@ -911,16 +969,68 @@ public final class MessageProto {
       return com.ray.mcu.proto.MessageProto.RecoverCommit.getDefaultInstance();
     }
 
-    public static final int SIG_FIELD_NUMBER = 15;
-    private com.google.protobuf.ByteString sig_;
+    public static final int REQUESTRECOVERPREPREPARE_FIELD_NUMBER = 15;
     /**
-     * <code>required bytes sig = 15;</code>
+     * <code>optional .proto.RequestRecoverPrePrepare requestRecoverPrePrepare = 15;</code>
      */
-    public boolean hasSig() {
-      return ((bitField0_ & 0x00004000) != 0);
+    public boolean hasRequestRecoverPrePrepare() {
+      return messagesCase_ == 15;
     }
     /**
-     * <code>required bytes sig = 15;</code>
+     * <code>optional .proto.RequestRecoverPrePrepare requestRecoverPrePrepare = 15;</code>
+     */
+    public com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepare getRequestRecoverPrePrepare() {
+      if (messagesCase_ == 15) {
+         return (com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepare) messages_;
+      }
+      return com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepare.getDefaultInstance();
+    }
+    /**
+     * <code>optional .proto.RequestRecoverPrePrepare requestRecoverPrePrepare = 15;</code>
+     */
+    public com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepareOrBuilder getRequestRecoverPrePrepareOrBuilder() {
+      if (messagesCase_ == 15) {
+         return (com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepare) messages_;
+      }
+      return com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepare.getDefaultInstance();
+    }
+
+    public static final int REQUESTRECOVERCOMMIT_FIELD_NUMBER = 16;
+    /**
+     * <code>optional .proto.RequestRecoverCommit requestRecoverCommit = 16;</code>
+     */
+    public boolean hasRequestRecoverCommit() {
+      return messagesCase_ == 16;
+    }
+    /**
+     * <code>optional .proto.RequestRecoverCommit requestRecoverCommit = 16;</code>
+     */
+    public com.ray.mcu.proto.MessageProto.RequestRecoverCommit getRequestRecoverCommit() {
+      if (messagesCase_ == 16) {
+         return (com.ray.mcu.proto.MessageProto.RequestRecoverCommit) messages_;
+      }
+      return com.ray.mcu.proto.MessageProto.RequestRecoverCommit.getDefaultInstance();
+    }
+    /**
+     * <code>optional .proto.RequestRecoverCommit requestRecoverCommit = 16;</code>
+     */
+    public com.ray.mcu.proto.MessageProto.RequestRecoverCommitOrBuilder getRequestRecoverCommitOrBuilder() {
+      if (messagesCase_ == 16) {
+         return (com.ray.mcu.proto.MessageProto.RequestRecoverCommit) messages_;
+      }
+      return com.ray.mcu.proto.MessageProto.RequestRecoverCommit.getDefaultInstance();
+    }
+
+    public static final int SIG_FIELD_NUMBER = 17;
+    private com.google.protobuf.ByteString sig_;
+    /**
+     * <code>required bytes sig = 17;</code>
+     */
+    public boolean hasSig() {
+      return ((bitField0_ & 0x00010000) != 0);
+    }
+    /**
+     * <code>required bytes sig = 17;</code>
      */
     public com.google.protobuf.ByteString getSig() {
       return sig_;
@@ -1021,6 +1131,18 @@ public final class MessageProto {
           return false;
         }
       }
+      if (hasRequestRecoverPrePrepare()) {
+        if (!getRequestRecoverPrePrepare().isInitialized()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+      }
+      if (hasRequestRecoverCommit()) {
+        if (!getRequestRecoverCommit().isInitialized()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -1070,8 +1192,14 @@ public final class MessageProto {
       if (messagesCase_ == 14) {
         output.writeMessage(14, (com.ray.mcu.proto.MessageProto.RecoverCommit) messages_);
       }
-      if (((bitField0_ & 0x00004000) != 0)) {
-        output.writeBytes(15, sig_);
+      if (messagesCase_ == 15) {
+        output.writeMessage(15, (com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepare) messages_);
+      }
+      if (messagesCase_ == 16) {
+        output.writeMessage(16, (com.ray.mcu.proto.MessageProto.RequestRecoverCommit) messages_);
+      }
+      if (((bitField0_ & 0x00010000) != 0)) {
+        output.writeBytes(17, sig_);
       }
       unknownFields.writeTo(output);
     }
@@ -1138,9 +1266,17 @@ public final class MessageProto {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(14, (com.ray.mcu.proto.MessageProto.RecoverCommit) messages_);
       }
-      if (((bitField0_ & 0x00004000) != 0)) {
+      if (messagesCase_ == 15) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(15, sig_);
+          .computeMessageSize(15, (com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepare) messages_);
+      }
+      if (messagesCase_ == 16) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(16, (com.ray.mcu.proto.MessageProto.RequestRecoverCommit) messages_);
+      }
+      if (((bitField0_ & 0x00010000) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(17, sig_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -1220,6 +1356,14 @@ public final class MessageProto {
           if (!getRecoverCommit()
               .equals(other.getRecoverCommit())) return false;
           break;
+        case 15:
+          if (!getRequestRecoverPrePrepare()
+              .equals(other.getRequestRecoverPrePrepare())) return false;
+          break;
+        case 16:
+          if (!getRequestRecoverCommit()
+              .equals(other.getRequestRecoverCommit())) return false;
+          break;
         case 0:
         default:
       }
@@ -1294,6 +1438,14 @@ public final class MessageProto {
         case 14:
           hash = (37 * hash) + RECOVERCOMMIT_FIELD_NUMBER;
           hash = (53 * hash) + getRecoverCommit().hashCode();
+          break;
+        case 15:
+          hash = (37 * hash) + REQUESTRECOVERPREPREPARE_FIELD_NUMBER;
+          hash = (53 * hash) + getRequestRecoverPrePrepare().hashCode();
+          break;
+        case 16:
+          hash = (37 * hash) + REQUESTRECOVERCOMMIT_FIELD_NUMBER;
+          hash = (53 * hash) + getRequestRecoverCommit().hashCode();
           break;
         case 0:
         default:
@@ -1432,7 +1584,7 @@ public final class MessageProto {
       public Builder clear() {
         super.clear();
         sig_ = com.google.protobuf.ByteString.EMPTY;
-        bitField0_ = (bitField0_ & ~0x00004000);
+        bitField0_ = (bitField0_ & ~0x00010000);
         messagesCase_ = 0;
         messages_ = null;
         return this;
@@ -1561,8 +1713,22 @@ public final class MessageProto {
             result.messages_ = recoverCommitBuilder_.build();
           }
         }
-        if (((from_bitField0_ & 0x00004000) != 0)) {
-          to_bitField0_ |= 0x00004000;
+        if (messagesCase_ == 15) {
+          if (requestRecoverPrePrepareBuilder_ == null) {
+            result.messages_ = messages_;
+          } else {
+            result.messages_ = requestRecoverPrePrepareBuilder_.build();
+          }
+        }
+        if (messagesCase_ == 16) {
+          if (requestRecoverCommitBuilder_ == null) {
+            result.messages_ = messages_;
+          } else {
+            result.messages_ = requestRecoverCommitBuilder_.build();
+          }
+        }
+        if (((from_bitField0_ & 0x00010000) != 0)) {
+          to_bitField0_ |= 0x00010000;
         }
         result.sig_ = sig_;
         result.bitField0_ = to_bitField0_;
@@ -1675,6 +1841,14 @@ public final class MessageProto {
             mergeRecoverCommit(other.getRecoverCommit());
             break;
           }
+          case REQUESTRECOVERPREPREPARE: {
+            mergeRequestRecoverPrePrepare(other.getRequestRecoverPrePrepare());
+            break;
+          }
+          case REQUESTRECOVERCOMMIT: {
+            mergeRequestRecoverCommit(other.getRequestRecoverCommit());
+            break;
+          }
           case MESSAGES_NOT_SET: {
             break;
           }
@@ -1756,6 +1930,16 @@ public final class MessageProto {
         }
         if (hasRecoverCommit()) {
           if (!getRecoverCommit().isInitialized()) {
+            return false;
+          }
+        }
+        if (hasRequestRecoverPrePrepare()) {
+          if (!getRequestRecoverPrePrepare().isInitialized()) {
+            return false;
+          }
+        }
+        if (hasRequestRecoverCommit()) {
+          if (!getRequestRecoverCommit().isInitialized()) {
             return false;
           }
         }
@@ -3701,36 +3885,308 @@ public final class MessageProto {
         return recoverCommitBuilder_;
       }
 
-      private com.google.protobuf.ByteString sig_ = com.google.protobuf.ByteString.EMPTY;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepare, com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepare.Builder, com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepareOrBuilder> requestRecoverPrePrepareBuilder_;
       /**
-       * <code>required bytes sig = 15;</code>
+       * <code>optional .proto.RequestRecoverPrePrepare requestRecoverPrePrepare = 15;</code>
        */
-      public boolean hasSig() {
-        return ((bitField0_ & 0x00004000) != 0);
+      public boolean hasRequestRecoverPrePrepare() {
+        return messagesCase_ == 15;
       }
       /**
-       * <code>required bytes sig = 15;</code>
+       * <code>optional .proto.RequestRecoverPrePrepare requestRecoverPrePrepare = 15;</code>
+       */
+      public com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepare getRequestRecoverPrePrepare() {
+        if (requestRecoverPrePrepareBuilder_ == null) {
+          if (messagesCase_ == 15) {
+            return (com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepare) messages_;
+          }
+          return com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepare.getDefaultInstance();
+        } else {
+          if (messagesCase_ == 15) {
+            return requestRecoverPrePrepareBuilder_.getMessage();
+          }
+          return com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepare.getDefaultInstance();
+        }
+      }
+      /**
+       * <code>optional .proto.RequestRecoverPrePrepare requestRecoverPrePrepare = 15;</code>
+       */
+      public Builder setRequestRecoverPrePrepare(com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepare value) {
+        if (requestRecoverPrePrepareBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          messages_ = value;
+          onChanged();
+        } else {
+          requestRecoverPrePrepareBuilder_.setMessage(value);
+        }
+        messagesCase_ = 15;
+        return this;
+      }
+      /**
+       * <code>optional .proto.RequestRecoverPrePrepare requestRecoverPrePrepare = 15;</code>
+       */
+      public Builder setRequestRecoverPrePrepare(
+          com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepare.Builder builderForValue) {
+        if (requestRecoverPrePrepareBuilder_ == null) {
+          messages_ = builderForValue.build();
+          onChanged();
+        } else {
+          requestRecoverPrePrepareBuilder_.setMessage(builderForValue.build());
+        }
+        messagesCase_ = 15;
+        return this;
+      }
+      /**
+       * <code>optional .proto.RequestRecoverPrePrepare requestRecoverPrePrepare = 15;</code>
+       */
+      public Builder mergeRequestRecoverPrePrepare(com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepare value) {
+        if (requestRecoverPrePrepareBuilder_ == null) {
+          if (messagesCase_ == 15 &&
+              messages_ != com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepare.getDefaultInstance()) {
+            messages_ = com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepare.newBuilder((com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepare) messages_)
+                .mergeFrom(value).buildPartial();
+          } else {
+            messages_ = value;
+          }
+          onChanged();
+        } else {
+          if (messagesCase_ == 15) {
+            requestRecoverPrePrepareBuilder_.mergeFrom(value);
+          }
+          requestRecoverPrePrepareBuilder_.setMessage(value);
+        }
+        messagesCase_ = 15;
+        return this;
+      }
+      /**
+       * <code>optional .proto.RequestRecoverPrePrepare requestRecoverPrePrepare = 15;</code>
+       */
+      public Builder clearRequestRecoverPrePrepare() {
+        if (requestRecoverPrePrepareBuilder_ == null) {
+          if (messagesCase_ == 15) {
+            messagesCase_ = 0;
+            messages_ = null;
+            onChanged();
+          }
+        } else {
+          if (messagesCase_ == 15) {
+            messagesCase_ = 0;
+            messages_ = null;
+          }
+          requestRecoverPrePrepareBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>optional .proto.RequestRecoverPrePrepare requestRecoverPrePrepare = 15;</code>
+       */
+      public com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepare.Builder getRequestRecoverPrePrepareBuilder() {
+        return getRequestRecoverPrePrepareFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>optional .proto.RequestRecoverPrePrepare requestRecoverPrePrepare = 15;</code>
+       */
+      public com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepareOrBuilder getRequestRecoverPrePrepareOrBuilder() {
+        if ((messagesCase_ == 15) && (requestRecoverPrePrepareBuilder_ != null)) {
+          return requestRecoverPrePrepareBuilder_.getMessageOrBuilder();
+        } else {
+          if (messagesCase_ == 15) {
+            return (com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepare) messages_;
+          }
+          return com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepare.getDefaultInstance();
+        }
+      }
+      /**
+       * <code>optional .proto.RequestRecoverPrePrepare requestRecoverPrePrepare = 15;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepare, com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepare.Builder, com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepareOrBuilder> 
+          getRequestRecoverPrePrepareFieldBuilder() {
+        if (requestRecoverPrePrepareBuilder_ == null) {
+          if (!(messagesCase_ == 15)) {
+            messages_ = com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepare.getDefaultInstance();
+          }
+          requestRecoverPrePrepareBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepare, com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepare.Builder, com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepareOrBuilder>(
+                  (com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepare) messages_,
+                  getParentForChildren(),
+                  isClean());
+          messages_ = null;
+        }
+        messagesCase_ = 15;
+        onChanged();;
+        return requestRecoverPrePrepareBuilder_;
+      }
+
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.ray.mcu.proto.MessageProto.RequestRecoverCommit, com.ray.mcu.proto.MessageProto.RequestRecoverCommit.Builder, com.ray.mcu.proto.MessageProto.RequestRecoverCommitOrBuilder> requestRecoverCommitBuilder_;
+      /**
+       * <code>optional .proto.RequestRecoverCommit requestRecoverCommit = 16;</code>
+       */
+      public boolean hasRequestRecoverCommit() {
+        return messagesCase_ == 16;
+      }
+      /**
+       * <code>optional .proto.RequestRecoverCommit requestRecoverCommit = 16;</code>
+       */
+      public com.ray.mcu.proto.MessageProto.RequestRecoverCommit getRequestRecoverCommit() {
+        if (requestRecoverCommitBuilder_ == null) {
+          if (messagesCase_ == 16) {
+            return (com.ray.mcu.proto.MessageProto.RequestRecoverCommit) messages_;
+          }
+          return com.ray.mcu.proto.MessageProto.RequestRecoverCommit.getDefaultInstance();
+        } else {
+          if (messagesCase_ == 16) {
+            return requestRecoverCommitBuilder_.getMessage();
+          }
+          return com.ray.mcu.proto.MessageProto.RequestRecoverCommit.getDefaultInstance();
+        }
+      }
+      /**
+       * <code>optional .proto.RequestRecoverCommit requestRecoverCommit = 16;</code>
+       */
+      public Builder setRequestRecoverCommit(com.ray.mcu.proto.MessageProto.RequestRecoverCommit value) {
+        if (requestRecoverCommitBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          messages_ = value;
+          onChanged();
+        } else {
+          requestRecoverCommitBuilder_.setMessage(value);
+        }
+        messagesCase_ = 16;
+        return this;
+      }
+      /**
+       * <code>optional .proto.RequestRecoverCommit requestRecoverCommit = 16;</code>
+       */
+      public Builder setRequestRecoverCommit(
+          com.ray.mcu.proto.MessageProto.RequestRecoverCommit.Builder builderForValue) {
+        if (requestRecoverCommitBuilder_ == null) {
+          messages_ = builderForValue.build();
+          onChanged();
+        } else {
+          requestRecoverCommitBuilder_.setMessage(builderForValue.build());
+        }
+        messagesCase_ = 16;
+        return this;
+      }
+      /**
+       * <code>optional .proto.RequestRecoverCommit requestRecoverCommit = 16;</code>
+       */
+      public Builder mergeRequestRecoverCommit(com.ray.mcu.proto.MessageProto.RequestRecoverCommit value) {
+        if (requestRecoverCommitBuilder_ == null) {
+          if (messagesCase_ == 16 &&
+              messages_ != com.ray.mcu.proto.MessageProto.RequestRecoverCommit.getDefaultInstance()) {
+            messages_ = com.ray.mcu.proto.MessageProto.RequestRecoverCommit.newBuilder((com.ray.mcu.proto.MessageProto.RequestRecoverCommit) messages_)
+                .mergeFrom(value).buildPartial();
+          } else {
+            messages_ = value;
+          }
+          onChanged();
+        } else {
+          if (messagesCase_ == 16) {
+            requestRecoverCommitBuilder_.mergeFrom(value);
+          }
+          requestRecoverCommitBuilder_.setMessage(value);
+        }
+        messagesCase_ = 16;
+        return this;
+      }
+      /**
+       * <code>optional .proto.RequestRecoverCommit requestRecoverCommit = 16;</code>
+       */
+      public Builder clearRequestRecoverCommit() {
+        if (requestRecoverCommitBuilder_ == null) {
+          if (messagesCase_ == 16) {
+            messagesCase_ = 0;
+            messages_ = null;
+            onChanged();
+          }
+        } else {
+          if (messagesCase_ == 16) {
+            messagesCase_ = 0;
+            messages_ = null;
+          }
+          requestRecoverCommitBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>optional .proto.RequestRecoverCommit requestRecoverCommit = 16;</code>
+       */
+      public com.ray.mcu.proto.MessageProto.RequestRecoverCommit.Builder getRequestRecoverCommitBuilder() {
+        return getRequestRecoverCommitFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>optional .proto.RequestRecoverCommit requestRecoverCommit = 16;</code>
+       */
+      public com.ray.mcu.proto.MessageProto.RequestRecoverCommitOrBuilder getRequestRecoverCommitOrBuilder() {
+        if ((messagesCase_ == 16) && (requestRecoverCommitBuilder_ != null)) {
+          return requestRecoverCommitBuilder_.getMessageOrBuilder();
+        } else {
+          if (messagesCase_ == 16) {
+            return (com.ray.mcu.proto.MessageProto.RequestRecoverCommit) messages_;
+          }
+          return com.ray.mcu.proto.MessageProto.RequestRecoverCommit.getDefaultInstance();
+        }
+      }
+      /**
+       * <code>optional .proto.RequestRecoverCommit requestRecoverCommit = 16;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.ray.mcu.proto.MessageProto.RequestRecoverCommit, com.ray.mcu.proto.MessageProto.RequestRecoverCommit.Builder, com.ray.mcu.proto.MessageProto.RequestRecoverCommitOrBuilder> 
+          getRequestRecoverCommitFieldBuilder() {
+        if (requestRecoverCommitBuilder_ == null) {
+          if (!(messagesCase_ == 16)) {
+            messages_ = com.ray.mcu.proto.MessageProto.RequestRecoverCommit.getDefaultInstance();
+          }
+          requestRecoverCommitBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              com.ray.mcu.proto.MessageProto.RequestRecoverCommit, com.ray.mcu.proto.MessageProto.RequestRecoverCommit.Builder, com.ray.mcu.proto.MessageProto.RequestRecoverCommitOrBuilder>(
+                  (com.ray.mcu.proto.MessageProto.RequestRecoverCommit) messages_,
+                  getParentForChildren(),
+                  isClean());
+          messages_ = null;
+        }
+        messagesCase_ = 16;
+        onChanged();;
+        return requestRecoverCommitBuilder_;
+      }
+
+      private com.google.protobuf.ByteString sig_ = com.google.protobuf.ByteString.EMPTY;
+      /**
+       * <code>required bytes sig = 17;</code>
+       */
+      public boolean hasSig() {
+        return ((bitField0_ & 0x00010000) != 0);
+      }
+      /**
+       * <code>required bytes sig = 17;</code>
        */
       public com.google.protobuf.ByteString getSig() {
         return sig_;
       }
       /**
-       * <code>required bytes sig = 15;</code>
+       * <code>required bytes sig = 17;</code>
        */
       public Builder setSig(com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00004000;
+  bitField0_ |= 0x00010000;
         sig_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required bytes sig = 15;</code>
+       * <code>required bytes sig = 17;</code>
        */
       public Builder clearSig() {
-        bitField0_ = (bitField0_ & ~0x00004000);
+        bitField0_ = (bitField0_ & ~0x00010000);
         sig_ = getDefaultInstance().getSig();
         onChanged();
         return this;
@@ -15188,6 +15644,516 @@ public final class MessageProto {
 
   }
 
+  public interface RequestRecoverPrePrepareOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:proto.RequestRecoverPrePrepare)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>required int32 viewId = 1;</code>
+     */
+    boolean hasViewId();
+    /**
+     * <code>required int32 viewId = 1;</code>
+     */
+    int getViewId();
+  }
+  /**
+   * Protobuf type {@code proto.RequestRecoverPrePrepare}
+   */
+  public  static final class RequestRecoverPrePrepare extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:proto.RequestRecoverPrePrepare)
+      RequestRecoverPrePrepareOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use RequestRecoverPrePrepare.newBuilder() to construct.
+    private RequestRecoverPrePrepare(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private RequestRecoverPrePrepare() {
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private RequestRecoverPrePrepare(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 8: {
+              bitField0_ |= 0x00000001;
+              viewId_ = input.readInt32();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.ray.mcu.proto.MessageProto.internal_static_proto_RequestRecoverPrePrepare_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.ray.mcu.proto.MessageProto.internal_static_proto_RequestRecoverPrePrepare_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepare.class, com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepare.Builder.class);
+    }
+
+    private int bitField0_;
+    public static final int VIEWID_FIELD_NUMBER = 1;
+    private int viewId_;
+    /**
+     * <code>required int32 viewId = 1;</code>
+     */
+    public boolean hasViewId() {
+      return ((bitField0_ & 0x00000001) != 0);
+    }
+    /**
+     * <code>required int32 viewId = 1;</code>
+     */
+    public int getViewId() {
+      return viewId_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      if (!hasViewId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (((bitField0_ & 0x00000001) != 0)) {
+        output.writeInt32(1, viewId_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (((bitField0_ & 0x00000001) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(1, viewId_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepare)) {
+        return super.equals(obj);
+      }
+      com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepare other = (com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepare) obj;
+
+      if (hasViewId() != other.hasViewId()) return false;
+      if (hasViewId()) {
+        if (getViewId()
+            != other.getViewId()) return false;
+      }
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (hasViewId()) {
+        hash = (37 * hash) + VIEWID_FIELD_NUMBER;
+        hash = (53 * hash) + getViewId();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepare parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepare parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepare parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepare parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepare parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepare parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepare parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepare parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepare parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepare parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepare parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepare parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepare prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code proto.RequestRecoverPrePrepare}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:proto.RequestRecoverPrePrepare)
+        com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepareOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.ray.mcu.proto.MessageProto.internal_static_proto_RequestRecoverPrePrepare_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.ray.mcu.proto.MessageProto.internal_static_proto_RequestRecoverPrePrepare_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepare.class, com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepare.Builder.class);
+      }
+
+      // Construct using com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepare.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        viewId_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.ray.mcu.proto.MessageProto.internal_static_proto_RequestRecoverPrePrepare_descriptor;
+      }
+
+      @java.lang.Override
+      public com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepare getDefaultInstanceForType() {
+        return com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepare.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepare build() {
+        com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepare result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepare buildPartial() {
+        com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepare result = new com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepare(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.viewId_ = viewId_;
+          to_bitField0_ |= 0x00000001;
+        }
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepare) {
+          return mergeFrom((com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepare)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepare other) {
+        if (other == com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepare.getDefaultInstance()) return this;
+        if (other.hasViewId()) {
+          setViewId(other.getViewId());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        if (!hasViewId()) {
+          return false;
+        }
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepare parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepare) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private int viewId_ ;
+      /**
+       * <code>required int32 viewId = 1;</code>
+       */
+      public boolean hasViewId() {
+        return ((bitField0_ & 0x00000001) != 0);
+      }
+      /**
+       * <code>required int32 viewId = 1;</code>
+       */
+      public int getViewId() {
+        return viewId_;
+      }
+      /**
+       * <code>required int32 viewId = 1;</code>
+       */
+      public Builder setViewId(int value) {
+        bitField0_ |= 0x00000001;
+        viewId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required int32 viewId = 1;</code>
+       */
+      public Builder clearViewId() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        viewId_ = 0;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:proto.RequestRecoverPrePrepare)
+    }
+
+    // @@protoc_insertion_point(class_scope:proto.RequestRecoverPrePrepare)
+    private static final com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepare DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepare();
+    }
+
+    public static com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepare getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<RequestRecoverPrePrepare>
+        PARSER = new com.google.protobuf.AbstractParser<RequestRecoverPrePrepare>() {
+      @java.lang.Override
+      public RequestRecoverPrePrepare parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new RequestRecoverPrePrepare(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<RequestRecoverPrePrepare> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<RequestRecoverPrePrepare> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepare getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   public interface RecoverPrePrepareOrBuilder extends
       // @@protoc_insertion_point(interface_extends:proto.RecoverPrePrepare)
       com.google.protobuf.MessageOrBuilder {
@@ -16026,6 +16992,516 @@ public final class MessageProto {
 
     @java.lang.Override
     public com.ray.mcu.proto.MessageProto.RecoverPrePrepare getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface RequestRecoverCommitOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:proto.RequestRecoverCommit)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>required int32 viewId = 1;</code>
+     */
+    boolean hasViewId();
+    /**
+     * <code>required int32 viewId = 1;</code>
+     */
+    int getViewId();
+  }
+  /**
+   * Protobuf type {@code proto.RequestRecoverCommit}
+   */
+  public  static final class RequestRecoverCommit extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:proto.RequestRecoverCommit)
+      RequestRecoverCommitOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use RequestRecoverCommit.newBuilder() to construct.
+    private RequestRecoverCommit(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private RequestRecoverCommit() {
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private RequestRecoverCommit(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 8: {
+              bitField0_ |= 0x00000001;
+              viewId_ = input.readInt32();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.ray.mcu.proto.MessageProto.internal_static_proto_RequestRecoverCommit_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.ray.mcu.proto.MessageProto.internal_static_proto_RequestRecoverCommit_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.ray.mcu.proto.MessageProto.RequestRecoverCommit.class, com.ray.mcu.proto.MessageProto.RequestRecoverCommit.Builder.class);
+    }
+
+    private int bitField0_;
+    public static final int VIEWID_FIELD_NUMBER = 1;
+    private int viewId_;
+    /**
+     * <code>required int32 viewId = 1;</code>
+     */
+    public boolean hasViewId() {
+      return ((bitField0_ & 0x00000001) != 0);
+    }
+    /**
+     * <code>required int32 viewId = 1;</code>
+     */
+    public int getViewId() {
+      return viewId_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      if (!hasViewId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (((bitField0_ & 0x00000001) != 0)) {
+        output.writeInt32(1, viewId_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (((bitField0_ & 0x00000001) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(1, viewId_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.ray.mcu.proto.MessageProto.RequestRecoverCommit)) {
+        return super.equals(obj);
+      }
+      com.ray.mcu.proto.MessageProto.RequestRecoverCommit other = (com.ray.mcu.proto.MessageProto.RequestRecoverCommit) obj;
+
+      if (hasViewId() != other.hasViewId()) return false;
+      if (hasViewId()) {
+        if (getViewId()
+            != other.getViewId()) return false;
+      }
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (hasViewId()) {
+        hash = (37 * hash) + VIEWID_FIELD_NUMBER;
+        hash = (53 * hash) + getViewId();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.ray.mcu.proto.MessageProto.RequestRecoverCommit parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.ray.mcu.proto.MessageProto.RequestRecoverCommit parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.ray.mcu.proto.MessageProto.RequestRecoverCommit parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.ray.mcu.proto.MessageProto.RequestRecoverCommit parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.ray.mcu.proto.MessageProto.RequestRecoverCommit parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.ray.mcu.proto.MessageProto.RequestRecoverCommit parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.ray.mcu.proto.MessageProto.RequestRecoverCommit parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.ray.mcu.proto.MessageProto.RequestRecoverCommit parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.ray.mcu.proto.MessageProto.RequestRecoverCommit parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static com.ray.mcu.proto.MessageProto.RequestRecoverCommit parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.ray.mcu.proto.MessageProto.RequestRecoverCommit parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.ray.mcu.proto.MessageProto.RequestRecoverCommit parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.ray.mcu.proto.MessageProto.RequestRecoverCommit prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code proto.RequestRecoverCommit}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:proto.RequestRecoverCommit)
+        com.ray.mcu.proto.MessageProto.RequestRecoverCommitOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.ray.mcu.proto.MessageProto.internal_static_proto_RequestRecoverCommit_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.ray.mcu.proto.MessageProto.internal_static_proto_RequestRecoverCommit_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.ray.mcu.proto.MessageProto.RequestRecoverCommit.class, com.ray.mcu.proto.MessageProto.RequestRecoverCommit.Builder.class);
+      }
+
+      // Construct using com.ray.mcu.proto.MessageProto.RequestRecoverCommit.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        viewId_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.ray.mcu.proto.MessageProto.internal_static_proto_RequestRecoverCommit_descriptor;
+      }
+
+      @java.lang.Override
+      public com.ray.mcu.proto.MessageProto.RequestRecoverCommit getDefaultInstanceForType() {
+        return com.ray.mcu.proto.MessageProto.RequestRecoverCommit.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.ray.mcu.proto.MessageProto.RequestRecoverCommit build() {
+        com.ray.mcu.proto.MessageProto.RequestRecoverCommit result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.ray.mcu.proto.MessageProto.RequestRecoverCommit buildPartial() {
+        com.ray.mcu.proto.MessageProto.RequestRecoverCommit result = new com.ray.mcu.proto.MessageProto.RequestRecoverCommit(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.viewId_ = viewId_;
+          to_bitField0_ |= 0x00000001;
+        }
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.ray.mcu.proto.MessageProto.RequestRecoverCommit) {
+          return mergeFrom((com.ray.mcu.proto.MessageProto.RequestRecoverCommit)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.ray.mcu.proto.MessageProto.RequestRecoverCommit other) {
+        if (other == com.ray.mcu.proto.MessageProto.RequestRecoverCommit.getDefaultInstance()) return this;
+        if (other.hasViewId()) {
+          setViewId(other.getViewId());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        if (!hasViewId()) {
+          return false;
+        }
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.ray.mcu.proto.MessageProto.RequestRecoverCommit parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.ray.mcu.proto.MessageProto.RequestRecoverCommit) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private int viewId_ ;
+      /**
+       * <code>required int32 viewId = 1;</code>
+       */
+      public boolean hasViewId() {
+        return ((bitField0_ & 0x00000001) != 0);
+      }
+      /**
+       * <code>required int32 viewId = 1;</code>
+       */
+      public int getViewId() {
+        return viewId_;
+      }
+      /**
+       * <code>required int32 viewId = 1;</code>
+       */
+      public Builder setViewId(int value) {
+        bitField0_ |= 0x00000001;
+        viewId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required int32 viewId = 1;</code>
+       */
+      public Builder clearViewId() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        viewId_ = 0;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:proto.RequestRecoverCommit)
+    }
+
+    // @@protoc_insertion_point(class_scope:proto.RequestRecoverCommit)
+    private static final com.ray.mcu.proto.MessageProto.RequestRecoverCommit DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.ray.mcu.proto.MessageProto.RequestRecoverCommit();
+    }
+
+    public static com.ray.mcu.proto.MessageProto.RequestRecoverCommit getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<RequestRecoverCommit>
+        PARSER = new com.google.protobuf.AbstractParser<RequestRecoverCommit>() {
+      @java.lang.Override
+      public RequestRecoverCommit parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new RequestRecoverCommit(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<RequestRecoverCommit> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<RequestRecoverCommit> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.ray.mcu.proto.MessageProto.RequestRecoverCommit getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -17213,10 +18689,20 @@ public final class MessageProto {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_proto_Commit_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_proto_RequestRecoverPrePrepare_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_proto_RequestRecoverPrePrepare_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_proto_RecoverPrePrepare_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_proto_RecoverPrePrepare_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_proto_RequestRecoverCommit_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_proto_RequestRecoverCommit_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_proto_RecoverCommit_descriptor;
   private static final 
@@ -17232,7 +18718,7 @@ public final class MessageProto {
   static {
     java.lang.String[] descriptorData = {
       "\n\037com/ray/mcu/proto/Message.proto\022\005proto" +
-      "\"\221\005\n\007Message\022%\n\007textMsg\030\001 \001(\0132\022.proto.Te" +
+      "\"\223\006\n\007Message\022%\n\007textMsg\030\001 \001(\0132\022.proto.Te" +
       "xtMessageH\000\022#\n\006intMsg\030\002 \001(\0132\021.proto.IntM" +
       "essageH\000\0222\n\treqRegMsg\030\003 \001(\0132\035.proto.Requ" +
       "estRegisterMessageH\000\022(\n\006regMsg\030\004 \001(\0132\026.p" +
@@ -17247,36 +18733,41 @@ public final class MessageProto {
       "(\0132\016.proto.PrepareH\000\022\037\n\006commit\030\014 \001(\0132\r.p" +
       "roto.CommitH\000\0225\n\021recoverPrePrepare\030\r \001(\013" +
       "2\030.proto.RecoverPrePrepareH\000\022-\n\rrecoverC" +
-      "ommit\030\016 \001(\0132\024.proto.RecoverCommitH\000\022\013\n\003s" +
-      "ig\030\017 \002(\014B\n\n\010messages\"\033\n\013TextMessage\022\014\n\004t" +
-      "ext\030\001 \002(\t\"\027\n\nIntMessage\022\t\n\001i\030\001 \002(\005\">\n\026Re" +
-      "questRegisterMessage\022\n\n\002id\030\001 \002(\005\022\n\n\002ip\030\002" +
-      " \002(\t\022\014\n\004port\030\003 \002(\005\"@\n\030RequestUnregisterM" +
-      "essage\022\n\n\002id\030\001 \002(\005\022\n\n\002ip\030\002 \002(\t\022\014\n\004port\030\003" +
-      " \002(\005\"7\n\017RegisterMessage\022\n\n\002id\030\001 \002(\005\022\n\n\002i" +
-      "p\030\002 \002(\t\022\014\n\004port\030\003 \002(\005\"L\n\021UnregisterMessa" +
-      "ge\022\n\n\002id\030\001 \002(\005\022\n\n\002ip\030\002 \002(\t\022\014\n\004port\030\003 \002(\005" +
-      "\022\021\n\tsignature\030\007 \002(\014\"*\n\rClientMessage\022\013\n\003" +
-      "dif\030\001 \002(\005\022\014\n\004pkey\030\002 \002(\014\"F\n\024PersistClient" +
-      "Message\022!\n\003msg\030\001 \002(\0132\024.proto.ClientMessa" +
-      "ge\022\013\n\003sig\030\002 \002(\014\"\"\n\016ClientResponse\022\020\n\010res" +
-      "ponse\030\001 \002(\010\".\n\006Server\022\n\n\002id\030\001 \002(\005\022\n\n\002ip\030" +
-      "\002 \002(\t\022\014\n\004port\030\003 \002(\005\"G\n\004View\022\n\n\002id\030\001 \002(\005\022" +
-      "\023\n\013coordinator\030\002 \002(\005\022\036\n\007servers\030\003 \003(\0132\r." +
-      "proto.Server\"$\n\tSignature\022\n\n\002id\030\001 \002(\005\022\013\n" +
-      "\003sig\030\002 \002(\014\"S\n\nPrePrepare\022*\n\005input\030\001 \003(\0132" +
-      "\033.proto.PersistClientMessage\022\031\n\004view\030\002 \002" +
-      "(\0132\013.proto.View\"7\n\007Prepare\022\021\n\tinputHash\030" +
-      "\001 \002(\014\022\031\n\004view\030\002 \002(\0132\013.proto.View\"\\\n\006Comm" +
-      "it\022\021\n\tinputHash\030\001 \002(\014\022\031\n\004view\030\002 \002(\0132\013.pr" +
-      "oto.View\022$\n\nsignatures\030\003 \003(\0132\020.proto.Sig" +
-      "nature\"_\n\021RecoverPrePrepare\022%\n\npreprepar" +
-      "e\030\001 \002(\0132\021.proto.PrePrepare\022#\n\tsignature\030" +
-      "\002 \002(\0132\020.proto.Signature\"l\n\rRecoverCommit" +
-      "\022\016\n\006viewId\030\001 \002(\005\022%\n\npreprepare\030\002 \002(\0132\021.p" +
-      "roto.PrePrepare\022$\n\nsignatures\030\003 \003(\0132\020.pr" +
-      "oto.SignatureB!\n\021com.ray.mcu.protoB\014Mess" +
-      "ageProto"
+      "ommit\030\016 \001(\0132\024.proto.RecoverCommitH\000\022C\n\030r" +
+      "equestRecoverPrePrepare\030\017 \001(\0132\037.proto.Re" +
+      "questRecoverPrePrepareH\000\022;\n\024requestRecov" +
+      "erCommit\030\020 \001(\0132\033.proto.RequestRecoverCom" +
+      "mitH\000\022\013\n\003sig\030\021 \002(\014B\n\n\010messages\"\033\n\013TextMe" +
+      "ssage\022\014\n\004text\030\001 \002(\t\"\027\n\nIntMessage\022\t\n\001i\030\001" +
+      " \002(\005\">\n\026RequestRegisterMessage\022\n\n\002id\030\001 \002" +
+      "(\005\022\n\n\002ip\030\002 \002(\t\022\014\n\004port\030\003 \002(\005\"@\n\030RequestU" +
+      "nregisterMessage\022\n\n\002id\030\001 \002(\005\022\n\n\002ip\030\002 \002(\t" +
+      "\022\014\n\004port\030\003 \002(\005\"7\n\017RegisterMessage\022\n\n\002id\030" +
+      "\001 \002(\005\022\n\n\002ip\030\002 \002(\t\022\014\n\004port\030\003 \002(\005\"L\n\021Unreg" +
+      "isterMessage\022\n\n\002id\030\001 \002(\005\022\n\n\002ip\030\002 \002(\t\022\014\n\004" +
+      "port\030\003 \002(\005\022\021\n\tsignature\030\007 \002(\014\"*\n\rClientM" +
+      "essage\022\013\n\003dif\030\001 \002(\005\022\014\n\004pkey\030\002 \002(\014\"F\n\024Per" +
+      "sistClientMessage\022!\n\003msg\030\001 \002(\0132\024.proto.C" +
+      "lientMessage\022\013\n\003sig\030\002 \002(\014\"\"\n\016ClientRespo" +
+      "nse\022\020\n\010response\030\001 \002(\010\".\n\006Server\022\n\n\002id\030\001 " +
+      "\002(\005\022\n\n\002ip\030\002 \002(\t\022\014\n\004port\030\003 \002(\005\"G\n\004View\022\n\n" +
+      "\002id\030\001 \002(\005\022\023\n\013coordinator\030\002 \002(\005\022\036\n\007server" +
+      "s\030\003 \003(\0132\r.proto.Server\"$\n\tSignature\022\n\n\002i" +
+      "d\030\001 \002(\005\022\013\n\003sig\030\002 \002(\014\"S\n\nPrePrepare\022*\n\005in" +
+      "put\030\001 \003(\0132\033.proto.PersistClientMessage\022\031" +
+      "\n\004view\030\002 \002(\0132\013.proto.View\"7\n\007Prepare\022\021\n\t" +
+      "inputHash\030\001 \002(\014\022\031\n\004view\030\002 \002(\0132\013.proto.Vi" +
+      "ew\"\\\n\006Commit\022\021\n\tinputHash\030\001 \002(\014\022\031\n\004view\030" +
+      "\002 \002(\0132\013.proto.View\022$\n\nsignatures\030\003 \003(\0132\020" +
+      ".proto.Signature\"*\n\030RequestRecoverPrePre" +
+      "pare\022\016\n\006viewId\030\001 \002(\005\"_\n\021RecoverPrePrepar" +
+      "e\022%\n\npreprepare\030\001 \002(\0132\021.proto.PrePrepare" +
+      "\022#\n\tsignature\030\002 \002(\0132\020.proto.Signature\"&\n" +
+      "\024RequestRecoverCommit\022\016\n\006viewId\030\001 \002(\005\"l\n" +
+      "\rRecoverCommit\022\016\n\006viewId\030\001 \002(\005\022%\n\nprepre" +
+      "pare\030\002 \002(\0132\021.proto.PrePrepare\022$\n\nsignatu" +
+      "res\030\003 \003(\0132\020.proto.SignatureB!\n\021com.ray.m" +
+      "cu.protoB\014MessageProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -17295,7 +18786,7 @@ public final class MessageProto {
     internal_static_proto_Message_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_Message_descriptor,
-        new java.lang.String[] { "TextMsg", "IntMsg", "ReqRegMsg", "RegMsg", "ReqUnregMsg", "UnregMsg", "ClientMsg", "PersClientMsg", "Response", "PrePrepare", "Prepare", "Commit", "RecoverPrePrepare", "RecoverCommit", "Sig", "Messages", });
+        new java.lang.String[] { "TextMsg", "IntMsg", "ReqRegMsg", "RegMsg", "ReqUnregMsg", "UnregMsg", "ClientMsg", "PersClientMsg", "Response", "PrePrepare", "Prepare", "Commit", "RecoverPrePrepare", "RecoverCommit", "RequestRecoverPrePrepare", "RequestRecoverCommit", "Sig", "Messages", });
     internal_static_proto_TextMessage_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_proto_TextMessage_fieldAccessorTable = new
@@ -17386,14 +18877,26 @@ public final class MessageProto {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_Commit_descriptor,
         new java.lang.String[] { "InputHash", "View", "Signatures", });
-    internal_static_proto_RecoverPrePrepare_descriptor =
+    internal_static_proto_RequestRecoverPrePrepare_descriptor =
       getDescriptor().getMessageTypes().get(16);
+    internal_static_proto_RequestRecoverPrePrepare_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_proto_RequestRecoverPrePrepare_descriptor,
+        new java.lang.String[] { "ViewId", });
+    internal_static_proto_RecoverPrePrepare_descriptor =
+      getDescriptor().getMessageTypes().get(17);
     internal_static_proto_RecoverPrePrepare_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_RecoverPrePrepare_descriptor,
         new java.lang.String[] { "Preprepare", "Signature", });
+    internal_static_proto_RequestRecoverCommit_descriptor =
+      getDescriptor().getMessageTypes().get(18);
+    internal_static_proto_RequestRecoverCommit_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_proto_RequestRecoverCommit_descriptor,
+        new java.lang.String[] { "ViewId", });
     internal_static_proto_RecoverCommit_descriptor =
-      getDescriptor().getMessageTypes().get(17);
+      getDescriptor().getMessageTypes().get(19);
     internal_static_proto_RecoverCommit_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_RecoverCommit_descriptor,

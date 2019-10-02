@@ -3,6 +3,7 @@ package com.ray.mcu.server;
 import com.ray.mcu.communication.clientoperations.IClientOperation;
 import com.ray.mcu.communication.wrappers.IMessageWrapper;
 import com.ray.mcu.communication.serveroperations.IOperation;
+import com.ray.mcu.views.GlobalView;
 
 /**
  * Server interface.
@@ -58,4 +59,10 @@ public interface IServer
      * @return true if so.
      */
     boolean hasMessageInClientOutputQueue();
+
+    /**
+     * Get the view from the server.
+     * @return the view.
+     */
+    GlobalView getView();
 }

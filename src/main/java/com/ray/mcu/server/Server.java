@@ -10,7 +10,6 @@ import com.ray.mcu.server.client.ServerClientSender;
 import com.ray.mcu.server.server.ServerMessageHandler;
 import com.ray.mcu.server.server.ServerReceiver;
 import com.ray.mcu.server.server.ServerSender;
-import com.constantine.comm.communication.messages.*;
 import com.ray.mcu.communication.serveroperations.IOperation;
 import com.ray.mcu.communication.serveroperations.UnicastOperation;
 import com.ray.mcu.utils.KeyUtilities;
@@ -175,6 +174,12 @@ public class Server extends Thread implements IServer
     public boolean hasMessageInClientOutputQueue()
     {
         return !clientOutputQueue.isEmpty();
+    }
+
+    @Override
+    public GlobalView getView()
+    {
+        return view;
     }
 
     @Override

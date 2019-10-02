@@ -19,8 +19,10 @@ message Message {
         Commit commit = 12;
         RecoverPrePrepare recoverPrePrepare= 13;
         RecoverCommit recoverCommit = 14;
+        RequestRecoverPrePrepare requestRecoverPrePrepare= 15;
+        RequestRecoverCommit requestRecoverCommit = 16;
     }
-    required bytes sig = 15;
+    required bytes sig = 17;
 }
 
 // ---------------------------------------- Test Messages ---------------------------------------- //
@@ -123,9 +125,17 @@ message Commit {
 
 // ---------------------------------------- PBFT Recovery ---------------------------------------- //
 
+message RequestRecoverPrePrepare {
+    required int32 viewId = 1;
+}
+
 message RecoverPrePrepare {
     required PrePrepare preprepare = 1;
     required Signature signature = 2;
+}
+
+message RequestRecoverCommit {
+    required int32 viewId = 1;
 }
 
 message RecoverCommit {

@@ -1,6 +1,8 @@
 package com.ray.mcu.views;
 
+import com.ray.mcu.proto.MessageProto;
 import com.ray.mcu.server.ServerData;
+import com.ray.mcu.utils.Log;
 import org.boon.json.annotations.JsonIgnore;
 import org.boon.json.annotations.JsonInclude;
 
@@ -131,6 +133,58 @@ public class GlobalView
     {
         this.configLocation = configLocation;
         return this;
+    }
+
+    /**
+     * Validate the existing view with an incoming view.
+     * @param view the view to check.
+     * @return null if invalid, else a list with the removed replicas.
+     */
+    public List<Integer> validateView(final MessageProto.View view)
+    {
+        if (view.getId() == this.getId() || view.getCoordinator() != this.getCoordinator())
+        {
+            Log.getLogger().warn("View Id or Coordinator don't match!");
+            return null;
+        }
+
+        final List<Integer> difference = new ArrayList<>();
+        for (final MessageProto.Server server : view.getServersList())
+        {
+            if (!servers.containsKey(server.getId()))
+            {
+                difference.add(server.getId());
+                continue;
+            }
+
+            final ServerData existing = servers.get(server.getId());
+
+            if (!server.getIp().equals(existing.getIp()) || server.getPort() != existing.getPort())
+            {
+                Log.getLogger().warn("Servers in few with same id got different access parameters!");
+                return null;
+            }
+        }
+        return difference;
+    }
+
+    /**
+     * Process this existing view to its protobuf version for sending.
+     * @return the built View.
+     */
+    public MessageProto.View processViewToProto()
+    {
+        final MessageProto.View.Builder viewBuilder = MessageProto.View.newBuilder();
+        viewBuilder.setCoordinator(this.getCoordinator());
+        viewBuilder.setId(this.getId());
+
+        int index = 0;
+        for (final ServerData serverData : this.getServers())
+        {
+            viewBuilder.setServers(index++, MessageProto.Server.newBuilder().setId(serverData.getId()).setPort(serverData.getPort()).setIp(serverData.getIp()));
+        }
+
+        return viewBuilder.build();
     }
 
     @Override
