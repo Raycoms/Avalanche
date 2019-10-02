@@ -1,6 +1,6 @@
 package com.ray.mcu.communication.clientoperations;
 
-import com.ray.mcu.communication.messages.IMessageWrapper;
+import com.ray.mcu.communication.wrappers.IMessageWrapper;
 import com.ray.mcu.server.client.ServerClientSender;
 
 import java.security.PublicKey;

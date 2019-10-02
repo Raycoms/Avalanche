@@ -3,7 +3,7 @@ package com.ray.mcu.server.server;
 import com.ray.mcu.communication.ISender;
 import com.ray.mcu.nettyhandlers.SizedMessageDecoder;
 import com.ray.mcu.nettyhandlers.SizedMessageEncoder;
-import com.ray.mcu.communication.messages.IMessageWrapper;
+import com.ray.mcu.communication.wrappers.IMessageWrapper;
 import com.ray.mcu.communication.serveroperations.IOperation;
 import com.ray.mcu.communication.recovery.ReconnectThread;
 import com.ray.mcu.server.IServer;

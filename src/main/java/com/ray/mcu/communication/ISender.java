@@ -1,6 +1,6 @@
 package com.ray.mcu.communication;
 
-import com.ray.mcu.communication.messages.IMessageWrapper;
+import com.ray.mcu.communication.wrappers.IMessageWrapper;
 import com.ray.mcu.server.ServerData;
 
 import java.util.List;

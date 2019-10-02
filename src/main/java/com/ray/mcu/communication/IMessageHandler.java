@@ -1,6 +1,6 @@
 package com.ray.mcu.communication;
 
-import com.ray.mcu.communication.messages.IMessageWrapper;
+import com.ray.mcu.communication.wrappers.IMessageWrapper;
 import com.ray.mcu.proto.MessageProto;
 import com.ray.mcu.server.Server;
 import com.google.protobuf.GeneratedMessageV3;

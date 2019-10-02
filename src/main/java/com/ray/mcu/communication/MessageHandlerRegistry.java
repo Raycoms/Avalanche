@@ -1,7 +1,6 @@
 package com.ray.mcu.communication;
 
-import com.constantine.comm.communication.messages.*;
-import com.ray.mcu.communication.messages.*;
+import com.ray.mcu.communication.wrappers.*;
 import com.ray.mcu.communication.serveroperations.BroadcastOperation;
 import com.ray.mcu.communication.serveroperations.ConnectOperation;
 import com.ray.mcu.communication.serveroperations.DisconnectOperation;

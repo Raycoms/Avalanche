@@ -1,4 +1,4 @@
-package com.ray.mcu.communication.messages;
+package com.ray.mcu.communication.wrappers;
 
 import com.ray.mcu.proto.MessageProto;
 import com.ray.mcu.server.IServer;

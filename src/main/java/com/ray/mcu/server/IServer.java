@@ -1,7 +1,7 @@
 package com.ray.mcu.server;
 
 import com.ray.mcu.communication.clientoperations.IClientOperation;
-import com.ray.mcu.communication.messages.IMessageWrapper;
+import com.ray.mcu.communication.wrappers.IMessageWrapper;
 import com.ray.mcu.communication.serveroperations.IOperation;
 
 /**

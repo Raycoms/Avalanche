@@ -2,8 +2,8 @@ package com.ray.mcu.server;
 
 import com.ray.mcu.communication.MessageHandlerRegistry;
 import com.ray.mcu.communication.clientoperations.IClientOperation;
-import com.ray.mcu.communication.messages.IMessageWrapper;
-import com.ray.mcu.communication.messages.JoinRequestMessageWrapper;
+import com.ray.mcu.communication.wrappers.IMessageWrapper;
+import com.ray.mcu.communication.wrappers.JoinRequestMessageWrapper;
 import com.ray.mcu.server.client.ClientMessageHandler;
 import com.ray.mcu.server.client.ServerClientReceiver;
 import com.ray.mcu.server.client.ServerClientSender;

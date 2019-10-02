@@ -1,6 +1,6 @@
 package com.ray.mcu.server.client;
 
-import com.ray.mcu.communication.messages.IMessageWrapper;
+import com.ray.mcu.communication.wrappers.IMessageWrapper;
 import com.ray.mcu.nettyhandlers.SizedMessage;
 import com.ray.mcu.server.IServer;
 import io.netty.channel.ChannelHandler;

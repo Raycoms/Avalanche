@@ -1,7 +1,7 @@
 package com.ray.mcu.communication.serveroperations;
 
 import com.ray.mcu.communication.ISender;
-import com.ray.mcu.communication.messages.IMessageWrapper;
+import com.ray.mcu.communication.wrappers.IMessageWrapper;
 
 /**
  * Broadcast operation type.

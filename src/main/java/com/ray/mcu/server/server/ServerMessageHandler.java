@@ -1,7 +1,7 @@
 package com.ray.mcu.server.server;
 
-import com.ray.mcu.communication.messages.TextMessageWrapper;
-import com.ray.mcu.communication.messages.UnregisterRequestMessageWrapper;
+import com.ray.mcu.communication.wrappers.TextMessageWrapper;
+import com.ray.mcu.communication.wrappers.UnregisterRequestMessageWrapper;
 import com.ray.mcu.communication.serveroperations.BroadcastOperation;
 import com.ray.mcu.communication.serveroperations.UnicastOperation;
 import com.ray.mcu.server.Server;
