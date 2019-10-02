@@ -1,4 +1,4 @@
-package com.ray.mcu.views.utils;
+package com.ray.mcu.utils;
 
 import com.ray.mcu.views.GlobalView;
 import org.boon.json.JsonFactory;

@@ -1,11 +1,11 @@
-package com.ray.mcu.launcher;
+package com.ray.launcher;
 
 import com.ray.mcu.client.Client;
 import com.ray.mcu.server.Server;
 import com.ray.mcu.server.ServerData;
 import com.ray.mcu.utils.KeyUtilities;
 import com.ray.mcu.views.GlobalView;
-import com.ray.mcu.views.utils.ViewLoader;
+import com.ray.mcu.utils.ViewLoader;
 import com.ray.mcu.utils.Constants;
 import sun.security.rsa.RSAKeyPairGenerator;
 

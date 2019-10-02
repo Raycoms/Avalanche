@@ -50,4 +50,10 @@ public abstract class AbstractMessageWrapper implements IMessageWrapper
     {
         return sender;
     }
+
+    @Override
+    public byte[] buildMessage()
+    {
+        return this.message.toByteArray();
+    }
 }

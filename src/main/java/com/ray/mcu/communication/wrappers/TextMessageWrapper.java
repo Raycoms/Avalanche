@@ -29,12 +29,6 @@ public class TextMessageWrapper extends AbstractMessageWrapper
         this(sender, MessageProto.TextMessage.newBuilder().setText(message).build());
     }
 
-    @Override
-    public byte[] buildMessage()
-    {
-        return this.message.toByteArray();
-    }
-
     /**
      * Get the text from the text message.
      * @return the string.

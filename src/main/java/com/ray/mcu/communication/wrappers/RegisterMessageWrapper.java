@@ -39,12 +39,6 @@ public class RegisterMessageWrapper extends AbstractMessageWrapper
         super(sender, message);
     }
 
-    @Override
-    public byte[] buildMessage()
-    {
-        return this.message.toByteArray();
-    }
-
     /**
      * Get the associated server data.
      * @return the server data.

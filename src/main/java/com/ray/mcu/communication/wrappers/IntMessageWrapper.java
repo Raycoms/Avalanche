@@ -39,12 +39,6 @@ public class IntMessageWrapper extends AbstractMessageWrapper
         super(sender, message);
     }
 
-    @Override
-    public byte[] buildMessage()
-    {
-        return message.toByteArray();
-    }
-
     /**
      * Get the int message from the wrapper.
      * @return the int.

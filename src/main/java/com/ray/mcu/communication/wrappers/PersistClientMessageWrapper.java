@@ -38,10 +38,4 @@ public class PersistClientMessageWrapper extends AbstractMessageWrapper
     {
         super(sender, message);
     }
-
-    @Override
-    public byte[] buildMessage()
-    {
-        return this.message.toByteArray();
-    }
 }

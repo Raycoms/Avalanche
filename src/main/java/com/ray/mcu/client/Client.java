@@ -7,7 +7,7 @@ import com.ray.mcu.server.ServerData;
 import com.ray.mcu.utils.KeyUtilities;
 import com.ray.mcu.utils.Log;
 import com.ray.mcu.views.GlobalView;
-import com.ray.mcu.views.utils.ViewLoader;
+import com.ray.mcu.utils.ViewLoader;
 import com.google.protobuf.ByteString;
 import com.ray.mcu.utils.Constants;
 import io.netty.bootstrap.Bootstrap;
