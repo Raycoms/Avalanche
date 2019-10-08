@@ -175,63 +175,50 @@ public final class MessageProto {
     com.ray.mcu.proto.MessageProto.CommitOrBuilder getCommitOrBuilder();
 
     /**
-     * <code>optional .proto.RecoverPrePrepare recoverPrePrepare = 13;</code>
-     */
-    boolean hasRecoverPrePrepare();
-    /**
-     * <code>optional .proto.RecoverPrePrepare recoverPrePrepare = 13;</code>
-     */
-    com.ray.mcu.proto.MessageProto.RecoverPrePrepare getRecoverPrePrepare();
-    /**
-     * <code>optional .proto.RecoverPrePrepare recoverPrePrepare = 13;</code>
-     */
-    com.ray.mcu.proto.MessageProto.RecoverPrePrepareOrBuilder getRecoverPrePrepareOrBuilder();
-
-    /**
-     * <code>optional .proto.RecoverCommit recoverCommit = 14;</code>
+     * <code>optional .proto.RecoverCommit recoverCommit = 13;</code>
      */
     boolean hasRecoverCommit();
     /**
-     * <code>optional .proto.RecoverCommit recoverCommit = 14;</code>
+     * <code>optional .proto.RecoverCommit recoverCommit = 13;</code>
      */
     com.ray.mcu.proto.MessageProto.RecoverCommit getRecoverCommit();
     /**
-     * <code>optional .proto.RecoverCommit recoverCommit = 14;</code>
+     * <code>optional .proto.RecoverCommit recoverCommit = 13;</code>
      */
     com.ray.mcu.proto.MessageProto.RecoverCommitOrBuilder getRecoverCommitOrBuilder();
 
     /**
-     * <code>optional .proto.RequestRecoverPrePrepare requestRecoverPrePrepare = 15;</code>
+     * <code>optional .proto.RequestRecoverPrePrepare requestRecoverPrePrepare = 14;</code>
      */
     boolean hasRequestRecoverPrePrepare();
     /**
-     * <code>optional .proto.RequestRecoverPrePrepare requestRecoverPrePrepare = 15;</code>
+     * <code>optional .proto.RequestRecoverPrePrepare requestRecoverPrePrepare = 14;</code>
      */
     com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepare getRequestRecoverPrePrepare();
     /**
-     * <code>optional .proto.RequestRecoverPrePrepare requestRecoverPrePrepare = 15;</code>
+     * <code>optional .proto.RequestRecoverPrePrepare requestRecoverPrePrepare = 14;</code>
      */
     com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepareOrBuilder getRequestRecoverPrePrepareOrBuilder();
 
     /**
-     * <code>optional .proto.RequestRecoverCommit requestRecoverCommit = 16;</code>
+     * <code>optional .proto.RequestRecoverCommit requestRecoverCommit = 15;</code>
      */
     boolean hasRequestRecoverCommit();
     /**
-     * <code>optional .proto.RequestRecoverCommit requestRecoverCommit = 16;</code>
+     * <code>optional .proto.RequestRecoverCommit requestRecoverCommit = 15;</code>
      */
     com.ray.mcu.proto.MessageProto.RequestRecoverCommit getRequestRecoverCommit();
     /**
-     * <code>optional .proto.RequestRecoverCommit requestRecoverCommit = 16;</code>
+     * <code>optional .proto.RequestRecoverCommit requestRecoverCommit = 15;</code>
      */
     com.ray.mcu.proto.MessageProto.RequestRecoverCommitOrBuilder getRequestRecoverCommitOrBuilder();
 
     /**
-     * <code>required bytes sig = 17;</code>
+     * <code>required bytes sig = 16;</code>
      */
     boolean hasSig();
     /**
-     * <code>required bytes sig = 17;</code>
+     * <code>required bytes sig = 16;</code>
      */
     com.google.protobuf.ByteString getSig();
 
@@ -446,22 +433,8 @@ public final class MessageProto {
               break;
             }
             case 106: {
-              com.ray.mcu.proto.MessageProto.RecoverPrePrepare.Builder subBuilder = null;
-              if (messagesCase_ == 13) {
-                subBuilder = ((com.ray.mcu.proto.MessageProto.RecoverPrePrepare) messages_).toBuilder();
-              }
-              messages_ =
-                  input.readMessage(com.ray.mcu.proto.MessageProto.RecoverPrePrepare.PARSER, extensionRegistry);
-              if (subBuilder != null) {
-                subBuilder.mergeFrom((com.ray.mcu.proto.MessageProto.RecoverPrePrepare) messages_);
-                messages_ = subBuilder.buildPartial();
-              }
-              messagesCase_ = 13;
-              break;
-            }
-            case 114: {
               com.ray.mcu.proto.MessageProto.RecoverCommit.Builder subBuilder = null;
-              if (messagesCase_ == 14) {
+              if (messagesCase_ == 13) {
                 subBuilder = ((com.ray.mcu.proto.MessageProto.RecoverCommit) messages_).toBuilder();
               }
               messages_ =
@@ -470,12 +443,12 @@ public final class MessageProto {
                 subBuilder.mergeFrom((com.ray.mcu.proto.MessageProto.RecoverCommit) messages_);
                 messages_ = subBuilder.buildPartial();
               }
-              messagesCase_ = 14;
+              messagesCase_ = 13;
               break;
             }
-            case 122: {
+            case 114: {
               com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepare.Builder subBuilder = null;
-              if (messagesCase_ == 15) {
+              if (messagesCase_ == 14) {
                 subBuilder = ((com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepare) messages_).toBuilder();
               }
               messages_ =
@@ -484,12 +457,12 @@ public final class MessageProto {
                 subBuilder.mergeFrom((com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepare) messages_);
                 messages_ = subBuilder.buildPartial();
               }
-              messagesCase_ = 15;
+              messagesCase_ = 14;
               break;
             }
-            case 130: {
+            case 122: {
               com.ray.mcu.proto.MessageProto.RequestRecoverCommit.Builder subBuilder = null;
-              if (messagesCase_ == 16) {
+              if (messagesCase_ == 15) {
                 subBuilder = ((com.ray.mcu.proto.MessageProto.RequestRecoverCommit) messages_).toBuilder();
               }
               messages_ =
@@ -498,11 +471,11 @@ public final class MessageProto {
                 subBuilder.mergeFrom((com.ray.mcu.proto.MessageProto.RequestRecoverCommit) messages_);
                 messages_ = subBuilder.buildPartial();
               }
-              messagesCase_ = 16;
+              messagesCase_ = 15;
               break;
             }
-            case 138: {
-              bitField0_ |= 0x00010000;
+            case 130: {
+              bitField0_ |= 0x00008000;
               sig_ = input.readBytes();
               break;
             }
@@ -555,10 +528,9 @@ public final class MessageProto {
       PREPREPARE(10),
       PREPARE(11),
       COMMIT(12),
-      RECOVERPREPREPARE(13),
-      RECOVERCOMMIT(14),
-      REQUESTRECOVERPREPREPARE(15),
-      REQUESTRECOVERCOMMIT(16),
+      RECOVERCOMMIT(13),
+      REQUESTRECOVERPREPREPARE(14),
+      REQUESTRECOVERCOMMIT(15),
       MESSAGES_NOT_SET(0);
       private final int value;
       private MessagesCase(int value) {
@@ -586,10 +558,9 @@ public final class MessageProto {
           case 10: return PREPREPARE;
           case 11: return PREPARE;
           case 12: return COMMIT;
-          case 13: return RECOVERPREPREPARE;
-          case 14: return RECOVERCOMMIT;
-          case 15: return REQUESTRECOVERPREPREPARE;
-          case 16: return REQUESTRECOVERCOMMIT;
+          case 13: return RECOVERCOMMIT;
+          case 14: return REQUESTRECOVERPREPREPARE;
+          case 15: return REQUESTRECOVERCOMMIT;
           case 0: return MESSAGES_NOT_SET;
           default: return null;
         }
@@ -917,120 +888,94 @@ public final class MessageProto {
       return com.ray.mcu.proto.MessageProto.Commit.getDefaultInstance();
     }
 
-    public static final int RECOVERPREPREPARE_FIELD_NUMBER = 13;
+    public static final int RECOVERCOMMIT_FIELD_NUMBER = 13;
     /**
-     * <code>optional .proto.RecoverPrePrepare recoverPrePrepare = 13;</code>
+     * <code>optional .proto.RecoverCommit recoverCommit = 13;</code>
      */
-    public boolean hasRecoverPrePrepare() {
+    public boolean hasRecoverCommit() {
       return messagesCase_ == 13;
     }
     /**
-     * <code>optional .proto.RecoverPrePrepare recoverPrePrepare = 13;</code>
+     * <code>optional .proto.RecoverCommit recoverCommit = 13;</code>
      */
-    public com.ray.mcu.proto.MessageProto.RecoverPrePrepare getRecoverPrePrepare() {
+    public com.ray.mcu.proto.MessageProto.RecoverCommit getRecoverCommit() {
       if (messagesCase_ == 13) {
-         return (com.ray.mcu.proto.MessageProto.RecoverPrePrepare) messages_;
+         return (com.ray.mcu.proto.MessageProto.RecoverCommit) messages_;
       }
-      return com.ray.mcu.proto.MessageProto.RecoverPrePrepare.getDefaultInstance();
+      return com.ray.mcu.proto.MessageProto.RecoverCommit.getDefaultInstance();
     }
     /**
-     * <code>optional .proto.RecoverPrePrepare recoverPrePrepare = 13;</code>
+     * <code>optional .proto.RecoverCommit recoverCommit = 13;</code>
      */
-    public com.ray.mcu.proto.MessageProto.RecoverPrePrepareOrBuilder getRecoverPrePrepareOrBuilder() {
+    public com.ray.mcu.proto.MessageProto.RecoverCommitOrBuilder getRecoverCommitOrBuilder() {
       if (messagesCase_ == 13) {
-         return (com.ray.mcu.proto.MessageProto.RecoverPrePrepare) messages_;
+         return (com.ray.mcu.proto.MessageProto.RecoverCommit) messages_;
       }
-      return com.ray.mcu.proto.MessageProto.RecoverPrePrepare.getDefaultInstance();
+      return com.ray.mcu.proto.MessageProto.RecoverCommit.getDefaultInstance();
     }
 
-    public static final int RECOVERCOMMIT_FIELD_NUMBER = 14;
+    public static final int REQUESTRECOVERPREPREPARE_FIELD_NUMBER = 14;
     /**
-     * <code>optional .proto.RecoverCommit recoverCommit = 14;</code>
+     * <code>optional .proto.RequestRecoverPrePrepare requestRecoverPrePrepare = 14;</code>
      */
-    public boolean hasRecoverCommit() {
+    public boolean hasRequestRecoverPrePrepare() {
       return messagesCase_ == 14;
     }
     /**
-     * <code>optional .proto.RecoverCommit recoverCommit = 14;</code>
+     * <code>optional .proto.RequestRecoverPrePrepare requestRecoverPrePrepare = 14;</code>
      */
-    public com.ray.mcu.proto.MessageProto.RecoverCommit getRecoverCommit() {
+    public com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepare getRequestRecoverPrePrepare() {
       if (messagesCase_ == 14) {
-         return (com.ray.mcu.proto.MessageProto.RecoverCommit) messages_;
+         return (com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepare) messages_;
       }
-      return com.ray.mcu.proto.MessageProto.RecoverCommit.getDefaultInstance();
+      return com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepare.getDefaultInstance();
     }
     /**
-     * <code>optional .proto.RecoverCommit recoverCommit = 14;</code>
+     * <code>optional .proto.RequestRecoverPrePrepare requestRecoverPrePrepare = 14;</code>
      */
-    public com.ray.mcu.proto.MessageProto.RecoverCommitOrBuilder getRecoverCommitOrBuilder() {
+    public com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepareOrBuilder getRequestRecoverPrePrepareOrBuilder() {
       if (messagesCase_ == 14) {
-         return (com.ray.mcu.proto.MessageProto.RecoverCommit) messages_;
+         return (com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepare) messages_;
       }
-      return com.ray.mcu.proto.MessageProto.RecoverCommit.getDefaultInstance();
+      return com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepare.getDefaultInstance();
     }
 
-    public static final int REQUESTRECOVERPREPREPARE_FIELD_NUMBER = 15;
+    public static final int REQUESTRECOVERCOMMIT_FIELD_NUMBER = 15;
     /**
-     * <code>optional .proto.RequestRecoverPrePrepare requestRecoverPrePrepare = 15;</code>
+     * <code>optional .proto.RequestRecoverCommit requestRecoverCommit = 15;</code>
      */
-    public boolean hasRequestRecoverPrePrepare() {
+    public boolean hasRequestRecoverCommit() {
       return messagesCase_ == 15;
     }
     /**
-     * <code>optional .proto.RequestRecoverPrePrepare requestRecoverPrePrepare = 15;</code>
-     */
-    public com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepare getRequestRecoverPrePrepare() {
-      if (messagesCase_ == 15) {
-         return (com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepare) messages_;
-      }
-      return com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepare.getDefaultInstance();
-    }
-    /**
-     * <code>optional .proto.RequestRecoverPrePrepare requestRecoverPrePrepare = 15;</code>
-     */
-    public com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepareOrBuilder getRequestRecoverPrePrepareOrBuilder() {
-      if (messagesCase_ == 15) {
-         return (com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepare) messages_;
-      }
-      return com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepare.getDefaultInstance();
-    }
-
-    public static final int REQUESTRECOVERCOMMIT_FIELD_NUMBER = 16;
-    /**
-     * <code>optional .proto.RequestRecoverCommit requestRecoverCommit = 16;</code>
-     */
-    public boolean hasRequestRecoverCommit() {
-      return messagesCase_ == 16;
-    }
-    /**
-     * <code>optional .proto.RequestRecoverCommit requestRecoverCommit = 16;</code>
+     * <code>optional .proto.RequestRecoverCommit requestRecoverCommit = 15;</code>
      */
     public com.ray.mcu.proto.MessageProto.RequestRecoverCommit getRequestRecoverCommit() {
-      if (messagesCase_ == 16) {
+      if (messagesCase_ == 15) {
          return (com.ray.mcu.proto.MessageProto.RequestRecoverCommit) messages_;
       }
       return com.ray.mcu.proto.MessageProto.RequestRecoverCommit.getDefaultInstance();
     }
     /**
-     * <code>optional .proto.RequestRecoverCommit requestRecoverCommit = 16;</code>
+     * <code>optional .proto.RequestRecoverCommit requestRecoverCommit = 15;</code>
      */
     public com.ray.mcu.proto.MessageProto.RequestRecoverCommitOrBuilder getRequestRecoverCommitOrBuilder() {
-      if (messagesCase_ == 16) {
+      if (messagesCase_ == 15) {
          return (com.ray.mcu.proto.MessageProto.RequestRecoverCommit) messages_;
       }
       return com.ray.mcu.proto.MessageProto.RequestRecoverCommit.getDefaultInstance();
     }
 
-    public static final int SIG_FIELD_NUMBER = 17;
+    public static final int SIG_FIELD_NUMBER = 16;
     private com.google.protobuf.ByteString sig_;
     /**
-     * <code>required bytes sig = 17;</code>
+     * <code>required bytes sig = 16;</code>
      */
     public boolean hasSig() {
-      return ((bitField0_ & 0x00010000) != 0);
+      return ((bitField0_ & 0x00008000) != 0);
     }
     /**
-     * <code>required bytes sig = 17;</code>
+     * <code>required bytes sig = 16;</code>
      */
     public com.google.protobuf.ByteString getSig() {
       return sig_;
@@ -1119,12 +1064,6 @@ public final class MessageProto {
           return false;
         }
       }
-      if (hasRecoverPrePrepare()) {
-        if (!getRecoverPrePrepare().isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-      }
       if (hasRecoverCommit()) {
         if (!getRecoverCommit().isInitialized()) {
           memoizedIsInitialized = 0;
@@ -1187,19 +1126,16 @@ public final class MessageProto {
         output.writeMessage(12, (com.ray.mcu.proto.MessageProto.Commit) messages_);
       }
       if (messagesCase_ == 13) {
-        output.writeMessage(13, (com.ray.mcu.proto.MessageProto.RecoverPrePrepare) messages_);
+        output.writeMessage(13, (com.ray.mcu.proto.MessageProto.RecoverCommit) messages_);
       }
       if (messagesCase_ == 14) {
-        output.writeMessage(14, (com.ray.mcu.proto.MessageProto.RecoverCommit) messages_);
+        output.writeMessage(14, (com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepare) messages_);
       }
       if (messagesCase_ == 15) {
-        output.writeMessage(15, (com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepare) messages_);
+        output.writeMessage(15, (com.ray.mcu.proto.MessageProto.RequestRecoverCommit) messages_);
       }
-      if (messagesCase_ == 16) {
-        output.writeMessage(16, (com.ray.mcu.proto.MessageProto.RequestRecoverCommit) messages_);
-      }
-      if (((bitField0_ & 0x00010000) != 0)) {
-        output.writeBytes(17, sig_);
+      if (((bitField0_ & 0x00008000) != 0)) {
+        output.writeBytes(16, sig_);
       }
       unknownFields.writeTo(output);
     }
@@ -1260,23 +1196,19 @@ public final class MessageProto {
       }
       if (messagesCase_ == 13) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(13, (com.ray.mcu.proto.MessageProto.RecoverPrePrepare) messages_);
+          .computeMessageSize(13, (com.ray.mcu.proto.MessageProto.RecoverCommit) messages_);
       }
       if (messagesCase_ == 14) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(14, (com.ray.mcu.proto.MessageProto.RecoverCommit) messages_);
+          .computeMessageSize(14, (com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepare) messages_);
       }
       if (messagesCase_ == 15) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(15, (com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepare) messages_);
+          .computeMessageSize(15, (com.ray.mcu.proto.MessageProto.RequestRecoverCommit) messages_);
       }
-      if (messagesCase_ == 16) {
+      if (((bitField0_ & 0x00008000) != 0)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(16, (com.ray.mcu.proto.MessageProto.RequestRecoverCommit) messages_);
-      }
-      if (((bitField0_ & 0x00010000) != 0)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(17, sig_);
+          .computeBytesSize(16, sig_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -1349,18 +1281,14 @@ public final class MessageProto {
               .equals(other.getCommit())) return false;
           break;
         case 13:
-          if (!getRecoverPrePrepare()
-              .equals(other.getRecoverPrePrepare())) return false;
-          break;
-        case 14:
           if (!getRecoverCommit()
               .equals(other.getRecoverCommit())) return false;
           break;
-        case 15:
+        case 14:
           if (!getRequestRecoverPrePrepare()
               .equals(other.getRequestRecoverPrePrepare())) return false;
           break;
-        case 16:
+        case 15:
           if (!getRequestRecoverCommit()
               .equals(other.getRequestRecoverCommit())) return false;
           break;
@@ -1432,18 +1360,14 @@ public final class MessageProto {
           hash = (53 * hash) + getCommit().hashCode();
           break;
         case 13:
-          hash = (37 * hash) + RECOVERPREPREPARE_FIELD_NUMBER;
-          hash = (53 * hash) + getRecoverPrePrepare().hashCode();
-          break;
-        case 14:
           hash = (37 * hash) + RECOVERCOMMIT_FIELD_NUMBER;
           hash = (53 * hash) + getRecoverCommit().hashCode();
           break;
-        case 15:
+        case 14:
           hash = (37 * hash) + REQUESTRECOVERPREPREPARE_FIELD_NUMBER;
           hash = (53 * hash) + getRequestRecoverPrePrepare().hashCode();
           break;
-        case 16:
+        case 15:
           hash = (37 * hash) + REQUESTRECOVERCOMMIT_FIELD_NUMBER;
           hash = (53 * hash) + getRequestRecoverCommit().hashCode();
           break;
@@ -1584,7 +1508,7 @@ public final class MessageProto {
       public Builder clear() {
         super.clear();
         sig_ = com.google.protobuf.ByteString.EMPTY;
-        bitField0_ = (bitField0_ & ~0x00010000);
+        bitField0_ = (bitField0_ & ~0x00008000);
         messagesCase_ = 0;
         messages_ = null;
         return this;
@@ -1700,35 +1624,28 @@ public final class MessageProto {
           }
         }
         if (messagesCase_ == 13) {
-          if (recoverPrePrepareBuilder_ == null) {
-            result.messages_ = messages_;
-          } else {
-            result.messages_ = recoverPrePrepareBuilder_.build();
-          }
-        }
-        if (messagesCase_ == 14) {
           if (recoverCommitBuilder_ == null) {
             result.messages_ = messages_;
           } else {
             result.messages_ = recoverCommitBuilder_.build();
           }
         }
-        if (messagesCase_ == 15) {
+        if (messagesCase_ == 14) {
           if (requestRecoverPrePrepareBuilder_ == null) {
             result.messages_ = messages_;
           } else {
             result.messages_ = requestRecoverPrePrepareBuilder_.build();
           }
         }
-        if (messagesCase_ == 16) {
+        if (messagesCase_ == 15) {
           if (requestRecoverCommitBuilder_ == null) {
             result.messages_ = messages_;
           } else {
             result.messages_ = requestRecoverCommitBuilder_.build();
           }
         }
-        if (((from_bitField0_ & 0x00010000) != 0)) {
-          to_bitField0_ |= 0x00010000;
+        if (((from_bitField0_ & 0x00008000) != 0)) {
+          to_bitField0_ |= 0x00008000;
         }
         result.sig_ = sig_;
         result.bitField0_ = to_bitField0_;
@@ -1833,10 +1750,6 @@ public final class MessageProto {
             mergeCommit(other.getCommit());
             break;
           }
-          case RECOVERPREPREPARE: {
-            mergeRecoverPrePrepare(other.getRecoverPrePrepare());
-            break;
-          }
           case RECOVERCOMMIT: {
             mergeRecoverCommit(other.getRecoverCommit());
             break;
@@ -1920,11 +1833,6 @@ public final class MessageProto {
         }
         if (hasCommit()) {
           if (!getCommit().isInitialized()) {
-            return false;
-          }
-        }
-        if (hasRecoverPrePrepare()) {
-          if (!getRecoverPrePrepare().isInitialized()) {
             return false;
           }
         }
@@ -3614,167 +3522,31 @@ public final class MessageProto {
       }
 
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.ray.mcu.proto.MessageProto.RecoverPrePrepare, com.ray.mcu.proto.MessageProto.RecoverPrePrepare.Builder, com.ray.mcu.proto.MessageProto.RecoverPrePrepareOrBuilder> recoverPrePrepareBuilder_;
+          com.ray.mcu.proto.MessageProto.RecoverCommit, com.ray.mcu.proto.MessageProto.RecoverCommit.Builder, com.ray.mcu.proto.MessageProto.RecoverCommitOrBuilder> recoverCommitBuilder_;
       /**
-       * <code>optional .proto.RecoverPrePrepare recoverPrePrepare = 13;</code>
+       * <code>optional .proto.RecoverCommit recoverCommit = 13;</code>
        */
-      public boolean hasRecoverPrePrepare() {
+      public boolean hasRecoverCommit() {
         return messagesCase_ == 13;
       }
       /**
-       * <code>optional .proto.RecoverPrePrepare recoverPrePrepare = 13;</code>
-       */
-      public com.ray.mcu.proto.MessageProto.RecoverPrePrepare getRecoverPrePrepare() {
-        if (recoverPrePrepareBuilder_ == null) {
-          if (messagesCase_ == 13) {
-            return (com.ray.mcu.proto.MessageProto.RecoverPrePrepare) messages_;
-          }
-          return com.ray.mcu.proto.MessageProto.RecoverPrePrepare.getDefaultInstance();
-        } else {
-          if (messagesCase_ == 13) {
-            return recoverPrePrepareBuilder_.getMessage();
-          }
-          return com.ray.mcu.proto.MessageProto.RecoverPrePrepare.getDefaultInstance();
-        }
-      }
-      /**
-       * <code>optional .proto.RecoverPrePrepare recoverPrePrepare = 13;</code>
-       */
-      public Builder setRecoverPrePrepare(com.ray.mcu.proto.MessageProto.RecoverPrePrepare value) {
-        if (recoverPrePrepareBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          messages_ = value;
-          onChanged();
-        } else {
-          recoverPrePrepareBuilder_.setMessage(value);
-        }
-        messagesCase_ = 13;
-        return this;
-      }
-      /**
-       * <code>optional .proto.RecoverPrePrepare recoverPrePrepare = 13;</code>
-       */
-      public Builder setRecoverPrePrepare(
-          com.ray.mcu.proto.MessageProto.RecoverPrePrepare.Builder builderForValue) {
-        if (recoverPrePrepareBuilder_ == null) {
-          messages_ = builderForValue.build();
-          onChanged();
-        } else {
-          recoverPrePrepareBuilder_.setMessage(builderForValue.build());
-        }
-        messagesCase_ = 13;
-        return this;
-      }
-      /**
-       * <code>optional .proto.RecoverPrePrepare recoverPrePrepare = 13;</code>
-       */
-      public Builder mergeRecoverPrePrepare(com.ray.mcu.proto.MessageProto.RecoverPrePrepare value) {
-        if (recoverPrePrepareBuilder_ == null) {
-          if (messagesCase_ == 13 &&
-              messages_ != com.ray.mcu.proto.MessageProto.RecoverPrePrepare.getDefaultInstance()) {
-            messages_ = com.ray.mcu.proto.MessageProto.RecoverPrePrepare.newBuilder((com.ray.mcu.proto.MessageProto.RecoverPrePrepare) messages_)
-                .mergeFrom(value).buildPartial();
-          } else {
-            messages_ = value;
-          }
-          onChanged();
-        } else {
-          if (messagesCase_ == 13) {
-            recoverPrePrepareBuilder_.mergeFrom(value);
-          }
-          recoverPrePrepareBuilder_.setMessage(value);
-        }
-        messagesCase_ = 13;
-        return this;
-      }
-      /**
-       * <code>optional .proto.RecoverPrePrepare recoverPrePrepare = 13;</code>
-       */
-      public Builder clearRecoverPrePrepare() {
-        if (recoverPrePrepareBuilder_ == null) {
-          if (messagesCase_ == 13) {
-            messagesCase_ = 0;
-            messages_ = null;
-            onChanged();
-          }
-        } else {
-          if (messagesCase_ == 13) {
-            messagesCase_ = 0;
-            messages_ = null;
-          }
-          recoverPrePrepareBuilder_.clear();
-        }
-        return this;
-      }
-      /**
-       * <code>optional .proto.RecoverPrePrepare recoverPrePrepare = 13;</code>
-       */
-      public com.ray.mcu.proto.MessageProto.RecoverPrePrepare.Builder getRecoverPrePrepareBuilder() {
-        return getRecoverPrePrepareFieldBuilder().getBuilder();
-      }
-      /**
-       * <code>optional .proto.RecoverPrePrepare recoverPrePrepare = 13;</code>
-       */
-      public com.ray.mcu.proto.MessageProto.RecoverPrePrepareOrBuilder getRecoverPrePrepareOrBuilder() {
-        if ((messagesCase_ == 13) && (recoverPrePrepareBuilder_ != null)) {
-          return recoverPrePrepareBuilder_.getMessageOrBuilder();
-        } else {
-          if (messagesCase_ == 13) {
-            return (com.ray.mcu.proto.MessageProto.RecoverPrePrepare) messages_;
-          }
-          return com.ray.mcu.proto.MessageProto.RecoverPrePrepare.getDefaultInstance();
-        }
-      }
-      /**
-       * <code>optional .proto.RecoverPrePrepare recoverPrePrepare = 13;</code>
-       */
-      private com.google.protobuf.SingleFieldBuilderV3<
-          com.ray.mcu.proto.MessageProto.RecoverPrePrepare, com.ray.mcu.proto.MessageProto.RecoverPrePrepare.Builder, com.ray.mcu.proto.MessageProto.RecoverPrePrepareOrBuilder> 
-          getRecoverPrePrepareFieldBuilder() {
-        if (recoverPrePrepareBuilder_ == null) {
-          if (!(messagesCase_ == 13)) {
-            messages_ = com.ray.mcu.proto.MessageProto.RecoverPrePrepare.getDefaultInstance();
-          }
-          recoverPrePrepareBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.ray.mcu.proto.MessageProto.RecoverPrePrepare, com.ray.mcu.proto.MessageProto.RecoverPrePrepare.Builder, com.ray.mcu.proto.MessageProto.RecoverPrePrepareOrBuilder>(
-                  (com.ray.mcu.proto.MessageProto.RecoverPrePrepare) messages_,
-                  getParentForChildren(),
-                  isClean());
-          messages_ = null;
-        }
-        messagesCase_ = 13;
-        onChanged();;
-        return recoverPrePrepareBuilder_;
-      }
-
-      private com.google.protobuf.SingleFieldBuilderV3<
-          com.ray.mcu.proto.MessageProto.RecoverCommit, com.ray.mcu.proto.MessageProto.RecoverCommit.Builder, com.ray.mcu.proto.MessageProto.RecoverCommitOrBuilder> recoverCommitBuilder_;
-      /**
-       * <code>optional .proto.RecoverCommit recoverCommit = 14;</code>
-       */
-      public boolean hasRecoverCommit() {
-        return messagesCase_ == 14;
-      }
-      /**
-       * <code>optional .proto.RecoverCommit recoverCommit = 14;</code>
+       * <code>optional .proto.RecoverCommit recoverCommit = 13;</code>
        */
       public com.ray.mcu.proto.MessageProto.RecoverCommit getRecoverCommit() {
         if (recoverCommitBuilder_ == null) {
-          if (messagesCase_ == 14) {
+          if (messagesCase_ == 13) {
             return (com.ray.mcu.proto.MessageProto.RecoverCommit) messages_;
           }
           return com.ray.mcu.proto.MessageProto.RecoverCommit.getDefaultInstance();
         } else {
-          if (messagesCase_ == 14) {
+          if (messagesCase_ == 13) {
             return recoverCommitBuilder_.getMessage();
           }
           return com.ray.mcu.proto.MessageProto.RecoverCommit.getDefaultInstance();
         }
       }
       /**
-       * <code>optional .proto.RecoverCommit recoverCommit = 14;</code>
+       * <code>optional .proto.RecoverCommit recoverCommit = 13;</code>
        */
       public Builder setRecoverCommit(com.ray.mcu.proto.MessageProto.RecoverCommit value) {
         if (recoverCommitBuilder_ == null) {
@@ -3786,11 +3558,11 @@ public final class MessageProto {
         } else {
           recoverCommitBuilder_.setMessage(value);
         }
-        messagesCase_ = 14;
+        messagesCase_ = 13;
         return this;
       }
       /**
-       * <code>optional .proto.RecoverCommit recoverCommit = 14;</code>
+       * <code>optional .proto.RecoverCommit recoverCommit = 13;</code>
        */
       public Builder setRecoverCommit(
           com.ray.mcu.proto.MessageProto.RecoverCommit.Builder builderForValue) {
@@ -3800,15 +3572,15 @@ public final class MessageProto {
         } else {
           recoverCommitBuilder_.setMessage(builderForValue.build());
         }
-        messagesCase_ = 14;
+        messagesCase_ = 13;
         return this;
       }
       /**
-       * <code>optional .proto.RecoverCommit recoverCommit = 14;</code>
+       * <code>optional .proto.RecoverCommit recoverCommit = 13;</code>
        */
       public Builder mergeRecoverCommit(com.ray.mcu.proto.MessageProto.RecoverCommit value) {
         if (recoverCommitBuilder_ == null) {
-          if (messagesCase_ == 14 &&
+          if (messagesCase_ == 13 &&
               messages_ != com.ray.mcu.proto.MessageProto.RecoverCommit.getDefaultInstance()) {
             messages_ = com.ray.mcu.proto.MessageProto.RecoverCommit.newBuilder((com.ray.mcu.proto.MessageProto.RecoverCommit) messages_)
                 .mergeFrom(value).buildPartial();
@@ -3817,26 +3589,26 @@ public final class MessageProto {
           }
           onChanged();
         } else {
-          if (messagesCase_ == 14) {
+          if (messagesCase_ == 13) {
             recoverCommitBuilder_.mergeFrom(value);
           }
           recoverCommitBuilder_.setMessage(value);
         }
-        messagesCase_ = 14;
+        messagesCase_ = 13;
         return this;
       }
       /**
-       * <code>optional .proto.RecoverCommit recoverCommit = 14;</code>
+       * <code>optional .proto.RecoverCommit recoverCommit = 13;</code>
        */
       public Builder clearRecoverCommit() {
         if (recoverCommitBuilder_ == null) {
-          if (messagesCase_ == 14) {
+          if (messagesCase_ == 13) {
             messagesCase_ = 0;
             messages_ = null;
             onChanged();
           }
         } else {
-          if (messagesCase_ == 14) {
+          if (messagesCase_ == 13) {
             messagesCase_ = 0;
             messages_ = null;
           }
@@ -3845,32 +3617,32 @@ public final class MessageProto {
         return this;
       }
       /**
-       * <code>optional .proto.RecoverCommit recoverCommit = 14;</code>
+       * <code>optional .proto.RecoverCommit recoverCommit = 13;</code>
        */
       public com.ray.mcu.proto.MessageProto.RecoverCommit.Builder getRecoverCommitBuilder() {
         return getRecoverCommitFieldBuilder().getBuilder();
       }
       /**
-       * <code>optional .proto.RecoverCommit recoverCommit = 14;</code>
+       * <code>optional .proto.RecoverCommit recoverCommit = 13;</code>
        */
       public com.ray.mcu.proto.MessageProto.RecoverCommitOrBuilder getRecoverCommitOrBuilder() {
-        if ((messagesCase_ == 14) && (recoverCommitBuilder_ != null)) {
+        if ((messagesCase_ == 13) && (recoverCommitBuilder_ != null)) {
           return recoverCommitBuilder_.getMessageOrBuilder();
         } else {
-          if (messagesCase_ == 14) {
+          if (messagesCase_ == 13) {
             return (com.ray.mcu.proto.MessageProto.RecoverCommit) messages_;
           }
           return com.ray.mcu.proto.MessageProto.RecoverCommit.getDefaultInstance();
         }
       }
       /**
-       * <code>optional .proto.RecoverCommit recoverCommit = 14;</code>
+       * <code>optional .proto.RecoverCommit recoverCommit = 13;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
           com.ray.mcu.proto.MessageProto.RecoverCommit, com.ray.mcu.proto.MessageProto.RecoverCommit.Builder, com.ray.mcu.proto.MessageProto.RecoverCommitOrBuilder> 
           getRecoverCommitFieldBuilder() {
         if (recoverCommitBuilder_ == null) {
-          if (!(messagesCase_ == 14)) {
+          if (!(messagesCase_ == 13)) {
             messages_ = com.ray.mcu.proto.MessageProto.RecoverCommit.getDefaultInstance();
           }
           recoverCommitBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
@@ -3880,7 +3652,7 @@ public final class MessageProto {
                   isClean());
           messages_ = null;
         }
-        messagesCase_ = 14;
+        messagesCase_ = 13;
         onChanged();;
         return recoverCommitBuilder_;
       }
@@ -3888,29 +3660,29 @@ public final class MessageProto {
       private com.google.protobuf.SingleFieldBuilderV3<
           com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepare, com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepare.Builder, com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepareOrBuilder> requestRecoverPrePrepareBuilder_;
       /**
-       * <code>optional .proto.RequestRecoverPrePrepare requestRecoverPrePrepare = 15;</code>
+       * <code>optional .proto.RequestRecoverPrePrepare requestRecoverPrePrepare = 14;</code>
        */
       public boolean hasRequestRecoverPrePrepare() {
-        return messagesCase_ == 15;
+        return messagesCase_ == 14;
       }
       /**
-       * <code>optional .proto.RequestRecoverPrePrepare requestRecoverPrePrepare = 15;</code>
+       * <code>optional .proto.RequestRecoverPrePrepare requestRecoverPrePrepare = 14;</code>
        */
       public com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepare getRequestRecoverPrePrepare() {
         if (requestRecoverPrePrepareBuilder_ == null) {
-          if (messagesCase_ == 15) {
+          if (messagesCase_ == 14) {
             return (com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepare) messages_;
           }
           return com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepare.getDefaultInstance();
         } else {
-          if (messagesCase_ == 15) {
+          if (messagesCase_ == 14) {
             return requestRecoverPrePrepareBuilder_.getMessage();
           }
           return com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepare.getDefaultInstance();
         }
       }
       /**
-       * <code>optional .proto.RequestRecoverPrePrepare requestRecoverPrePrepare = 15;</code>
+       * <code>optional .proto.RequestRecoverPrePrepare requestRecoverPrePrepare = 14;</code>
        */
       public Builder setRequestRecoverPrePrepare(com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepare value) {
         if (requestRecoverPrePrepareBuilder_ == null) {
@@ -3922,11 +3694,11 @@ public final class MessageProto {
         } else {
           requestRecoverPrePrepareBuilder_.setMessage(value);
         }
-        messagesCase_ = 15;
+        messagesCase_ = 14;
         return this;
       }
       /**
-       * <code>optional .proto.RequestRecoverPrePrepare requestRecoverPrePrepare = 15;</code>
+       * <code>optional .proto.RequestRecoverPrePrepare requestRecoverPrePrepare = 14;</code>
        */
       public Builder setRequestRecoverPrePrepare(
           com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepare.Builder builderForValue) {
@@ -3936,15 +3708,15 @@ public final class MessageProto {
         } else {
           requestRecoverPrePrepareBuilder_.setMessage(builderForValue.build());
         }
-        messagesCase_ = 15;
+        messagesCase_ = 14;
         return this;
       }
       /**
-       * <code>optional .proto.RequestRecoverPrePrepare requestRecoverPrePrepare = 15;</code>
+       * <code>optional .proto.RequestRecoverPrePrepare requestRecoverPrePrepare = 14;</code>
        */
       public Builder mergeRequestRecoverPrePrepare(com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepare value) {
         if (requestRecoverPrePrepareBuilder_ == null) {
-          if (messagesCase_ == 15 &&
+          if (messagesCase_ == 14 &&
               messages_ != com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepare.getDefaultInstance()) {
             messages_ = com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepare.newBuilder((com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepare) messages_)
                 .mergeFrom(value).buildPartial();
@@ -3953,26 +3725,26 @@ public final class MessageProto {
           }
           onChanged();
         } else {
-          if (messagesCase_ == 15) {
+          if (messagesCase_ == 14) {
             requestRecoverPrePrepareBuilder_.mergeFrom(value);
           }
           requestRecoverPrePrepareBuilder_.setMessage(value);
         }
-        messagesCase_ = 15;
+        messagesCase_ = 14;
         return this;
       }
       /**
-       * <code>optional .proto.RequestRecoverPrePrepare requestRecoverPrePrepare = 15;</code>
+       * <code>optional .proto.RequestRecoverPrePrepare requestRecoverPrePrepare = 14;</code>
        */
       public Builder clearRequestRecoverPrePrepare() {
         if (requestRecoverPrePrepareBuilder_ == null) {
-          if (messagesCase_ == 15) {
+          if (messagesCase_ == 14) {
             messagesCase_ = 0;
             messages_ = null;
             onChanged();
           }
         } else {
-          if (messagesCase_ == 15) {
+          if (messagesCase_ == 14) {
             messagesCase_ = 0;
             messages_ = null;
           }
@@ -3981,32 +3753,32 @@ public final class MessageProto {
         return this;
       }
       /**
-       * <code>optional .proto.RequestRecoverPrePrepare requestRecoverPrePrepare = 15;</code>
+       * <code>optional .proto.RequestRecoverPrePrepare requestRecoverPrePrepare = 14;</code>
        */
       public com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepare.Builder getRequestRecoverPrePrepareBuilder() {
         return getRequestRecoverPrePrepareFieldBuilder().getBuilder();
       }
       /**
-       * <code>optional .proto.RequestRecoverPrePrepare requestRecoverPrePrepare = 15;</code>
+       * <code>optional .proto.RequestRecoverPrePrepare requestRecoverPrePrepare = 14;</code>
        */
       public com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepareOrBuilder getRequestRecoverPrePrepareOrBuilder() {
-        if ((messagesCase_ == 15) && (requestRecoverPrePrepareBuilder_ != null)) {
+        if ((messagesCase_ == 14) && (requestRecoverPrePrepareBuilder_ != null)) {
           return requestRecoverPrePrepareBuilder_.getMessageOrBuilder();
         } else {
-          if (messagesCase_ == 15) {
+          if (messagesCase_ == 14) {
             return (com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepare) messages_;
           }
           return com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepare.getDefaultInstance();
         }
       }
       /**
-       * <code>optional .proto.RequestRecoverPrePrepare requestRecoverPrePrepare = 15;</code>
+       * <code>optional .proto.RequestRecoverPrePrepare requestRecoverPrePrepare = 14;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
           com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepare, com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepare.Builder, com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepareOrBuilder> 
           getRequestRecoverPrePrepareFieldBuilder() {
         if (requestRecoverPrePrepareBuilder_ == null) {
-          if (!(messagesCase_ == 15)) {
+          if (!(messagesCase_ == 14)) {
             messages_ = com.ray.mcu.proto.MessageProto.RequestRecoverPrePrepare.getDefaultInstance();
           }
           requestRecoverPrePrepareBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
@@ -4016,7 +3788,7 @@ public final class MessageProto {
                   isClean());
           messages_ = null;
         }
-        messagesCase_ = 15;
+        messagesCase_ = 14;
         onChanged();;
         return requestRecoverPrePrepareBuilder_;
       }
@@ -4024,29 +3796,29 @@ public final class MessageProto {
       private com.google.protobuf.SingleFieldBuilderV3<
           com.ray.mcu.proto.MessageProto.RequestRecoverCommit, com.ray.mcu.proto.MessageProto.RequestRecoverCommit.Builder, com.ray.mcu.proto.MessageProto.RequestRecoverCommitOrBuilder> requestRecoverCommitBuilder_;
       /**
-       * <code>optional .proto.RequestRecoverCommit requestRecoverCommit = 16;</code>
+       * <code>optional .proto.RequestRecoverCommit requestRecoverCommit = 15;</code>
        */
       public boolean hasRequestRecoverCommit() {
-        return messagesCase_ == 16;
+        return messagesCase_ == 15;
       }
       /**
-       * <code>optional .proto.RequestRecoverCommit requestRecoverCommit = 16;</code>
+       * <code>optional .proto.RequestRecoverCommit requestRecoverCommit = 15;</code>
        */
       public com.ray.mcu.proto.MessageProto.RequestRecoverCommit getRequestRecoverCommit() {
         if (requestRecoverCommitBuilder_ == null) {
-          if (messagesCase_ == 16) {
+          if (messagesCase_ == 15) {
             return (com.ray.mcu.proto.MessageProto.RequestRecoverCommit) messages_;
           }
           return com.ray.mcu.proto.MessageProto.RequestRecoverCommit.getDefaultInstance();
         } else {
-          if (messagesCase_ == 16) {
+          if (messagesCase_ == 15) {
             return requestRecoverCommitBuilder_.getMessage();
           }
           return com.ray.mcu.proto.MessageProto.RequestRecoverCommit.getDefaultInstance();
         }
       }
       /**
-       * <code>optional .proto.RequestRecoverCommit requestRecoverCommit = 16;</code>
+       * <code>optional .proto.RequestRecoverCommit requestRecoverCommit = 15;</code>
        */
       public Builder setRequestRecoverCommit(com.ray.mcu.proto.MessageProto.RequestRecoverCommit value) {
         if (requestRecoverCommitBuilder_ == null) {
@@ -4058,11 +3830,11 @@ public final class MessageProto {
         } else {
           requestRecoverCommitBuilder_.setMessage(value);
         }
-        messagesCase_ = 16;
+        messagesCase_ = 15;
         return this;
       }
       /**
-       * <code>optional .proto.RequestRecoverCommit requestRecoverCommit = 16;</code>
+       * <code>optional .proto.RequestRecoverCommit requestRecoverCommit = 15;</code>
        */
       public Builder setRequestRecoverCommit(
           com.ray.mcu.proto.MessageProto.RequestRecoverCommit.Builder builderForValue) {
@@ -4072,15 +3844,15 @@ public final class MessageProto {
         } else {
           requestRecoverCommitBuilder_.setMessage(builderForValue.build());
         }
-        messagesCase_ = 16;
+        messagesCase_ = 15;
         return this;
       }
       /**
-       * <code>optional .proto.RequestRecoverCommit requestRecoverCommit = 16;</code>
+       * <code>optional .proto.RequestRecoverCommit requestRecoverCommit = 15;</code>
        */
       public Builder mergeRequestRecoverCommit(com.ray.mcu.proto.MessageProto.RequestRecoverCommit value) {
         if (requestRecoverCommitBuilder_ == null) {
-          if (messagesCase_ == 16 &&
+          if (messagesCase_ == 15 &&
               messages_ != com.ray.mcu.proto.MessageProto.RequestRecoverCommit.getDefaultInstance()) {
             messages_ = com.ray.mcu.proto.MessageProto.RequestRecoverCommit.newBuilder((com.ray.mcu.proto.MessageProto.RequestRecoverCommit) messages_)
                 .mergeFrom(value).buildPartial();
@@ -4089,26 +3861,26 @@ public final class MessageProto {
           }
           onChanged();
         } else {
-          if (messagesCase_ == 16) {
+          if (messagesCase_ == 15) {
             requestRecoverCommitBuilder_.mergeFrom(value);
           }
           requestRecoverCommitBuilder_.setMessage(value);
         }
-        messagesCase_ = 16;
+        messagesCase_ = 15;
         return this;
       }
       /**
-       * <code>optional .proto.RequestRecoverCommit requestRecoverCommit = 16;</code>
+       * <code>optional .proto.RequestRecoverCommit requestRecoverCommit = 15;</code>
        */
       public Builder clearRequestRecoverCommit() {
         if (requestRecoverCommitBuilder_ == null) {
-          if (messagesCase_ == 16) {
+          if (messagesCase_ == 15) {
             messagesCase_ = 0;
             messages_ = null;
             onChanged();
           }
         } else {
-          if (messagesCase_ == 16) {
+          if (messagesCase_ == 15) {
             messagesCase_ = 0;
             messages_ = null;
           }
@@ -4117,32 +3889,32 @@ public final class MessageProto {
         return this;
       }
       /**
-       * <code>optional .proto.RequestRecoverCommit requestRecoverCommit = 16;</code>
+       * <code>optional .proto.RequestRecoverCommit requestRecoverCommit = 15;</code>
        */
       public com.ray.mcu.proto.MessageProto.RequestRecoverCommit.Builder getRequestRecoverCommitBuilder() {
         return getRequestRecoverCommitFieldBuilder().getBuilder();
       }
       /**
-       * <code>optional .proto.RequestRecoverCommit requestRecoverCommit = 16;</code>
+       * <code>optional .proto.RequestRecoverCommit requestRecoverCommit = 15;</code>
        */
       public com.ray.mcu.proto.MessageProto.RequestRecoverCommitOrBuilder getRequestRecoverCommitOrBuilder() {
-        if ((messagesCase_ == 16) && (requestRecoverCommitBuilder_ != null)) {
+        if ((messagesCase_ == 15) && (requestRecoverCommitBuilder_ != null)) {
           return requestRecoverCommitBuilder_.getMessageOrBuilder();
         } else {
-          if (messagesCase_ == 16) {
+          if (messagesCase_ == 15) {
             return (com.ray.mcu.proto.MessageProto.RequestRecoverCommit) messages_;
           }
           return com.ray.mcu.proto.MessageProto.RequestRecoverCommit.getDefaultInstance();
         }
       }
       /**
-       * <code>optional .proto.RequestRecoverCommit requestRecoverCommit = 16;</code>
+       * <code>optional .proto.RequestRecoverCommit requestRecoverCommit = 15;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
           com.ray.mcu.proto.MessageProto.RequestRecoverCommit, com.ray.mcu.proto.MessageProto.RequestRecoverCommit.Builder, com.ray.mcu.proto.MessageProto.RequestRecoverCommitOrBuilder> 
           getRequestRecoverCommitFieldBuilder() {
         if (requestRecoverCommitBuilder_ == null) {
-          if (!(messagesCase_ == 16)) {
+          if (!(messagesCase_ == 15)) {
             messages_ = com.ray.mcu.proto.MessageProto.RequestRecoverCommit.getDefaultInstance();
           }
           requestRecoverCommitBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
@@ -4152,41 +3924,41 @@ public final class MessageProto {
                   isClean());
           messages_ = null;
         }
-        messagesCase_ = 16;
+        messagesCase_ = 15;
         onChanged();;
         return requestRecoverCommitBuilder_;
       }
 
       private com.google.protobuf.ByteString sig_ = com.google.protobuf.ByteString.EMPTY;
       /**
-       * <code>required bytes sig = 17;</code>
+       * <code>required bytes sig = 16;</code>
        */
       public boolean hasSig() {
-        return ((bitField0_ & 0x00010000) != 0);
+        return ((bitField0_ & 0x00008000) != 0);
       }
       /**
-       * <code>required bytes sig = 17;</code>
+       * <code>required bytes sig = 16;</code>
        */
       public com.google.protobuf.ByteString getSig() {
         return sig_;
       }
       /**
-       * <code>required bytes sig = 17;</code>
+       * <code>required bytes sig = 16;</code>
        */
       public Builder setSig(com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00010000;
+  bitField0_ |= 0x00008000;
         sig_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required bytes sig = 17;</code>
+       * <code>required bytes sig = 16;</code>
        */
       public Builder clearSig() {
-        bitField0_ = (bitField0_ & ~0x00010000);
+        bitField0_ = (bitField0_ & ~0x00008000);
         sig_ = getDefaultInstance().getSig();
         onChanged();
         return this;
@@ -16154,849 +15926,6 @@ public final class MessageProto {
 
   }
 
-  public interface RecoverPrePrepareOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:proto.RecoverPrePrepare)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <code>required .proto.PrePrepare preprepare = 1;</code>
-     */
-    boolean hasPreprepare();
-    /**
-     * <code>required .proto.PrePrepare preprepare = 1;</code>
-     */
-    com.ray.mcu.proto.MessageProto.PrePrepare getPreprepare();
-    /**
-     * <code>required .proto.PrePrepare preprepare = 1;</code>
-     */
-    com.ray.mcu.proto.MessageProto.PrePrepareOrBuilder getPreprepareOrBuilder();
-
-    /**
-     * <code>required .proto.Signature signature = 2;</code>
-     */
-    boolean hasSignature();
-    /**
-     * <code>required .proto.Signature signature = 2;</code>
-     */
-    com.ray.mcu.proto.MessageProto.Signature getSignature();
-    /**
-     * <code>required .proto.Signature signature = 2;</code>
-     */
-    com.ray.mcu.proto.MessageProto.SignatureOrBuilder getSignatureOrBuilder();
-  }
-  /**
-   * Protobuf type {@code proto.RecoverPrePrepare}
-   */
-  public  static final class RecoverPrePrepare extends
-      com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:proto.RecoverPrePrepare)
-      RecoverPrePrepareOrBuilder {
-  private static final long serialVersionUID = 0L;
-    // Use RecoverPrePrepare.newBuilder() to construct.
-    private RecoverPrePrepare(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-      super(builder);
-    }
-    private RecoverPrePrepare() {
-    }
-
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return this.unknownFields;
-    }
-    private RecoverPrePrepare(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      this();
-      if (extensionRegistry == null) {
-        throw new java.lang.NullPointerException();
-      }
-      int mutable_bitField0_ = 0;
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            case 10: {
-              com.ray.mcu.proto.MessageProto.PrePrepare.Builder subBuilder = null;
-              if (((bitField0_ & 0x00000001) != 0)) {
-                subBuilder = preprepare_.toBuilder();
-              }
-              preprepare_ = input.readMessage(com.ray.mcu.proto.MessageProto.PrePrepare.PARSER, extensionRegistry);
-              if (subBuilder != null) {
-                subBuilder.mergeFrom(preprepare_);
-                preprepare_ = subBuilder.buildPartial();
-              }
-              bitField0_ |= 0x00000001;
-              break;
-            }
-            case 18: {
-              com.ray.mcu.proto.MessageProto.Signature.Builder subBuilder = null;
-              if (((bitField0_ & 0x00000002) != 0)) {
-                subBuilder = signature_.toBuilder();
-              }
-              signature_ = input.readMessage(com.ray.mcu.proto.MessageProto.Signature.PARSER, extensionRegistry);
-              if (subBuilder != null) {
-                subBuilder.mergeFrom(signature_);
-                signature_ = subBuilder.buildPartial();
-              }
-              bitField0_ |= 0x00000002;
-              break;
-            }
-            default: {
-              if (!parseUnknownField(
-                  input, unknownFields, extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e).setUnfinishedMessage(this);
-      } finally {
-        this.unknownFields = unknownFields.build();
-        makeExtensionsImmutable();
-      }
-    }
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return com.ray.mcu.proto.MessageProto.internal_static_proto_RecoverPrePrepare_descriptor;
-    }
-
-    @java.lang.Override
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return com.ray.mcu.proto.MessageProto.internal_static_proto_RecoverPrePrepare_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              com.ray.mcu.proto.MessageProto.RecoverPrePrepare.class, com.ray.mcu.proto.MessageProto.RecoverPrePrepare.Builder.class);
-    }
-
-    private int bitField0_;
-    public static final int PREPREPARE_FIELD_NUMBER = 1;
-    private com.ray.mcu.proto.MessageProto.PrePrepare preprepare_;
-    /**
-     * <code>required .proto.PrePrepare preprepare = 1;</code>
-     */
-    public boolean hasPreprepare() {
-      return ((bitField0_ & 0x00000001) != 0);
-    }
-    /**
-     * <code>required .proto.PrePrepare preprepare = 1;</code>
-     */
-    public com.ray.mcu.proto.MessageProto.PrePrepare getPreprepare() {
-      return preprepare_ == null ? com.ray.mcu.proto.MessageProto.PrePrepare.getDefaultInstance() : preprepare_;
-    }
-    /**
-     * <code>required .proto.PrePrepare preprepare = 1;</code>
-     */
-    public com.ray.mcu.proto.MessageProto.PrePrepareOrBuilder getPreprepareOrBuilder() {
-      return preprepare_ == null ? com.ray.mcu.proto.MessageProto.PrePrepare.getDefaultInstance() : preprepare_;
-    }
-
-    public static final int SIGNATURE_FIELD_NUMBER = 2;
-    private com.ray.mcu.proto.MessageProto.Signature signature_;
-    /**
-     * <code>required .proto.Signature signature = 2;</code>
-     */
-    public boolean hasSignature() {
-      return ((bitField0_ & 0x00000002) != 0);
-    }
-    /**
-     * <code>required .proto.Signature signature = 2;</code>
-     */
-    public com.ray.mcu.proto.MessageProto.Signature getSignature() {
-      return signature_ == null ? com.ray.mcu.proto.MessageProto.Signature.getDefaultInstance() : signature_;
-    }
-    /**
-     * <code>required .proto.Signature signature = 2;</code>
-     */
-    public com.ray.mcu.proto.MessageProto.SignatureOrBuilder getSignatureOrBuilder() {
-      return signature_ == null ? com.ray.mcu.proto.MessageProto.Signature.getDefaultInstance() : signature_;
-    }
-
-    private byte memoizedIsInitialized = -1;
-    @java.lang.Override
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      if (!hasPreprepare()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasSignature()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!getPreprepare().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!getSignature().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    @java.lang.Override
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      if (((bitField0_ & 0x00000001) != 0)) {
-        output.writeMessage(1, getPreprepare());
-      }
-      if (((bitField0_ & 0x00000002) != 0)) {
-        output.writeMessage(2, getSignature());
-      }
-      unknownFields.writeTo(output);
-    }
-
-    @java.lang.Override
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      if (((bitField0_ & 0x00000001) != 0)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(1, getPreprepare());
-      }
-      if (((bitField0_ & 0x00000002) != 0)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(2, getSignature());
-      }
-      size += unknownFields.getSerializedSize();
-      memoizedSize = size;
-      return size;
-    }
-
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof com.ray.mcu.proto.MessageProto.RecoverPrePrepare)) {
-        return super.equals(obj);
-      }
-      com.ray.mcu.proto.MessageProto.RecoverPrePrepare other = (com.ray.mcu.proto.MessageProto.RecoverPrePrepare) obj;
-
-      if (hasPreprepare() != other.hasPreprepare()) return false;
-      if (hasPreprepare()) {
-        if (!getPreprepare()
-            .equals(other.getPreprepare())) return false;
-      }
-      if (hasSignature() != other.hasSignature()) return false;
-      if (hasSignature()) {
-        if (!getSignature()
-            .equals(other.getSignature())) return false;
-      }
-      if (!unknownFields.equals(other.unknownFields)) return false;
-      return true;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptor().hashCode();
-      if (hasPreprepare()) {
-        hash = (37 * hash) + PREPREPARE_FIELD_NUMBER;
-        hash = (53 * hash) + getPreprepare().hashCode();
-      }
-      if (hasSignature()) {
-        hash = (37 * hash) + SIGNATURE_FIELD_NUMBER;
-        hash = (53 * hash) + getSignature().hashCode();
-      }
-      hash = (29 * hash) + unknownFields.hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static com.ray.mcu.proto.MessageProto.RecoverPrePrepare parseFrom(
-        java.nio.ByteBuffer data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static com.ray.mcu.proto.MessageProto.RecoverPrePrepare parseFrom(
-        java.nio.ByteBuffer data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static com.ray.mcu.proto.MessageProto.RecoverPrePrepare parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static com.ray.mcu.proto.MessageProto.RecoverPrePrepare parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static com.ray.mcu.proto.MessageProto.RecoverPrePrepare parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static com.ray.mcu.proto.MessageProto.RecoverPrePrepare parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static com.ray.mcu.proto.MessageProto.RecoverPrePrepare parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static com.ray.mcu.proto.MessageProto.RecoverPrePrepare parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static com.ray.mcu.proto.MessageProto.RecoverPrePrepare parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-    public static com.ray.mcu.proto.MessageProto.RecoverPrePrepare parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static com.ray.mcu.proto.MessageProto.RecoverPrePrepare parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static com.ray.mcu.proto.MessageProto.RecoverPrePrepare parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    @java.lang.Override
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(com.ray.mcu.proto.MessageProto.RecoverPrePrepare prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    @java.lang.Override
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * Protobuf type {@code proto.RecoverPrePrepare}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:proto.RecoverPrePrepare)
-        com.ray.mcu.proto.MessageProto.RecoverPrePrepareOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return com.ray.mcu.proto.MessageProto.internal_static_proto_RecoverPrePrepare_descriptor;
-      }
-
-      @java.lang.Override
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return com.ray.mcu.proto.MessageProto.internal_static_proto_RecoverPrePrepare_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                com.ray.mcu.proto.MessageProto.RecoverPrePrepare.class, com.ray.mcu.proto.MessageProto.RecoverPrePrepare.Builder.class);
-      }
-
-      // Construct using com.ray.mcu.proto.MessageProto.RecoverPrePrepare.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessageV3
-                .alwaysUseFieldBuilders) {
-          getPreprepareFieldBuilder();
-          getSignatureFieldBuilder();
-        }
-      }
-      @java.lang.Override
-      public Builder clear() {
-        super.clear();
-        if (preprepareBuilder_ == null) {
-          preprepare_ = null;
-        } else {
-          preprepareBuilder_.clear();
-        }
-        bitField0_ = (bitField0_ & ~0x00000001);
-        if (signatureBuilder_ == null) {
-          signature_ = null;
-        } else {
-          signatureBuilder_.clear();
-        }
-        bitField0_ = (bitField0_ & ~0x00000002);
-        return this;
-      }
-
-      @java.lang.Override
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return com.ray.mcu.proto.MessageProto.internal_static_proto_RecoverPrePrepare_descriptor;
-      }
-
-      @java.lang.Override
-      public com.ray.mcu.proto.MessageProto.RecoverPrePrepare getDefaultInstanceForType() {
-        return com.ray.mcu.proto.MessageProto.RecoverPrePrepare.getDefaultInstance();
-      }
-
-      @java.lang.Override
-      public com.ray.mcu.proto.MessageProto.RecoverPrePrepare build() {
-        com.ray.mcu.proto.MessageProto.RecoverPrePrepare result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      @java.lang.Override
-      public com.ray.mcu.proto.MessageProto.RecoverPrePrepare buildPartial() {
-        com.ray.mcu.proto.MessageProto.RecoverPrePrepare result = new com.ray.mcu.proto.MessageProto.RecoverPrePrepare(this);
-        int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
-        if (((from_bitField0_ & 0x00000001) != 0)) {
-          if (preprepareBuilder_ == null) {
-            result.preprepare_ = preprepare_;
-          } else {
-            result.preprepare_ = preprepareBuilder_.build();
-          }
-          to_bitField0_ |= 0x00000001;
-        }
-        if (((from_bitField0_ & 0x00000002) != 0)) {
-          if (signatureBuilder_ == null) {
-            result.signature_ = signature_;
-          } else {
-            result.signature_ = signatureBuilder_.build();
-          }
-          to_bitField0_ |= 0x00000002;
-        }
-        result.bitField0_ = to_bitField0_;
-        onBuilt();
-        return result;
-      }
-
-      @java.lang.Override
-      public Builder clone() {
-        return super.clone();
-      }
-      @java.lang.Override
-      public Builder setField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return super.setField(field, value);
-      }
-      @java.lang.Override
-      public Builder clearField(
-          com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return super.clearField(field);
-      }
-      @java.lang.Override
-      public Builder clearOneof(
-          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return super.clearOneof(oneof);
-      }
-      @java.lang.Override
-      public Builder setRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
-        return super.setRepeatedField(field, index, value);
-      }
-      @java.lang.Override
-      public Builder addRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return super.addRepeatedField(field, value);
-      }
-      @java.lang.Override
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof com.ray.mcu.proto.MessageProto.RecoverPrePrepare) {
-          return mergeFrom((com.ray.mcu.proto.MessageProto.RecoverPrePrepare)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(com.ray.mcu.proto.MessageProto.RecoverPrePrepare other) {
-        if (other == com.ray.mcu.proto.MessageProto.RecoverPrePrepare.getDefaultInstance()) return this;
-        if (other.hasPreprepare()) {
-          mergePreprepare(other.getPreprepare());
-        }
-        if (other.hasSignature()) {
-          mergeSignature(other.getSignature());
-        }
-        this.mergeUnknownFields(other.unknownFields);
-        onChanged();
-        return this;
-      }
-
-      @java.lang.Override
-      public final boolean isInitialized() {
-        if (!hasPreprepare()) {
-          return false;
-        }
-        if (!hasSignature()) {
-          return false;
-        }
-        if (!getPreprepare().isInitialized()) {
-          return false;
-        }
-        if (!getSignature().isInitialized()) {
-          return false;
-        }
-        return true;
-      }
-
-      @java.lang.Override
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        com.ray.mcu.proto.MessageProto.RecoverPrePrepare parsedMessage = null;
-        try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (com.ray.mcu.proto.MessageProto.RecoverPrePrepare) e.getUnfinishedMessage();
-          throw e.unwrapIOException();
-        } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
-          }
-        }
-        return this;
-      }
-      private int bitField0_;
-
-      private com.ray.mcu.proto.MessageProto.PrePrepare preprepare_;
-      private com.google.protobuf.SingleFieldBuilderV3<
-          com.ray.mcu.proto.MessageProto.PrePrepare, com.ray.mcu.proto.MessageProto.PrePrepare.Builder, com.ray.mcu.proto.MessageProto.PrePrepareOrBuilder> preprepareBuilder_;
-      /**
-       * <code>required .proto.PrePrepare preprepare = 1;</code>
-       */
-      public boolean hasPreprepare() {
-        return ((bitField0_ & 0x00000001) != 0);
-      }
-      /**
-       * <code>required .proto.PrePrepare preprepare = 1;</code>
-       */
-      public com.ray.mcu.proto.MessageProto.PrePrepare getPreprepare() {
-        if (preprepareBuilder_ == null) {
-          return preprepare_ == null ? com.ray.mcu.proto.MessageProto.PrePrepare.getDefaultInstance() : preprepare_;
-        } else {
-          return preprepareBuilder_.getMessage();
-        }
-      }
-      /**
-       * <code>required .proto.PrePrepare preprepare = 1;</code>
-       */
-      public Builder setPreprepare(com.ray.mcu.proto.MessageProto.PrePrepare value) {
-        if (preprepareBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          preprepare_ = value;
-          onChanged();
-        } else {
-          preprepareBuilder_.setMessage(value);
-        }
-        bitField0_ |= 0x00000001;
-        return this;
-      }
-      /**
-       * <code>required .proto.PrePrepare preprepare = 1;</code>
-       */
-      public Builder setPreprepare(
-          com.ray.mcu.proto.MessageProto.PrePrepare.Builder builderForValue) {
-        if (preprepareBuilder_ == null) {
-          preprepare_ = builderForValue.build();
-          onChanged();
-        } else {
-          preprepareBuilder_.setMessage(builderForValue.build());
-        }
-        bitField0_ |= 0x00000001;
-        return this;
-      }
-      /**
-       * <code>required .proto.PrePrepare preprepare = 1;</code>
-       */
-      public Builder mergePreprepare(com.ray.mcu.proto.MessageProto.PrePrepare value) {
-        if (preprepareBuilder_ == null) {
-          if (((bitField0_ & 0x00000001) != 0) &&
-              preprepare_ != null &&
-              preprepare_ != com.ray.mcu.proto.MessageProto.PrePrepare.getDefaultInstance()) {
-            preprepare_ =
-              com.ray.mcu.proto.MessageProto.PrePrepare.newBuilder(preprepare_).mergeFrom(value).buildPartial();
-          } else {
-            preprepare_ = value;
-          }
-          onChanged();
-        } else {
-          preprepareBuilder_.mergeFrom(value);
-        }
-        bitField0_ |= 0x00000001;
-        return this;
-      }
-      /**
-       * <code>required .proto.PrePrepare preprepare = 1;</code>
-       */
-      public Builder clearPreprepare() {
-        if (preprepareBuilder_ == null) {
-          preprepare_ = null;
-          onChanged();
-        } else {
-          preprepareBuilder_.clear();
-        }
-        bitField0_ = (bitField0_ & ~0x00000001);
-        return this;
-      }
-      /**
-       * <code>required .proto.PrePrepare preprepare = 1;</code>
-       */
-      public com.ray.mcu.proto.MessageProto.PrePrepare.Builder getPreprepareBuilder() {
-        bitField0_ |= 0x00000001;
-        onChanged();
-        return getPreprepareFieldBuilder().getBuilder();
-      }
-      /**
-       * <code>required .proto.PrePrepare preprepare = 1;</code>
-       */
-      public com.ray.mcu.proto.MessageProto.PrePrepareOrBuilder getPreprepareOrBuilder() {
-        if (preprepareBuilder_ != null) {
-          return preprepareBuilder_.getMessageOrBuilder();
-        } else {
-          return preprepare_ == null ?
-              com.ray.mcu.proto.MessageProto.PrePrepare.getDefaultInstance() : preprepare_;
-        }
-      }
-      /**
-       * <code>required .proto.PrePrepare preprepare = 1;</code>
-       */
-      private com.google.protobuf.SingleFieldBuilderV3<
-          com.ray.mcu.proto.MessageProto.PrePrepare, com.ray.mcu.proto.MessageProto.PrePrepare.Builder, com.ray.mcu.proto.MessageProto.PrePrepareOrBuilder> 
-          getPreprepareFieldBuilder() {
-        if (preprepareBuilder_ == null) {
-          preprepareBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.ray.mcu.proto.MessageProto.PrePrepare, com.ray.mcu.proto.MessageProto.PrePrepare.Builder, com.ray.mcu.proto.MessageProto.PrePrepareOrBuilder>(
-                  getPreprepare(),
-                  getParentForChildren(),
-                  isClean());
-          preprepare_ = null;
-        }
-        return preprepareBuilder_;
-      }
-
-      private com.ray.mcu.proto.MessageProto.Signature signature_;
-      private com.google.protobuf.SingleFieldBuilderV3<
-          com.ray.mcu.proto.MessageProto.Signature, com.ray.mcu.proto.MessageProto.Signature.Builder, com.ray.mcu.proto.MessageProto.SignatureOrBuilder> signatureBuilder_;
-      /**
-       * <code>required .proto.Signature signature = 2;</code>
-       */
-      public boolean hasSignature() {
-        return ((bitField0_ & 0x00000002) != 0);
-      }
-      /**
-       * <code>required .proto.Signature signature = 2;</code>
-       */
-      public com.ray.mcu.proto.MessageProto.Signature getSignature() {
-        if (signatureBuilder_ == null) {
-          return signature_ == null ? com.ray.mcu.proto.MessageProto.Signature.getDefaultInstance() : signature_;
-        } else {
-          return signatureBuilder_.getMessage();
-        }
-      }
-      /**
-       * <code>required .proto.Signature signature = 2;</code>
-       */
-      public Builder setSignature(com.ray.mcu.proto.MessageProto.Signature value) {
-        if (signatureBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          signature_ = value;
-          onChanged();
-        } else {
-          signatureBuilder_.setMessage(value);
-        }
-        bitField0_ |= 0x00000002;
-        return this;
-      }
-      /**
-       * <code>required .proto.Signature signature = 2;</code>
-       */
-      public Builder setSignature(
-          com.ray.mcu.proto.MessageProto.Signature.Builder builderForValue) {
-        if (signatureBuilder_ == null) {
-          signature_ = builderForValue.build();
-          onChanged();
-        } else {
-          signatureBuilder_.setMessage(builderForValue.build());
-        }
-        bitField0_ |= 0x00000002;
-        return this;
-      }
-      /**
-       * <code>required .proto.Signature signature = 2;</code>
-       */
-      public Builder mergeSignature(com.ray.mcu.proto.MessageProto.Signature value) {
-        if (signatureBuilder_ == null) {
-          if (((bitField0_ & 0x00000002) != 0) &&
-              signature_ != null &&
-              signature_ != com.ray.mcu.proto.MessageProto.Signature.getDefaultInstance()) {
-            signature_ =
-              com.ray.mcu.proto.MessageProto.Signature.newBuilder(signature_).mergeFrom(value).buildPartial();
-          } else {
-            signature_ = value;
-          }
-          onChanged();
-        } else {
-          signatureBuilder_.mergeFrom(value);
-        }
-        bitField0_ |= 0x00000002;
-        return this;
-      }
-      /**
-       * <code>required .proto.Signature signature = 2;</code>
-       */
-      public Builder clearSignature() {
-        if (signatureBuilder_ == null) {
-          signature_ = null;
-          onChanged();
-        } else {
-          signatureBuilder_.clear();
-        }
-        bitField0_ = (bitField0_ & ~0x00000002);
-        return this;
-      }
-      /**
-       * <code>required .proto.Signature signature = 2;</code>
-       */
-      public com.ray.mcu.proto.MessageProto.Signature.Builder getSignatureBuilder() {
-        bitField0_ |= 0x00000002;
-        onChanged();
-        return getSignatureFieldBuilder().getBuilder();
-      }
-      /**
-       * <code>required .proto.Signature signature = 2;</code>
-       */
-      public com.ray.mcu.proto.MessageProto.SignatureOrBuilder getSignatureOrBuilder() {
-        if (signatureBuilder_ != null) {
-          return signatureBuilder_.getMessageOrBuilder();
-        } else {
-          return signature_ == null ?
-              com.ray.mcu.proto.MessageProto.Signature.getDefaultInstance() : signature_;
-        }
-      }
-      /**
-       * <code>required .proto.Signature signature = 2;</code>
-       */
-      private com.google.protobuf.SingleFieldBuilderV3<
-          com.ray.mcu.proto.MessageProto.Signature, com.ray.mcu.proto.MessageProto.Signature.Builder, com.ray.mcu.proto.MessageProto.SignatureOrBuilder> 
-          getSignatureFieldBuilder() {
-        if (signatureBuilder_ == null) {
-          signatureBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.ray.mcu.proto.MessageProto.Signature, com.ray.mcu.proto.MessageProto.Signature.Builder, com.ray.mcu.proto.MessageProto.SignatureOrBuilder>(
-                  getSignature(),
-                  getParentForChildren(),
-                  isClean());
-          signature_ = null;
-        }
-        return signatureBuilder_;
-      }
-      @java.lang.Override
-      public final Builder setUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFields(unknownFields);
-      }
-
-      @java.lang.Override
-      public final Builder mergeUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.mergeUnknownFields(unknownFields);
-      }
-
-
-      // @@protoc_insertion_point(builder_scope:proto.RecoverPrePrepare)
-    }
-
-    // @@protoc_insertion_point(class_scope:proto.RecoverPrePrepare)
-    private static final com.ray.mcu.proto.MessageProto.RecoverPrePrepare DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new com.ray.mcu.proto.MessageProto.RecoverPrePrepare();
-    }
-
-    public static com.ray.mcu.proto.MessageProto.RecoverPrePrepare getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    @java.lang.Deprecated public static final com.google.protobuf.Parser<RecoverPrePrepare>
-        PARSER = new com.google.protobuf.AbstractParser<RecoverPrePrepare>() {
-      @java.lang.Override
-      public RecoverPrePrepare parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new RecoverPrePrepare(input, extensionRegistry);
-      }
-    };
-
-    public static com.google.protobuf.Parser<RecoverPrePrepare> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<RecoverPrePrepare> getParserForType() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.ray.mcu.proto.MessageProto.RecoverPrePrepare getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
   public interface RequestRecoverCommitOrBuilder extends
       // @@protoc_insertion_point(interface_extends:proto.RequestRecoverCommit)
       com.google.protobuf.MessageOrBuilder {
@@ -17512,49 +16441,27 @@ public final class MessageProto {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>required int32 viewId = 1;</code>
+     * <code>repeated .proto.Commit commits = 1;</code>
      */
-    boolean hasViewId();
+    java.util.List<com.ray.mcu.proto.MessageProto.Commit> 
+        getCommitsList();
     /**
-     * <code>required int32 viewId = 1;</code>
+     * <code>repeated .proto.Commit commits = 1;</code>
      */
-    int getViewId();
-
+    com.ray.mcu.proto.MessageProto.Commit getCommits(int index);
     /**
-     * <code>required .proto.PrePrepare preprepare = 2;</code>
+     * <code>repeated .proto.Commit commits = 1;</code>
      */
-    boolean hasPreprepare();
+    int getCommitsCount();
     /**
-     * <code>required .proto.PrePrepare preprepare = 2;</code>
+     * <code>repeated .proto.Commit commits = 1;</code>
      */
-    com.ray.mcu.proto.MessageProto.PrePrepare getPreprepare();
+    java.util.List<? extends com.ray.mcu.proto.MessageProto.CommitOrBuilder> 
+        getCommitsOrBuilderList();
     /**
-     * <code>required .proto.PrePrepare preprepare = 2;</code>
+     * <code>repeated .proto.Commit commits = 1;</code>
      */
-    com.ray.mcu.proto.MessageProto.PrePrepareOrBuilder getPreprepareOrBuilder();
-
-    /**
-     * <code>repeated .proto.Signature signatures = 3;</code>
-     */
-    java.util.List<com.ray.mcu.proto.MessageProto.Signature> 
-        getSignaturesList();
-    /**
-     * <code>repeated .proto.Signature signatures = 3;</code>
-     */
-    com.ray.mcu.proto.MessageProto.Signature getSignatures(int index);
-    /**
-     * <code>repeated .proto.Signature signatures = 3;</code>
-     */
-    int getSignaturesCount();
-    /**
-     * <code>repeated .proto.Signature signatures = 3;</code>
-     */
-    java.util.List<? extends com.ray.mcu.proto.MessageProto.SignatureOrBuilder> 
-        getSignaturesOrBuilderList();
-    /**
-     * <code>repeated .proto.Signature signatures = 3;</code>
-     */
-    com.ray.mcu.proto.MessageProto.SignatureOrBuilder getSignaturesOrBuilder(
+    com.ray.mcu.proto.MessageProto.CommitOrBuilder getCommitsOrBuilder(
         int index);
   }
   /**
@@ -17570,7 +16477,7 @@ public final class MessageProto {
       super(builder);
     }
     private RecoverCommit() {
-      signatures_ = java.util.Collections.emptyList();
+      commits_ = java.util.Collections.emptyList();
     }
 
     @java.lang.Override
@@ -17597,31 +16504,13 @@ public final class MessageProto {
             case 0:
               done = true;
               break;
-            case 8: {
-              bitField0_ |= 0x00000001;
-              viewId_ = input.readInt32();
-              break;
-            }
-            case 18: {
-              com.ray.mcu.proto.MessageProto.PrePrepare.Builder subBuilder = null;
-              if (((bitField0_ & 0x00000002) != 0)) {
-                subBuilder = preprepare_.toBuilder();
+            case 10: {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                commits_ = new java.util.ArrayList<com.ray.mcu.proto.MessageProto.Commit>();
+                mutable_bitField0_ |= 0x00000001;
               }
-              preprepare_ = input.readMessage(com.ray.mcu.proto.MessageProto.PrePrepare.PARSER, extensionRegistry);
-              if (subBuilder != null) {
-                subBuilder.mergeFrom(preprepare_);
-                preprepare_ = subBuilder.buildPartial();
-              }
-              bitField0_ |= 0x00000002;
-              break;
-            }
-            case 26: {
-              if (!((mutable_bitField0_ & 0x00000004) != 0)) {
-                signatures_ = new java.util.ArrayList<com.ray.mcu.proto.MessageProto.Signature>();
-                mutable_bitField0_ |= 0x00000004;
-              }
-              signatures_.add(
-                  input.readMessage(com.ray.mcu.proto.MessageProto.Signature.PARSER, extensionRegistry));
+              commits_.add(
+                  input.readMessage(com.ray.mcu.proto.MessageProto.Commit.PARSER, extensionRegistry));
               break;
             }
             default: {
@@ -17639,8 +16528,8 @@ public final class MessageProto {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
-        if (((mutable_bitField0_ & 0x00000004) != 0)) {
-          signatures_ = java.util.Collections.unmodifiableList(signatures_);
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          commits_ = java.util.Collections.unmodifiableList(commits_);
         }
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
@@ -17659,76 +16548,39 @@ public final class MessageProto {
               com.ray.mcu.proto.MessageProto.RecoverCommit.class, com.ray.mcu.proto.MessageProto.RecoverCommit.Builder.class);
     }
 
-    private int bitField0_;
-    public static final int VIEWID_FIELD_NUMBER = 1;
-    private int viewId_;
+    public static final int COMMITS_FIELD_NUMBER = 1;
+    private java.util.List<com.ray.mcu.proto.MessageProto.Commit> commits_;
     /**
-     * <code>required int32 viewId = 1;</code>
+     * <code>repeated .proto.Commit commits = 1;</code>
      */
-    public boolean hasViewId() {
-      return ((bitField0_ & 0x00000001) != 0);
+    public java.util.List<com.ray.mcu.proto.MessageProto.Commit> getCommitsList() {
+      return commits_;
     }
     /**
-     * <code>required int32 viewId = 1;</code>
+     * <code>repeated .proto.Commit commits = 1;</code>
      */
-    public int getViewId() {
-      return viewId_;
-    }
-
-    public static final int PREPREPARE_FIELD_NUMBER = 2;
-    private com.ray.mcu.proto.MessageProto.PrePrepare preprepare_;
-    /**
-     * <code>required .proto.PrePrepare preprepare = 2;</code>
-     */
-    public boolean hasPreprepare() {
-      return ((bitField0_ & 0x00000002) != 0);
+    public java.util.List<? extends com.ray.mcu.proto.MessageProto.CommitOrBuilder> 
+        getCommitsOrBuilderList() {
+      return commits_;
     }
     /**
-     * <code>required .proto.PrePrepare preprepare = 2;</code>
+     * <code>repeated .proto.Commit commits = 1;</code>
      */
-    public com.ray.mcu.proto.MessageProto.PrePrepare getPreprepare() {
-      return preprepare_ == null ? com.ray.mcu.proto.MessageProto.PrePrepare.getDefaultInstance() : preprepare_;
+    public int getCommitsCount() {
+      return commits_.size();
     }
     /**
-     * <code>required .proto.PrePrepare preprepare = 2;</code>
+     * <code>repeated .proto.Commit commits = 1;</code>
      */
-    public com.ray.mcu.proto.MessageProto.PrePrepareOrBuilder getPreprepareOrBuilder() {
-      return preprepare_ == null ? com.ray.mcu.proto.MessageProto.PrePrepare.getDefaultInstance() : preprepare_;
-    }
-
-    public static final int SIGNATURES_FIELD_NUMBER = 3;
-    private java.util.List<com.ray.mcu.proto.MessageProto.Signature> signatures_;
-    /**
-     * <code>repeated .proto.Signature signatures = 3;</code>
-     */
-    public java.util.List<com.ray.mcu.proto.MessageProto.Signature> getSignaturesList() {
-      return signatures_;
+    public com.ray.mcu.proto.MessageProto.Commit getCommits(int index) {
+      return commits_.get(index);
     }
     /**
-     * <code>repeated .proto.Signature signatures = 3;</code>
+     * <code>repeated .proto.Commit commits = 1;</code>
      */
-    public java.util.List<? extends com.ray.mcu.proto.MessageProto.SignatureOrBuilder> 
-        getSignaturesOrBuilderList() {
-      return signatures_;
-    }
-    /**
-     * <code>repeated .proto.Signature signatures = 3;</code>
-     */
-    public int getSignaturesCount() {
-      return signatures_.size();
-    }
-    /**
-     * <code>repeated .proto.Signature signatures = 3;</code>
-     */
-    public com.ray.mcu.proto.MessageProto.Signature getSignatures(int index) {
-      return signatures_.get(index);
-    }
-    /**
-     * <code>repeated .proto.Signature signatures = 3;</code>
-     */
-    public com.ray.mcu.proto.MessageProto.SignatureOrBuilder getSignaturesOrBuilder(
+    public com.ray.mcu.proto.MessageProto.CommitOrBuilder getCommitsOrBuilder(
         int index) {
-      return signatures_.get(index);
+      return commits_.get(index);
     }
 
     private byte memoizedIsInitialized = -1;
@@ -17738,20 +16590,8 @@ public final class MessageProto {
       if (isInitialized == 1) return true;
       if (isInitialized == 0) return false;
 
-      if (!hasViewId()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasPreprepare()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!getPreprepare().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      for (int i = 0; i < getSignaturesCount(); i++) {
-        if (!getSignatures(i).isInitialized()) {
+      for (int i = 0; i < getCommitsCount(); i++) {
+        if (!getCommits(i).isInitialized()) {
           memoizedIsInitialized = 0;
           return false;
         }
@@ -17763,14 +16603,8 @@ public final class MessageProto {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (((bitField0_ & 0x00000001) != 0)) {
-        output.writeInt32(1, viewId_);
-      }
-      if (((bitField0_ & 0x00000002) != 0)) {
-        output.writeMessage(2, getPreprepare());
-      }
-      for (int i = 0; i < signatures_.size(); i++) {
-        output.writeMessage(3, signatures_.get(i));
+      for (int i = 0; i < commits_.size(); i++) {
+        output.writeMessage(1, commits_.get(i));
       }
       unknownFields.writeTo(output);
     }
@@ -17781,17 +16615,9 @@ public final class MessageProto {
       if (size != -1) return size;
 
       size = 0;
-      if (((bitField0_ & 0x00000001) != 0)) {
+      for (int i = 0; i < commits_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(1, viewId_);
-      }
-      if (((bitField0_ & 0x00000002) != 0)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(2, getPreprepare());
-      }
-      for (int i = 0; i < signatures_.size(); i++) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(3, signatures_.get(i));
+          .computeMessageSize(1, commits_.get(i));
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -17808,18 +16634,8 @@ public final class MessageProto {
       }
       com.ray.mcu.proto.MessageProto.RecoverCommit other = (com.ray.mcu.proto.MessageProto.RecoverCommit) obj;
 
-      if (hasViewId() != other.hasViewId()) return false;
-      if (hasViewId()) {
-        if (getViewId()
-            != other.getViewId()) return false;
-      }
-      if (hasPreprepare() != other.hasPreprepare()) return false;
-      if (hasPreprepare()) {
-        if (!getPreprepare()
-            .equals(other.getPreprepare())) return false;
-      }
-      if (!getSignaturesList()
-          .equals(other.getSignaturesList())) return false;
+      if (!getCommitsList()
+          .equals(other.getCommitsList())) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -17831,17 +16647,9 @@ public final class MessageProto {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
-      if (hasViewId()) {
-        hash = (37 * hash) + VIEWID_FIELD_NUMBER;
-        hash = (53 * hash) + getViewId();
-      }
-      if (hasPreprepare()) {
-        hash = (37 * hash) + PREPREPARE_FIELD_NUMBER;
-        hash = (53 * hash) + getPreprepare().hashCode();
-      }
-      if (getSignaturesCount() > 0) {
-        hash = (37 * hash) + SIGNATURES_FIELD_NUMBER;
-        hash = (53 * hash) + getSignaturesList().hashCode();
+      if (getCommitsCount() > 0) {
+        hash = (37 * hash) + COMMITS_FIELD_NUMBER;
+        hash = (53 * hash) + getCommitsList().hashCode();
       }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
@@ -17971,26 +16779,17 @@ public final class MessageProto {
       private void maybeForceBuilderInitialization() {
         if (com.google.protobuf.GeneratedMessageV3
                 .alwaysUseFieldBuilders) {
-          getPreprepareFieldBuilder();
-          getSignaturesFieldBuilder();
+          getCommitsFieldBuilder();
         }
       }
       @java.lang.Override
       public Builder clear() {
         super.clear();
-        viewId_ = 0;
-        bitField0_ = (bitField0_ & ~0x00000001);
-        if (preprepareBuilder_ == null) {
-          preprepare_ = null;
+        if (commitsBuilder_ == null) {
+          commits_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
         } else {
-          preprepareBuilder_.clear();
-        }
-        bitField0_ = (bitField0_ & ~0x00000002);
-        if (signaturesBuilder_ == null) {
-          signatures_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000004);
-        } else {
-          signaturesBuilder_.clear();
+          commitsBuilder_.clear();
         }
         return this;
       }
@@ -18019,29 +16818,15 @@ public final class MessageProto {
       public com.ray.mcu.proto.MessageProto.RecoverCommit buildPartial() {
         com.ray.mcu.proto.MessageProto.RecoverCommit result = new com.ray.mcu.proto.MessageProto.RecoverCommit(this);
         int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
-        if (((from_bitField0_ & 0x00000001) != 0)) {
-          result.viewId_ = viewId_;
-          to_bitField0_ |= 0x00000001;
-        }
-        if (((from_bitField0_ & 0x00000002) != 0)) {
-          if (preprepareBuilder_ == null) {
-            result.preprepare_ = preprepare_;
-          } else {
-            result.preprepare_ = preprepareBuilder_.build();
+        if (commitsBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) != 0)) {
+            commits_ = java.util.Collections.unmodifiableList(commits_);
+            bitField0_ = (bitField0_ & ~0x00000001);
           }
-          to_bitField0_ |= 0x00000002;
-        }
-        if (signaturesBuilder_ == null) {
-          if (((bitField0_ & 0x00000004) != 0)) {
-            signatures_ = java.util.Collections.unmodifiableList(signatures_);
-            bitField0_ = (bitField0_ & ~0x00000004);
-          }
-          result.signatures_ = signatures_;
+          result.commits_ = commits_;
         } else {
-          result.signatures_ = signaturesBuilder_.build();
+          result.commits_ = commitsBuilder_.build();
         }
-        result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
@@ -18090,35 +16875,29 @@ public final class MessageProto {
 
       public Builder mergeFrom(com.ray.mcu.proto.MessageProto.RecoverCommit other) {
         if (other == com.ray.mcu.proto.MessageProto.RecoverCommit.getDefaultInstance()) return this;
-        if (other.hasViewId()) {
-          setViewId(other.getViewId());
-        }
-        if (other.hasPreprepare()) {
-          mergePreprepare(other.getPreprepare());
-        }
-        if (signaturesBuilder_ == null) {
-          if (!other.signatures_.isEmpty()) {
-            if (signatures_.isEmpty()) {
-              signatures_ = other.signatures_;
-              bitField0_ = (bitField0_ & ~0x00000004);
+        if (commitsBuilder_ == null) {
+          if (!other.commits_.isEmpty()) {
+            if (commits_.isEmpty()) {
+              commits_ = other.commits_;
+              bitField0_ = (bitField0_ & ~0x00000001);
             } else {
-              ensureSignaturesIsMutable();
-              signatures_.addAll(other.signatures_);
+              ensureCommitsIsMutable();
+              commits_.addAll(other.commits_);
             }
             onChanged();
           }
         } else {
-          if (!other.signatures_.isEmpty()) {
-            if (signaturesBuilder_.isEmpty()) {
-              signaturesBuilder_.dispose();
-              signaturesBuilder_ = null;
-              signatures_ = other.signatures_;
-              bitField0_ = (bitField0_ & ~0x00000004);
-              signaturesBuilder_ = 
+          if (!other.commits_.isEmpty()) {
+            if (commitsBuilder_.isEmpty()) {
+              commitsBuilder_.dispose();
+              commitsBuilder_ = null;
+              commits_ = other.commits_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              commitsBuilder_ = 
                 com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
-                   getSignaturesFieldBuilder() : null;
+                   getCommitsFieldBuilder() : null;
             } else {
-              signaturesBuilder_.addAllMessages(other.signatures_);
+              commitsBuilder_.addAllMessages(other.commits_);
             }
           }
         }
@@ -18129,17 +16908,8 @@ public final class MessageProto {
 
       @java.lang.Override
       public final boolean isInitialized() {
-        if (!hasViewId()) {
-          return false;
-        }
-        if (!hasPreprepare()) {
-          return false;
-        }
-        if (!getPreprepare().isInitialized()) {
-          return false;
-        }
-        for (int i = 0; i < getSignaturesCount(); i++) {
-          if (!getSignatures(i).isInitialized()) {
+        for (int i = 0; i < getCommitsCount(); i++) {
+          if (!getCommits(i).isInitialized()) {
             return false;
           }
         }
@@ -18166,394 +16936,244 @@ public final class MessageProto {
       }
       private int bitField0_;
 
-      private int viewId_ ;
-      /**
-       * <code>required int32 viewId = 1;</code>
-       */
-      public boolean hasViewId() {
-        return ((bitField0_ & 0x00000001) != 0);
-      }
-      /**
-       * <code>required int32 viewId = 1;</code>
-       */
-      public int getViewId() {
-        return viewId_;
-      }
-      /**
-       * <code>required int32 viewId = 1;</code>
-       */
-      public Builder setViewId(int value) {
-        bitField0_ |= 0x00000001;
-        viewId_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>required int32 viewId = 1;</code>
-       */
-      public Builder clearViewId() {
-        bitField0_ = (bitField0_ & ~0x00000001);
-        viewId_ = 0;
-        onChanged();
-        return this;
-      }
-
-      private com.ray.mcu.proto.MessageProto.PrePrepare preprepare_;
-      private com.google.protobuf.SingleFieldBuilderV3<
-          com.ray.mcu.proto.MessageProto.PrePrepare, com.ray.mcu.proto.MessageProto.PrePrepare.Builder, com.ray.mcu.proto.MessageProto.PrePrepareOrBuilder> preprepareBuilder_;
-      /**
-       * <code>required .proto.PrePrepare preprepare = 2;</code>
-       */
-      public boolean hasPreprepare() {
-        return ((bitField0_ & 0x00000002) != 0);
-      }
-      /**
-       * <code>required .proto.PrePrepare preprepare = 2;</code>
-       */
-      public com.ray.mcu.proto.MessageProto.PrePrepare getPreprepare() {
-        if (preprepareBuilder_ == null) {
-          return preprepare_ == null ? com.ray.mcu.proto.MessageProto.PrePrepare.getDefaultInstance() : preprepare_;
-        } else {
-          return preprepareBuilder_.getMessage();
-        }
-      }
-      /**
-       * <code>required .proto.PrePrepare preprepare = 2;</code>
-       */
-      public Builder setPreprepare(com.ray.mcu.proto.MessageProto.PrePrepare value) {
-        if (preprepareBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          preprepare_ = value;
-          onChanged();
-        } else {
-          preprepareBuilder_.setMessage(value);
-        }
-        bitField0_ |= 0x00000002;
-        return this;
-      }
-      /**
-       * <code>required .proto.PrePrepare preprepare = 2;</code>
-       */
-      public Builder setPreprepare(
-          com.ray.mcu.proto.MessageProto.PrePrepare.Builder builderForValue) {
-        if (preprepareBuilder_ == null) {
-          preprepare_ = builderForValue.build();
-          onChanged();
-        } else {
-          preprepareBuilder_.setMessage(builderForValue.build());
-        }
-        bitField0_ |= 0x00000002;
-        return this;
-      }
-      /**
-       * <code>required .proto.PrePrepare preprepare = 2;</code>
-       */
-      public Builder mergePreprepare(com.ray.mcu.proto.MessageProto.PrePrepare value) {
-        if (preprepareBuilder_ == null) {
-          if (((bitField0_ & 0x00000002) != 0) &&
-              preprepare_ != null &&
-              preprepare_ != com.ray.mcu.proto.MessageProto.PrePrepare.getDefaultInstance()) {
-            preprepare_ =
-              com.ray.mcu.proto.MessageProto.PrePrepare.newBuilder(preprepare_).mergeFrom(value).buildPartial();
-          } else {
-            preprepare_ = value;
-          }
-          onChanged();
-        } else {
-          preprepareBuilder_.mergeFrom(value);
-        }
-        bitField0_ |= 0x00000002;
-        return this;
-      }
-      /**
-       * <code>required .proto.PrePrepare preprepare = 2;</code>
-       */
-      public Builder clearPreprepare() {
-        if (preprepareBuilder_ == null) {
-          preprepare_ = null;
-          onChanged();
-        } else {
-          preprepareBuilder_.clear();
-        }
-        bitField0_ = (bitField0_ & ~0x00000002);
-        return this;
-      }
-      /**
-       * <code>required .proto.PrePrepare preprepare = 2;</code>
-       */
-      public com.ray.mcu.proto.MessageProto.PrePrepare.Builder getPreprepareBuilder() {
-        bitField0_ |= 0x00000002;
-        onChanged();
-        return getPreprepareFieldBuilder().getBuilder();
-      }
-      /**
-       * <code>required .proto.PrePrepare preprepare = 2;</code>
-       */
-      public com.ray.mcu.proto.MessageProto.PrePrepareOrBuilder getPreprepareOrBuilder() {
-        if (preprepareBuilder_ != null) {
-          return preprepareBuilder_.getMessageOrBuilder();
-        } else {
-          return preprepare_ == null ?
-              com.ray.mcu.proto.MessageProto.PrePrepare.getDefaultInstance() : preprepare_;
-        }
-      }
-      /**
-       * <code>required .proto.PrePrepare preprepare = 2;</code>
-       */
-      private com.google.protobuf.SingleFieldBuilderV3<
-          com.ray.mcu.proto.MessageProto.PrePrepare, com.ray.mcu.proto.MessageProto.PrePrepare.Builder, com.ray.mcu.proto.MessageProto.PrePrepareOrBuilder> 
-          getPreprepareFieldBuilder() {
-        if (preprepareBuilder_ == null) {
-          preprepareBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.ray.mcu.proto.MessageProto.PrePrepare, com.ray.mcu.proto.MessageProto.PrePrepare.Builder, com.ray.mcu.proto.MessageProto.PrePrepareOrBuilder>(
-                  getPreprepare(),
-                  getParentForChildren(),
-                  isClean());
-          preprepare_ = null;
-        }
-        return preprepareBuilder_;
-      }
-
-      private java.util.List<com.ray.mcu.proto.MessageProto.Signature> signatures_ =
+      private java.util.List<com.ray.mcu.proto.MessageProto.Commit> commits_ =
         java.util.Collections.emptyList();
-      private void ensureSignaturesIsMutable() {
-        if (!((bitField0_ & 0x00000004) != 0)) {
-          signatures_ = new java.util.ArrayList<com.ray.mcu.proto.MessageProto.Signature>(signatures_);
-          bitField0_ |= 0x00000004;
+      private void ensureCommitsIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          commits_ = new java.util.ArrayList<com.ray.mcu.proto.MessageProto.Commit>(commits_);
+          bitField0_ |= 0x00000001;
          }
       }
 
       private com.google.protobuf.RepeatedFieldBuilderV3<
-          com.ray.mcu.proto.MessageProto.Signature, com.ray.mcu.proto.MessageProto.Signature.Builder, com.ray.mcu.proto.MessageProto.SignatureOrBuilder> signaturesBuilder_;
+          com.ray.mcu.proto.MessageProto.Commit, com.ray.mcu.proto.MessageProto.Commit.Builder, com.ray.mcu.proto.MessageProto.CommitOrBuilder> commitsBuilder_;
 
       /**
-       * <code>repeated .proto.Signature signatures = 3;</code>
+       * <code>repeated .proto.Commit commits = 1;</code>
        */
-      public java.util.List<com.ray.mcu.proto.MessageProto.Signature> getSignaturesList() {
-        if (signaturesBuilder_ == null) {
-          return java.util.Collections.unmodifiableList(signatures_);
+      public java.util.List<com.ray.mcu.proto.MessageProto.Commit> getCommitsList() {
+        if (commitsBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(commits_);
         } else {
-          return signaturesBuilder_.getMessageList();
+          return commitsBuilder_.getMessageList();
         }
       }
       /**
-       * <code>repeated .proto.Signature signatures = 3;</code>
+       * <code>repeated .proto.Commit commits = 1;</code>
        */
-      public int getSignaturesCount() {
-        if (signaturesBuilder_ == null) {
-          return signatures_.size();
+      public int getCommitsCount() {
+        if (commitsBuilder_ == null) {
+          return commits_.size();
         } else {
-          return signaturesBuilder_.getCount();
+          return commitsBuilder_.getCount();
         }
       }
       /**
-       * <code>repeated .proto.Signature signatures = 3;</code>
+       * <code>repeated .proto.Commit commits = 1;</code>
        */
-      public com.ray.mcu.proto.MessageProto.Signature getSignatures(int index) {
-        if (signaturesBuilder_ == null) {
-          return signatures_.get(index);
+      public com.ray.mcu.proto.MessageProto.Commit getCommits(int index) {
+        if (commitsBuilder_ == null) {
+          return commits_.get(index);
         } else {
-          return signaturesBuilder_.getMessage(index);
+          return commitsBuilder_.getMessage(index);
         }
       }
       /**
-       * <code>repeated .proto.Signature signatures = 3;</code>
+       * <code>repeated .proto.Commit commits = 1;</code>
        */
-      public Builder setSignatures(
-          int index, com.ray.mcu.proto.MessageProto.Signature value) {
-        if (signaturesBuilder_ == null) {
+      public Builder setCommits(
+          int index, com.ray.mcu.proto.MessageProto.Commit value) {
+        if (commitsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
           }
-          ensureSignaturesIsMutable();
-          signatures_.set(index, value);
+          ensureCommitsIsMutable();
+          commits_.set(index, value);
           onChanged();
         } else {
-          signaturesBuilder_.setMessage(index, value);
+          commitsBuilder_.setMessage(index, value);
         }
         return this;
       }
       /**
-       * <code>repeated .proto.Signature signatures = 3;</code>
+       * <code>repeated .proto.Commit commits = 1;</code>
        */
-      public Builder setSignatures(
-          int index, com.ray.mcu.proto.MessageProto.Signature.Builder builderForValue) {
-        if (signaturesBuilder_ == null) {
-          ensureSignaturesIsMutable();
-          signatures_.set(index, builderForValue.build());
+      public Builder setCommits(
+          int index, com.ray.mcu.proto.MessageProto.Commit.Builder builderForValue) {
+        if (commitsBuilder_ == null) {
+          ensureCommitsIsMutable();
+          commits_.set(index, builderForValue.build());
           onChanged();
         } else {
-          signaturesBuilder_.setMessage(index, builderForValue.build());
+          commitsBuilder_.setMessage(index, builderForValue.build());
         }
         return this;
       }
       /**
-       * <code>repeated .proto.Signature signatures = 3;</code>
+       * <code>repeated .proto.Commit commits = 1;</code>
        */
-      public Builder addSignatures(com.ray.mcu.proto.MessageProto.Signature value) {
-        if (signaturesBuilder_ == null) {
+      public Builder addCommits(com.ray.mcu.proto.MessageProto.Commit value) {
+        if (commitsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
           }
-          ensureSignaturesIsMutable();
-          signatures_.add(value);
+          ensureCommitsIsMutable();
+          commits_.add(value);
           onChanged();
         } else {
-          signaturesBuilder_.addMessage(value);
+          commitsBuilder_.addMessage(value);
         }
         return this;
       }
       /**
-       * <code>repeated .proto.Signature signatures = 3;</code>
+       * <code>repeated .proto.Commit commits = 1;</code>
        */
-      public Builder addSignatures(
-          int index, com.ray.mcu.proto.MessageProto.Signature value) {
-        if (signaturesBuilder_ == null) {
+      public Builder addCommits(
+          int index, com.ray.mcu.proto.MessageProto.Commit value) {
+        if (commitsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
           }
-          ensureSignaturesIsMutable();
-          signatures_.add(index, value);
+          ensureCommitsIsMutable();
+          commits_.add(index, value);
           onChanged();
         } else {
-          signaturesBuilder_.addMessage(index, value);
+          commitsBuilder_.addMessage(index, value);
         }
         return this;
       }
       /**
-       * <code>repeated .proto.Signature signatures = 3;</code>
+       * <code>repeated .proto.Commit commits = 1;</code>
        */
-      public Builder addSignatures(
-          com.ray.mcu.proto.MessageProto.Signature.Builder builderForValue) {
-        if (signaturesBuilder_ == null) {
-          ensureSignaturesIsMutable();
-          signatures_.add(builderForValue.build());
+      public Builder addCommits(
+          com.ray.mcu.proto.MessageProto.Commit.Builder builderForValue) {
+        if (commitsBuilder_ == null) {
+          ensureCommitsIsMutable();
+          commits_.add(builderForValue.build());
           onChanged();
         } else {
-          signaturesBuilder_.addMessage(builderForValue.build());
+          commitsBuilder_.addMessage(builderForValue.build());
         }
         return this;
       }
       /**
-       * <code>repeated .proto.Signature signatures = 3;</code>
+       * <code>repeated .proto.Commit commits = 1;</code>
        */
-      public Builder addSignatures(
-          int index, com.ray.mcu.proto.MessageProto.Signature.Builder builderForValue) {
-        if (signaturesBuilder_ == null) {
-          ensureSignaturesIsMutable();
-          signatures_.add(index, builderForValue.build());
+      public Builder addCommits(
+          int index, com.ray.mcu.proto.MessageProto.Commit.Builder builderForValue) {
+        if (commitsBuilder_ == null) {
+          ensureCommitsIsMutable();
+          commits_.add(index, builderForValue.build());
           onChanged();
         } else {
-          signaturesBuilder_.addMessage(index, builderForValue.build());
+          commitsBuilder_.addMessage(index, builderForValue.build());
         }
         return this;
       }
       /**
-       * <code>repeated .proto.Signature signatures = 3;</code>
+       * <code>repeated .proto.Commit commits = 1;</code>
        */
-      public Builder addAllSignatures(
-          java.lang.Iterable<? extends com.ray.mcu.proto.MessageProto.Signature> values) {
-        if (signaturesBuilder_ == null) {
-          ensureSignaturesIsMutable();
+      public Builder addAllCommits(
+          java.lang.Iterable<? extends com.ray.mcu.proto.MessageProto.Commit> values) {
+        if (commitsBuilder_ == null) {
+          ensureCommitsIsMutable();
           com.google.protobuf.AbstractMessageLite.Builder.addAll(
-              values, signatures_);
+              values, commits_);
           onChanged();
         } else {
-          signaturesBuilder_.addAllMessages(values);
+          commitsBuilder_.addAllMessages(values);
         }
         return this;
       }
       /**
-       * <code>repeated .proto.Signature signatures = 3;</code>
+       * <code>repeated .proto.Commit commits = 1;</code>
        */
-      public Builder clearSignatures() {
-        if (signaturesBuilder_ == null) {
-          signatures_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000004);
+      public Builder clearCommits() {
+        if (commitsBuilder_ == null) {
+          commits_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
           onChanged();
         } else {
-          signaturesBuilder_.clear();
+          commitsBuilder_.clear();
         }
         return this;
       }
       /**
-       * <code>repeated .proto.Signature signatures = 3;</code>
+       * <code>repeated .proto.Commit commits = 1;</code>
        */
-      public Builder removeSignatures(int index) {
-        if (signaturesBuilder_ == null) {
-          ensureSignaturesIsMutable();
-          signatures_.remove(index);
+      public Builder removeCommits(int index) {
+        if (commitsBuilder_ == null) {
+          ensureCommitsIsMutable();
+          commits_.remove(index);
           onChanged();
         } else {
-          signaturesBuilder_.remove(index);
+          commitsBuilder_.remove(index);
         }
         return this;
       }
       /**
-       * <code>repeated .proto.Signature signatures = 3;</code>
+       * <code>repeated .proto.Commit commits = 1;</code>
        */
-      public com.ray.mcu.proto.MessageProto.Signature.Builder getSignaturesBuilder(
+      public com.ray.mcu.proto.MessageProto.Commit.Builder getCommitsBuilder(
           int index) {
-        return getSignaturesFieldBuilder().getBuilder(index);
+        return getCommitsFieldBuilder().getBuilder(index);
       }
       /**
-       * <code>repeated .proto.Signature signatures = 3;</code>
+       * <code>repeated .proto.Commit commits = 1;</code>
        */
-      public com.ray.mcu.proto.MessageProto.SignatureOrBuilder getSignaturesOrBuilder(
+      public com.ray.mcu.proto.MessageProto.CommitOrBuilder getCommitsOrBuilder(
           int index) {
-        if (signaturesBuilder_ == null) {
-          return signatures_.get(index);  } else {
-          return signaturesBuilder_.getMessageOrBuilder(index);
+        if (commitsBuilder_ == null) {
+          return commits_.get(index);  } else {
+          return commitsBuilder_.getMessageOrBuilder(index);
         }
       }
       /**
-       * <code>repeated .proto.Signature signatures = 3;</code>
+       * <code>repeated .proto.Commit commits = 1;</code>
        */
-      public java.util.List<? extends com.ray.mcu.proto.MessageProto.SignatureOrBuilder> 
-           getSignaturesOrBuilderList() {
-        if (signaturesBuilder_ != null) {
-          return signaturesBuilder_.getMessageOrBuilderList();
+      public java.util.List<? extends com.ray.mcu.proto.MessageProto.CommitOrBuilder> 
+           getCommitsOrBuilderList() {
+        if (commitsBuilder_ != null) {
+          return commitsBuilder_.getMessageOrBuilderList();
         } else {
-          return java.util.Collections.unmodifiableList(signatures_);
+          return java.util.Collections.unmodifiableList(commits_);
         }
       }
       /**
-       * <code>repeated .proto.Signature signatures = 3;</code>
+       * <code>repeated .proto.Commit commits = 1;</code>
        */
-      public com.ray.mcu.proto.MessageProto.Signature.Builder addSignaturesBuilder() {
-        return getSignaturesFieldBuilder().addBuilder(
-            com.ray.mcu.proto.MessageProto.Signature.getDefaultInstance());
+      public com.ray.mcu.proto.MessageProto.Commit.Builder addCommitsBuilder() {
+        return getCommitsFieldBuilder().addBuilder(
+            com.ray.mcu.proto.MessageProto.Commit.getDefaultInstance());
       }
       /**
-       * <code>repeated .proto.Signature signatures = 3;</code>
+       * <code>repeated .proto.Commit commits = 1;</code>
        */
-      public com.ray.mcu.proto.MessageProto.Signature.Builder addSignaturesBuilder(
+      public com.ray.mcu.proto.MessageProto.Commit.Builder addCommitsBuilder(
           int index) {
-        return getSignaturesFieldBuilder().addBuilder(
-            index, com.ray.mcu.proto.MessageProto.Signature.getDefaultInstance());
+        return getCommitsFieldBuilder().addBuilder(
+            index, com.ray.mcu.proto.MessageProto.Commit.getDefaultInstance());
       }
       /**
-       * <code>repeated .proto.Signature signatures = 3;</code>
+       * <code>repeated .proto.Commit commits = 1;</code>
        */
-      public java.util.List<com.ray.mcu.proto.MessageProto.Signature.Builder> 
-           getSignaturesBuilderList() {
-        return getSignaturesFieldBuilder().getBuilderList();
+      public java.util.List<com.ray.mcu.proto.MessageProto.Commit.Builder> 
+           getCommitsBuilderList() {
+        return getCommitsFieldBuilder().getBuilderList();
       }
       private com.google.protobuf.RepeatedFieldBuilderV3<
-          com.ray.mcu.proto.MessageProto.Signature, com.ray.mcu.proto.MessageProto.Signature.Builder, com.ray.mcu.proto.MessageProto.SignatureOrBuilder> 
-          getSignaturesFieldBuilder() {
-        if (signaturesBuilder_ == null) {
-          signaturesBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
-              com.ray.mcu.proto.MessageProto.Signature, com.ray.mcu.proto.MessageProto.Signature.Builder, com.ray.mcu.proto.MessageProto.SignatureOrBuilder>(
-                  signatures_,
-                  ((bitField0_ & 0x00000004) != 0),
+          com.ray.mcu.proto.MessageProto.Commit, com.ray.mcu.proto.MessageProto.Commit.Builder, com.ray.mcu.proto.MessageProto.CommitOrBuilder> 
+          getCommitsFieldBuilder() {
+        if (commitsBuilder_ == null) {
+          commitsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              com.ray.mcu.proto.MessageProto.Commit, com.ray.mcu.proto.MessageProto.Commit.Builder, com.ray.mcu.proto.MessageProto.CommitOrBuilder>(
+                  commits_,
+                  ((bitField0_ & 0x00000001) != 0),
                   getParentForChildren(),
                   isClean());
-          signatures_ = null;
+          commits_ = null;
         }
-        return signaturesBuilder_;
+        return commitsBuilder_;
       }
       @java.lang.Override
       public final Builder setUnknownFields(
@@ -18694,11 +17314,6 @@ public final class MessageProto {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_proto_RequestRecoverPrePrepare_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_proto_RecoverPrePrepare_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_proto_RecoverPrePrepare_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_proto_RequestRecoverCommit_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
@@ -18718,7 +17333,7 @@ public final class MessageProto {
   static {
     java.lang.String[] descriptorData = {
       "\n\037com/ray/mcu/proto/Message.proto\022\005proto" +
-      "\"\223\006\n\007Message\022%\n\007textMsg\030\001 \001(\0132\022.proto.Te" +
+      "\"\334\005\n\007Message\022%\n\007textMsg\030\001 \001(\0132\022.proto.Te" +
       "xtMessageH\000\022#\n\006intMsg\030\002 \001(\0132\021.proto.IntM" +
       "essageH\000\0222\n\treqRegMsg\030\003 \001(\0132\035.proto.Requ" +
       "estRegisterMessageH\000\022(\n\006regMsg\030\004 \001(\0132\026.p" +
@@ -18731,43 +17346,38 @@ public final class MessageProto {
       "\025.proto.ClientResponseH\000\022\'\n\nprePrepare\030\n" +
       " \001(\0132\021.proto.PrePrepareH\000\022!\n\007prepare\030\013 \001" +
       "(\0132\016.proto.PrepareH\000\022\037\n\006commit\030\014 \001(\0132\r.p" +
-      "roto.CommitH\000\0225\n\021recoverPrePrepare\030\r \001(\013" +
-      "2\030.proto.RecoverPrePrepareH\000\022-\n\rrecoverC" +
-      "ommit\030\016 \001(\0132\024.proto.RecoverCommitH\000\022C\n\030r" +
-      "equestRecoverPrePrepare\030\017 \001(\0132\037.proto.Re" +
-      "questRecoverPrePrepareH\000\022;\n\024requestRecov" +
-      "erCommit\030\020 \001(\0132\033.proto.RequestRecoverCom" +
-      "mitH\000\022\013\n\003sig\030\021 \002(\014B\n\n\010messages\"\033\n\013TextMe" +
-      "ssage\022\014\n\004text\030\001 \002(\t\"\027\n\nIntMessage\022\t\n\001i\030\001" +
-      " \002(\005\">\n\026RequestRegisterMessage\022\n\n\002id\030\001 \002" +
-      "(\005\022\n\n\002ip\030\002 \002(\t\022\014\n\004port\030\003 \002(\005\"@\n\030RequestU" +
-      "nregisterMessage\022\n\n\002id\030\001 \002(\005\022\n\n\002ip\030\002 \002(\t" +
-      "\022\014\n\004port\030\003 \002(\005\"7\n\017RegisterMessage\022\n\n\002id\030" +
-      "\001 \002(\005\022\n\n\002ip\030\002 \002(\t\022\014\n\004port\030\003 \002(\005\"L\n\021Unreg" +
-      "isterMessage\022\n\n\002id\030\001 \002(\005\022\n\n\002ip\030\002 \002(\t\022\014\n\004" +
-      "port\030\003 \002(\005\022\021\n\tsignature\030\007 \002(\014\"*\n\rClientM" +
-      "essage\022\013\n\003dif\030\001 \002(\005\022\014\n\004pkey\030\002 \002(\014\"F\n\024Per" +
-      "sistClientMessage\022!\n\003msg\030\001 \002(\0132\024.proto.C" +
-      "lientMessage\022\013\n\003sig\030\002 \002(\014\"\"\n\016ClientRespo" +
-      "nse\022\020\n\010response\030\001 \002(\010\".\n\006Server\022\n\n\002id\030\001 " +
-      "\002(\005\022\n\n\002ip\030\002 \002(\t\022\014\n\004port\030\003 \002(\005\"G\n\004View\022\n\n" +
-      "\002id\030\001 \002(\005\022\023\n\013coordinator\030\002 \002(\005\022\036\n\007server" +
-      "s\030\003 \003(\0132\r.proto.Server\"$\n\tSignature\022\n\n\002i" +
-      "d\030\001 \002(\005\022\013\n\003sig\030\002 \002(\014\"S\n\nPrePrepare\022*\n\005in" +
-      "put\030\001 \003(\0132\033.proto.PersistClientMessage\022\031" +
-      "\n\004view\030\002 \002(\0132\013.proto.View\"7\n\007Prepare\022\021\n\t" +
-      "inputHash\030\001 \002(\014\022\031\n\004view\030\002 \002(\0132\013.proto.Vi" +
-      "ew\"\\\n\006Commit\022\021\n\tinputHash\030\001 \002(\014\022\031\n\004view\030" +
-      "\002 \002(\0132\013.proto.View\022$\n\nsignatures\030\003 \003(\0132\020" +
-      ".proto.Signature\"*\n\030RequestRecoverPrePre" +
-      "pare\022\016\n\006viewId\030\001 \002(\005\"_\n\021RecoverPrePrepar" +
-      "e\022%\n\npreprepare\030\001 \002(\0132\021.proto.PrePrepare" +
-      "\022#\n\tsignature\030\002 \002(\0132\020.proto.Signature\"&\n" +
-      "\024RequestRecoverCommit\022\016\n\006viewId\030\001 \002(\005\"l\n" +
-      "\rRecoverCommit\022\016\n\006viewId\030\001 \002(\005\022%\n\nprepre" +
-      "pare\030\002 \002(\0132\021.proto.PrePrepare\022$\n\nsignatu" +
-      "res\030\003 \003(\0132\020.proto.SignatureB!\n\021com.ray.m" +
-      "cu.protoB\014MessageProto"
+      "roto.CommitH\000\022-\n\rrecoverCommit\030\r \001(\0132\024.p" +
+      "roto.RecoverCommitH\000\022C\n\030requestRecoverPr" +
+      "ePrepare\030\016 \001(\0132\037.proto.RequestRecoverPre" +
+      "PrepareH\000\022;\n\024requestRecoverCommit\030\017 \001(\0132" +
+      "\033.proto.RequestRecoverCommitH\000\022\013\n\003sig\030\020 " +
+      "\002(\014B\n\n\010messages\"\033\n\013TextMessage\022\014\n\004text\030\001" +
+      " \002(\t\"\027\n\nIntMessage\022\t\n\001i\030\001 \002(\005\">\n\026Request" +
+      "RegisterMessage\022\n\n\002id\030\001 \002(\005\022\n\n\002ip\030\002 \002(\t\022" +
+      "\014\n\004port\030\003 \002(\005\"@\n\030RequestUnregisterMessag" +
+      "e\022\n\n\002id\030\001 \002(\005\022\n\n\002ip\030\002 \002(\t\022\014\n\004port\030\003 \002(\005\"" +
+      "7\n\017RegisterMessage\022\n\n\002id\030\001 \002(\005\022\n\n\002ip\030\002 \002" +
+      "(\t\022\014\n\004port\030\003 \002(\005\"L\n\021UnregisterMessage\022\n\n" +
+      "\002id\030\001 \002(\005\022\n\n\002ip\030\002 \002(\t\022\014\n\004port\030\003 \002(\005\022\021\n\ts" +
+      "ignature\030\007 \002(\014\"*\n\rClientMessage\022\013\n\003dif\030\001" +
+      " \002(\005\022\014\n\004pkey\030\002 \002(\014\"F\n\024PersistClientMessa" +
+      "ge\022!\n\003msg\030\001 \002(\0132\024.proto.ClientMessage\022\013\n" +
+      "\003sig\030\002 \002(\014\"\"\n\016ClientResponse\022\020\n\010response" +
+      "\030\001 \002(\010\".\n\006Server\022\n\n\002id\030\001 \002(\005\022\n\n\002ip\030\002 \002(\t" +
+      "\022\014\n\004port\030\003 \002(\005\"G\n\004View\022\n\n\002id\030\001 \002(\005\022\023\n\013co" +
+      "ordinator\030\002 \002(\005\022\036\n\007servers\030\003 \003(\0132\r.proto" +
+      ".Server\"$\n\tSignature\022\n\n\002id\030\001 \002(\005\022\013\n\003sig\030" +
+      "\002 \002(\014\"S\n\nPrePrepare\022*\n\005input\030\001 \003(\0132\033.pro" +
+      "to.PersistClientMessage\022\031\n\004view\030\002 \002(\0132\013." +
+      "proto.View\"7\n\007Prepare\022\021\n\tinputHash\030\001 \002(\014" +
+      "\022\031\n\004view\030\002 \002(\0132\013.proto.View\"\\\n\006Commit\022\021\n" +
+      "\tinputHash\030\001 \002(\014\022\031\n\004view\030\002 \002(\0132\013.proto.V" +
+      "iew\022$\n\nsignatures\030\003 \003(\0132\020.proto.Signatur" +
+      "e\"*\n\030RequestRecoverPrePrepare\022\016\n\006viewId\030" +
+      "\001 \002(\005\"&\n\024RequestRecoverCommit\022\016\n\006viewId\030" +
+      "\001 \002(\005\"/\n\rRecoverCommit\022\036\n\007commits\030\001 \003(\0132" +
+      "\r.proto.CommitB!\n\021com.ray.mcu.protoB\014Mes" +
+      "sageProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -18786,7 +17396,7 @@ public final class MessageProto {
     internal_static_proto_Message_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_Message_descriptor,
-        new java.lang.String[] { "TextMsg", "IntMsg", "ReqRegMsg", "RegMsg", "ReqUnregMsg", "UnregMsg", "ClientMsg", "PersClientMsg", "Response", "PrePrepare", "Prepare", "Commit", "RecoverPrePrepare", "RecoverCommit", "RequestRecoverPrePrepare", "RequestRecoverCommit", "Sig", "Messages", });
+        new java.lang.String[] { "TextMsg", "IntMsg", "ReqRegMsg", "RegMsg", "ReqUnregMsg", "UnregMsg", "ClientMsg", "PersClientMsg", "Response", "PrePrepare", "Prepare", "Commit", "RecoverCommit", "RequestRecoverPrePrepare", "RequestRecoverCommit", "Sig", "Messages", });
     internal_static_proto_TextMessage_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_proto_TextMessage_fieldAccessorTable = new
@@ -18883,24 +17493,18 @@ public final class MessageProto {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_RequestRecoverPrePrepare_descriptor,
         new java.lang.String[] { "ViewId", });
-    internal_static_proto_RecoverPrePrepare_descriptor =
-      getDescriptor().getMessageTypes().get(17);
-    internal_static_proto_RecoverPrePrepare_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_proto_RecoverPrePrepare_descriptor,
-        new java.lang.String[] { "Preprepare", "Signature", });
     internal_static_proto_RequestRecoverCommit_descriptor =
-      getDescriptor().getMessageTypes().get(18);
+      getDescriptor().getMessageTypes().get(17);
     internal_static_proto_RequestRecoverCommit_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_RequestRecoverCommit_descriptor,
         new java.lang.String[] { "ViewId", });
     internal_static_proto_RecoverCommit_descriptor =
-      getDescriptor().getMessageTypes().get(19);
+      getDescriptor().getMessageTypes().get(18);
     internal_static_proto_RecoverCommit_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_RecoverCommit_descriptor,
-        new java.lang.String[] { "ViewId", "Preprepare", "Signatures", });
+        new java.lang.String[] { "Commits", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

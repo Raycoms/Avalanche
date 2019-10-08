@@ -125,6 +125,15 @@ public class GlobalView
     }
 
     /**
+     * Get the quorum size for this view.
+     * @return the quorum size.
+     */
+    public int getQuorumSize()
+    {
+        return ( ( getServers().size() / 3 ) * 2 ) + 1;
+    }
+
+    /**
      * Set the location the view is at.
      * @param configLocation the relative location.
      * @return this view.
@@ -142,7 +151,7 @@ public class GlobalView
      */
     public List<Integer> validateView(final MessageProto.View view)
     {
-        if (view.getId() == this.getId() || view.getCoordinator() != this.getCoordinator())
+        if (view.getId() < this.getId() || view.getCoordinator() != this.getCoordinator())
         {
             Log.getLogger().warn("View Id or Coordinator don't match!");
             return null;
@@ -166,6 +175,18 @@ public class GlobalView
             }
         }
         return difference;
+    }
+
+    /**
+     * Update the view regarding the view of the pre-prepare.
+     * @param view the incoming view.
+     */
+    public void updateView(final MessageProto.View view)
+    {
+        this.getServers().removeIf(v -> view.getServersList().stream().noneMatch(s -> s.getId() == v.getId()));
+        view.getServersList().stream().filter(s -> this.getServers().stream().noneMatch(v -> s.getId() == v.getId())).forEach(s -> addServer(new ServerData(s.getId(), s.getIp(), s.getPort())));
+        this.id++;
+        // Here we adjust the coordinator in the future too.
     }
 
     /**

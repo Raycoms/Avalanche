@@ -1,15 +1,18 @@
 package com.ray.pbft.server;
 
+import com.ray.mcu.communication.serveroperations.BroadcastOperation;
+import com.ray.mcu.communication.wrappers.IMessageWrapper;
 import com.ray.mcu.server.Server;
 import com.ray.mcu.utils.Log;
-import com.ray.mcu.views.GlobalView;
+import com.ray.mcu.utils.ValidationUtils;
+import com.ray.pbft.communication.wrappers.CommitWrapper;
 import com.ray.pbft.communication.wrappers.PrePrepareWrapper;
 import com.ray.pbft.communication.wrappers.PrepareWrapper;
+import com.ray.pbft.utils.PBFTState;
 import org.boon.Pair;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class PbftServer extends Server
 {
@@ -19,19 +22,44 @@ public class PbftServer extends Server
     public Pair<Integer, PrePrepareWrapper> currentPrePrepare = new Pair<>();
 
     /**
-     * Contains all prepares (Assumed for view id + 1). todo right datatype
+     * Contains unverified preprepares. Always discard all older prepares.
+     */
+    public Map<Integer, PrePrepareWrapper> unverifiedPrePrepare = new HashMap<>();
+
+    /**
+     * Contains past preprepares //todo guava cache, delete after x
+     */
+    public Map<Integer, PrePrepareWrapper> pastPrePrepare = new HashMap<>();
+
+    /**
+     * Contains all prepares (Assumed for view id + 1).
      */
     public Set<PrepareWrapper> prepareSet = new HashSet<>();
 
     /**
-     * Contains all commits, store past commits to let others recover. todo right datatype
+     * The prepares which are still missing a preprepare.
      */
-    public HashMap<Integer, HashSet<PrePrepareWrapper>> commitMap = new HashMap<>();
+    public Map<Integer, List<PrepareWrapper>> unverifiedPrepareSet = new HashMap<>();
+
+    /**
+     * Contains all commits, store past commits to let others recover.
+     */
+    public Map<Integer, List<CommitWrapper>> commitMap = new HashMap<>();
+
+    /**
+     * Contains all univerified commits, store past commits to let others recover.
+     */
+    public Map<Integer, List<CommitWrapper>> unverifiedcommitMap = new HashMap<>();
 
     /**
      * Pending unregisters.
      */
     public Set<Integer> pendingUnregisters = new HashSet<>();
+
+    /**
+     * The current pbft state the replica is in.
+     */
+    public PBFTState state = PBFTState.NULL;
 
     /**
      * Create a server object.
@@ -43,6 +71,18 @@ public class PbftServer extends Server
     public PbftServer(final int id, final String ip, final int port)
     {
         super(id, ip, port);
+    }
+
+    /**
+     * Persist the current consensus result.
+     */
+    public void persistConsensusResult()
+    {
+        this.prepareSet.clear();
+        this.currentPrePrepare.getSecond().getMessage().getPrePrepare().getInputList().forEach(m -> persist(m.getMsg()));
+        this.pastPrePrepare.put(currentPrePrepare.getFirst(), currentPrePrepare.getSecond());
+        this.currentPrePrepare = null;
+        this.prepareSet.clear();
     }
 
     /**
@@ -63,5 +103,99 @@ public class PbftServer extends Server
 
         final PbftServer server = new PbftServer(id, ip, port);
         server.start();
+    }
+
+    /**
+     * Update the state of the current server.
+     */
+    public void updateState()
+    {
+        this.state = PBFTState.PREPARE;
+        final int msgViewId = currentPrePrepare.getFirst();
+
+        // Check if we have univerified prepares.
+        if (!this.unverifiedPrepareSet.get(msgViewId).isEmpty())
+        {
+            this.unverifiedPrepareSet.remove(msgViewId);
+            this.prepareSet.addAll(this.unverifiedPrepareSet.get(msgViewId).stream().filter(this::validatePrepare).collect(Collectors.toList()));
+        }
+
+        // Check if we have enough verified prepares to advance state.
+        if (this.prepareSet.size() + 1 >= this.view.getQuorumSize())
+        {
+            this.outputQueue.add(new BroadcastOperation(CommitWrapper.createCommitWrapper(this, this.prepareSet.toArray(new PrepareWrapper[0]))));
+            this.state = PBFTState.COMMIT;
+        }
+
+        // Check if we have unverified commits.
+        if (!this.unverifiedcommitMap.get(msgViewId).isEmpty())
+        {
+            final List<CommitWrapper> list = this.unverifiedcommitMap.remove(msgViewId);
+            list.addAll(this.unverifiedcommitMap.get(msgViewId).stream().filter(this::validateCommit).collect(Collectors.toList()));
+
+            this.commitMap.put(msgViewId, list);
+        }
+
+        // Check if we have enough verified commits to advance state.
+        if (this.commitMap.size() + 1 >= this.view.getQuorumSize())
+        {
+            this.getView().updateView(this.currentPrePrepare.getSecond().getMessage().getPrePrepare().getView());
+            this.persistConsensusResult();
+            this.state = PBFTState.NULL;
+        }
+    }
+
+    /**
+     * Validate if the commit message is valid (hash matches preprepare)
+     * @param message the message to check.
+     * @return true if so.
+     */
+    public boolean validateCommit(final CommitWrapper message)
+    {
+        if (!Arrays.equals(message.getMessage().getCommit().getInputHash().toByteArray(), this.currentPrePrepare.getSecond().message.getSig().toByteArray()))
+        {
+            Log.getLogger().warn("----------------------------------------------------------------\n"
+                                   + "Commit doesn't match Preprepare! (" + message.getSender() + ")"
+                                   + "\n----------------------------------------------------------------");
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Validate if the prepare message is valid (hash matches preprepare)
+     * @param message the message to check.
+     * @return true if so.
+     */
+    public boolean validatePrepare(final IMessageWrapper message)
+    {
+        // Check if commit hash matches prepare hash.
+        if (!Arrays.equals(message.getMessage().getPrepare().getInputHash().toByteArray(), this.currentPrePrepare.getSecond().message.getSig().toByteArray()))
+        {
+            Log.getLogger().warn("----------------------------------------------------------------\n"
+                                   + "Commit doesn't match Preprepare! (" + message.getSender() + ")"
+                                   + "\n----------------------------------------------------------------");
+            return false;
+        }
+
+        // Check greedy if commit has enough signatures at all.
+        if (message.getMessage().getCommit().getSignaturesCount() + 1 < this.view.getQuorumSize())
+        {
+            Log.getLogger().warn("----------------------------------------------------------------\n"
+                                   + "Commit doesn't have enough signatures! (" + message.getSender() + ")"
+                                   + "\n----------------------------------------------------------------");
+            return false;
+        }
+
+        // Check if commit has enough valid signatures in general.
+        if (!ValidationUtils.verifyCommit(message.getMessage().getCommit().getSignaturesList(), this))
+        {
+            Log.getLogger().warn("----------------------------------------------------------------\n"
+                                   + "Commit doesn't have enough valid signatures! (" + message.getSender() + ")"
+                                   + "\n----------------------------------------------------------------");
+            return false;
+        }
+
+        return true;
     }
 }

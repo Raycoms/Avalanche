@@ -43,6 +43,6 @@ public class PrepareWrapper extends AbstractMessageWrapper
      */
     public PrepareWrapper(final IServer sender, final MessageProto.Message prePrepare)
     {
-        this(sender, MessageProto.Prepare.newBuilder().setView(sender.getView().processViewToProto()).setInputHash(prePrepare.getSig()).build());
+        this(sender, MessageProto.Prepare.newBuilder().setView(prePrepare.getPrePrepare().getView()).setInputHash(prePrepare.getSig()).build());
     }
 }

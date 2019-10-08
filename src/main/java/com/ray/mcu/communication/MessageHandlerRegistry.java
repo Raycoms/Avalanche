@@ -324,11 +324,7 @@ public final class MessageHandlerRegistry
                     return;
                 }
 
-                int tempState = server.state.getOrDefault(key, 0);
-                tempState += msg.getDif();
-
-                Log.getLogger().warn("New State: " + tempState);
-                server.state.put(key, tempState);
+                server.persist(msg);
             }
             catch (InvalidKeyException e)
             {

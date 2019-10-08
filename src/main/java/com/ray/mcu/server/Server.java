@@ -4,6 +4,7 @@ import com.ray.mcu.communication.MessageHandlerRegistry;
 import com.ray.mcu.communication.clientoperations.IClientOperation;
 import com.ray.mcu.communication.wrappers.IMessageWrapper;
 import com.ray.mcu.communication.wrappers.JoinRequestMessageWrapper;
+import com.ray.mcu.proto.MessageProto;
 import com.ray.mcu.server.client.ClientMessageHandler;
 import com.ray.mcu.server.client.ServerClientReceiver;
 import com.ray.mcu.server.client.ServerClientSender;
@@ -17,7 +18,9 @@ import com.ray.mcu.utils.Log;
 import com.ray.mcu.views.GlobalView;
 import com.ray.mcu.utils.ViewLoader;
 import com.ray.mcu.utils.Constants;
+import sun.security.rsa.RSAPublicKeyImpl;
 
+import java.security.InvalidKeyException;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.util.HashMap;
@@ -218,5 +221,27 @@ public class Server extends Thread implements IServer
 
         final Server server = new Server(id, ip, port);
         server.start();
+    }
+
+    /**
+     * Persist a Client Message.
+     * @param msg the client message to persist.
+     */
+    public void persist(final MessageProto.ClientMessage msg)
+    {
+        try
+        {
+            final PublicKey key = new RSAPublicKeyImpl(msg.getPkey().toByteArray());
+
+            int tempState = state.getOrDefault(key, 0);
+            tempState += msg.getDif();
+
+            Log.getLogger().warn("New State: " + tempState);
+            state.put(key, tempState);
+        }
+        catch (InvalidKeyException e)
+        {
+            e.printStackTrace();
+        }
     }
 }
