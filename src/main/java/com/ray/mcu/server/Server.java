@@ -2,6 +2,7 @@ package com.ray.mcu.server;
 
 import com.ray.mcu.communication.MessageHandlerRegistry;
 import com.ray.mcu.communication.clientoperations.IClientOperation;
+import com.ray.mcu.communication.serveroperations.DisconnectOperation;
 import com.ray.mcu.communication.wrappers.IMessageWrapper;
 import com.ray.mcu.communication.wrappers.JoinRequestMessageWrapper;
 import com.ray.mcu.proto.MessageProto;
@@ -147,6 +148,16 @@ public class Server extends Thread implements IServer
         Log.getLogger().warn("Detected inactive!");
         receiver.disconnect();
         clientReceiver.disconnect();
+    }
+
+    /**
+     * Replica to unregister.
+     * @param data the serverdata of the replica to unregister.
+     */
+    public void unregister(final ServerData data)
+    {
+        this.view.removeServer(data.getId());
+        this.outputQueue.add(new DisconnectOperation(data));
     }
 
     @Override

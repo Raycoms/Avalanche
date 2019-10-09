@@ -406,8 +406,7 @@ public final class MessageHandlerRegistry
 
                 if (KeyUtilities.verifyKey(msg, ((UnregisterMessageWrapper) message).getSig(), server.view.getServer(data.getId()).getPublicKey()))
                 {
-                    server.view.removeServer(data.getId());
-                    server.outputQueue.add(new DisconnectOperation(data));
+                    server.unregister(data);
                 }
                 else
                 {

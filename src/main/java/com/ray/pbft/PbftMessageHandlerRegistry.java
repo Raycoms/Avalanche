@@ -439,7 +439,7 @@ public class PbftMessageHandlerRegistry
                     return;
                 }
 
-                pbftServer.getView().updateView(pbftServer.currentPrePrepare.getSecond().getMessage().getPrePrepare().getView());
+                pbftServer.getView().updateView(pbftServer.currentPrePrepare.getSecond().getMessage().getPrePrepare().getView(), server);
                 pbftServer.persistConsensusResult();
                 pbftServer.status = PBFTState.NULL;
             }

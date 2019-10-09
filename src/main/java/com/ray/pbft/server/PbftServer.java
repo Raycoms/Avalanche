@@ -3,6 +3,7 @@ package com.ray.pbft.server;
 import com.ray.mcu.communication.serveroperations.BroadcastOperation;
 import com.ray.mcu.communication.wrappers.IMessageWrapper;
 import com.ray.mcu.server.Server;
+import com.ray.mcu.server.ServerData;
 import com.ray.mcu.utils.Log;
 import com.ray.mcu.utils.ValidationUtils;
 import com.ray.pbft.communication.wrappers.CommitWrapper;
@@ -140,7 +141,7 @@ public class PbftServer extends Server
         // Check if we have enough verified commits to advance state.
         if (this.commitMap.size() + 1 >= this.view.getQuorumSize())
         {
-            this.getView().updateView(this.currentPrePrepare.getSecond().getMessage().getPrePrepare().getView());
+            this.getView().updateView(this.currentPrePrepare.getSecond().getMessage().getPrePrepare().getView(), this);
             this.persistConsensusResult();
             this.status = PBFTState.NULL;
         }
@@ -213,5 +214,11 @@ public class PbftServer extends Server
             return currentPrePrepare.getSecond();
         }
         return pastPrePrepare.getOrDefault(id, null);
+    }
+
+    @Override
+    public void unregister(final ServerData data)
+    {
+        pendingUnregisters.add(data.getId());
     }
 }

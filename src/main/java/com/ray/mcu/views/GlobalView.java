@@ -1,12 +1,15 @@
 package com.ray.mcu.views;
 
+import com.ray.mcu.communication.serveroperations.DisconnectOperation;
 import com.ray.mcu.proto.MessageProto;
+import com.ray.mcu.server.Server;
 import com.ray.mcu.server.ServerData;
 import com.ray.mcu.utils.Log;
 import org.boon.json.annotations.JsonIgnore;
 import org.boon.json.annotations.JsonInclude;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * A view of the global network where all correct servers ought to have an identical one.
@@ -178,10 +181,17 @@ public class GlobalView
     /**
      * Update the view regarding the view of the pre-prepare.
      * @param view the incoming view.
+     * @param server the server updating the view.
      */
-    public void updateView(final MessageProto.View view)
+    public void updateView(final MessageProto.View view, final Server server)
     {
-        this.getServers().removeIf(v -> view.getServersList().stream().noneMatch(s -> s.getId() == v.getId()));
+        final List<ServerData> list = this.getServers().stream().filter(v -> view.getServersList().stream().noneMatch(s -> s.getId() == v.getId())).collect(Collectors.toList());
+        for (final ServerData remove : list)
+        {
+            this.removeServer(remove.getId());
+            server.outputQueue.add(new DisconnectOperation(remove));
+        }
+
         view.getServersList().stream().filter(s -> this.getServers().stream().noneMatch(v -> s.getId() == v.getId())).forEach(s -> addServer(new ServerData(s.getId(), s.getIp(), s.getPort())));
         this.id++;
         // Here we adjust the coordinator in the future too.
