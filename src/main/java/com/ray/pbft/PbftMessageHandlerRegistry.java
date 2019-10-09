@@ -5,20 +5,22 @@ import com.ray.mcu.communication.IMessageHandler;
 import com.ray.mcu.communication.MessageHandlerRegistry;
 import com.ray.mcu.communication.serveroperations.BroadcastOperation;
 import com.ray.mcu.communication.serveroperations.UnicastOperation;
-import com.ray.mcu.communication.wrappers.AbstractMessageWrapper;
 import com.ray.mcu.communication.wrappers.IMessageWrapper;
 import com.ray.mcu.proto.MessageProto;
 import com.ray.mcu.server.Server;
+import com.ray.mcu.utils.KeyUtilities;
 import com.ray.mcu.utils.Log;
 import com.ray.mcu.utils.ValidationUtils;
 import com.ray.pbft.communication.wrappers.*;
 import com.ray.pbft.server.PbftServer;
+import com.ray.pbft.utils.PBFTState;
 import io.netty.channel.ChannelHandlerContext;
 import org.boon.Pair;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * The Pbft specific message handler registry.
@@ -37,6 +39,8 @@ public class PbftMessageHandlerRegistry
         MessageHandlerRegistry.handlers.add(new RequestRecoverCommitMessageHandler());
         MessageHandlerRegistry.handlers.add(new RecoverCommitMessageHandler());
     }
+
+    //todo we might need a bit unregistering handling in general
 
     /**
      * The classical handler of the preprepare message.
@@ -93,29 +97,13 @@ public class PbftMessageHandlerRegistry
             }
 
             // Verify if view is valid.
-            final List<Integer> difference = pbftServer.getView().validateView(message.getMessage().getPrePrepare().getView());
-            if (difference == null)
+            if (!pbftServer.getView().validateView(message.getMessage().getPrePrepare().getView(), pbftServer.pendingUnregisters))
             {
-                Log.getLogger().warn("----------------------------------------------------------------\n"
-                                           + "Couldn't validate the view, invalid parameters! (" + message.getSender() + ")"
-                                           + "\n----------------------------------------------------------------");
                 return;
-            }
-            else if (!difference.isEmpty())
-            {
-                for (final Integer s : difference)
-                {
-                    if (!pbftServer.pendingUnregisters.contains(s))
-                    {
-                        Log.getLogger().warn("----------------------------------------------------------------\n"
-                                               + "View was missing a replica which didn't request to leave! (" + message.getSender() + ")"
-                                               + "\n----------------------------------------------------------------");
-                    }
-                }
             }
 
             // Verify is message log is valid.
-            if (!ValidationUtils.isMessageLogValid((AbstractMessageWrapper) message, pbftServer))
+            if (!ValidationUtils.isMessageLogValid( message.getMessage().getPrePrepare(), pbftServer))
             {
                 return;
             }
@@ -361,22 +349,27 @@ public class PbftMessageHandlerRegistry
         @Override
         public void handle(final IMessageWrapper message, final Server server)
         {
-            final int requestViewId = message.getMessage().getRequestRecoverCommit().getViewId();
-            if (( ( PbftServer ) server ).currentPrePrepare != null && ( ( PbftServer ) server ).currentPrePrepare.getFirst() == requestViewId)
+            if (!(server instanceof PbftServer))
             {
-                server.outputQueue.add(new UnicastOperation( new PrePrepareWrapper(message.getSender(), ( ( PbftServer ) server ).currentPrePrepare.getSecond().getMessage()), message.getSender()));
+                Log.getLogger().warn("Turn on a PBFT Server to validate this message");
+                return;
             }
-            else if (requestViewId > ( ( PbftServer ) server ).currentPrePrepare.getFirst())
+
+            final PbftServer pbftServer = (PbftServer) server;
+
+            final int requestViewId = message.getMessage().getRequestRecoverCommit().getViewId();
+            if (requestViewId > pbftServer.view.getId())
             {
                 Log.getLogger().warn("----------------------------------------------------------------\n"
                                        + "Received a request for a view id exceeding the current view! (" + message.getSender() + ") - discarding"
                                        + "\n----------------------------------------------------------------");
+                return;
             }
-            else
-            {
-                server.outputQueue.add(new UnicastOperation( new PrePrepareWrapper(message.getSender(), ( ( PbftServer ) server ).pastPrePrepare.get(requestViewId).getMessage()), message.getSender()));
-            }
-            //todo gather data to send back to replica.
+
+            server.outputQueue.add(new UnicastOperation(
+              RecoverCommitWrapper.createCommitWrapper(pbftServer,
+                pbftServer.commitMap.entrySet().stream().filter(e -> e.getKey() >= requestViewId)
+                  .map(Map.Entry::getValue).map(l -> l.get(0)).collect(Collectors.toList())), message.getSender()));
         }
 
         @Override
@@ -406,8 +399,50 @@ public class PbftMessageHandlerRegistry
         @Override
         public void handle(final IMessageWrapper message, final Server server)
         {
-            //todo, check in unverified commit, prepare and preprepare if we're up to date now, if not we request again until we are.
-            //todo if so, we verify the pre-prepare and then continue working as normal, or request preprepare if not available and then go from there.
+            if (!(server instanceof PbftServer))
+            {
+                Log.getLogger().warn("Turn on a PBFT Server to validate this message");
+                return;
+            }
+
+            final PbftServer pbftServer = (PbftServer) server;
+
+            for (final MessageProto.CommitStorage storage : message.getMessage().getRecoverCommit().getCommitsList())
+            {
+                if (storage.getView().getId() != pbftServer.getView().getId())
+                {
+                    Log.getLogger().warn("First view doesn't correspond with necessary view");
+                }
+
+                if (!pbftServer.getView().validateView(storage.getView(), pbftServer.pendingUnregisters))
+                {
+                    return;
+                }
+
+                final PrePrepareWrapper wrapper = PrePrepareWrapper.createPrePrepareWrapper(storage.getView(), storage.getView().getCoordinator(), storage.getInputList(), storage.getInputHash());
+
+                if (!KeyUtilities.verifyKey(wrapper.getMessage().getPrePrepare().toByteArray(), storage.getInputHash().toByteArray(), server.getView().getServer(server.getView().getCoordinator()).getPublicKey()))
+                {
+                    Log.getLogger().error("Invalid signature of coordinator in commit recovery message");
+                    return;
+                }
+
+                // Verify is message log is valid.
+                if (!ValidationUtils.isMessageLogValid(wrapper.getMessage().getPrePrepare(), pbftServer))
+                {
+                    return;
+                }
+
+                pbftServer.currentPrePrepare = new Pair<>(pbftServer.getView().getId(), (PrePrepareWrapper) message);
+                if (!ValidationUtils.verifyCommit(storage.getSignaturesList(), pbftServer))
+                {
+                    return;
+                }
+
+                pbftServer.getView().updateView(pbftServer.currentPrePrepare.getSecond().getMessage().getPrePrepare().getView());
+                pbftServer.persistConsensusResult();
+                pbftServer.status = PBFTState.NULL;
+            }
         }
 
         @Override

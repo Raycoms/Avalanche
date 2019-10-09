@@ -10,6 +10,7 @@ import com.ray.pbft.communication.wrappers.PrePrepareWrapper;
 import com.ray.pbft.communication.wrappers.PrepareWrapper;
 import com.ray.pbft.utils.PBFTState;
 import org.boon.Pair;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -59,7 +60,7 @@ public class PbftServer extends Server
     /**
      * The current pbft state the replica is in.
      */
-    public PBFTState state = PBFTState.NULL;
+    public PBFTState status = PBFTState.NULL;
 
     /**
      * Create a server object.
@@ -110,7 +111,7 @@ public class PbftServer extends Server
      */
     public void updateState()
     {
-        this.state = PBFTState.PREPARE;
+        this.status = PBFTState.PREPARE;
         final int msgViewId = currentPrePrepare.getFirst();
 
         // Check if we have univerified prepares.
@@ -124,7 +125,7 @@ public class PbftServer extends Server
         if (this.prepareSet.size() + 1 >= this.view.getQuorumSize())
         {
             this.outputQueue.add(new BroadcastOperation(CommitWrapper.createCommitWrapper(this, this.prepareSet.toArray(new PrepareWrapper[0]))));
-            this.state = PBFTState.COMMIT;
+            this.status = PBFTState.COMMIT;
         }
 
         // Check if we have unverified commits.
@@ -141,7 +142,7 @@ public class PbftServer extends Server
         {
             this.getView().updateView(this.currentPrePrepare.getSecond().getMessage().getPrePrepare().getView());
             this.persistConsensusResult();
-            this.state = PBFTState.NULL;
+            this.status = PBFTState.NULL;
         }
     }
 
@@ -197,5 +198,20 @@ public class PbftServer extends Server
         }
 
         return true;
+    }
+
+    /**
+     * Get the PrePrepare for this ID.
+     * @param id the view id of the prepare.
+     * @return the correct PrePrepare wrapper or null.
+     */
+    @Nullable
+    public PrePrepareWrapper getPrePrepareForId(final int id)
+    {
+        if (currentPrePrepare != null && currentPrePrepare.getFirst() == id)
+        {
+            return currentPrePrepare.getSecond();
+        }
+        return pastPrePrepare.getOrDefault(id, null);
     }
 }

@@ -104,6 +104,13 @@ message Signature {
     required bytes sig = 2;
 }
 
+message CommitStorage {
+    repeated PersistClientMessage input = 1;
+    required bytes inputHash = 2;
+    required View view = 3;
+    repeated Signature signatures = 4;
+}
+
 // ---------------------------------------- PBFT ---------------------------------------- //
 
 message PrePrepare {
@@ -133,5 +140,5 @@ message RequestRecoverCommit {
 }
 
 message RecoverCommit {
-    repeated Commit commits = 1;
+    repeated CommitStorage commits = 1;
 }

@@ -12576,6 +12576,1489 @@ public final class MessageProto {
 
   }
 
+  public interface CommitStorageOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:proto.CommitStorage)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>repeated .proto.PersistClientMessage input = 1;</code>
+     */
+    java.util.List<com.ray.mcu.proto.MessageProto.PersistClientMessage> 
+        getInputList();
+    /**
+     * <code>repeated .proto.PersistClientMessage input = 1;</code>
+     */
+    com.ray.mcu.proto.MessageProto.PersistClientMessage getInput(int index);
+    /**
+     * <code>repeated .proto.PersistClientMessage input = 1;</code>
+     */
+    int getInputCount();
+    /**
+     * <code>repeated .proto.PersistClientMessage input = 1;</code>
+     */
+    java.util.List<? extends com.ray.mcu.proto.MessageProto.PersistClientMessageOrBuilder> 
+        getInputOrBuilderList();
+    /**
+     * <code>repeated .proto.PersistClientMessage input = 1;</code>
+     */
+    com.ray.mcu.proto.MessageProto.PersistClientMessageOrBuilder getInputOrBuilder(
+        int index);
+
+    /**
+     * <code>required bytes inputHash = 2;</code>
+     */
+    boolean hasInputHash();
+    /**
+     * <code>required bytes inputHash = 2;</code>
+     */
+    com.google.protobuf.ByteString getInputHash();
+
+    /**
+     * <code>required .proto.View view = 3;</code>
+     */
+    boolean hasView();
+    /**
+     * <code>required .proto.View view = 3;</code>
+     */
+    com.ray.mcu.proto.MessageProto.View getView();
+    /**
+     * <code>required .proto.View view = 3;</code>
+     */
+    com.ray.mcu.proto.MessageProto.ViewOrBuilder getViewOrBuilder();
+
+    /**
+     * <code>repeated .proto.Signature signatures = 4;</code>
+     */
+    java.util.List<com.ray.mcu.proto.MessageProto.Signature> 
+        getSignaturesList();
+    /**
+     * <code>repeated .proto.Signature signatures = 4;</code>
+     */
+    com.ray.mcu.proto.MessageProto.Signature getSignatures(int index);
+    /**
+     * <code>repeated .proto.Signature signatures = 4;</code>
+     */
+    int getSignaturesCount();
+    /**
+     * <code>repeated .proto.Signature signatures = 4;</code>
+     */
+    java.util.List<? extends com.ray.mcu.proto.MessageProto.SignatureOrBuilder> 
+        getSignaturesOrBuilderList();
+    /**
+     * <code>repeated .proto.Signature signatures = 4;</code>
+     */
+    com.ray.mcu.proto.MessageProto.SignatureOrBuilder getSignaturesOrBuilder(
+        int index);
+  }
+  /**
+   * Protobuf type {@code proto.CommitStorage}
+   */
+  public  static final class CommitStorage extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:proto.CommitStorage)
+      CommitStorageOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use CommitStorage.newBuilder() to construct.
+    private CommitStorage(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private CommitStorage() {
+      input_ = java.util.Collections.emptyList();
+      inputHash_ = com.google.protobuf.ByteString.EMPTY;
+      signatures_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private CommitStorage(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
+                input_ = new java.util.ArrayList<com.ray.mcu.proto.MessageProto.PersistClientMessage>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              input_.add(
+                  input.readMessage(com.ray.mcu.proto.MessageProto.PersistClientMessage.PARSER, extensionRegistry));
+              break;
+            }
+            case 18: {
+              bitField0_ |= 0x00000001;
+              inputHash_ = input.readBytes();
+              break;
+            }
+            case 26: {
+              com.ray.mcu.proto.MessageProto.View.Builder subBuilder = null;
+              if (((bitField0_ & 0x00000002) != 0)) {
+                subBuilder = view_.toBuilder();
+              }
+              view_ = input.readMessage(com.ray.mcu.proto.MessageProto.View.PARSER, extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(view_);
+                view_ = subBuilder.buildPartial();
+              }
+              bitField0_ |= 0x00000002;
+              break;
+            }
+            case 34: {
+              if (!((mutable_bitField0_ & 0x00000008) != 0)) {
+                signatures_ = new java.util.ArrayList<com.ray.mcu.proto.MessageProto.Signature>();
+                mutable_bitField0_ |= 0x00000008;
+              }
+              signatures_.add(
+                  input.readMessage(com.ray.mcu.proto.MessageProto.Signature.PARSER, extensionRegistry));
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
+          input_ = java.util.Collections.unmodifiableList(input_);
+        }
+        if (((mutable_bitField0_ & 0x00000008) != 0)) {
+          signatures_ = java.util.Collections.unmodifiableList(signatures_);
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.ray.mcu.proto.MessageProto.internal_static_proto_CommitStorage_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.ray.mcu.proto.MessageProto.internal_static_proto_CommitStorage_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.ray.mcu.proto.MessageProto.CommitStorage.class, com.ray.mcu.proto.MessageProto.CommitStorage.Builder.class);
+    }
+
+    private int bitField0_;
+    public static final int INPUT_FIELD_NUMBER = 1;
+    private java.util.List<com.ray.mcu.proto.MessageProto.PersistClientMessage> input_;
+    /**
+     * <code>repeated .proto.PersistClientMessage input = 1;</code>
+     */
+    public java.util.List<com.ray.mcu.proto.MessageProto.PersistClientMessage> getInputList() {
+      return input_;
+    }
+    /**
+     * <code>repeated .proto.PersistClientMessage input = 1;</code>
+     */
+    public java.util.List<? extends com.ray.mcu.proto.MessageProto.PersistClientMessageOrBuilder> 
+        getInputOrBuilderList() {
+      return input_;
+    }
+    /**
+     * <code>repeated .proto.PersistClientMessage input = 1;</code>
+     */
+    public int getInputCount() {
+      return input_.size();
+    }
+    /**
+     * <code>repeated .proto.PersistClientMessage input = 1;</code>
+     */
+    public com.ray.mcu.proto.MessageProto.PersistClientMessage getInput(int index) {
+      return input_.get(index);
+    }
+    /**
+     * <code>repeated .proto.PersistClientMessage input = 1;</code>
+     */
+    public com.ray.mcu.proto.MessageProto.PersistClientMessageOrBuilder getInputOrBuilder(
+        int index) {
+      return input_.get(index);
+    }
+
+    public static final int INPUTHASH_FIELD_NUMBER = 2;
+    private com.google.protobuf.ByteString inputHash_;
+    /**
+     * <code>required bytes inputHash = 2;</code>
+     */
+    public boolean hasInputHash() {
+      return ((bitField0_ & 0x00000001) != 0);
+    }
+    /**
+     * <code>required bytes inputHash = 2;</code>
+     */
+    public com.google.protobuf.ByteString getInputHash() {
+      return inputHash_;
+    }
+
+    public static final int VIEW_FIELD_NUMBER = 3;
+    private com.ray.mcu.proto.MessageProto.View view_;
+    /**
+     * <code>required .proto.View view = 3;</code>
+     */
+    public boolean hasView() {
+      return ((bitField0_ & 0x00000002) != 0);
+    }
+    /**
+     * <code>required .proto.View view = 3;</code>
+     */
+    public com.ray.mcu.proto.MessageProto.View getView() {
+      return view_ == null ? com.ray.mcu.proto.MessageProto.View.getDefaultInstance() : view_;
+    }
+    /**
+     * <code>required .proto.View view = 3;</code>
+     */
+    public com.ray.mcu.proto.MessageProto.ViewOrBuilder getViewOrBuilder() {
+      return view_ == null ? com.ray.mcu.proto.MessageProto.View.getDefaultInstance() : view_;
+    }
+
+    public static final int SIGNATURES_FIELD_NUMBER = 4;
+    private java.util.List<com.ray.mcu.proto.MessageProto.Signature> signatures_;
+    /**
+     * <code>repeated .proto.Signature signatures = 4;</code>
+     */
+    public java.util.List<com.ray.mcu.proto.MessageProto.Signature> getSignaturesList() {
+      return signatures_;
+    }
+    /**
+     * <code>repeated .proto.Signature signatures = 4;</code>
+     */
+    public java.util.List<? extends com.ray.mcu.proto.MessageProto.SignatureOrBuilder> 
+        getSignaturesOrBuilderList() {
+      return signatures_;
+    }
+    /**
+     * <code>repeated .proto.Signature signatures = 4;</code>
+     */
+    public int getSignaturesCount() {
+      return signatures_.size();
+    }
+    /**
+     * <code>repeated .proto.Signature signatures = 4;</code>
+     */
+    public com.ray.mcu.proto.MessageProto.Signature getSignatures(int index) {
+      return signatures_.get(index);
+    }
+    /**
+     * <code>repeated .proto.Signature signatures = 4;</code>
+     */
+    public com.ray.mcu.proto.MessageProto.SignatureOrBuilder getSignaturesOrBuilder(
+        int index) {
+      return signatures_.get(index);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      if (!hasInputHash()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasView()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      for (int i = 0; i < getInputCount(); i++) {
+        if (!getInput(i).isInitialized()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+      }
+      if (!getView().isInitialized()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      for (int i = 0; i < getSignaturesCount(); i++) {
+        if (!getSignatures(i).isInitialized()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      for (int i = 0; i < input_.size(); i++) {
+        output.writeMessage(1, input_.get(i));
+      }
+      if (((bitField0_ & 0x00000001) != 0)) {
+        output.writeBytes(2, inputHash_);
+      }
+      if (((bitField0_ & 0x00000002) != 0)) {
+        output.writeMessage(3, getView());
+      }
+      for (int i = 0; i < signatures_.size(); i++) {
+        output.writeMessage(4, signatures_.get(i));
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      for (int i = 0; i < input_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, input_.get(i));
+      }
+      if (((bitField0_ & 0x00000001) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(2, inputHash_);
+      }
+      if (((bitField0_ & 0x00000002) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(3, getView());
+      }
+      for (int i = 0; i < signatures_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(4, signatures_.get(i));
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.ray.mcu.proto.MessageProto.CommitStorage)) {
+        return super.equals(obj);
+      }
+      com.ray.mcu.proto.MessageProto.CommitStorage other = (com.ray.mcu.proto.MessageProto.CommitStorage) obj;
+
+      if (!getInputList()
+          .equals(other.getInputList())) return false;
+      if (hasInputHash() != other.hasInputHash()) return false;
+      if (hasInputHash()) {
+        if (!getInputHash()
+            .equals(other.getInputHash())) return false;
+      }
+      if (hasView() != other.hasView()) return false;
+      if (hasView()) {
+        if (!getView()
+            .equals(other.getView())) return false;
+      }
+      if (!getSignaturesList()
+          .equals(other.getSignaturesList())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (getInputCount() > 0) {
+        hash = (37 * hash) + INPUT_FIELD_NUMBER;
+        hash = (53 * hash) + getInputList().hashCode();
+      }
+      if (hasInputHash()) {
+        hash = (37 * hash) + INPUTHASH_FIELD_NUMBER;
+        hash = (53 * hash) + getInputHash().hashCode();
+      }
+      if (hasView()) {
+        hash = (37 * hash) + VIEW_FIELD_NUMBER;
+        hash = (53 * hash) + getView().hashCode();
+      }
+      if (getSignaturesCount() > 0) {
+        hash = (37 * hash) + SIGNATURES_FIELD_NUMBER;
+        hash = (53 * hash) + getSignaturesList().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.ray.mcu.proto.MessageProto.CommitStorage parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.ray.mcu.proto.MessageProto.CommitStorage parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.ray.mcu.proto.MessageProto.CommitStorage parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.ray.mcu.proto.MessageProto.CommitStorage parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.ray.mcu.proto.MessageProto.CommitStorage parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.ray.mcu.proto.MessageProto.CommitStorage parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.ray.mcu.proto.MessageProto.CommitStorage parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.ray.mcu.proto.MessageProto.CommitStorage parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.ray.mcu.proto.MessageProto.CommitStorage parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static com.ray.mcu.proto.MessageProto.CommitStorage parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.ray.mcu.proto.MessageProto.CommitStorage parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.ray.mcu.proto.MessageProto.CommitStorage parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.ray.mcu.proto.MessageProto.CommitStorage prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code proto.CommitStorage}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:proto.CommitStorage)
+        com.ray.mcu.proto.MessageProto.CommitStorageOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.ray.mcu.proto.MessageProto.internal_static_proto_CommitStorage_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.ray.mcu.proto.MessageProto.internal_static_proto_CommitStorage_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.ray.mcu.proto.MessageProto.CommitStorage.class, com.ray.mcu.proto.MessageProto.CommitStorage.Builder.class);
+      }
+
+      // Construct using com.ray.mcu.proto.MessageProto.CommitStorage.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+          getInputFieldBuilder();
+          getViewFieldBuilder();
+          getSignaturesFieldBuilder();
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        if (inputBuilder_ == null) {
+          input_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        } else {
+          inputBuilder_.clear();
+        }
+        inputHash_ = com.google.protobuf.ByteString.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        if (viewBuilder_ == null) {
+          view_ = null;
+        } else {
+          viewBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000004);
+        if (signaturesBuilder_ == null) {
+          signatures_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000008);
+        } else {
+          signaturesBuilder_.clear();
+        }
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.ray.mcu.proto.MessageProto.internal_static_proto_CommitStorage_descriptor;
+      }
+
+      @java.lang.Override
+      public com.ray.mcu.proto.MessageProto.CommitStorage getDefaultInstanceForType() {
+        return com.ray.mcu.proto.MessageProto.CommitStorage.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.ray.mcu.proto.MessageProto.CommitStorage build() {
+        com.ray.mcu.proto.MessageProto.CommitStorage result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.ray.mcu.proto.MessageProto.CommitStorage buildPartial() {
+        com.ray.mcu.proto.MessageProto.CommitStorage result = new com.ray.mcu.proto.MessageProto.CommitStorage(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (inputBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) != 0)) {
+            input_ = java.util.Collections.unmodifiableList(input_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
+          result.input_ = input_;
+        } else {
+          result.input_ = inputBuilder_.build();
+        }
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.inputHash_ = inputHash_;
+        if (((from_bitField0_ & 0x00000004) != 0)) {
+          if (viewBuilder_ == null) {
+            result.view_ = view_;
+          } else {
+            result.view_ = viewBuilder_.build();
+          }
+          to_bitField0_ |= 0x00000002;
+        }
+        if (signaturesBuilder_ == null) {
+          if (((bitField0_ & 0x00000008) != 0)) {
+            signatures_ = java.util.Collections.unmodifiableList(signatures_);
+            bitField0_ = (bitField0_ & ~0x00000008);
+          }
+          result.signatures_ = signatures_;
+        } else {
+          result.signatures_ = signaturesBuilder_.build();
+        }
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.ray.mcu.proto.MessageProto.CommitStorage) {
+          return mergeFrom((com.ray.mcu.proto.MessageProto.CommitStorage)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.ray.mcu.proto.MessageProto.CommitStorage other) {
+        if (other == com.ray.mcu.proto.MessageProto.CommitStorage.getDefaultInstance()) return this;
+        if (inputBuilder_ == null) {
+          if (!other.input_.isEmpty()) {
+            if (input_.isEmpty()) {
+              input_ = other.input_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensureInputIsMutable();
+              input_.addAll(other.input_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.input_.isEmpty()) {
+            if (inputBuilder_.isEmpty()) {
+              inputBuilder_.dispose();
+              inputBuilder_ = null;
+              input_ = other.input_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              inputBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getInputFieldBuilder() : null;
+            } else {
+              inputBuilder_.addAllMessages(other.input_);
+            }
+          }
+        }
+        if (other.hasInputHash()) {
+          setInputHash(other.getInputHash());
+        }
+        if (other.hasView()) {
+          mergeView(other.getView());
+        }
+        if (signaturesBuilder_ == null) {
+          if (!other.signatures_.isEmpty()) {
+            if (signatures_.isEmpty()) {
+              signatures_ = other.signatures_;
+              bitField0_ = (bitField0_ & ~0x00000008);
+            } else {
+              ensureSignaturesIsMutable();
+              signatures_.addAll(other.signatures_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.signatures_.isEmpty()) {
+            if (signaturesBuilder_.isEmpty()) {
+              signaturesBuilder_.dispose();
+              signaturesBuilder_ = null;
+              signatures_ = other.signatures_;
+              bitField0_ = (bitField0_ & ~0x00000008);
+              signaturesBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getSignaturesFieldBuilder() : null;
+            } else {
+              signaturesBuilder_.addAllMessages(other.signatures_);
+            }
+          }
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        if (!hasInputHash()) {
+          return false;
+        }
+        if (!hasView()) {
+          return false;
+        }
+        for (int i = 0; i < getInputCount(); i++) {
+          if (!getInput(i).isInitialized()) {
+            return false;
+          }
+        }
+        if (!getView().isInitialized()) {
+          return false;
+        }
+        for (int i = 0; i < getSignaturesCount(); i++) {
+          if (!getSignatures(i).isInitialized()) {
+            return false;
+          }
+        }
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.ray.mcu.proto.MessageProto.CommitStorage parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.ray.mcu.proto.MessageProto.CommitStorage) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private java.util.List<com.ray.mcu.proto.MessageProto.PersistClientMessage> input_ =
+        java.util.Collections.emptyList();
+      private void ensureInputIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          input_ = new java.util.ArrayList<com.ray.mcu.proto.MessageProto.PersistClientMessage>(input_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          com.ray.mcu.proto.MessageProto.PersistClientMessage, com.ray.mcu.proto.MessageProto.PersistClientMessage.Builder, com.ray.mcu.proto.MessageProto.PersistClientMessageOrBuilder> inputBuilder_;
+
+      /**
+       * <code>repeated .proto.PersistClientMessage input = 1;</code>
+       */
+      public java.util.List<com.ray.mcu.proto.MessageProto.PersistClientMessage> getInputList() {
+        if (inputBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(input_);
+        } else {
+          return inputBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .proto.PersistClientMessage input = 1;</code>
+       */
+      public int getInputCount() {
+        if (inputBuilder_ == null) {
+          return input_.size();
+        } else {
+          return inputBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .proto.PersistClientMessage input = 1;</code>
+       */
+      public com.ray.mcu.proto.MessageProto.PersistClientMessage getInput(int index) {
+        if (inputBuilder_ == null) {
+          return input_.get(index);
+        } else {
+          return inputBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .proto.PersistClientMessage input = 1;</code>
+       */
+      public Builder setInput(
+          int index, com.ray.mcu.proto.MessageProto.PersistClientMessage value) {
+        if (inputBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureInputIsMutable();
+          input_.set(index, value);
+          onChanged();
+        } else {
+          inputBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .proto.PersistClientMessage input = 1;</code>
+       */
+      public Builder setInput(
+          int index, com.ray.mcu.proto.MessageProto.PersistClientMessage.Builder builderForValue) {
+        if (inputBuilder_ == null) {
+          ensureInputIsMutable();
+          input_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          inputBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .proto.PersistClientMessage input = 1;</code>
+       */
+      public Builder addInput(com.ray.mcu.proto.MessageProto.PersistClientMessage value) {
+        if (inputBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureInputIsMutable();
+          input_.add(value);
+          onChanged();
+        } else {
+          inputBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .proto.PersistClientMessage input = 1;</code>
+       */
+      public Builder addInput(
+          int index, com.ray.mcu.proto.MessageProto.PersistClientMessage value) {
+        if (inputBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureInputIsMutable();
+          input_.add(index, value);
+          onChanged();
+        } else {
+          inputBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .proto.PersistClientMessage input = 1;</code>
+       */
+      public Builder addInput(
+          com.ray.mcu.proto.MessageProto.PersistClientMessage.Builder builderForValue) {
+        if (inputBuilder_ == null) {
+          ensureInputIsMutable();
+          input_.add(builderForValue.build());
+          onChanged();
+        } else {
+          inputBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .proto.PersistClientMessage input = 1;</code>
+       */
+      public Builder addInput(
+          int index, com.ray.mcu.proto.MessageProto.PersistClientMessage.Builder builderForValue) {
+        if (inputBuilder_ == null) {
+          ensureInputIsMutable();
+          input_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          inputBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .proto.PersistClientMessage input = 1;</code>
+       */
+      public Builder addAllInput(
+          java.lang.Iterable<? extends com.ray.mcu.proto.MessageProto.PersistClientMessage> values) {
+        if (inputBuilder_ == null) {
+          ensureInputIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, input_);
+          onChanged();
+        } else {
+          inputBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .proto.PersistClientMessage input = 1;</code>
+       */
+      public Builder clearInput() {
+        if (inputBuilder_ == null) {
+          input_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+        } else {
+          inputBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .proto.PersistClientMessage input = 1;</code>
+       */
+      public Builder removeInput(int index) {
+        if (inputBuilder_ == null) {
+          ensureInputIsMutable();
+          input_.remove(index);
+          onChanged();
+        } else {
+          inputBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .proto.PersistClientMessage input = 1;</code>
+       */
+      public com.ray.mcu.proto.MessageProto.PersistClientMessage.Builder getInputBuilder(
+          int index) {
+        return getInputFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .proto.PersistClientMessage input = 1;</code>
+       */
+      public com.ray.mcu.proto.MessageProto.PersistClientMessageOrBuilder getInputOrBuilder(
+          int index) {
+        if (inputBuilder_ == null) {
+          return input_.get(index);  } else {
+          return inputBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .proto.PersistClientMessage input = 1;</code>
+       */
+      public java.util.List<? extends com.ray.mcu.proto.MessageProto.PersistClientMessageOrBuilder> 
+           getInputOrBuilderList() {
+        if (inputBuilder_ != null) {
+          return inputBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(input_);
+        }
+      }
+      /**
+       * <code>repeated .proto.PersistClientMessage input = 1;</code>
+       */
+      public com.ray.mcu.proto.MessageProto.PersistClientMessage.Builder addInputBuilder() {
+        return getInputFieldBuilder().addBuilder(
+            com.ray.mcu.proto.MessageProto.PersistClientMessage.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .proto.PersistClientMessage input = 1;</code>
+       */
+      public com.ray.mcu.proto.MessageProto.PersistClientMessage.Builder addInputBuilder(
+          int index) {
+        return getInputFieldBuilder().addBuilder(
+            index, com.ray.mcu.proto.MessageProto.PersistClientMessage.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .proto.PersistClientMessage input = 1;</code>
+       */
+      public java.util.List<com.ray.mcu.proto.MessageProto.PersistClientMessage.Builder> 
+           getInputBuilderList() {
+        return getInputFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          com.ray.mcu.proto.MessageProto.PersistClientMessage, com.ray.mcu.proto.MessageProto.PersistClientMessage.Builder, com.ray.mcu.proto.MessageProto.PersistClientMessageOrBuilder> 
+          getInputFieldBuilder() {
+        if (inputBuilder_ == null) {
+          inputBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              com.ray.mcu.proto.MessageProto.PersistClientMessage, com.ray.mcu.proto.MessageProto.PersistClientMessage.Builder, com.ray.mcu.proto.MessageProto.PersistClientMessageOrBuilder>(
+                  input_,
+                  ((bitField0_ & 0x00000001) != 0),
+                  getParentForChildren(),
+                  isClean());
+          input_ = null;
+        }
+        return inputBuilder_;
+      }
+
+      private com.google.protobuf.ByteString inputHash_ = com.google.protobuf.ByteString.EMPTY;
+      /**
+       * <code>required bytes inputHash = 2;</code>
+       */
+      public boolean hasInputHash() {
+        return ((bitField0_ & 0x00000002) != 0);
+      }
+      /**
+       * <code>required bytes inputHash = 2;</code>
+       */
+      public com.google.protobuf.ByteString getInputHash() {
+        return inputHash_;
+      }
+      /**
+       * <code>required bytes inputHash = 2;</code>
+       */
+      public Builder setInputHash(com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+        inputHash_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required bytes inputHash = 2;</code>
+       */
+      public Builder clearInputHash() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        inputHash_ = getDefaultInstance().getInputHash();
+        onChanged();
+        return this;
+      }
+
+      private com.ray.mcu.proto.MessageProto.View view_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.ray.mcu.proto.MessageProto.View, com.ray.mcu.proto.MessageProto.View.Builder, com.ray.mcu.proto.MessageProto.ViewOrBuilder> viewBuilder_;
+      /**
+       * <code>required .proto.View view = 3;</code>
+       */
+      public boolean hasView() {
+        return ((bitField0_ & 0x00000004) != 0);
+      }
+      /**
+       * <code>required .proto.View view = 3;</code>
+       */
+      public com.ray.mcu.proto.MessageProto.View getView() {
+        if (viewBuilder_ == null) {
+          return view_ == null ? com.ray.mcu.proto.MessageProto.View.getDefaultInstance() : view_;
+        } else {
+          return viewBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>required .proto.View view = 3;</code>
+       */
+      public Builder setView(com.ray.mcu.proto.MessageProto.View value) {
+        if (viewBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          view_ = value;
+          onChanged();
+        } else {
+          viewBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000004;
+        return this;
+      }
+      /**
+       * <code>required .proto.View view = 3;</code>
+       */
+      public Builder setView(
+          com.ray.mcu.proto.MessageProto.View.Builder builderForValue) {
+        if (viewBuilder_ == null) {
+          view_ = builderForValue.build();
+          onChanged();
+        } else {
+          viewBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000004;
+        return this;
+      }
+      /**
+       * <code>required .proto.View view = 3;</code>
+       */
+      public Builder mergeView(com.ray.mcu.proto.MessageProto.View value) {
+        if (viewBuilder_ == null) {
+          if (((bitField0_ & 0x00000004) != 0) &&
+              view_ != null &&
+              view_ != com.ray.mcu.proto.MessageProto.View.getDefaultInstance()) {
+            view_ =
+              com.ray.mcu.proto.MessageProto.View.newBuilder(view_).mergeFrom(value).buildPartial();
+          } else {
+            view_ = value;
+          }
+          onChanged();
+        } else {
+          viewBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000004;
+        return this;
+      }
+      /**
+       * <code>required .proto.View view = 3;</code>
+       */
+      public Builder clearView() {
+        if (viewBuilder_ == null) {
+          view_ = null;
+          onChanged();
+        } else {
+          viewBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000004);
+        return this;
+      }
+      /**
+       * <code>required .proto.View view = 3;</code>
+       */
+      public com.ray.mcu.proto.MessageProto.View.Builder getViewBuilder() {
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return getViewFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>required .proto.View view = 3;</code>
+       */
+      public com.ray.mcu.proto.MessageProto.ViewOrBuilder getViewOrBuilder() {
+        if (viewBuilder_ != null) {
+          return viewBuilder_.getMessageOrBuilder();
+        } else {
+          return view_ == null ?
+              com.ray.mcu.proto.MessageProto.View.getDefaultInstance() : view_;
+        }
+      }
+      /**
+       * <code>required .proto.View view = 3;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.ray.mcu.proto.MessageProto.View, com.ray.mcu.proto.MessageProto.View.Builder, com.ray.mcu.proto.MessageProto.ViewOrBuilder> 
+          getViewFieldBuilder() {
+        if (viewBuilder_ == null) {
+          viewBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              com.ray.mcu.proto.MessageProto.View, com.ray.mcu.proto.MessageProto.View.Builder, com.ray.mcu.proto.MessageProto.ViewOrBuilder>(
+                  getView(),
+                  getParentForChildren(),
+                  isClean());
+          view_ = null;
+        }
+        return viewBuilder_;
+      }
+
+      private java.util.List<com.ray.mcu.proto.MessageProto.Signature> signatures_ =
+        java.util.Collections.emptyList();
+      private void ensureSignaturesIsMutable() {
+        if (!((bitField0_ & 0x00000008) != 0)) {
+          signatures_ = new java.util.ArrayList<com.ray.mcu.proto.MessageProto.Signature>(signatures_);
+          bitField0_ |= 0x00000008;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          com.ray.mcu.proto.MessageProto.Signature, com.ray.mcu.proto.MessageProto.Signature.Builder, com.ray.mcu.proto.MessageProto.SignatureOrBuilder> signaturesBuilder_;
+
+      /**
+       * <code>repeated .proto.Signature signatures = 4;</code>
+       */
+      public java.util.List<com.ray.mcu.proto.MessageProto.Signature> getSignaturesList() {
+        if (signaturesBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(signatures_);
+        } else {
+          return signaturesBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .proto.Signature signatures = 4;</code>
+       */
+      public int getSignaturesCount() {
+        if (signaturesBuilder_ == null) {
+          return signatures_.size();
+        } else {
+          return signaturesBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .proto.Signature signatures = 4;</code>
+       */
+      public com.ray.mcu.proto.MessageProto.Signature getSignatures(int index) {
+        if (signaturesBuilder_ == null) {
+          return signatures_.get(index);
+        } else {
+          return signaturesBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .proto.Signature signatures = 4;</code>
+       */
+      public Builder setSignatures(
+          int index, com.ray.mcu.proto.MessageProto.Signature value) {
+        if (signaturesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureSignaturesIsMutable();
+          signatures_.set(index, value);
+          onChanged();
+        } else {
+          signaturesBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .proto.Signature signatures = 4;</code>
+       */
+      public Builder setSignatures(
+          int index, com.ray.mcu.proto.MessageProto.Signature.Builder builderForValue) {
+        if (signaturesBuilder_ == null) {
+          ensureSignaturesIsMutable();
+          signatures_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          signaturesBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .proto.Signature signatures = 4;</code>
+       */
+      public Builder addSignatures(com.ray.mcu.proto.MessageProto.Signature value) {
+        if (signaturesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureSignaturesIsMutable();
+          signatures_.add(value);
+          onChanged();
+        } else {
+          signaturesBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .proto.Signature signatures = 4;</code>
+       */
+      public Builder addSignatures(
+          int index, com.ray.mcu.proto.MessageProto.Signature value) {
+        if (signaturesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureSignaturesIsMutable();
+          signatures_.add(index, value);
+          onChanged();
+        } else {
+          signaturesBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .proto.Signature signatures = 4;</code>
+       */
+      public Builder addSignatures(
+          com.ray.mcu.proto.MessageProto.Signature.Builder builderForValue) {
+        if (signaturesBuilder_ == null) {
+          ensureSignaturesIsMutable();
+          signatures_.add(builderForValue.build());
+          onChanged();
+        } else {
+          signaturesBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .proto.Signature signatures = 4;</code>
+       */
+      public Builder addSignatures(
+          int index, com.ray.mcu.proto.MessageProto.Signature.Builder builderForValue) {
+        if (signaturesBuilder_ == null) {
+          ensureSignaturesIsMutable();
+          signatures_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          signaturesBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .proto.Signature signatures = 4;</code>
+       */
+      public Builder addAllSignatures(
+          java.lang.Iterable<? extends com.ray.mcu.proto.MessageProto.Signature> values) {
+        if (signaturesBuilder_ == null) {
+          ensureSignaturesIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, signatures_);
+          onChanged();
+        } else {
+          signaturesBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .proto.Signature signatures = 4;</code>
+       */
+      public Builder clearSignatures() {
+        if (signaturesBuilder_ == null) {
+          signatures_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000008);
+          onChanged();
+        } else {
+          signaturesBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .proto.Signature signatures = 4;</code>
+       */
+      public Builder removeSignatures(int index) {
+        if (signaturesBuilder_ == null) {
+          ensureSignaturesIsMutable();
+          signatures_.remove(index);
+          onChanged();
+        } else {
+          signaturesBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .proto.Signature signatures = 4;</code>
+       */
+      public com.ray.mcu.proto.MessageProto.Signature.Builder getSignaturesBuilder(
+          int index) {
+        return getSignaturesFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .proto.Signature signatures = 4;</code>
+       */
+      public com.ray.mcu.proto.MessageProto.SignatureOrBuilder getSignaturesOrBuilder(
+          int index) {
+        if (signaturesBuilder_ == null) {
+          return signatures_.get(index);  } else {
+          return signaturesBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .proto.Signature signatures = 4;</code>
+       */
+      public java.util.List<? extends com.ray.mcu.proto.MessageProto.SignatureOrBuilder> 
+           getSignaturesOrBuilderList() {
+        if (signaturesBuilder_ != null) {
+          return signaturesBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(signatures_);
+        }
+      }
+      /**
+       * <code>repeated .proto.Signature signatures = 4;</code>
+       */
+      public com.ray.mcu.proto.MessageProto.Signature.Builder addSignaturesBuilder() {
+        return getSignaturesFieldBuilder().addBuilder(
+            com.ray.mcu.proto.MessageProto.Signature.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .proto.Signature signatures = 4;</code>
+       */
+      public com.ray.mcu.proto.MessageProto.Signature.Builder addSignaturesBuilder(
+          int index) {
+        return getSignaturesFieldBuilder().addBuilder(
+            index, com.ray.mcu.proto.MessageProto.Signature.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .proto.Signature signatures = 4;</code>
+       */
+      public java.util.List<com.ray.mcu.proto.MessageProto.Signature.Builder> 
+           getSignaturesBuilderList() {
+        return getSignaturesFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          com.ray.mcu.proto.MessageProto.Signature, com.ray.mcu.proto.MessageProto.Signature.Builder, com.ray.mcu.proto.MessageProto.SignatureOrBuilder> 
+          getSignaturesFieldBuilder() {
+        if (signaturesBuilder_ == null) {
+          signaturesBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              com.ray.mcu.proto.MessageProto.Signature, com.ray.mcu.proto.MessageProto.Signature.Builder, com.ray.mcu.proto.MessageProto.SignatureOrBuilder>(
+                  signatures_,
+                  ((bitField0_ & 0x00000008) != 0),
+                  getParentForChildren(),
+                  isClean());
+          signatures_ = null;
+        }
+        return signaturesBuilder_;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:proto.CommitStorage)
+    }
+
+    // @@protoc_insertion_point(class_scope:proto.CommitStorage)
+    private static final com.ray.mcu.proto.MessageProto.CommitStorage DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.ray.mcu.proto.MessageProto.CommitStorage();
+    }
+
+    public static com.ray.mcu.proto.MessageProto.CommitStorage getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    @java.lang.Deprecated public static final com.google.protobuf.Parser<CommitStorage>
+        PARSER = new com.google.protobuf.AbstractParser<CommitStorage>() {
+      @java.lang.Override
+      public CommitStorage parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new CommitStorage(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<CommitStorage> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<CommitStorage> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.ray.mcu.proto.MessageProto.CommitStorage getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   public interface PrePrepareOrBuilder extends
       // @@protoc_insertion_point(interface_extends:proto.PrePrepare)
       com.google.protobuf.MessageOrBuilder {
@@ -16441,27 +17924,27 @@ public final class MessageProto {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>repeated .proto.Commit commits = 1;</code>
+     * <code>repeated .proto.CommitStorage commits = 1;</code>
      */
-    java.util.List<com.ray.mcu.proto.MessageProto.Commit> 
+    java.util.List<com.ray.mcu.proto.MessageProto.CommitStorage> 
         getCommitsList();
     /**
-     * <code>repeated .proto.Commit commits = 1;</code>
+     * <code>repeated .proto.CommitStorage commits = 1;</code>
      */
-    com.ray.mcu.proto.MessageProto.Commit getCommits(int index);
+    com.ray.mcu.proto.MessageProto.CommitStorage getCommits(int index);
     /**
-     * <code>repeated .proto.Commit commits = 1;</code>
+     * <code>repeated .proto.CommitStorage commits = 1;</code>
      */
     int getCommitsCount();
     /**
-     * <code>repeated .proto.Commit commits = 1;</code>
+     * <code>repeated .proto.CommitStorage commits = 1;</code>
      */
-    java.util.List<? extends com.ray.mcu.proto.MessageProto.CommitOrBuilder> 
+    java.util.List<? extends com.ray.mcu.proto.MessageProto.CommitStorageOrBuilder> 
         getCommitsOrBuilderList();
     /**
-     * <code>repeated .proto.Commit commits = 1;</code>
+     * <code>repeated .proto.CommitStorage commits = 1;</code>
      */
-    com.ray.mcu.proto.MessageProto.CommitOrBuilder getCommitsOrBuilder(
+    com.ray.mcu.proto.MessageProto.CommitStorageOrBuilder getCommitsOrBuilder(
         int index);
   }
   /**
@@ -16506,11 +17989,11 @@ public final class MessageProto {
               break;
             case 10: {
               if (!((mutable_bitField0_ & 0x00000001) != 0)) {
-                commits_ = new java.util.ArrayList<com.ray.mcu.proto.MessageProto.Commit>();
+                commits_ = new java.util.ArrayList<com.ray.mcu.proto.MessageProto.CommitStorage>();
                 mutable_bitField0_ |= 0x00000001;
               }
               commits_.add(
-                  input.readMessage(com.ray.mcu.proto.MessageProto.Commit.PARSER, extensionRegistry));
+                  input.readMessage(com.ray.mcu.proto.MessageProto.CommitStorage.PARSER, extensionRegistry));
               break;
             }
             default: {
@@ -16549,36 +18032,36 @@ public final class MessageProto {
     }
 
     public static final int COMMITS_FIELD_NUMBER = 1;
-    private java.util.List<com.ray.mcu.proto.MessageProto.Commit> commits_;
+    private java.util.List<com.ray.mcu.proto.MessageProto.CommitStorage> commits_;
     /**
-     * <code>repeated .proto.Commit commits = 1;</code>
+     * <code>repeated .proto.CommitStorage commits = 1;</code>
      */
-    public java.util.List<com.ray.mcu.proto.MessageProto.Commit> getCommitsList() {
+    public java.util.List<com.ray.mcu.proto.MessageProto.CommitStorage> getCommitsList() {
       return commits_;
     }
     /**
-     * <code>repeated .proto.Commit commits = 1;</code>
+     * <code>repeated .proto.CommitStorage commits = 1;</code>
      */
-    public java.util.List<? extends com.ray.mcu.proto.MessageProto.CommitOrBuilder> 
+    public java.util.List<? extends com.ray.mcu.proto.MessageProto.CommitStorageOrBuilder> 
         getCommitsOrBuilderList() {
       return commits_;
     }
     /**
-     * <code>repeated .proto.Commit commits = 1;</code>
+     * <code>repeated .proto.CommitStorage commits = 1;</code>
      */
     public int getCommitsCount() {
       return commits_.size();
     }
     /**
-     * <code>repeated .proto.Commit commits = 1;</code>
+     * <code>repeated .proto.CommitStorage commits = 1;</code>
      */
-    public com.ray.mcu.proto.MessageProto.Commit getCommits(int index) {
+    public com.ray.mcu.proto.MessageProto.CommitStorage getCommits(int index) {
       return commits_.get(index);
     }
     /**
-     * <code>repeated .proto.Commit commits = 1;</code>
+     * <code>repeated .proto.CommitStorage commits = 1;</code>
      */
-    public com.ray.mcu.proto.MessageProto.CommitOrBuilder getCommitsOrBuilder(
+    public com.ray.mcu.proto.MessageProto.CommitStorageOrBuilder getCommitsOrBuilder(
         int index) {
       return commits_.get(index);
     }
@@ -16936,22 +18419,22 @@ public final class MessageProto {
       }
       private int bitField0_;
 
-      private java.util.List<com.ray.mcu.proto.MessageProto.Commit> commits_ =
+      private java.util.List<com.ray.mcu.proto.MessageProto.CommitStorage> commits_ =
         java.util.Collections.emptyList();
       private void ensureCommitsIsMutable() {
         if (!((bitField0_ & 0x00000001) != 0)) {
-          commits_ = new java.util.ArrayList<com.ray.mcu.proto.MessageProto.Commit>(commits_);
+          commits_ = new java.util.ArrayList<com.ray.mcu.proto.MessageProto.CommitStorage>(commits_);
           bitField0_ |= 0x00000001;
          }
       }
 
       private com.google.protobuf.RepeatedFieldBuilderV3<
-          com.ray.mcu.proto.MessageProto.Commit, com.ray.mcu.proto.MessageProto.Commit.Builder, com.ray.mcu.proto.MessageProto.CommitOrBuilder> commitsBuilder_;
+          com.ray.mcu.proto.MessageProto.CommitStorage, com.ray.mcu.proto.MessageProto.CommitStorage.Builder, com.ray.mcu.proto.MessageProto.CommitStorageOrBuilder> commitsBuilder_;
 
       /**
-       * <code>repeated .proto.Commit commits = 1;</code>
+       * <code>repeated .proto.CommitStorage commits = 1;</code>
        */
-      public java.util.List<com.ray.mcu.proto.MessageProto.Commit> getCommitsList() {
+      public java.util.List<com.ray.mcu.proto.MessageProto.CommitStorage> getCommitsList() {
         if (commitsBuilder_ == null) {
           return java.util.Collections.unmodifiableList(commits_);
         } else {
@@ -16959,7 +18442,7 @@ public final class MessageProto {
         }
       }
       /**
-       * <code>repeated .proto.Commit commits = 1;</code>
+       * <code>repeated .proto.CommitStorage commits = 1;</code>
        */
       public int getCommitsCount() {
         if (commitsBuilder_ == null) {
@@ -16969,9 +18452,9 @@ public final class MessageProto {
         }
       }
       /**
-       * <code>repeated .proto.Commit commits = 1;</code>
+       * <code>repeated .proto.CommitStorage commits = 1;</code>
        */
-      public com.ray.mcu.proto.MessageProto.Commit getCommits(int index) {
+      public com.ray.mcu.proto.MessageProto.CommitStorage getCommits(int index) {
         if (commitsBuilder_ == null) {
           return commits_.get(index);
         } else {
@@ -16979,10 +18462,10 @@ public final class MessageProto {
         }
       }
       /**
-       * <code>repeated .proto.Commit commits = 1;</code>
+       * <code>repeated .proto.CommitStorage commits = 1;</code>
        */
       public Builder setCommits(
-          int index, com.ray.mcu.proto.MessageProto.Commit value) {
+          int index, com.ray.mcu.proto.MessageProto.CommitStorage value) {
         if (commitsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -16996,10 +18479,10 @@ public final class MessageProto {
         return this;
       }
       /**
-       * <code>repeated .proto.Commit commits = 1;</code>
+       * <code>repeated .proto.CommitStorage commits = 1;</code>
        */
       public Builder setCommits(
-          int index, com.ray.mcu.proto.MessageProto.Commit.Builder builderForValue) {
+          int index, com.ray.mcu.proto.MessageProto.CommitStorage.Builder builderForValue) {
         if (commitsBuilder_ == null) {
           ensureCommitsIsMutable();
           commits_.set(index, builderForValue.build());
@@ -17010,9 +18493,9 @@ public final class MessageProto {
         return this;
       }
       /**
-       * <code>repeated .proto.Commit commits = 1;</code>
+       * <code>repeated .proto.CommitStorage commits = 1;</code>
        */
-      public Builder addCommits(com.ray.mcu.proto.MessageProto.Commit value) {
+      public Builder addCommits(com.ray.mcu.proto.MessageProto.CommitStorage value) {
         if (commitsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -17026,10 +18509,10 @@ public final class MessageProto {
         return this;
       }
       /**
-       * <code>repeated .proto.Commit commits = 1;</code>
+       * <code>repeated .proto.CommitStorage commits = 1;</code>
        */
       public Builder addCommits(
-          int index, com.ray.mcu.proto.MessageProto.Commit value) {
+          int index, com.ray.mcu.proto.MessageProto.CommitStorage value) {
         if (commitsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -17043,10 +18526,10 @@ public final class MessageProto {
         return this;
       }
       /**
-       * <code>repeated .proto.Commit commits = 1;</code>
+       * <code>repeated .proto.CommitStorage commits = 1;</code>
        */
       public Builder addCommits(
-          com.ray.mcu.proto.MessageProto.Commit.Builder builderForValue) {
+          com.ray.mcu.proto.MessageProto.CommitStorage.Builder builderForValue) {
         if (commitsBuilder_ == null) {
           ensureCommitsIsMutable();
           commits_.add(builderForValue.build());
@@ -17057,10 +18540,10 @@ public final class MessageProto {
         return this;
       }
       /**
-       * <code>repeated .proto.Commit commits = 1;</code>
+       * <code>repeated .proto.CommitStorage commits = 1;</code>
        */
       public Builder addCommits(
-          int index, com.ray.mcu.proto.MessageProto.Commit.Builder builderForValue) {
+          int index, com.ray.mcu.proto.MessageProto.CommitStorage.Builder builderForValue) {
         if (commitsBuilder_ == null) {
           ensureCommitsIsMutable();
           commits_.add(index, builderForValue.build());
@@ -17071,10 +18554,10 @@ public final class MessageProto {
         return this;
       }
       /**
-       * <code>repeated .proto.Commit commits = 1;</code>
+       * <code>repeated .proto.CommitStorage commits = 1;</code>
        */
       public Builder addAllCommits(
-          java.lang.Iterable<? extends com.ray.mcu.proto.MessageProto.Commit> values) {
+          java.lang.Iterable<? extends com.ray.mcu.proto.MessageProto.CommitStorage> values) {
         if (commitsBuilder_ == null) {
           ensureCommitsIsMutable();
           com.google.protobuf.AbstractMessageLite.Builder.addAll(
@@ -17086,7 +18569,7 @@ public final class MessageProto {
         return this;
       }
       /**
-       * <code>repeated .proto.Commit commits = 1;</code>
+       * <code>repeated .proto.CommitStorage commits = 1;</code>
        */
       public Builder clearCommits() {
         if (commitsBuilder_ == null) {
@@ -17099,7 +18582,7 @@ public final class MessageProto {
         return this;
       }
       /**
-       * <code>repeated .proto.Commit commits = 1;</code>
+       * <code>repeated .proto.CommitStorage commits = 1;</code>
        */
       public Builder removeCommits(int index) {
         if (commitsBuilder_ == null) {
@@ -17112,16 +18595,16 @@ public final class MessageProto {
         return this;
       }
       /**
-       * <code>repeated .proto.Commit commits = 1;</code>
+       * <code>repeated .proto.CommitStorage commits = 1;</code>
        */
-      public com.ray.mcu.proto.MessageProto.Commit.Builder getCommitsBuilder(
+      public com.ray.mcu.proto.MessageProto.CommitStorage.Builder getCommitsBuilder(
           int index) {
         return getCommitsFieldBuilder().getBuilder(index);
       }
       /**
-       * <code>repeated .proto.Commit commits = 1;</code>
+       * <code>repeated .proto.CommitStorage commits = 1;</code>
        */
-      public com.ray.mcu.proto.MessageProto.CommitOrBuilder getCommitsOrBuilder(
+      public com.ray.mcu.proto.MessageProto.CommitStorageOrBuilder getCommitsOrBuilder(
           int index) {
         if (commitsBuilder_ == null) {
           return commits_.get(index);  } else {
@@ -17129,9 +18612,9 @@ public final class MessageProto {
         }
       }
       /**
-       * <code>repeated .proto.Commit commits = 1;</code>
+       * <code>repeated .proto.CommitStorage commits = 1;</code>
        */
-      public java.util.List<? extends com.ray.mcu.proto.MessageProto.CommitOrBuilder> 
+      public java.util.List<? extends com.ray.mcu.proto.MessageProto.CommitStorageOrBuilder> 
            getCommitsOrBuilderList() {
         if (commitsBuilder_ != null) {
           return commitsBuilder_.getMessageOrBuilderList();
@@ -17140,33 +18623,33 @@ public final class MessageProto {
         }
       }
       /**
-       * <code>repeated .proto.Commit commits = 1;</code>
+       * <code>repeated .proto.CommitStorage commits = 1;</code>
        */
-      public com.ray.mcu.proto.MessageProto.Commit.Builder addCommitsBuilder() {
+      public com.ray.mcu.proto.MessageProto.CommitStorage.Builder addCommitsBuilder() {
         return getCommitsFieldBuilder().addBuilder(
-            com.ray.mcu.proto.MessageProto.Commit.getDefaultInstance());
+            com.ray.mcu.proto.MessageProto.CommitStorage.getDefaultInstance());
       }
       /**
-       * <code>repeated .proto.Commit commits = 1;</code>
+       * <code>repeated .proto.CommitStorage commits = 1;</code>
        */
-      public com.ray.mcu.proto.MessageProto.Commit.Builder addCommitsBuilder(
+      public com.ray.mcu.proto.MessageProto.CommitStorage.Builder addCommitsBuilder(
           int index) {
         return getCommitsFieldBuilder().addBuilder(
-            index, com.ray.mcu.proto.MessageProto.Commit.getDefaultInstance());
+            index, com.ray.mcu.proto.MessageProto.CommitStorage.getDefaultInstance());
       }
       /**
-       * <code>repeated .proto.Commit commits = 1;</code>
+       * <code>repeated .proto.CommitStorage commits = 1;</code>
        */
-      public java.util.List<com.ray.mcu.proto.MessageProto.Commit.Builder> 
+      public java.util.List<com.ray.mcu.proto.MessageProto.CommitStorage.Builder> 
            getCommitsBuilderList() {
         return getCommitsFieldBuilder().getBuilderList();
       }
       private com.google.protobuf.RepeatedFieldBuilderV3<
-          com.ray.mcu.proto.MessageProto.Commit, com.ray.mcu.proto.MessageProto.Commit.Builder, com.ray.mcu.proto.MessageProto.CommitOrBuilder> 
+          com.ray.mcu.proto.MessageProto.CommitStorage, com.ray.mcu.proto.MessageProto.CommitStorage.Builder, com.ray.mcu.proto.MessageProto.CommitStorageOrBuilder> 
           getCommitsFieldBuilder() {
         if (commitsBuilder_ == null) {
           commitsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
-              com.ray.mcu.proto.MessageProto.Commit, com.ray.mcu.proto.MessageProto.Commit.Builder, com.ray.mcu.proto.MessageProto.CommitOrBuilder>(
+              com.ray.mcu.proto.MessageProto.CommitStorage, com.ray.mcu.proto.MessageProto.CommitStorage.Builder, com.ray.mcu.proto.MessageProto.CommitStorageOrBuilder>(
                   commits_,
                   ((bitField0_ & 0x00000001) != 0),
                   getParentForChildren(),
@@ -17294,6 +18777,11 @@ public final class MessageProto {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_proto_Signature_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_proto_CommitStorage_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_proto_CommitStorage_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_proto_PrePrepare_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
@@ -17367,17 +18855,21 @@ public final class MessageProto {
       "\022\014\n\004port\030\003 \002(\005\"G\n\004View\022\n\n\002id\030\001 \002(\005\022\023\n\013co" +
       "ordinator\030\002 \002(\005\022\036\n\007servers\030\003 \003(\0132\r.proto" +
       ".Server\"$\n\tSignature\022\n\n\002id\030\001 \002(\005\022\013\n\003sig\030" +
-      "\002 \002(\014\"S\n\nPrePrepare\022*\n\005input\030\001 \003(\0132\033.pro" +
-      "to.PersistClientMessage\022\031\n\004view\030\002 \002(\0132\013." +
-      "proto.View\"7\n\007Prepare\022\021\n\tinputHash\030\001 \002(\014" +
-      "\022\031\n\004view\030\002 \002(\0132\013.proto.View\"\\\n\006Commit\022\021\n" +
-      "\tinputHash\030\001 \002(\014\022\031\n\004view\030\002 \002(\0132\013.proto.V" +
-      "iew\022$\n\nsignatures\030\003 \003(\0132\020.proto.Signatur" +
-      "e\"*\n\030RequestRecoverPrePrepare\022\016\n\006viewId\030" +
-      "\001 \002(\005\"&\n\024RequestRecoverCommit\022\016\n\006viewId\030" +
-      "\001 \002(\005\"/\n\rRecoverCommit\022\036\n\007commits\030\001 \003(\0132" +
-      "\r.proto.CommitB!\n\021com.ray.mcu.protoB\014Mes" +
-      "sageProto"
+      "\002 \002(\014\"\217\001\n\rCommitStorage\022*\n\005input\030\001 \003(\0132\033" +
+      ".proto.PersistClientMessage\022\021\n\tinputHash" +
+      "\030\002 \002(\014\022\031\n\004view\030\003 \002(\0132\013.proto.View\022$\n\nsig" +
+      "natures\030\004 \003(\0132\020.proto.Signature\"S\n\nPrePr" +
+      "epare\022*\n\005input\030\001 \003(\0132\033.proto.PersistClie" +
+      "ntMessage\022\031\n\004view\030\002 \002(\0132\013.proto.View\"7\n\007" +
+      "Prepare\022\021\n\tinputHash\030\001 \002(\014\022\031\n\004view\030\002 \002(\013" +
+      "2\013.proto.View\"\\\n\006Commit\022\021\n\tinputHash\030\001 \002" +
+      "(\014\022\031\n\004view\030\002 \002(\0132\013.proto.View\022$\n\nsignatu" +
+      "res\030\003 \003(\0132\020.proto.Signature\"*\n\030RequestRe" +
+      "coverPrePrepare\022\016\n\006viewId\030\001 \002(\005\"&\n\024Reque" +
+      "stRecoverCommit\022\016\n\006viewId\030\001 \002(\005\"6\n\rRecov" +
+      "erCommit\022%\n\007commits\030\001 \003(\0132\024.proto.Commit" +
+      "StorageB!\n\021com.ray.mcu.protoB\014MessagePro" +
+      "to"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -17469,38 +18961,44 @@ public final class MessageProto {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_Signature_descriptor,
         new java.lang.String[] { "Id", "Sig", });
-    internal_static_proto_PrePrepare_descriptor =
+    internal_static_proto_CommitStorage_descriptor =
       getDescriptor().getMessageTypes().get(13);
+    internal_static_proto_CommitStorage_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_proto_CommitStorage_descriptor,
+        new java.lang.String[] { "Input", "InputHash", "View", "Signatures", });
+    internal_static_proto_PrePrepare_descriptor =
+      getDescriptor().getMessageTypes().get(14);
     internal_static_proto_PrePrepare_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_PrePrepare_descriptor,
         new java.lang.String[] { "Input", "View", });
     internal_static_proto_Prepare_descriptor =
-      getDescriptor().getMessageTypes().get(14);
+      getDescriptor().getMessageTypes().get(15);
     internal_static_proto_Prepare_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_Prepare_descriptor,
         new java.lang.String[] { "InputHash", "View", });
     internal_static_proto_Commit_descriptor =
-      getDescriptor().getMessageTypes().get(15);
+      getDescriptor().getMessageTypes().get(16);
     internal_static_proto_Commit_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_Commit_descriptor,
         new java.lang.String[] { "InputHash", "View", "Signatures", });
     internal_static_proto_RequestRecoverPrePrepare_descriptor =
-      getDescriptor().getMessageTypes().get(16);
+      getDescriptor().getMessageTypes().get(17);
     internal_static_proto_RequestRecoverPrePrepare_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_RequestRecoverPrePrepare_descriptor,
         new java.lang.String[] { "ViewId", });
     internal_static_proto_RequestRecoverCommit_descriptor =
-      getDescriptor().getMessageTypes().get(17);
+      getDescriptor().getMessageTypes().get(18);
     internal_static_proto_RequestRecoverCommit_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_RequestRecoverCommit_descriptor,
         new java.lang.String[] { "ViewId", });
     internal_static_proto_RecoverCommit_descriptor =
-      getDescriptor().getMessageTypes().get(18);
+      getDescriptor().getMessageTypes().get(19);
     internal_static_proto_RecoverCommit_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_RecoverCommit_descriptor,

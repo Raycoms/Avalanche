@@ -1,11 +1,6 @@
 package com.ray.mcu.utils;
 
-import com.ray.mcu.communication.wrappers.AbstractMessageWrapper;
-import com.ray.mcu.communication.wrappers.IMessageWrapper;
 import com.ray.mcu.proto.MessageProto;
-import com.ray.mcu.server.Server;
-import com.ray.mcu.views.GlobalView;
-import com.ray.pbft.communication.wrappers.PrepareWrapper;
 import com.ray.pbft.server.PbftServer;
 import sun.security.rsa.RSAPublicKeyImpl;
 
@@ -18,16 +13,22 @@ import java.util.List;
  */
 public final class ValidationUtils
 {
-    public static boolean isMessageLogValid(final AbstractMessageWrapper message, final PbftServer server)
+    /**
+     * Check if the received message log is valid for the current state.
+     * @param message the message to check.
+     * @param server the server to check it for.
+     * @return true if valid.
+     */
+    public static boolean isMessageLogValid(final MessageProto.PrePrepare message, final PbftServer server)
     {
-        for (final MessageProto.PersistClientMessage data : message.getMessage().getPrePrepare().getInputList())
+        for (final MessageProto.PersistClientMessage data : message.getInputList())
         {
             final MessageProto.ClientMessage msg = data.getMsg();
 
             try
             {
                 final PublicKey key = new RSAPublicKeyImpl(msg.getPkey().toByteArray());
-                if (!KeyUtilities.verifyKey(msg.toByteArray(), message.getMessage().getPersClientMsg().getSig().toByteArray(), key))
+                if (!KeyUtilities.verifyKey(msg.toByteArray(), data.getSig().toByteArray(), key))
                 {
                     Log.getLogger().warn("Invalid signature from client!");
                     return false;
@@ -38,7 +39,7 @@ public final class ValidationUtils
                 if (tempState + msg.getDif() < 0)
                 {
                     Log.getLogger().warn("----------------------------------------------------------------\n"
-                                           + "Transactions tried to debit invalid quantity! (" + message.getSender() + ")"
+                                           + "Transactions tried to debit invalid quantity!"
                                            + "\n----------------------------------------------------------------");
                     return false;
                 }
@@ -51,7 +52,7 @@ public final class ValidationUtils
             catch (InvalidKeyException e)
             {
                 Log.getLogger().warn("----------------------------------------------------------------\n"
-                                       + "Transactions included invalidly signed client transaction! (" + message.getSender() + ")"
+                                       + "Transactions included invalidly signed client transaction!"
                                        + "\n----------------------------------------------------------------");
                 return false;
             }

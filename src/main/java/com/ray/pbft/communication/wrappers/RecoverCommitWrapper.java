@@ -5,6 +5,9 @@ import com.ray.mcu.communication.wrappers.AbstractMessageWrapper;
 import com.ray.mcu.proto.MessageProto;
 import com.ray.mcu.server.IServer;
 import com.ray.mcu.utils.Log;
+import com.ray.pbft.server.PbftServer;
+
+import java.util.List;
 
 /**
  * Wrapper for the Commit Message.
@@ -28,30 +31,49 @@ public class RecoverCommitWrapper extends AbstractMessageWrapper
      * @param sender  the sender.
      * @param message the message.
      */
-    public RecoverCommitWrapper(final IServer sender, final MessageProto.Commit message)
+    public RecoverCommitWrapper(final IServer sender, final MessageProto.RecoverCommit message)
     {
-        this(sender.getServerData().getId(), MessageProto.Message.newBuilder().setCommit(message).setSig(ByteString.copyFrom(sender.signMessage(message.toByteArray()))).build());
+        this(sender.getServerData().getId(), MessageProto.Message.newBuilder().setRecoverCommit(message).setSig(ByteString.copyFrom(sender.signMessage(message.toByteArray()))).build());
     }
 
     /**
-     * Create a new wrapper from the previous preprepare.
+     * Create a new wrapper to recover the commits..
      * @param sender the sender.
-     * @param prepare the preprare message.
+     * @param commit the list of commits to send.
      */
-    public static RecoverCommitWrapper createCommitWrapper(final IServer sender, final PrepareWrapper[] prepare)
+    public static RecoverCommitWrapper createCommitWrapper(final IServer sender, final List<CommitWrapper> commit)
     {
-        if (prepare.length == 0)
+        if (commit.isEmpty())
         {
             Log.getLogger().error("Fatal error when trying to create commit wrapper with an empty array of prepare messages.");
             return null;
         }
 
-        final MessageProto.Commit.Builder builder = MessageProto.Commit.newBuilder();
-        builder.setInputHash(prepare[0].getMessage().getPrepare().getInputHash()).setView(prepare[0].getMessage().getPrepare().getView());
+        final MessageProto.RecoverCommit.Builder builder = MessageProto.RecoverCommit.newBuilder();
 
-        for (int i = 0; i < prepare.length; i++)
+        for (int i = 0; i < commit.size(); i++)
         {
-            builder.setSignatures(i, MessageProto.Signature.newBuilder().setId(prepare[i].sender).setSig(prepare[i].getMessage().getSig()).build());
+            final MessageProto.CommitStorage.Builder storage = MessageProto.CommitStorage.newBuilder();
+            storage.setInputHash(commit.get(i).message.getCommit().getInputHash());
+            storage.setView(commit.get(i).message.getCommit().getView());
+            for (int j = 0; j < commit.get(i).message.getCommit().getSignaturesCount(); j++)
+            {
+                storage.setSignatures(j, commit.get(i).message.getCommit().getSignatures(j));
+            }
+            final PrePrepareWrapper wrapper = ((PbftServer ) sender).getPrePrepareForId(commit.get(i).message.getCommit().getView().getId());
+
+            if (wrapper == null)
+            {
+                Log.getLogger().error("Fatal error when trying to get pre-prepare for commit.");
+                return null;
+            }
+
+            for (int k = 0; k < wrapper.getMessage().getPrePrepare().getInputCount(); k++)
+            {
+                storage.setInput(k, wrapper.getMessage().getPrePrepare().getInput(k));
+            }
+
+            builder.setCommits(i, storage.build());
         }
 
         return new RecoverCommitWrapper(sender, builder.build());

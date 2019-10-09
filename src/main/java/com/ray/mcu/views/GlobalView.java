@@ -6,10 +6,7 @@ import com.ray.mcu.utils.Log;
 import org.boon.json.annotations.JsonIgnore;
 import org.boon.json.annotations.JsonInclude;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * A view of the global network where all correct servers ought to have an identical one.
@@ -147,34 +144,35 @@ public class GlobalView
     /**
      * Validate the existing view with an incoming view.
      * @param view the view to check.
+     * @param pendingUnregisters
      * @return null if invalid, else a list with the removed replicas.
      */
-    public List<Integer> validateView(final MessageProto.View view)
+    public boolean validateView(final MessageProto.View view, final Set<Integer> pendingUnregisters)
     {
         if (view.getId() < this.getId() || view.getCoordinator() != this.getCoordinator())
         {
-            Log.getLogger().warn("View Id or Coordinator don't match!");
-            return null;
+            Log.getLogger().error("View Id or Coordinator don't match!");
+            return false;
         }
 
-        final List<Integer> difference = new ArrayList<>();
         for (final MessageProto.Server server : view.getServersList())
         {
-            if (!servers.containsKey(server.getId()))
+            if (!servers.containsKey(server.getId()) && !pendingUnregisters.contains(server.getId()))
             {
-                difference.add(server.getId());
-                continue;
+                Log.getLogger().error("View is missing replica which is not pending to be unregistered");
+                return false;
             }
 
             final ServerData existing = servers.get(server.getId());
 
             if (!server.getIp().equals(existing.getIp()) || server.getPort() != existing.getPort())
             {
-                Log.getLogger().warn("Servers in few with same id got different access parameters!");
-                return null;
+                Log.getLogger().error("Servers in few with same id got different access parameters!");
+                return false;
             }
         }
-        return difference;
+
+        return true;
     }
 
     /**
