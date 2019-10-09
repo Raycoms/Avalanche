@@ -277,7 +277,7 @@ public final class MessageHandlerRegistry
         {
             if (((AbstractMessageWrapper) message).sender == server.view.getCoordinator())
             {
-                server.outputQueue.add(new BroadcastOperation(new PersistClientMessageWrapper(server, message.getMessage().getClientMsg(), message.getMessage().getSig())));
+                server.handleClientMessage(message.getMessage());
             }
             else
             {

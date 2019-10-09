@@ -2,6 +2,7 @@ package com.ray.pbft.server;
 
 import com.ray.mcu.communication.serveroperations.BroadcastOperation;
 import com.ray.mcu.communication.wrappers.IMessageWrapper;
+import com.ray.mcu.proto.MessageProto;
 import com.ray.mcu.server.Server;
 import com.ray.mcu.server.ServerData;
 import com.ray.mcu.utils.Log;
@@ -61,7 +62,12 @@ public class PbftServer extends Server
     /**
      * The current pbft state the replica is in.
      */
-    public PBFTState status = PBFTState.NULL;
+    public PBFTState                          status = PBFTState.NULL;
+
+    /**
+     * List of pending client messages to be proposed.
+     */
+    private List<MessageProto.ClientMessage> pendingClientLog = new ArrayList<>();
 
     /**
      * Create a server object.
@@ -214,6 +220,12 @@ public class PbftServer extends Server
             return currentPrePrepare.getSecond();
         }
         return pastPrePrepare.getOrDefault(id, null);
+    }
+
+    @Override
+    public void handleClientMessage(final MessageProto.Message message)
+    {
+        pendingClientLog.add(message.getClientMsg());
     }
 
     @Override

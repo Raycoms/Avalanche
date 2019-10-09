@@ -2,9 +2,11 @@ package com.ray.mcu.server;
 
 import com.ray.mcu.communication.MessageHandlerRegistry;
 import com.ray.mcu.communication.clientoperations.IClientOperation;
+import com.ray.mcu.communication.serveroperations.BroadcastOperation;
 import com.ray.mcu.communication.serveroperations.DisconnectOperation;
 import com.ray.mcu.communication.wrappers.IMessageWrapper;
 import com.ray.mcu.communication.wrappers.JoinRequestMessageWrapper;
+import com.ray.mcu.communication.wrappers.PersistClientMessageWrapper;
 import com.ray.mcu.proto.MessageProto;
 import com.ray.mcu.server.client.ClientMessageHandler;
 import com.ray.mcu.server.client.ServerClientReceiver;
@@ -254,5 +256,14 @@ public class Server extends Thread implements IServer
         {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Handle client messages which reach the server if coordinator.
+     * @param message the message to handle.
+     */
+    public void handleClientMessage(final MessageProto.Message message)
+    {
+        this.outputQueue.add(new BroadcastOperation(new PersistClientMessageWrapper(this, message.getClientMsg(), message.getSig())));
     }
 }
