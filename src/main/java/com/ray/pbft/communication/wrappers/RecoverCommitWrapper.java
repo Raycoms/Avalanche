@@ -70,7 +70,7 @@ public class RecoverCommitWrapper extends AbstractMessageWrapper
 
             for (int k = 0; k < wrapper.getMessage().getPrePrepare().getInputCount(); k++)
             {
-                storage.setInput(k, wrapper.getMessage().getPrePrepare().getInput(k));
+                storage.addInput(wrapper.getMessage().getPrePrepare().getInput(k));
             }
 
             builder.setCommits(i, storage.build());

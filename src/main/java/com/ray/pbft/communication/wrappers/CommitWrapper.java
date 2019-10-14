@@ -48,10 +48,11 @@ public class CommitWrapper extends AbstractMessageWrapper
 
         final MessageProto.Commit.Builder builder = MessageProto.Commit.newBuilder();
         builder.setInputHash(prepare[0].getMessage().getPrepare().getInputHash()).setView(prepare[0].getMessage().getPrepare().getView());
+        builder.setView(sender.getView().processViewToProto());
 
-        for (int i = 0; i < prepare.length; i++)
+        for (final PrepareWrapper prepareWrapper : prepare)
         {
-            builder.setSignatures(i, MessageProto.Signature.newBuilder().setId(prepare[i].sender).setSig(prepare[i].getMessage().getSig()).build());
+            builder.addSignatures(MessageProto.Signature.newBuilder().setId(prepareWrapper.sender).setSig(prepareWrapper.getMessage().getSig()).build());
         }
 
         return new CommitWrapper(sender, builder.build());

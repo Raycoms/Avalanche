@@ -8,6 +8,7 @@ import com.ray.mcu.server.Server;
 import com.ray.mcu.server.ServerData;
 import com.ray.mcu.utils.Log;
 import com.ray.mcu.utils.ValidationUtils;
+import com.ray.pbft.PbftMessageHandlerRegistry;
 import com.ray.pbft.communication.wrappers.CommitWrapper;
 import com.ray.pbft.communication.wrappers.PrePrepareWrapper;
 import com.ray.pbft.communication.wrappers.PrepareWrapper;
@@ -23,7 +24,7 @@ public class PbftServer extends Server
     /**
      * Contains current preprepare (Assumed for current view id)
      */
-    public Pair<Integer, PrePrepareWrapper> currentPrePrepare = new Pair<>();
+    public Pair<Integer, PrePrepareWrapper> currentPrePrepare = null;
 
     /**
      * Contains unverified preprepares. Always discard all older prepares.
@@ -69,6 +70,12 @@ public class PbftServer extends Server
      * List of pending client messages to be proposed.
      */
     private List<MessageProto.PersistClientMessage> pendingClientLog = new ArrayList<>();
+
+    static
+    {
+        // Load the PbtMessageHandlerRegistry.
+        PbftMessageHandlerRegistry registry = new PbftMessageHandlerRegistry();
+    }
 
     /**
      * Create a server object.
@@ -119,25 +126,29 @@ public class PbftServer extends Server
      */
     public void updateState()
     {
-        this.status = PBFTState.PREPARE;
+        if (this.status == PBFTState.NULL)
+        {
+            this.status = PBFTState.PREPARE;
+        }
         final int msgViewId = currentPrePrepare.getFirst();
 
         // Check if we have univerified prepares.
-        if (!this.unverifiedPrepareSet.get(msgViewId).isEmpty())
+        if (!this.unverifiedPrepareSet.getOrDefault(msgViewId, new ArrayList<>()).isEmpty())
         {
             this.unverifiedPrepareSet.remove(msgViewId);
             this.prepareSet.addAll(this.unverifiedPrepareSet.get(msgViewId).stream().filter(this::validatePrepare).collect(Collectors.toList()));
         }
 
         // Check if we have enough verified prepares to advance state.
-        if (this.prepareSet.size() + 1 >= this.view.getQuorumSize())
+        if (this.prepareSet.size() >= this.view.getQuorumSize() && this.status == PBFTState.PREPARE)
         {
+            Log.getLogger().warn("Broadcasting commit on: " + this.getServerData().getId() + " at view: " + this.view.getId());
             this.outputQueue.add(new BroadcastOperation(CommitWrapper.createCommitWrapper(this, this.prepareSet.toArray(new PrepareWrapper[0]))));
             this.status = PBFTState.COMMIT;
         }
 
         // Check if we have unverified commits.
-        if (!this.unverifiedcommitMap.get(msgViewId).isEmpty())
+        if (!this.unverifiedcommitMap.getOrDefault(msgViewId, new ArrayList<>()).isEmpty())
         {
             final List<CommitWrapper> list = this.unverifiedcommitMap.remove(msgViewId);
             list.addAll(this.unverifiedcommitMap.get(msgViewId).stream().filter(this::validateCommit).collect(Collectors.toList()));
@@ -145,12 +156,15 @@ public class PbftServer extends Server
             this.commitMap.put(msgViewId, list);
         }
 
+        Log.getLogger().warn(msgViewId + " " + this.commitMap.getOrDefault(msgViewId, new ArrayList<>()).size());
         // Check if we have enough verified commits to advance state.
-        if (this.commitMap.size() + 1 >= this.view.getQuorumSize())
+        if (this.commitMap.getOrDefault(msgViewId, new ArrayList<>()).size() >= this.view.getQuorumSize())
         {
             this.getView().updateView(this.currentPrePrepare.getSecond().getMessage().getPrePrepare().getView(), this);
             this.persistConsensusResult();
             this.status = PBFTState.NULL;
+            this.currentPrePrepare = null;
+            this.prepareSet.clear();
         }
     }
 
@@ -161,25 +175,8 @@ public class PbftServer extends Server
      */
     public boolean validateCommit(final CommitWrapper message)
     {
+        // Check if commit hash matches preprepare hash.
         if (!Arrays.equals(message.getMessage().getCommit().getInputHash().toByteArray(), this.currentPrePrepare.getSecond().message.getSig().toByteArray()))
-        {
-            Log.getLogger().warn("----------------------------------------------------------------\n"
-                                   + "Commit doesn't match Preprepare! (" + message.getSender() + ")"
-                                   + "\n----------------------------------------------------------------");
-            return false;
-        }
-        return true;
-    }
-
-    /**
-     * Validate if the prepare message is valid (hash matches preprepare)
-     * @param message the message to check.
-     * @return true if so.
-     */
-    public boolean validatePrepare(final IMessageWrapper message)
-    {
-        // Check if commit hash matches prepare hash.
-        if (!Arrays.equals(message.getMessage().getPrepare().getInputHash().toByteArray(), this.currentPrePrepare.getSecond().message.getSig().toByteArray()))
         {
             Log.getLogger().warn("----------------------------------------------------------------\n"
                                    + "Commit doesn't match Preprepare! (" + message.getSender() + ")"
@@ -188,7 +185,7 @@ public class PbftServer extends Server
         }
 
         // Check greedy if commit has enough signatures at all.
-        if (message.getMessage().getCommit().getSignaturesCount() + 1 < this.view.getQuorumSize())
+        if (message.getMessage().getCommit().getSignaturesCount() < this.view.getQuorumSize())
         {
             Log.getLogger().warn("----------------------------------------------------------------\n"
                                    + "Commit doesn't have enough signatures! (" + message.getSender() + ")"
@@ -201,6 +198,24 @@ public class PbftServer extends Server
         {
             Log.getLogger().warn("----------------------------------------------------------------\n"
                                    + "Commit doesn't have enough valid signatures! (" + message.getSender() + ")"
+                                   + "\n----------------------------------------------------------------");
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Validate if the prepare message is valid (hash matches preprepare)
+     * @param message the message to check.
+     * @return true if so.
+     */
+    public boolean validatePrepare(final IMessageWrapper message)
+    {
+        if (!Arrays.equals(message.getMessage().getPrepare().getInputHash().toByteArray(), this.currentPrePrepare.getSecond().message.getSig().toByteArray()))
+        {
+            Log.getLogger().warn("----------------------------------------------------------------\n"
+                                   + "Prepare doesn't match Preprepare! (" + message.getSender() + ")"
                                    + "\n----------------------------------------------------------------");
             return false;
         }
@@ -227,9 +242,10 @@ public class PbftServer extends Server
     public void handleClientMessage(final MessageProto.Message message)
     {
         pendingClientLog.add(new PersistClientMessageWrapper(this, message.getClientMsg(), message.getSig()).getMessage().getPersClientMsg());
-        if (pendingClientLog.size() > 20 && getView().getCoordinator() == getServerData().getId())
+        if (pendingClientLog.size() > 20 && getView().getCoordinator() == getServerData().getId() && status == PBFTState.NULL)
         {
             this.outputQueue.add(new BroadcastOperation(PrePrepareWrapper.createPrePrepareWrapper(this, pendingClientLog)));
+            pendingClientLog.clear();
         }
     }
 

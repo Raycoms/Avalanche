@@ -9,6 +9,8 @@ import com.google.protobuf.InvalidProtocolBufferException;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 
+import java.util.Arrays;
+
 /**
  * Handles a server-side channel.
  */
@@ -49,6 +51,7 @@ public class ServerNettyReceiverHandler extends SimpleChannelInboundHandler<Size
                 {
                     Log.getLogger().error("----------------------------------------------------------");
                     Log.getLogger().error(server.getServerData().getId() + " Received invalid signature supposedly from replica: " + msg.id);
+                    Log.getLogger().warn(Arrays.toString(m));
                     Log.getLogger().error("Discarding Message");
                     Log.getLogger().error("----------------------------------------------------------");
                     return;

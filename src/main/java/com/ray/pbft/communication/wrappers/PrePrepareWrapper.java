@@ -6,8 +6,10 @@ import com.ray.mcu.proto.MessageProto;
 import com.ray.mcu.server.IServer;
 import com.ray.mcu.server.Server;
 import com.ray.mcu.server.ServerData;
+import com.ray.mcu.utils.Log;
 import com.ray.mcu.views.GlobalView;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -55,10 +57,9 @@ public class PrePrepareWrapper extends AbstractMessageWrapper
         final MessageProto.PrePrepare.Builder prePrepareBuilder = MessageProto.PrePrepare.newBuilder();
         prePrepareBuilder.setView(view);
 
-        int index = 0;
         for (final MessageProto.PersistClientMessage message : data)
         {
-            prePrepareBuilder.setInput(index++, message);
+            prePrepareBuilder.addInput(message);
         }
 
         return new PrePrepareWrapper(sender, MessageProto.Message.newBuilder().setPrePrepare(prePrepareBuilder.build()).setSig(inputHash).build());
@@ -71,29 +72,16 @@ public class PrePrepareWrapper extends AbstractMessageWrapper
      * @param data the data to send.
      * @return a filled instance of the PrePrepareWrapper.
      */
-    public static PrePrepareWrapper createPrePrepareWrapper(
-      final Server sender,
-      final List<MessageProto.PersistClientMessage> data)
+    public static PrePrepareWrapper createPrePrepareWrapper(final Server sender, final List<MessageProto.PersistClientMessage> data)
     {
         final MessageProto.PrePrepare.Builder prePrepareBuilder = MessageProto.PrePrepare.newBuilder();
 
-        final MessageProto.View.Builder viewBuilder = MessageProto.View.newBuilder();
         final GlobalView view = sender.getView();
-        viewBuilder.setCoordinator(view.getCoordinator());
-        viewBuilder.setId(view.getId());
+        prePrepareBuilder.setView(view.processViewToProto());
 
-        int index = 0;
-        for (final ServerData serverData : view.getServers())
-        {
-            viewBuilder.setServers(index++, MessageProto.Server.newBuilder().setId(serverData.getId()).setPort(serverData.getPort()).setIp(serverData.getIp()));
-        }
-
-        prePrepareBuilder.setView(viewBuilder.build());
-
-        index = 0;
         for (final MessageProto.PersistClientMessage message : data)
         {
-            prePrepareBuilder.setInput(index++, message);
+            prePrepareBuilder.addInput(message);
         }
 
         return new PrePrepareWrapper(sender, prePrepareBuilder.build());

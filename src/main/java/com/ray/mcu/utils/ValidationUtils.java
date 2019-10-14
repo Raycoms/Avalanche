@@ -43,11 +43,6 @@ public final class ValidationUtils
                                            + "\n----------------------------------------------------------------");
                     return false;
                 }
-
-                tempState += msg.getDif();
-
-                Log.getLogger().warn("New State: " + tempState);
-                server.state.put(key, tempState);
             }
             catch (InvalidKeyException e)
             {

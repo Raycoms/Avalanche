@@ -207,10 +207,9 @@ public class GlobalView
         viewBuilder.setCoordinator(this.getCoordinator());
         viewBuilder.setId(this.getId());
 
-        int index = 0;
         for (final ServerData serverData : this.getServers())
         {
-            viewBuilder.setServers(index++, MessageProto.Server.newBuilder().setId(serverData.getId()).setPort(serverData.getPort()).setIp(serverData.getIp()));
+            viewBuilder.addServers(MessageProto.Server.newBuilder().setId(serverData.getId()).setPort(serverData.getPort()).setIp(serverData.getIp()));
         }
 
         return viewBuilder.build();

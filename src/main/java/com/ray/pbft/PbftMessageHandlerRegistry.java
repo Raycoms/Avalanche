@@ -2,6 +2,7 @@ package com.ray.pbft;
 
 import com.google.protobuf.GeneratedMessageV3;
 import com.ray.mcu.communication.IMessageHandler;
+import com.ray.mcu.communication.ISender;
 import com.ray.mcu.communication.MessageHandlerRegistry;
 import com.ray.mcu.communication.serveroperations.BroadcastOperation;
 import com.ray.mcu.communication.serveroperations.UnicastOperation;
@@ -17,6 +18,7 @@ import com.ray.pbft.utils.PBFTState;
 import io.netty.channel.ChannelHandlerContext;
 import org.boon.Pair;
 
+import java.nio.file.attribute.UserPrincipalNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -59,6 +61,8 @@ public class PbftMessageHandlerRegistry
         @Override
         public void handle(final IMessageWrapper message, final Server server)
         {
+            Log.getLogger().warn("Received PrePrepare on: " + server.getServerData().getId());
+
             if (!(server instanceof PbftServer))
             {
                 Log.getLogger().warn("Turn on a PBFT Server to validate this message");
@@ -144,6 +148,8 @@ public class PbftMessageHandlerRegistry
         @Override
         public void handle(final IMessageWrapper message, final Server server)
         {
+            Log.getLogger().warn("Received Prepare on: " + server.getServerData().getId());
+
             if (!(server instanceof PbftServer))
             {
                 Log.getLogger().warn("Turn on a PBFT Server to validate this message");
@@ -229,6 +235,8 @@ public class PbftMessageHandlerRegistry
         @Override
         public void handle(final IMessageWrapper message, final Server server)
         {
+            Log.getLogger().warn("Received Commit on: " + server.getServerData().getId() + " of " + message.getSender());
+
             if (!(server instanceof PbftServer))
             {
                 Log.getLogger().warn("Turn on a PBFT Server to validate this message");
@@ -242,7 +250,7 @@ public class PbftMessageHandlerRegistry
             }
 
             final PbftServer pbftServer = (PbftServer) server;
-            final int incViewId = message.getMessage().getPrepare().getView().getId();
+            final int incViewId = message.getMessage().getCommit().getView().getId();
 
             // Current preprepare missing -> recover
             if (pbftServer.currentPrePrepare == null)
@@ -272,7 +280,7 @@ public class PbftMessageHandlerRegistry
 
             final List<CommitWrapper> current = pbftServer.commitMap.getOrDefault(incViewId, new ArrayList<>());
             current.add((CommitWrapper) message);
-            pbftServer.commitMap.put(message.getSender(), current);
+            pbftServer.commitMap.put(incViewId, current);
             pbftServer.updateState();
         }
 
@@ -303,6 +311,8 @@ public class PbftMessageHandlerRegistry
         @Override
         public void handle(final IMessageWrapper message, final Server server)
         {
+            Log.getLogger().warn("Received RequestRecoverPrePrepare on: " + server.getServerData().getId());
+
             final int requestViewId = message.getMessage().getRequestRecoverPrePrepare().getViewId();
             if (( ( PbftServer ) server ).currentPrePrepare != null && ( ( PbftServer ) server ).currentPrePrepare.getFirst() == requestViewId)
             {
@@ -347,6 +357,8 @@ public class PbftMessageHandlerRegistry
         @Override
         public void handle(final IMessageWrapper message, final Server server)
         {
+            Log.getLogger().warn("Received RequestRecoverCommit on: " + server.getServerData().getId());
+
             if (!(server instanceof PbftServer))
             {
                 Log.getLogger().warn("Turn on a PBFT Server to validate this message");
@@ -397,6 +409,7 @@ public class PbftMessageHandlerRegistry
         @Override
         public void handle(final IMessageWrapper message, final Server server)
         {
+            Log.getLogger().warn("Received RecoverCommit on: " + server.getServerData().getId());
             if (!(server instanceof PbftServer))
             {
                 Log.getLogger().warn("Turn on a PBFT Server to validate this message");

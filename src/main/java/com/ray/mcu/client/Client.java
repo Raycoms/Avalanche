@@ -128,17 +128,24 @@ public class Client extends Thread
             }
         }
 
+        int counter = 0;
         while (true)
         {
             final MessageProto.ClientMessage msg = MessageProto.ClientMessage.newBuilder().setDif(10).setPkey(ByteString.copyFrom(publicKey.getEncoded())).build();
             builder.setClientMsg(msg).setSig(ByteString.copyFrom(KeyUtilities.signMessage(msg.toByteArray(), this.privateKey))).build();
 
             clientHandler.write(builder.build());
-
+            counter++;
             try
             {
                 //todo configure sending frequency (config file).
                 Thread.sleep(100);
+
+                //Sleep after sending enough messages for commit (todo remove later)
+                if (counter % 30 == 0)
+                {
+                    Thread.sleep(120000);
+                }
             }
             catch (InterruptedException e)
             {

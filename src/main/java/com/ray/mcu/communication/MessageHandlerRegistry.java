@@ -3,7 +3,6 @@ package com.ray.mcu.communication;
 import com.ray.mcu.communication.wrappers.*;
 import com.ray.mcu.communication.serveroperations.BroadcastOperation;
 import com.ray.mcu.communication.serveroperations.ConnectOperation;
-import com.ray.mcu.communication.serveroperations.DisconnectOperation;
 import com.ray.mcu.communication.serveroperations.UnicastOperation;
 import com.ray.mcu.proto.MessageProto;
 import com.ray.mcu.server.Server;
@@ -114,7 +113,7 @@ public final class MessageHandlerRegistry
         @Override
         public void wrap(final MessageProto.Message message, final ChannelHandlerContext ctx, final Server server, final int sender)
         {
-            Log.getLogger().warn("ServerReceiver: " + server.getServerData().getId() + " received Text: " + message.getTextMsg().getText());
+            //Log.getLogger().warn("ServerReceiver: " + server.getServerData().getId() + " received Text: " + message.getTextMsg().getText());
         }
 
         @Override
@@ -275,6 +274,8 @@ public final class MessageHandlerRegistry
         @Override
         public void handle(final IMessageWrapper message, final Server server)
         {
+            Log.getLogger().warn("Received ClientMessage on: " + server.getServerData().getId());
+
             if (((AbstractMessageWrapper) message).sender == server.view.getCoordinator())
             {
                 server.handleClientMessage(message.getMessage());
