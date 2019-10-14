@@ -55,13 +55,13 @@ public class PbftMessageHandlerRegistry
         @Override
         public void wrap(final MessageProto.Message message, final ChannelHandlerContext ctx, final Server server, final int sender)
         {
-            server.inputQueue.add(new PrePrepareWrapper(sender, message));
+            server.addToInputQueue(new PrePrepareWrapper(sender, message));
         }
 
         @Override
         public void handle(final IMessageWrapper message, final Server server)
         {
-            Log.getLogger().warn("Received PrePrepare on: " + server.getServerData().getId());
+            //Log.getLogger().warn("Received PrePrepare on: " + server.getServerData().getId());
 
             if (!(server instanceof PbftServer))
             {
@@ -85,7 +85,7 @@ public class PbftMessageHandlerRegistry
             if (pbftServer.getView().getId() < msgViewId)
             {
                 ((PbftServer) server).unverifiedPrePrepare.put(msgViewId, (PrePrepareWrapper) message);
-                server.outputQueue.add(new UnicastOperation(new RequestRecoverCommitWrapper(server, server.getView().getId()), message.getSender()));
+                server.addToOutputQueue(new UnicastOperation(new RequestRecoverCommitWrapper(server, server.getView().getId()), message.getSender()));
                 return;
             }
 
@@ -111,7 +111,7 @@ public class PbftMessageHandlerRegistry
             }
 
             pbftServer.currentPrePrepare = new Pair<>(pbftServer.getView().getId(), (PrePrepareWrapper) message);
-            server.outputQueue.add(new BroadcastOperation(new PrepareWrapper(server, ((PrePrepareWrapper) message).message)));
+            server.addToOutputQueue(new BroadcastOperation(new PrepareWrapper(server, ((PrePrepareWrapper) message).message)));
             pbftServer.updateState();
         }
 
@@ -142,13 +142,13 @@ public class PbftMessageHandlerRegistry
         @Override
         public void wrap(final MessageProto.Message message, final ChannelHandlerContext ctx, final Server server, final int sender)
         {
-            server.inputQueue.add(new PrepareWrapper(sender, message));
+            server.addToInputQueue(new PrepareWrapper(sender, message));
         }
 
         @Override
         public void handle(final IMessageWrapper message, final Server server)
         {
-            Log.getLogger().warn("Received Prepare on: " + server.getServerData().getId());
+            //Log.getLogger().warn("Received Prepare on: " + server.getServerData().getId());
 
             if (!(server instanceof PbftServer))
             {
@@ -158,7 +158,7 @@ public class PbftMessageHandlerRegistry
 
             if (server.getView().getId() > message.getMessage().getPrepare().getView().getId())
             {
-                Log.getLogger().warn("Old Prepare - Discarding");
+                //Log.getLogger().warn("Old Prepare - Discarding");
                 return;
             }
 
@@ -174,7 +174,7 @@ public class PbftMessageHandlerRegistry
                 list.add((PrepareWrapper) message);
                 pbftServer.unverifiedPrepareSet.put(incViewId, list);
 
-                server.outputQueue.add(new UnicastOperation(new RequestRecoverPrePrepareWrapper(server, incViewId), message.getMessage().getPrepare().getView().getCoordinator()));
+                server.addToOutputQueue(new UnicastOperation(new RequestRecoverPrePrepareWrapper(server, incViewId), message.getMessage().getPrepare().getView().getCoordinator()));
                 return;
             }
 
@@ -185,7 +185,7 @@ public class PbftMessageHandlerRegistry
                 list.add((PrepareWrapper) message);
                 pbftServer.unverifiedPrepareSet.put(incViewId, list);
 
-                server.outputQueue.add(new UnicastOperation(new RequestRecoverCommitWrapper(server, incViewId), message.getMessage().getPrepare().getView().getCoordinator()));
+                server.addToOutputQueue(new UnicastOperation(new RequestRecoverCommitWrapper(server, incViewId), message.getMessage().getPrepare().getView().getCoordinator()));
                 return;
             }
 
@@ -229,13 +229,13 @@ public class PbftMessageHandlerRegistry
         @Override
         public void wrap(final MessageProto.Message message, final ChannelHandlerContext ctx, final Server server, final int sender)
         {
-            server.inputQueue.add(new CommitWrapper(sender, message));
+            server.addToInputQueue(new CommitWrapper(sender, message));
         }
 
         @Override
         public void handle(final IMessageWrapper message, final Server server)
         {
-            Log.getLogger().warn("Received Commit on: " + server.getServerData().getId() + " of " + message.getSender());
+            //Log.getLogger().warn("Received Commit on: " + server.getServerData().getId() + " of " + message.getSender());
 
             if (!(server instanceof PbftServer))
             {
@@ -245,7 +245,7 @@ public class PbftMessageHandlerRegistry
 
             if (server.getView().getId() > message.getMessage().getCommit().getView().getId())
             {
-                Log.getLogger().warn("Old Commit - Discarding");
+                //Log.getLogger().warn("Old Commit - Discarding");
                 return;
             }
 
@@ -259,7 +259,7 @@ public class PbftMessageHandlerRegistry
                 list.add((CommitWrapper) message);
                 pbftServer.unverifiedcommitMap.put(incViewId, list);
 
-                server.outputQueue.add(new UnicastOperation(new RequestRecoverPrePrepareWrapper(server, incViewId), message.getMessage().getCommit().getView().getCoordinator()));
+                server.addToOutputQueue(new UnicastOperation(new RequestRecoverPrePrepareWrapper(server, incViewId), message.getMessage().getCommit().getView().getCoordinator()));
                 return;
             }
 
@@ -270,7 +270,7 @@ public class PbftMessageHandlerRegistry
                 list.add((CommitWrapper) message);
                 pbftServer.unverifiedcommitMap.put(incViewId, list);
 
-                server.outputQueue.add(new UnicastOperation(new RequestRecoverCommitWrapper(server, incViewId), message.getSender()));
+                server.addToOutputQueue(new UnicastOperation(new RequestRecoverCommitWrapper(server, incViewId), message.getSender()));
             }
 
             if (! pbftServer.validateCommit((CommitWrapper) message))
@@ -305,7 +305,7 @@ public class PbftMessageHandlerRegistry
         @Override
         public void wrap(final MessageProto.Message message, final ChannelHandlerContext ctx, final Server server, final int sender)
         {
-            server.inputQueue.add(new RequestRecoverPrePrepareWrapper(sender, message));
+            server.addToInputQueue(new RequestRecoverPrePrepareWrapper(sender, message));
         }
 
         @Override
@@ -316,7 +316,7 @@ public class PbftMessageHandlerRegistry
             final int requestViewId = message.getMessage().getRequestRecoverPrePrepare().getViewId();
             if (( ( PbftServer ) server ).currentPrePrepare != null && ( ( PbftServer ) server ).currentPrePrepare.getFirst() == requestViewId)
             {
-                server.outputQueue.add(new UnicastOperation( new PrePrepareWrapper(message.getSender(), ( ( PbftServer ) server ).currentPrePrepare.getSecond().getMessage()), message.getSender()));
+                server.addToOutputQueue(new UnicastOperation( new PrePrepareWrapper(message.getSender(), ( ( PbftServer ) server ).currentPrePrepare.getSecond().getMessage()), message.getSender()));
             }
             else if (requestViewId > ( ( PbftServer ) server ).currentPrePrepare.getFirst())
             {
@@ -326,7 +326,7 @@ public class PbftMessageHandlerRegistry
             }
             else
             {
-                server.outputQueue.add(new UnicastOperation( new PrePrepareWrapper(message.getSender(), ( ( PbftServer ) server ).pastPrePrepare.get(requestViewId).getMessage()), message.getSender()));
+                server.addToOutputQueue(new UnicastOperation( new PrePrepareWrapper(message.getSender(), ( ( PbftServer ) server ).pastPrePrepare.get(requestViewId).getMessage()), message.getSender()));
             }
         }
 
@@ -351,7 +351,7 @@ public class PbftMessageHandlerRegistry
         @Override
         public void wrap(final MessageProto.Message message, final ChannelHandlerContext ctx, final Server server, final int sender)
         {
-            server.inputQueue.add(new RequestRecoverCommitWrapper(sender, message));
+            server.addToInputQueue(new RequestRecoverCommitWrapper(sender, message));
         }
 
         @Override
@@ -376,7 +376,7 @@ public class PbftMessageHandlerRegistry
                 return;
             }
 
-            server.outputQueue.add(new UnicastOperation(
+            server.addToOutputQueue(new UnicastOperation(
               RecoverCommitWrapper.createCommitWrapper(pbftServer,
                 pbftServer.commitMap.entrySet().stream().filter(e -> e.getKey() >= requestViewId)
                   .map(Map.Entry::getValue).map(l -> l.get(0)).collect(Collectors.toList())), message.getSender()));
@@ -403,7 +403,7 @@ public class PbftMessageHandlerRegistry
         @Override
         public void wrap(final MessageProto.Message message, final ChannelHandlerContext ctx, final Server server, final int sender)
         {
-            server.inputQueue.add(new RecoverCommitWrapper(sender, message));
+            server.addToInputQueue(new RecoverCommitWrapper(sender, message));
         }
 
         @Override

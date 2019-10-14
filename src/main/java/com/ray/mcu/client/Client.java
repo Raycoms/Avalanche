@@ -128,10 +128,24 @@ public class Client extends Thread
             }
         }
 
+        try
+        {
+            Thread.sleep(1000);
+        }
+        catch (InterruptedException e)
+        {
+            /*
+             * Intentionally left empty.
+             */
+        }
+
+        int min = 60000;
+        int freq = 5;
+
         int counter = 0;
         while (true)
         {
-            final MessageProto.ClientMessage msg = MessageProto.ClientMessage.newBuilder().setDif(10).setPkey(ByteString.copyFrom(publicKey.getEncoded())).build();
+            final MessageProto.ClientMessage msg = MessageProto.ClientMessage.newBuilder().setDif(1).setPkey(ByteString.copyFrom(publicKey.getEncoded())).build();
             builder.setClientMsg(msg).setSig(ByteString.copyFrom(KeyUtilities.signMessage(msg.toByteArray(), this.privateKey))).build();
 
             clientHandler.write(builder.build());
@@ -139,19 +153,25 @@ public class Client extends Thread
             try
             {
                 //todo configure sending frequency (config file).
-                Thread.sleep(100);
+                Thread.sleep(freq);
 
                 //Sleep after sending enough messages for commit (todo remove later)
-                if (counter % 30 == 0)
-                {
-                    Thread.sleep(120000);
-                }
+                //if (counter % 30 == 0)
+                //{
+                //    Thread.sleep(1200);
+                //}
+
             }
             catch (InterruptedException e)
             {
                 /*
                  * Intentionally left empty.
                  */
+            }
+
+            if (counter == min/freq)
+            {
+                return;
             }
         }
     }
@@ -167,9 +187,7 @@ public class Client extends Thread
     {
         final Client client = new Client(serverId, gen, ip, port);
         client.connect();
-
         client.setupReceiver();
-
         client.start();
     }
 

@@ -31,34 +31,22 @@ public interface IServer
     public byte[] signMessage(final byte[] message);
 
     /**
-     * Check if the server has a message to be sent.
-     * @return true if so.
+     * Consume a messgage from the output queue.
+     * @return the message.
      */
-    public boolean hasMessageInOutputQueue();
+    public IOperation consumeMessageFromOutputQueue() throws InterruptedException;
 
     /**
      * Consume a messgage from the output queue.
      * @return the message.
      */
-    public IOperation consumeMessageFromOutputQueue();
-
-    /**
-     * Consume a messgage from the output queue.
-     * @return the message.
-     */
-    public IClientOperation consumeMessageFromClientOutputQueue();
+    public IClientOperation consumeMessageFromClientOutputQueue() throws InterruptedException;
 
     /**
      * Check if the server is still active or shut down already.
      * @return true as long as active.
      */
     boolean isActive();
-
-    /**
-     * Check if there is a message in the client ouput queue.
-     * @return true if so.
-     */
-    boolean hasMessageInClientOutputQueue();
 
     /**
      * Get the view from the server.

@@ -5,6 +5,7 @@ import com.ray.mcu.communication.wrappers.UnregisterRequestMessageWrapper;
 import com.ray.mcu.communication.serveroperations.BroadcastOperation;
 import com.ray.mcu.communication.serveroperations.UnicastOperation;
 import com.ray.mcu.server.Server;
+import com.ray.mcu.utils.Log;
 
 /**
  * Thread handling the Server Messages.
@@ -32,7 +33,7 @@ public class ServerMessageHandler extends Thread
         while (server.isActive())
         {
             //todo also remove in future
-            if (++counter%40==0)
+            if (++counter%400==0)
             {
                 server.outputQueue.add(new BroadcastOperation(new TextMessageWrapper(server, "Heartbeat")));
             }
@@ -46,20 +47,14 @@ public class ServerMessageHandler extends Thread
                 counter = 1;
             }
 
-            if (server.inputQueue.isEmpty())
+            try
             {
-                try
-                {
-                    //todo config value on this too
-                    Thread.sleep(100);
-                }
-                catch (InterruptedException e)
-                {
-                    e.printStackTrace();
-                }
-                continue;
+                server.handleMessage(server.inputQueue.take());
             }
-            server.handleMessage(server.inputQueue.poll());
+            catch (InterruptedException e)
+            {
+                e.printStackTrace();
+            }
         }
     }
 }

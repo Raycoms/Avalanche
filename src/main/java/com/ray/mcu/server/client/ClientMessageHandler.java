@@ -14,6 +14,7 @@ public class ClientMessageHandler extends Thread
 
     /**
      * Create the Client message handler.
+     *
      * @param server the server it belongs to.
      */
     public ClientMessageHandler(final Server server)
@@ -26,20 +27,14 @@ public class ClientMessageHandler extends Thread
     {
         while (server.isActive())
         {
-            if (server.clientInputQueue.isEmpty())
+            try
             {
-                try
-                {
-                    //todo config value on this too
-                    Thread.sleep(100);
-                }
-                catch (InterruptedException e)
-                {
-                    e.printStackTrace();
-                }
-                continue;
+                server.handleMessage(server.clientInputQueue.take());
             }
-            server.handleMessage(server.clientInputQueue.poll());
+            catch (InterruptedException e)
+            {
+                e.printStackTrace();
+            }
         }
     }
 }

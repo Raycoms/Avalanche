@@ -20,7 +20,7 @@ public class ServerNettyReceiverHandler extends SimpleChannelInboundHandler<Size
      * Current server - server latency on reception.
      * todo: make it configurable
      */
-    private static final long LATENCY = 20;
+    private static final long LATENCY = 0;
 
     /**
      * The connected server instance.
@@ -58,13 +58,16 @@ public class ServerNettyReceiverHandler extends SimpleChannelInboundHandler<Size
                 }
             }
 
-            try
+            if (LATENCY != 0)
             {
-                Thread.sleep(LATENCY);
-            }
-            catch (final InterruptedException e)
-            {
-                e.printStackTrace();
+                try
+                {
+                    Thread.sleep(LATENCY);
+                }
+                catch (final InterruptedException e)
+                {
+                    e.printStackTrace();
+                }
             }
 
             MessageHandlerRegistry.wrap(message, ctx, server, msg.id);

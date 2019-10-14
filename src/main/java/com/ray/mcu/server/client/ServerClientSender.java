@@ -60,19 +60,14 @@ public class ServerClientSender extends Thread
     {
         while (server.isActive())
         {
-            if (!server.hasMessageInClientOutputQueue())
+            try
             {
-                try
-                {
-                    Thread.sleep(100);
-                }
-                catch (InterruptedException e)
-                {
-                    e.printStackTrace();
-                }
-                continue;
+                server.consumeMessageFromClientOutputQueue().execute(this);
             }
-            server.consumeMessageFromClientOutputQueue().execute(this);
+            catch (InterruptedException e)
+            {
+                // Queue got filled.
+            }
         }
 
         for (final ServerNettyClientSenderHandler handler : clients.values())

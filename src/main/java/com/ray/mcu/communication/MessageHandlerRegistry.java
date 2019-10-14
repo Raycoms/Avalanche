@@ -179,7 +179,7 @@ public final class MessageHandlerRegistry
         public void wrap(final MessageProto.Message message, final ChannelHandlerContext ctx, final Server server, final int sender)
         {
             Log.getLogger().warn("ServerReceiver received join request: " + server.getServerData().getId() + " ");
-            server.inputQueue.add(new JoinRequestMessageWrapper(sender, message));
+            server.addToInputQueue(new JoinRequestMessageWrapper(sender, message));
         }
 
         @Override
@@ -216,7 +216,7 @@ public final class MessageHandlerRegistry
         @Override
         public void wrap(final MessageProto.Message message, final ChannelHandlerContext ctx, final Server server, final int sender)
         {
-            server.inputQueue.add(new RegisterMessageWrapper(sender, message));
+            server.addToInputQueue(new RegisterMessageWrapper(sender, message));
         }
 
         @Override
@@ -274,7 +274,7 @@ public final class MessageHandlerRegistry
         @Override
         public void handle(final IMessageWrapper message, final Server server)
         {
-            Log.getLogger().warn("Received ClientMessage on: " + server.getServerData().getId());
+            //Log.getLogger().warn("Received ClientMessage on: " + server.getServerData().getId());
 
             if (((AbstractMessageWrapper) message).sender == server.view.getCoordinator())
             {
@@ -308,7 +308,7 @@ public final class MessageHandlerRegistry
         public void wrap(final MessageProto.Message message, final ChannelHandlerContext ctx, final Server server, final int sender)
         {
             Log.getLogger().warn("ServerReceiver received leave request: " + server.getServerData().getId() + " ");
-            server.inputQueue.add(new PersistClientMessageWrapper(sender, message));
+            server.addToInputQueue(new PersistClientMessageWrapper(sender, message));
         }
 
         @Override
@@ -356,7 +356,7 @@ public final class MessageHandlerRegistry
         public void wrap(final MessageProto.Message message, final ChannelHandlerContext ctx, final Server server, final int sender)
         {
             Log.getLogger().warn("ServerReceiver received leave request: " + server.getServerData().getId() + " ");
-            server.inputQueue.add(new UnregisterRequestMessageWrapper(sender, message));
+            server.addToInputQueue(new UnregisterRequestMessageWrapper(sender, message));
         }
 
         @Override
@@ -394,7 +394,7 @@ public final class MessageHandlerRegistry
         public void wrap(final MessageProto.Message message, final ChannelHandlerContext ctx, final Server server, final int sender)
         {
             Log.getLogger().warn("ServerReceiver received leave request: " + server.getServerData().getId() + " ");
-            server.inputQueue.add(new UnregisterMessageWrapper(sender, message));
+            server.addToInputQueue(new UnregisterMessageWrapper(sender, message));
         }
 
         @Override

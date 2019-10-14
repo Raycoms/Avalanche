@@ -73,19 +73,14 @@ public class ServerSender extends Thread implements ISender
 
         while (server.isActive())
         {
-            if (!server.hasMessageInOutputQueue())
+            try
             {
-                try
-                {
-                    Thread.sleep(100);
-                }
-                catch (InterruptedException e)
-                {
-                    e.printStackTrace();
-                }
-                continue;
+                handleMessage(server.consumeMessageFromOutputQueue());
             }
-            handleMessage(server.consumeMessageFromOutputQueue());
+            catch (final InterruptedException e)
+            {
+                // Wake up from consumption.
+            }
         }
 
         for (final ServerNettySenderHandler handler : clients.values())
@@ -100,7 +95,7 @@ public class ServerSender extends Thread implements ISender
      */
     public void handleMessage(final IOperation message)
     {
-        Log.getLogger().warn(server.getServerData().getId() + ": Sending message");
+        //Log.getLogger().warn(server.getServerData().getId() + ": Sending message");
         message.executeOP(this);
     }
 

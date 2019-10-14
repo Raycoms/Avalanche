@@ -27,7 +27,7 @@ import java.security.InvalidKeyException;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.util.HashMap;
-import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
@@ -48,22 +48,22 @@ public class Server extends Thread implements IServer
     /**
      * Cache which holds the receives messages (Consumed by Server)
      */
-    public final ConcurrentLinkedQueue<IMessageWrapper> inputQueue = new ConcurrentLinkedQueue<>();
+    public final LinkedBlockingQueue<IMessageWrapper> inputQueue = new LinkedBlockingQueue<>();
 
     /**
      * Cache which holds the receives messages (Consumed by Server)
      */
-    public final ConcurrentLinkedQueue<IMessageWrapper> clientInputQueue = new ConcurrentLinkedQueue<>();
+    public final LinkedBlockingQueue<IMessageWrapper> clientInputQueue = new LinkedBlockingQueue<>();
 
     /**
      * Cache which holds the messages to send in the future (Produced by Server).
      */
-    public final ConcurrentLinkedQueue<IOperation> outputQueue = new ConcurrentLinkedQueue<>();
+    public final LinkedBlockingQueue<IOperation> outputQueue = new LinkedBlockingQueue<>();
 
     /**
      * Cache which holds the messages to send in the future (Produced by Server).
      */
-    public final ConcurrentLinkedQueue<IClientOperation> clientOutputQueue = new ConcurrentLinkedQueue<>();
+    public final LinkedBlockingQueue<IClientOperation> clientOutputQueue = new LinkedBlockingQueue<>();
 
     /**
      * The global view this server uses.
@@ -181,33 +181,21 @@ public class Server extends Thread implements IServer
     }
 
     @Override
-    public boolean hasMessageInOutputQueue()
-    {
-        return !outputQueue.isEmpty();
-    }
-
-    @Override
-    public boolean hasMessageInClientOutputQueue()
-    {
-        return !clientOutputQueue.isEmpty();
-    }
-
-    @Override
     public GlobalView getView()
     {
         return view;
     }
 
     @Override
-    public IOperation consumeMessageFromOutputQueue()
+    public IOperation consumeMessageFromOutputQueue() throws InterruptedException
     {
-        return outputQueue.poll();
+        return outputQueue.take();
     }
 
     @Override
-    public IClientOperation consumeMessageFromClientOutputQueue()
+    public IClientOperation consumeMessageFromClientOutputQueue() throws InterruptedException
     {
-        return clientOutputQueue.poll();
+        return clientOutputQueue.take();
     }
 
     @Override
@@ -249,7 +237,7 @@ public class Server extends Thread implements IServer
             int tempState = state.getOrDefault(key, 0);
             tempState += msg.getDif();
 
-            Log.getLogger().warn("New State: " + tempState);
+            //Log.getLogger().warn("New State: " + tempState);
             state.put(key, tempState);
         }
         catch (InvalidKeyException e)
@@ -265,5 +253,37 @@ public class Server extends Thread implements IServer
     public void handleClientMessage(final MessageProto.Message message)
     {
         this.outputQueue.add(new BroadcastOperation(new PersistClientMessageWrapper(this, message.getClientMsg(), message.getSig())));
+    }
+
+    /**
+     * Add to the existing input queue.
+     * @param input the input to add to the queue.
+     */
+    public void addToInputQueue(final IMessageWrapper input)
+    {
+        try
+        {
+            inputQueue.put(input);
+        }
+        catch (final InterruptedException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Add to the existing output queue.
+     * @param input the output to add to the queue.
+     */
+    public void addToOutputQueue(final IOperation input)
+    {
+        try
+        {
+            outputQueue.put(input);
+        }
+        catch (final InterruptedException e)
+        {
+            e.printStackTrace();
+        }
     }
 }

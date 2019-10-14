@@ -55,7 +55,7 @@ public class PBFTServerLauncher
      */
     private static void simulate(final GlobalView view) throws InterruptedException
     {
-        Thread.sleep(10000);
+        Thread.sleep(5000);
 
         /*Log.getLogger().error("----------------------------------------------------------");
         Log.getLogger().error("Starting up new Replica");
@@ -109,6 +109,18 @@ public class PBFTServerLauncher
         final RSAKeyPairGenerator gen = new RSAKeyPairGenerator();
 
         Client.createClient(0, gen, "localhost", 6000);
+        //Client.createClient(0, gen, "localhost", 6001);
+        //Client.createClient(0, gen, "localhost", 6002);
+        //Client.createClient(0, gen, "localhost", 6003);
+        //Client.createClient(0, gen, "localhost", 6004);
+        //Client.createClient(0, gen, "localhost", 6005);
+        //Client.createClient(0, gen, "localhost", 6006);
+        //Client.createClient(0, gen, "localhost", 6007);
+        //Client.createClient(0, gen, "localhost", 6008);
+        //Client.createClient(0, gen, "localhost", 6009);
+        //Client.createClient(0, gen, "localhost", 6010);
+        //Client.createClient(0, gen, "localhost", 6011);
+
         //Client.createClient(1, gen, "localhost", 6001);
         //Client.createClient(2, gen, "localhost", 6002);
         //Client.createClient(3, gen, "localhost", 6003);
