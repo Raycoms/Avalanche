@@ -58,7 +58,7 @@ public class RecoverCommitWrapper extends AbstractMessageWrapper
             storage.setView(commit.get(i).message.getCommit().getView());
             for (int j = 0; j < commit.get(i).message.getCommit().getSignaturesCount(); j++)
             {
-                storage.setSignatures(j, commit.get(i).message.getCommit().getSignatures(j));
+                storage.addSignatures(j, commit.get(i).message.getCommit().getSignatures(j));
             }
             final PrePrepareWrapper wrapper = ((PbftServer ) sender).getPrePrepareForId(commit.get(i).message.getCommit().getView().getId());
 
@@ -73,7 +73,7 @@ public class RecoverCommitWrapper extends AbstractMessageWrapper
                 storage.addInput(wrapper.getMessage().getPrePrepare().getInput(k));
             }
 
-            builder.setCommits(i, storage.build());
+            builder.addCommits(storage.build());
         }
 
         return new RecoverCommitWrapper(sender, builder.build());

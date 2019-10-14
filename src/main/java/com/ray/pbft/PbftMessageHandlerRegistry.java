@@ -2,7 +2,6 @@ package com.ray.pbft;
 
 import com.google.protobuf.GeneratedMessageV3;
 import com.ray.mcu.communication.IMessageHandler;
-import com.ray.mcu.communication.ISender;
 import com.ray.mcu.communication.MessageHandlerRegistry;
 import com.ray.mcu.communication.serveroperations.BroadcastOperation;
 import com.ray.mcu.communication.serveroperations.UnicastOperation;
@@ -18,7 +17,6 @@ import com.ray.pbft.utils.PBFTState;
 import io.netty.channel.ChannelHandlerContext;
 import org.boon.Pair;
 
-import java.nio.file.attribute.UserPrincipalNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -314,11 +312,11 @@ public class PbftMessageHandlerRegistry
             Log.getLogger().warn("Received RequestRecoverPrePrepare on: " + server.getServerData().getId());
 
             final int requestViewId = message.getMessage().getRequestRecoverPrePrepare().getViewId();
-            if (( ( PbftServer ) server ).currentPrePrepare != null && ( ( PbftServer ) server ).currentPrePrepare.getFirst() == requestViewId)
+            if (( ( PbftServer ) server ).currentPrePrepare != null && server.getView().getId() == requestViewId)
             {
                 server.addToOutputQueue(new UnicastOperation( new PrePrepareWrapper(message.getSender(), ( ( PbftServer ) server ).currentPrePrepare.getSecond().getMessage()), message.getSender()));
             }
-            else if (requestViewId > ( ( PbftServer ) server ).currentPrePrepare.getFirst())
+            else if (requestViewId > server.getView().getId())
             {
                 Log.getLogger().warn("----------------------------------------------------------------\n"
                                        + "Received a request for a view id exceeding the current view! (" + message.getSender() + ") - discarding"
@@ -444,7 +442,7 @@ public class PbftMessageHandlerRegistry
                     return;
                 }
 
-                pbftServer.currentPrePrepare = new Pair<>(pbftServer.getView().getId(), (PrePrepareWrapper) message);
+                pbftServer.currentPrePrepare = new Pair<>(pbftServer.getView().getId(), PrePrepareWrapper.createPrePrepareWrapper(storage.getView(), 0, storage.getInputList(), storage.getInputHash()) );
                 if (!ValidationUtils.verifyCommit(storage.getSignaturesList(), pbftServer))
                 {
                     return;
