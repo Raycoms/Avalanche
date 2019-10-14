@@ -2,6 +2,7 @@ package com.ray.pbft.server;
 
 import com.ray.mcu.communication.serveroperations.BroadcastOperation;
 import com.ray.mcu.communication.wrappers.IMessageWrapper;
+import com.ray.mcu.communication.wrappers.PersistClientMessageWrapper;
 import com.ray.mcu.proto.MessageProto;
 import com.ray.mcu.server.Server;
 import com.ray.mcu.server.ServerData;
@@ -62,12 +63,12 @@ public class PbftServer extends Server
     /**
      * The current pbft state the replica is in.
      */
-    public PBFTState                          status = PBFTState.NULL;
+    public PBFTState status = PBFTState.NULL;
 
     /**
      * List of pending client messages to be proposed.
      */
-    private List<MessageProto.ClientMessage> pendingClientLog = new ArrayList<>();
+    private List<MessageProto.PersistClientMessage> pendingClientLog = new ArrayList<>();
 
     /**
      * Create a server object.
@@ -225,7 +226,11 @@ public class PbftServer extends Server
     @Override
     public void handleClientMessage(final MessageProto.Message message)
     {
-        pendingClientLog.add(message.getClientMsg());
+        pendingClientLog.add(new PersistClientMessageWrapper(this, message.getClientMsg(), message.getSig()).getMessage().getPersClientMsg());
+        if (pendingClientLog.size() > 20 && getView().getCoordinator() == getServerData().getId())
+        {
+            this.outputQueue.add(new BroadcastOperation(PrePrepareWrapper.createPrePrepareWrapper(this, pendingClientLog)));
+        }
     }
 
     @Override

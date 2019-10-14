@@ -15,6 +15,12 @@ import io.netty.channel.SimpleChannelInboundHandler;
 public class ServerNettyReceiverHandler extends SimpleChannelInboundHandler<SizedMessage>
 {
     /**
+     * Current server - server latency on reception.
+     * todo: make it configurable
+     */
+    private static final long LATENCY = 20;
+
+    /**
      * The connected server instance.
      */
     private final Server server;
@@ -47,6 +53,15 @@ public class ServerNettyReceiverHandler extends SimpleChannelInboundHandler<Size
                     Log.getLogger().error("----------------------------------------------------------");
                     return;
                 }
+            }
+
+            try
+            {
+                Thread.sleep(LATENCY);
+            }
+            catch (final InterruptedException e)
+            {
+                e.printStackTrace();
             }
 
             MessageHandlerRegistry.wrap(message, ctx, server, msg.id);

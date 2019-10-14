@@ -40,8 +40,6 @@ public class PbftMessageHandlerRegistry
         MessageHandlerRegistry.handlers.add(new RecoverCommitMessageHandler());
     }
 
-    //todo we might need a bit unregistering handling in general
-
     /**
      * The classical handler of the preprepare message.
      *
