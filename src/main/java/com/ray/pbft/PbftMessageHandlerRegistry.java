@@ -374,10 +374,12 @@ public class PbftMessageHandlerRegistry
                 return;
             }
 
-            server.addToOutputQueue(new UnicastOperation(
-              RecoverCommitWrapper.createCommitWrapper(pbftServer,
-                pbftServer.commitMap.entrySet().stream().filter(e -> e.getKey() >= requestViewId)
-                  .map(Map.Entry::getValue).map(l -> l.get(0)).collect(Collectors.toList())), message.getSender()));
+            final List recoverCommits = pbftServer.commitMap.entrySet().stream().filter(e -> e.getKey() >= requestViewId)
+                                          .map(Map.Entry::getValue).map(l -> l.get(0)).collect(Collectors.toList());
+            if (!recoverCommits.isEmpty())
+            {
+                server.addToOutputQueue(new UnicastOperation(RecoverCommitWrapper.createCommitWrapper(pbftServer, recoverCommits), message.getSender()));
+            }
         }
 
         @Override

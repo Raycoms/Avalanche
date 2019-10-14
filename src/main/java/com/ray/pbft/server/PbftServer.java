@@ -102,6 +102,7 @@ public class PbftServer extends Server
         {
             Log.getLogger().warn(counter);
         }
+
         //state.forEach((key, value) -> Log.getLogger().warn("New State for client: " + key.getEncoded()[0] + ": " + value));
         this.pastPrePrepare.put(currentPrePrepare.getFirst(), currentPrePrepare.getSecond());
         this.currentPrePrepare = null;
@@ -143,7 +144,7 @@ public class PbftServer extends Server
         if (!this.unverifiedPrepareSet.getOrDefault(msgViewId, new ArrayList<>()).isEmpty())
         {
             this.unverifiedPrepareSet.remove(msgViewId);
-            this.prepareSet.addAll(this.unverifiedPrepareSet.get(msgViewId).stream().filter(this::validatePrepare).collect(Collectors.toList()));
+            this.prepareSet.addAll(this.unverifiedPrepareSet.getOrDefault(msgViewId, new ArrayList<>()).stream().filter(this::validatePrepare).collect(Collectors.toList()));
         }
 
         // Check if we have enough verified prepares to advance state.
@@ -158,7 +159,7 @@ public class PbftServer extends Server
         if (!this.unverifiedcommitMap.getOrDefault(msgViewId, new ArrayList<>()).isEmpty())
         {
             final List<CommitWrapper> list = this.unverifiedcommitMap.remove(msgViewId);
-            list.addAll(this.unverifiedcommitMap.get(msgViewId).stream().filter(this::validateCommit).collect(Collectors.toList()));
+            list.removeIf(item -> !validateCommit(item));
 
             this.commitMap.put(msgViewId, list);
         }
