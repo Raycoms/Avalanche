@@ -1,5 +1,6 @@
 package com.ray.mcu.communication.wrappers;
 
+import com.google.protobuf.ByteString;
 import com.ray.mcu.nettyhandlers.SizedMessage;
 import com.ray.mcu.proto.MessageProto;
 import com.ray.mcu.server.IServer;
@@ -17,14 +18,19 @@ public abstract class AbstractMessageWrapper implements IMessageWrapper
     /**
      * The incoming message.
      */
-    public final MessageProto.Message message;
+    public final MessageProto.Message.Builder message;
+
+    /**
+     * If the message is already signed.
+     */
+    public boolean alreadySigned = false;
 
     /**
      * Create an instance of abstract wrapper.
      * @param sender the sender.
      * @param message the message.
      */
-    public AbstractMessageWrapper(final int sender, final MessageProto.Message message)
+    public AbstractMessageWrapper(final int sender, final MessageProto.Message.Builder message)
     {
         this.sender = sender;
         this.message = message;
@@ -33,13 +39,13 @@ public abstract class AbstractMessageWrapper implements IMessageWrapper
     @Override
     public SizedMessage writeToSizedMessage(final IServer serverSender)
     {
-        return new SizedMessage(buildMessage(), this.sender);
+        return new SizedMessage(buildMessage(serverSender), this.sender);
     }
 
     @Override
     public MessageProto.Message getMessage()
     {
-        return message;
+        return message.build();
     }
 
     /**
@@ -52,8 +58,8 @@ public abstract class AbstractMessageWrapper implements IMessageWrapper
     }
 
     @Override
-    public byte[] buildMessage()
+    public byte[] buildMessage(final IServer serverSender)
     {
-        return this.message.toByteArray();
+        return message.setSig(ByteString.copyFrom(serverSender.signMessage(this.getPackagedMessage().toByteArray()))).build().toByteArray();
     }
 }

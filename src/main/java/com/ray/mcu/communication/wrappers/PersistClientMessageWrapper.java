@@ -1,5 +1,6 @@
 package com.ray.mcu.communication.wrappers;
 
+import com.google.protobuf.GeneratedMessageV3;
 import com.ray.mcu.proto.MessageProto;
 import com.ray.mcu.server.IServer;
 import com.google.protobuf.ByteString;
@@ -16,7 +17,7 @@ public class PersistClientMessageWrapper extends AbstractMessageWrapper
      */
     public PersistClientMessageWrapper(final IServer sender, final MessageProto.PersistClientMessage message)
     {
-        super(sender.getServerData().getId(), MessageProto.Message.newBuilder().setPersClientMsg(message).setSig(ByteString.copyFrom(sender.signMessage(message.toByteArray()))).build());
+        super(sender.getServerData().getId(), MessageProto.Message.newBuilder().setPersClientMsg(message));
     }
 
     /**
@@ -27,6 +28,7 @@ public class PersistClientMessageWrapper extends AbstractMessageWrapper
     public PersistClientMessageWrapper(final IServer sender, final MessageProto.ClientMessage message, final ByteString sig)
     {
         this(sender, MessageProto.PersistClientMessage.newBuilder().setMsg(message).setSig(sig).build());
+        this.alreadySigned = true;
     }
 
     /**
@@ -34,8 +36,24 @@ public class PersistClientMessageWrapper extends AbstractMessageWrapper
      * @param sender the sender.
      * @param message the join request resulting in the register.
      */
-    public PersistClientMessageWrapper(final int sender, final MessageProto.Message message)
+    public PersistClientMessageWrapper(final int sender, final MessageProto.Message.Builder message)
     {
         super(sender, message);
+    }
+
+    @Override
+    public GeneratedMessageV3 getPackagedMessage()
+    {
+        return message.getPersClientMsg();
+    }
+
+    @Override
+    public byte[] buildMessage(final IServer serverSender)
+    {
+        if (this.alreadySigned)
+        {
+            return message.build().toByteArray();
+        }
+        return super.buildMessage(serverSender);
     }
 }

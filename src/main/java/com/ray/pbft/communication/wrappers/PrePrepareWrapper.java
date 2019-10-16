@@ -1,6 +1,7 @@
 package com.ray.pbft.communication.wrappers;
 
 import com.google.protobuf.ByteString;
+import com.google.protobuf.GeneratedMessageV3;
 import com.ray.mcu.communication.wrappers.AbstractMessageWrapper;
 import com.ray.mcu.proto.MessageProto;
 import com.ray.mcu.server.IServer;
@@ -23,7 +24,7 @@ public class PrePrepareWrapper extends AbstractMessageWrapper
      * @param sender  the sender.
      * @param message the message.
      */
-    public PrePrepareWrapper(final int sender, final MessageProto.Message message)
+    public PrePrepareWrapper(final int sender, final MessageProto.Message.Builder message)
     {
         super(sender, message);
     }
@@ -36,7 +37,8 @@ public class PrePrepareWrapper extends AbstractMessageWrapper
      */
     public PrePrepareWrapper(final IServer sender, final MessageProto.PrePrepare message)
     {
-        this(sender.getServerData().getId(), MessageProto.Message.newBuilder().setPrePrepare(message).setSig(ByteString.copyFrom(sender.signMessage(message.toByteArray()))).build());
+        this(sender.getServerData().getId(), MessageProto.Message.newBuilder().setPrePrepare(message));
+
     }
 
     /**
@@ -62,7 +64,7 @@ public class PrePrepareWrapper extends AbstractMessageWrapper
             prePrepareBuilder.addInput(message);
         }
 
-        return new PrePrepareWrapper(sender, MessageProto.Message.newBuilder().setPrePrepare(prePrepareBuilder.build()).setSig(inputHash).build());
+        return new PrePrepareWrapper(sender, MessageProto.Message.newBuilder().setPrePrepare(prePrepareBuilder.build()).setSig(inputHash));
     }
 
     /**
@@ -85,5 +87,11 @@ public class PrePrepareWrapper extends AbstractMessageWrapper
         }
 
         return new PrePrepareWrapper(sender, prePrepareBuilder.build());
+    }
+
+    @Override
+    public GeneratedMessageV3 getPackagedMessage()
+    {
+        return message.getPrePrepare();
     }
 }

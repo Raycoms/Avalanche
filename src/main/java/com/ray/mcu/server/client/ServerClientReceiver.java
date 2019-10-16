@@ -13,6 +13,7 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 
 import java.net.InetSocketAddress;
+import java.util.concurrent.Executors;
 
 /**
  * Netty class to start a receiving server.
@@ -41,8 +42,8 @@ public class ServerClientReceiver extends Thread
     @Override
     public void run()
     {
-        final NioEventLoopGroup acceptGroup = new NioEventLoopGroup();
-        final NioEventLoopGroup connectGroup = new NioEventLoopGroup();
+        final NioEventLoopGroup acceptGroup = new NioEventLoopGroup(0, Executors.newCachedThreadPool());
+        final NioEventLoopGroup connectGroup = new NioEventLoopGroup(0, Executors.newCachedThreadPool());
 
         final ServerData serverData = server.getServerData();
         try

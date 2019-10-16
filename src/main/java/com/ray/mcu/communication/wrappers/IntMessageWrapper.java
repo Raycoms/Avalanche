@@ -1,5 +1,6 @@
 package com.ray.mcu.communication.wrappers;
 
+import com.google.protobuf.GeneratedMessageV3;
 import com.ray.mcu.proto.MessageProto;
 import com.ray.mcu.server.IServer;
 import com.google.protobuf.ByteString;
@@ -16,7 +17,7 @@ public class IntMessageWrapper extends AbstractMessageWrapper
      */
     public IntMessageWrapper(final IServer sender, final MessageProto.IntMessage message)
     {
-        super(sender.getServerData().getId(), MessageProto.Message.newBuilder().setIntMsg(message).setSig(ByteString.copyFrom(sender.signMessage(message.toByteArray()))).build());
+        super(sender.getServerData().getId(), MessageProto.Message.newBuilder().setIntMsg(message));
     }
 
     /**
@@ -34,7 +35,7 @@ public class IntMessageWrapper extends AbstractMessageWrapper
      * @param sender the sender.
      * @param message the message.
      */
-    public IntMessageWrapper(final int sender, final MessageProto.Message message)
+    public IntMessageWrapper(final int sender, final MessageProto.Message.Builder message)
     {
         super(sender, message);
     }
@@ -46,5 +47,11 @@ public class IntMessageWrapper extends AbstractMessageWrapper
     public int getInt()
     {
         return this.message.getIntMsg().getI();
+    }
+
+    @Override
+    public GeneratedMessageV3 getPackagedMessage()
+    {
+        return message.getIntMsg();
     }
 }

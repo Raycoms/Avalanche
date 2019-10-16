@@ -1,6 +1,6 @@
 package com.ray.pbft.communication.wrappers;
 
-import com.google.protobuf.ByteString;
+import com.google.protobuf.GeneratedMessageV3;
 import com.ray.mcu.communication.wrappers.AbstractMessageWrapper;
 import com.ray.mcu.proto.MessageProto;
 import com.ray.mcu.server.IServer;
@@ -20,7 +20,7 @@ public class RecoverCommitWrapper extends AbstractMessageWrapper
      * @param sender  the sender.
      * @param message the message.
      */
-    public RecoverCommitWrapper(final int sender, final MessageProto.Message message)
+    public RecoverCommitWrapper(final int sender, final MessageProto.Message.Builder message)
     {
         super(sender, message);
     }
@@ -33,7 +33,7 @@ public class RecoverCommitWrapper extends AbstractMessageWrapper
      */
     public RecoverCommitWrapper(final IServer sender, final MessageProto.RecoverCommit message)
     {
-        this(sender.getServerData().getId(), MessageProto.Message.newBuilder().setRecoverCommit(message).setSig(ByteString.copyFrom(sender.signMessage(message.toByteArray()))).build());
+        this(sender.getServerData().getId(), MessageProto.Message.newBuilder().setRecoverCommit(message));
     }
 
     /**
@@ -51,16 +51,16 @@ public class RecoverCommitWrapper extends AbstractMessageWrapper
 
         final MessageProto.RecoverCommit.Builder builder = MessageProto.RecoverCommit.newBuilder();
 
-        for (int i = 0; i < commit.size(); i++)
+        for (CommitWrapper commitWrapper : commit)
         {
             final MessageProto.CommitStorage.Builder storage = MessageProto.CommitStorage.newBuilder();
-            storage.setInputHash(commit.get(i).message.getCommit().getInputHash());
-            storage.setView(commit.get(i).message.getCommit().getView());
-            for (int j = 0; j < commit.get(i).message.getCommit().getSignaturesCount(); j++)
+            storage.setInputHash(commitWrapper.message.getCommit().getInputHash());
+            storage.setView(commitWrapper.message.getCommit().getView());
+            for (int j = 0; j < commitWrapper.message.getCommit().getSignaturesCount(); j++)
             {
-                storage.addSignatures(j, commit.get(i).message.getCommit().getSignatures(j));
+                storage.addSignatures(j, commitWrapper.message.getCommit().getSignatures(j));
             }
-            final PrePrepareWrapper wrapper = ((PbftServer ) sender).getPrePrepareForId(commit.get(i).message.getCommit().getView().getId());
+            final PrePrepareWrapper wrapper = ((PbftServer) sender).getPrePrepareForId(commitWrapper.message.getCommit().getView().getId());
 
             if (wrapper == null)
             {
@@ -77,5 +77,11 @@ public class RecoverCommitWrapper extends AbstractMessageWrapper
         }
 
         return new RecoverCommitWrapper(sender, builder.build());
+    }
+
+    @Override
+    public GeneratedMessageV3 getPackagedMessage()
+    {
+        return message.getRecoverCommit();
     }
 }

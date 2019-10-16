@@ -1,6 +1,7 @@
 package com.ray.pbft.communication.wrappers;
 
 import com.google.protobuf.ByteString;
+import com.google.protobuf.GeneratedMessageV3;
 import com.ray.mcu.communication.wrappers.AbstractMessageWrapper;
 import com.ray.mcu.proto.MessageProto;
 import com.ray.mcu.server.IServer;
@@ -16,7 +17,7 @@ public class RequestRecoverCommitWrapper extends AbstractMessageWrapper
      * @param sender  the sender.
      * @param message the message.
      */
-    public RequestRecoverCommitWrapper(final int sender, final MessageProto.Message message)
+    public RequestRecoverCommitWrapper(final int sender, final MessageProto.Message.Builder message)
     {
         super(sender, message);
     }
@@ -29,7 +30,7 @@ public class RequestRecoverCommitWrapper extends AbstractMessageWrapper
      */
     public RequestRecoverCommitWrapper(final IServer sender, final MessageProto.RequestRecoverCommit message)
     {
-        this(sender.getServerData().getId(), MessageProto.Message.newBuilder().setRequestRecoverCommit(message).setSig(ByteString.copyFrom(sender.signMessage(message.toByteArray()))).build());
+        this(sender.getServerData().getId(), MessageProto.Message.newBuilder().setRequestRecoverCommit(message));
     }
 
     /**
@@ -41,5 +42,11 @@ public class RequestRecoverCommitWrapper extends AbstractMessageWrapper
     public RequestRecoverCommitWrapper(final IServer sender, final int viewId)
     {
         this(sender, MessageProto.RequestRecoverCommit.newBuilder().setViewId(viewId).build());
+    }
+
+    @Override
+    public GeneratedMessageV3 getPackagedMessage()
+    {
+        return message.getRequestRecoverCommit();
     }
 }

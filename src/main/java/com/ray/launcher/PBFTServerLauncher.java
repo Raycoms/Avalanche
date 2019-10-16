@@ -108,18 +108,10 @@ public class PBFTServerLauncher
         */
         final RSAKeyPairGenerator gen = new RSAKeyPairGenerator();
 
-        Client.createClient(0, gen, "localhost", 6000);
-        //Client.createClient(0, gen, "localhost", 6001);
-        //Client.createClient(0, gen, "localhost", 6002);
-        //Client.createClient(0, gen, "localhost", 6003);
-        //Client.createClient(0, gen, "localhost", 6004);
-        //Client.createClient(0, gen, "localhost", 6005);
-        //Client.createClient(0, gen, "localhost", 6006);
-        //Client.createClient(0, gen, "localhost", 6007);
-        //Client.createClient(0, gen, "localhost", 6008);
-        //Client.createClient(0, gen, "localhost", 6009);
-        //Client.createClient(0, gen, "localhost", 6010);
-        //Client.createClient(0, gen, "localhost", 6011);
+        for (int i = 0; i < 5; i++)
+        {
+            Client.createClient(0, gen, "localhost", 6000 + i);
+        }
 
         //Client.createClient(1, gen, "localhost", 6001);
         //Client.createClient(2, gen, "localhost", 6002);

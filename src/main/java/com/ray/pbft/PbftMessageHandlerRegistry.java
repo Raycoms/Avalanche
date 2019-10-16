@@ -18,6 +18,7 @@ import io.netty.channel.ChannelHandlerContext;
 import org.boon.Pair;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -53,7 +54,7 @@ public class PbftMessageHandlerRegistry
         @Override
         public void wrap(final MessageProto.Message message, final ChannelHandlerContext ctx, final Server server, final int sender)
         {
-            server.addToInputQueue(new PrePrepareWrapper(sender, message));
+            server.addToInputQueue(new PrePrepareWrapper(sender, message.toBuilder()));
         }
 
         @Override
@@ -74,7 +75,7 @@ public class PbftMessageHandlerRegistry
             if (pbftServer.currentPrePrepare != null && pbftServer.currentPrePrepare.getFirst() >= msgViewId)
             {
                 Log.getLogger().warn("----------------------------------------------------------------\n"
-                                       + "Already received preprepare for this view id! (" + message.getSender() + ")"
+                                       + server.getServerData().getId() + " Already received preprepare for this view id! (" + message.getSender() + ")"
                                        + "\n----------------------------------------------------------------");
                 return;
             }
@@ -109,7 +110,7 @@ public class PbftMessageHandlerRegistry
             }
 
             pbftServer.currentPrePrepare = new Pair<>(pbftServer.getView().getId(), (PrePrepareWrapper) message);
-            server.addToOutputQueue(new BroadcastOperation(new PrepareWrapper(server, ((PrePrepareWrapper) message).message)));
+            server.addToOutputQueue(new BroadcastOperation(new PrepareWrapper(server, ((PrePrepareWrapper) message).message.build())));
             pbftServer.updateState();
         }
 
@@ -140,7 +141,7 @@ public class PbftMessageHandlerRegistry
         @Override
         public void wrap(final MessageProto.Message message, final ChannelHandlerContext ctx, final Server server, final int sender)
         {
-            server.addToInputQueue(new PrepareWrapper(sender, message));
+            server.addToInputQueue(new PrepareWrapper(sender, message.toBuilder()));
         }
 
         @Override
@@ -227,7 +228,7 @@ public class PbftMessageHandlerRegistry
         @Override
         public void wrap(final MessageProto.Message message, final ChannelHandlerContext ctx, final Server server, final int sender)
         {
-            server.addToInputQueue(new CommitWrapper(sender, message));
+            server.addToInputQueue(new CommitWrapper(sender, message.toBuilder()));
         }
 
         @Override
@@ -303,7 +304,7 @@ public class PbftMessageHandlerRegistry
         @Override
         public void wrap(final MessageProto.Message message, final ChannelHandlerContext ctx, final Server server, final int sender)
         {
-            server.addToInputQueue(new RequestRecoverPrePrepareWrapper(sender, message));
+            server.addToInputQueue(new RequestRecoverPrePrepareWrapper(sender, message.toBuilder()));
         }
 
         @Override
@@ -314,7 +315,7 @@ public class PbftMessageHandlerRegistry
             final int requestViewId = message.getMessage().getRequestRecoverPrePrepare().getViewId();
             if (( ( PbftServer ) server ).currentPrePrepare != null && server.getView().getId() == requestViewId)
             {
-                server.addToOutputQueue(new UnicastOperation( new PrePrepareWrapper(message.getSender(), ( ( PbftServer ) server ).currentPrePrepare.getSecond().getMessage()), message.getSender()));
+                server.addToOutputQueue(new UnicastOperation( new PrePrepareWrapper(( ( PbftServer ) server ).currentPrePrepare.getSecond().sender, ( ( PbftServer ) server ).currentPrePrepare.getSecond().getMessage().toBuilder()), message.getSender()));
             }
             else if (requestViewId > server.getView().getId())
             {
@@ -322,9 +323,9 @@ public class PbftMessageHandlerRegistry
                                        + "Received a request for a view id exceeding the current view! (" + message.getSender() + ") - discarding"
                                        + "\n----------------------------------------------------------------");
             }
-            else
+            else if ( (( PbftServer ) server ).pastPrePrepare.containsKey(requestViewId))
             {
-                server.addToOutputQueue(new UnicastOperation( new PrePrepareWrapper(message.getSender(), ( ( PbftServer ) server ).pastPrePrepare.get(requestViewId).getMessage()), message.getSender()));
+                server.addToOutputQueue(new UnicastOperation( new PrePrepareWrapper(( ( PbftServer ) server ).pastPrePrepare.get(requestViewId).sender, ( ( PbftServer ) server ).pastPrePrepare.get(requestViewId).getMessage().toBuilder()), message.getSender()));
             }
         }
 
@@ -349,7 +350,7 @@ public class PbftMessageHandlerRegistry
         @Override
         public void wrap(final MessageProto.Message message, final ChannelHandlerContext ctx, final Server server, final int sender)
         {
-            server.addToInputQueue(new RequestRecoverCommitWrapper(sender, message));
+            server.addToInputQueue(new RequestRecoverCommitWrapper(sender, message.toBuilder()));
         }
 
         @Override
@@ -375,7 +376,9 @@ public class PbftMessageHandlerRegistry
             }
 
             final List recoverCommits = pbftServer.commitMap.entrySet().stream().filter(e -> e.getKey() >= requestViewId)
-                                          .map(Map.Entry::getValue).map(l -> l.get(0)).collect(Collectors.toList());
+                                          .map(Map.Entry::getValue).map(l -> l.get(0))
+                                          .sorted(Comparator.comparingInt(e -> e.getMessage().getCommit().getView().getId()))
+                                          .collect(Collectors.toList());
             if (!recoverCommits.isEmpty())
             {
                 server.addToOutputQueue(new UnicastOperation(RecoverCommitWrapper.createCommitWrapper(pbftServer, recoverCommits), message.getSender()));
@@ -403,7 +406,7 @@ public class PbftMessageHandlerRegistry
         @Override
         public void wrap(final MessageProto.Message message, final ChannelHandlerContext ctx, final Server server, final int sender)
         {
-            server.addToInputQueue(new RecoverCommitWrapper(sender, message));
+            server.addToInputQueue(new RecoverCommitWrapper(sender, message.toBuilder()));
         }
 
         @Override
@@ -451,7 +454,9 @@ public class PbftMessageHandlerRegistry
                 }
 
                 pbftServer.getView().updateView(pbftServer.currentPrePrepare.getSecond().getMessage().getPrePrepare().getView(), server);
-                pbftServer.persistConsensusResult();
+                pbftServer.persistConsensusResult(pbftServer.currentPrePrepare);
+
+                pbftServer.currentPrePrepare = null;
                 pbftServer.status = PBFTState.NULL;
             }
         }

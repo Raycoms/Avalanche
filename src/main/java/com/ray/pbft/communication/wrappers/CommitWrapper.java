@@ -1,6 +1,7 @@
 package com.ray.pbft.communication.wrappers;
 
 import com.google.protobuf.ByteString;
+import com.google.protobuf.GeneratedMessageV3;
 import com.ray.mcu.communication.wrappers.AbstractMessageWrapper;
 import com.ray.mcu.proto.MessageProto;
 import com.ray.mcu.server.IServer;
@@ -17,7 +18,7 @@ public class CommitWrapper extends AbstractMessageWrapper
      * @param sender  the sender.
      * @param message the message.
      */
-    public CommitWrapper(final int sender, final MessageProto.Message message)
+    public CommitWrapper(final int sender, final MessageProto.Message.Builder message)
     {
         super(sender, message);
     }
@@ -30,7 +31,7 @@ public class CommitWrapper extends AbstractMessageWrapper
      */
     public CommitWrapper(final IServer sender, final MessageProto.Commit message)
     {
-        this(sender.getServerData().getId(), MessageProto.Message.newBuilder().setCommit(message).setSig(ByteString.copyFrom(sender.signMessage(message.toByteArray()))).build());
+        this(sender.getServerData().getId(), MessageProto.Message.newBuilder().setCommit(message));
     }
 
     /**
@@ -56,5 +57,11 @@ public class CommitWrapper extends AbstractMessageWrapper
         }
 
         return new CommitWrapper(sender, builder.build());
+    }
+
+    @Override
+    public GeneratedMessageV3 getPackagedMessage()
+    {
+        return message.getCommit();
     }
 }

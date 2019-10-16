@@ -22,6 +22,7 @@ import io.netty.channel.socket.nio.NioSocketChannel;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.Executors;
 
 /**
  * The server sender class.
@@ -59,7 +60,7 @@ public class ServerSender extends Thread implements ISender
         this.server = server;
 
         b = new Bootstrap();
-        final EventLoopGroup workerGroup = new NioEventLoopGroup();
+        final EventLoopGroup workerGroup = new NioEventLoopGroup(0, Executors.newCachedThreadPool());
         b.group(workerGroup);
         b.channel(NioSocketChannel.class);
         b.option(ChannelOption.SO_KEEPALIVE, true);
@@ -117,6 +118,7 @@ public class ServerSender extends Thread implements ISender
                 if (!handler.isActive())
                 {
                     allActive = false;
+                    reconnectServer(handler);
                 }
             }
 
@@ -133,6 +135,35 @@ public class ServerSender extends Thread implements ISender
             }
         }
         Log.getLogger().warn("All Netty clients succesfully started");
+    }
+
+    /**
+     * Reconnect to the client.
+     * @param handler the handler to try to reconnect.
+     */
+    private void reconnectServer(final ServerNettySenderHandler handler)
+    {
+        final ServerData data = handler.getServerData();
+        b.handler(new ChannelInitializer<SocketChannel>()
+        {
+            @Override
+            public void initChannel(SocketChannel ch)
+            {
+                ch.pipeline().addLast(
+                  new SizedMessageEncoder(),
+                  new SizedMessageDecoder(),
+                  handler);
+            }
+        });
+        Log.getLogger().warn("Starting connection to ServerReceiver: " + data.getId());
+        try
+        {
+            b.connect(data.getIp(), data.getPort()).sync();
+        }
+        catch (Exception e)
+        {
+            Log.getLogger().warn("Connect failed");
+        }
     }
 
     @Override
@@ -158,7 +189,14 @@ public class ServerSender extends Thread implements ISender
                 }
             });
             Log.getLogger().warn("Starting connection to ServerReceiver: " + data.getId());
-            b.connect(data.getIp(), data.getPort());
+            try
+            {
+                b.connect(data.getIp(), data.getPort()).sync();
+            }
+            catch (Exception e)
+            {
+                Log.getLogger().warn("Connect failed");
+            }
         }
     }
 

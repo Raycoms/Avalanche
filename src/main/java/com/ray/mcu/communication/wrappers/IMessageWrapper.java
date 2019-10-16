@@ -1,5 +1,6 @@
 package com.ray.mcu.communication.wrappers;
 
+import com.google.protobuf.GeneratedMessageV3;
 import com.ray.mcu.nettyhandlers.SizedMessage;
 import com.ray.mcu.proto.MessageProto;
 import com.ray.mcu.server.IServer;
@@ -18,9 +19,10 @@ public interface IMessageWrapper
 
     /**
      * Build the byte array for the message.
+     * @param serverSender the server sender.
      * @return the byte array to send it.
      */
-    public byte[] buildMessage();
+    public byte[] buildMessage(final IServer serverSender);
 
     /**
      * Get the message from the wrapper.
@@ -33,4 +35,9 @@ public interface IMessageWrapper
      * @return the sender id.
      */
     public int getSender();
+
+    /**
+     * Get the packaged message.
+     */
+    public GeneratedMessageV3 getPackagedMessage();
 }

@@ -1,5 +1,6 @@
 package com.ray.mcu.communication.wrappers;
 
+import com.google.protobuf.GeneratedMessageV3;
 import com.ray.mcu.proto.MessageProto;
 import com.ray.mcu.server.IServer;
 import com.ray.mcu.server.ServerData;
@@ -17,7 +18,7 @@ public class RegisterMessageWrapper extends AbstractMessageWrapper
      */
     public RegisterMessageWrapper(final IServer sender, final MessageProto.RegisterMessage message)
     {
-        super(sender.getServerData().getId(), MessageProto.Message.newBuilder().setRegMsg(message).setSig(ByteString.copyFrom(sender.signMessage(message.toByteArray()))).build());
+        super(sender.getServerData().getId(), MessageProto.Message.newBuilder().setRegMsg(message));
     }
 
     /**
@@ -34,7 +35,7 @@ public class RegisterMessageWrapper extends AbstractMessageWrapper
      * @param message the message to extract it from.
      * @param sender the sender.
      */
-    public RegisterMessageWrapper(final int sender, final MessageProto.Message message)
+    public RegisterMessageWrapper(final int sender, final MessageProto.Message.Builder message)
     {
         super(sender, message);
     }
@@ -47,5 +48,11 @@ public class RegisterMessageWrapper extends AbstractMessageWrapper
     {
         final MessageProto.RegisterMessage msg = this.message.getRegMsg();
         return new ServerData(msg.getId(), msg.getIp(), msg.getPort());
+    }
+
+    @Override
+    public GeneratedMessageV3 getPackagedMessage()
+    {
+        return message.getRegMsg();
     }
 }

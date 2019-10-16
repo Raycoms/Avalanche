@@ -147,7 +147,7 @@ public class GlobalView
     /**
      * Validate the existing view with an incoming view.
      * @param view the view to check.
-     * @param pendingUnregisters
+     * @param pendingUnregisters list of pending servers to unregister.
      * @return null if invalid, else a list with the removed replicas.
      */
     public boolean validateView(final MessageProto.View view, final Set<Integer> pendingUnregisters)

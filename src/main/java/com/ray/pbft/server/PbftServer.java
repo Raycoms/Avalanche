@@ -93,20 +93,18 @@ public class PbftServer extends Server
 
     /**
      * Persist the current consensus result.
+     * @param prep
      */
-    public void persistConsensusResult()
+    public void persistConsensusResult(final Pair<Integer, PrePrepareWrapper> prep)
     {
-        this.prepareSet.clear();
-        this.currentPrePrepare.getSecond().getMessage().getPrePrepare().getInputList().forEach(m -> persist(m.getMsg()));
-        if (counter++%100==0)
-        {
-            Log.getLogger().warn(counter);
-        }
+        prep.getSecond().getMessage().getPrePrepare().getInputList().forEach(
+          m -> {
+              persist(m.getMsg());
+              counter++;
+          });
 
+        Log.getLogger().warn(counter);
         //state.forEach((key, value) -> Log.getLogger().warn("New State for client: " + key.getEncoded()[0] + ": " + value));
-        this.pastPrePrepare.put(currentPrePrepare.getFirst(), currentPrePrepare.getSecond());
-        this.currentPrePrepare = null;
-        this.prepareSet.clear();
     }
 
     /**
@@ -168,10 +166,13 @@ public class PbftServer extends Server
         if (this.commitMap.getOrDefault(msgViewId, new ArrayList<>()).size() >= this.view.getQuorumSize())
         {
             this.getView().updateView(this.currentPrePrepare.getSecond().getMessage().getPrePrepare().getView(), this);
-            this.persistConsensusResult();
-            this.status = PBFTState.NULL;
+            this.pastPrePrepare.put(currentPrePrepare.getFirst(), currentPrePrepare.getSecond());
+            final Pair<Integer, PrePrepareWrapper> prep = this.currentPrePrepare;
             this.currentPrePrepare = null;
             this.prepareSet.clear();
+            this.status = PBFTState.NULL;
+
+            this.persistConsensusResult(prep);
         }
     }
 
@@ -248,11 +249,12 @@ public class PbftServer extends Server
     @Override
     public void handleClientMessage(final MessageProto.Message message)
     {
-        pendingClientLog.add(new PersistClientMessageWrapper(this, message.getClientMsg(), message.getSig()).getMessage().getPersClientMsg());
-        if ( getView().getCoordinator() == getServerData().getId() && status == PBFTState.NULL)
+        pendingClientLog.add(new PersistClientMessageWrapper(this, message.getClientMsg(), message.getSig()).message.getPersClientMsg());
+        if ( pendingClientLog.size() > 300 && getView().getCoordinator() == getServerData().getId() && status == PBFTState.NULL)
         {
-            pendingClientLog.clear();
+            Log.getLogger().warn(pendingClientLog.size());
             this.outputQueue.add(new BroadcastOperation(PrePrepareWrapper.createPrePrepareWrapper(this, pendingClientLog)));
+            pendingClientLog.clear();
             status = PBFTState.PREPARE;
         }
     }

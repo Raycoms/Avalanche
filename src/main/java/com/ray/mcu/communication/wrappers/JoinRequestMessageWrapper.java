@@ -1,5 +1,6 @@
 package com.ray.mcu.communication.wrappers;
 
+import com.google.protobuf.GeneratedMessageV3;
 import com.ray.mcu.proto.MessageProto;
 import com.ray.mcu.server.IServer;
 import com.ray.mcu.server.ServerData;
@@ -17,7 +18,7 @@ public class JoinRequestMessageWrapper extends AbstractMessageWrapper
      */
     public JoinRequestMessageWrapper(final IServer sender, final MessageProto.RequestRegisterMessage message)
     {
-        super(sender.getServerData().getId(), MessageProto.Message.newBuilder().setReqRegMsg(message).setSig(ByteString.copyFrom(sender.signMessage(message.toByteArray()))).build());
+        super(sender.getServerData().getId(), MessageProto.Message.newBuilder().setReqRegMsg(message));
     }
 
     /**
@@ -35,7 +36,7 @@ public class JoinRequestMessageWrapper extends AbstractMessageWrapper
      * @param message the int to send.
      * @param sender the sender.
      */
-    public JoinRequestMessageWrapper(final int sender, final MessageProto.Message message)
+    public JoinRequestMessageWrapper(final int sender, final MessageProto.Message.Builder message)
     {
         super(sender, message);
     }
@@ -48,5 +49,11 @@ public class JoinRequestMessageWrapper extends AbstractMessageWrapper
     {
         final MessageProto.RequestRegisterMessage msg = this.message.getReqRegMsg();
         return new ServerData(msg.getId(), msg.getIp(), msg.getPort());
+    }
+
+    @Override
+    public GeneratedMessageV3 getPackagedMessage()
+    {
+        return message.getReqRegMsg();
     }
 }

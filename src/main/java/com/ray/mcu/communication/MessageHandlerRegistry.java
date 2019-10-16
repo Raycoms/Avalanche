@@ -146,7 +146,7 @@ public final class MessageHandlerRegistry
         public void wrap(final MessageProto.Message message, final ChannelHandlerContext ctx, final Server server, final int sender)
         {
             Log.getLogger().warn("ServerReceiver: " + server.getServerData().getId() + " received Int: " + message.getIntMsg().getI());
-            ctx.write(new IntMessageWrapper(sender, message));
+            ctx.write(new IntMessageWrapper(sender, message.toBuilder()));
         }
 
         @Override
@@ -179,7 +179,7 @@ public final class MessageHandlerRegistry
         public void wrap(final MessageProto.Message message, final ChannelHandlerContext ctx, final Server server, final int sender)
         {
             Log.getLogger().warn("ServerReceiver received join request: " + server.getServerData().getId() + " ");
-            server.addToInputQueue(new JoinRequestMessageWrapper(sender, message));
+            server.addToInputQueue(new JoinRequestMessageWrapper(sender, message.toBuilder()));
         }
 
         @Override
@@ -216,7 +216,7 @@ public final class MessageHandlerRegistry
         @Override
         public void wrap(final MessageProto.Message message, final ChannelHandlerContext ctx, final Server server, final int sender)
         {
-            server.addToInputQueue(new RegisterMessageWrapper(sender, message));
+            server.addToInputQueue(new RegisterMessageWrapper(sender, message.toBuilder()));
         }
 
         @Override
@@ -254,21 +254,9 @@ public final class MessageHandlerRegistry
         @Override
         public void wrap(final MessageProto.Message message, final ChannelHandlerContext ctx, final Server server, final int sender)
         {
-            try
-            {
-                if (!KeyUtilities.verifyKey(message.getClientMsg().toByteArray(), message.getSig().toByteArray(), new RSAPublicKeyImpl(message.getClientMsg().getPkey().toByteArray())))
-                {
-                    Log.getLogger().warn("Client sending message with invalid signature!");
-                    return;
-                }
-            }
-            catch (final InvalidKeyException e)
-            {
-                Log.getLogger().warn("Client sent message with invalid public key!", e);
-                return;
-            }
 
-            server.clientInputQueue.add(new ClientMessageWrapper(sender, message));
+
+            server.clientInputQueue.add(new ClientMessageWrapper(sender, message.toBuilder()));
         }
 
         @Override
@@ -308,7 +296,7 @@ public final class MessageHandlerRegistry
         public void wrap(final MessageProto.Message message, final ChannelHandlerContext ctx, final Server server, final int sender)
         {
             Log.getLogger().warn("ServerReceiver received leave request: " + server.getServerData().getId() + " ");
-            server.addToInputQueue(new PersistClientMessageWrapper(sender, message));
+            server.addToInputQueue(new PersistClientMessageWrapper(sender, message.toBuilder()));
         }
 
         @Override
@@ -356,7 +344,7 @@ public final class MessageHandlerRegistry
         public void wrap(final MessageProto.Message message, final ChannelHandlerContext ctx, final Server server, final int sender)
         {
             Log.getLogger().warn("ServerReceiver received leave request: " + server.getServerData().getId() + " ");
-            server.addToInputQueue(new UnregisterRequestMessageWrapper(sender, message));
+            server.addToInputQueue(new UnregisterRequestMessageWrapper(sender, message.toBuilder()));
         }
 
         @Override
@@ -364,7 +352,7 @@ public final class MessageHandlerRegistry
         {
             if (server.view.getCoordinator() == server.getServerData().getId())
             {
-                server.outputQueue.add(new BroadcastOperation(new UnregisterMessageWrapper(server, message.getMessage())));
+                server.outputQueue.add(new BroadcastOperation(new UnregisterMessageWrapper(server, message.getMessage().toBuilder())));
             }
             else
             {
@@ -394,7 +382,7 @@ public final class MessageHandlerRegistry
         public void wrap(final MessageProto.Message message, final ChannelHandlerContext ctx, final Server server, final int sender)
         {
             Log.getLogger().warn("ServerReceiver received leave request: " + server.getServerData().getId() + " ");
-            server.addToInputQueue(new UnregisterMessageWrapper(sender, message));
+            server.addToInputQueue(new UnregisterMessageWrapper(sender, message.toBuilder()));
         }
 
         @Override
