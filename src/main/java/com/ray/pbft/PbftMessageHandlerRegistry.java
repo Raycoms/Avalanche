@@ -189,7 +189,7 @@ public class PbftMessageHandlerRegistry
                         list.add((PrepareWrapper) message);
                         pbftServer.unverifiedPrepareSet.put(incViewId, list);
                         server.addToOutputQueue(new UnicastOperation(new RequestRecoverPrePrepareWrapper(server, incViewId),
-                          message.getMessage().getPrepare().getView().getCoordinator()));
+                          message.getSender()));
                     }
                 }
                 else
@@ -292,7 +292,7 @@ public class PbftMessageHandlerRegistry
                     list.add((CommitWrapper) message);
                     pbftServer.unverifiedcommitMap.put(incViewId, list);
                     server.addToOutputQueue(new UnicastOperation(new RequestRecoverPrePrepareWrapper(server, incViewId),
-                      message.getMessage().getCommit().getView().getCoordinator()));
+                      message.getSender()));
                 }
                 return;
             }
@@ -347,7 +347,7 @@ public class PbftMessageHandlerRegistry
         @Override
         public void handle(final IMessageWrapper message, final Server server)
         {
-            Log.getLogger().warn("Received RequestRecoverPrePrepare on: " + server.getServerData().getId());
+            Log.getLogger().warn(server.getServerData().getId() + " Received RequestRecoverPrePrepare on: " + message.getSender());
 
             final int requestViewId = message.getMessage().getRequestRecoverPrePrepare().getViewId();
             if (( ( PbftServer ) server ).currentPrePrepare != null && server.getView().getId() == requestViewId)
