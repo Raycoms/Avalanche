@@ -108,7 +108,7 @@ public class PBFTServerLauncher
         */
         final RSAKeyPairGenerator gen = new RSAKeyPairGenerator();
 
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < 20; i++)
         {
             Client.createClient(0, gen, "localhost", 6000 + i);
         }

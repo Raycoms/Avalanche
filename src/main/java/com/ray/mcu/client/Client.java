@@ -140,39 +140,14 @@ public class Client extends Thread
         }
 
         int min = 60000;
-        int freq = 5;
+        int freq = 1;
 
         int counter = 0;
         while (true)
         {
             final MessageProto.ClientMessage msg = MessageProto.ClientMessage.newBuilder().setDif(1).setPkey(ByteString.copyFrom(publicKey.getEncoded())).build();
             builder.setClientMsg(msg).setSig(ByteString.copyFrom(KeyUtilities.signMessage(msg.toByteArray(), this.privateKey))).build();
-
             clientHandler.write(builder.build());
-            counter++;
-            try
-            {
-                //todo configure sending frequency (config file).
-                Thread.sleep(freq);
-
-                //Sleep after sending enough messages for commit (todo remove later)
-                //if (counter % 30 == 0)
-                //{
-                //    Thread.sleep(1200);
-                //}
-
-            }
-            catch (InterruptedException e)
-            {
-                /*
-                 * Intentionally left empty.
-                 */
-            }
-
-            if (counter == min/freq)
-            {
-                return;
-            }
         }
     }
 

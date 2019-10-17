@@ -1,20 +1,20 @@
 package com.ray.pbft.communication.wrappers;
 
-import com.google.protobuf.ByteString;
 import com.google.protobuf.GeneratedMessageV3;
 import com.ray.mcu.communication.wrappers.AbstractMessageWrapper;
 import com.ray.mcu.proto.MessageProto;
 import com.ray.mcu.server.IServer;
-import com.ray.mcu.server.ServerData;
-import com.ray.mcu.views.GlobalView;
-
-import java.util.List;
 
 /**
  * Wrapper for the Prepare Message.
  */
 public class PrepareWrapper extends AbstractMessageWrapper
 {
+    /**
+     * Retry of the PrePrepare
+     */
+    public int retry = 0;
+
     /**
      * Wrap an existing prepare message.
      *

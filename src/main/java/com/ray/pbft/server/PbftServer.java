@@ -17,6 +17,7 @@ import org.boon.Pair;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
+import java.util.concurrent.LinkedBlockingQueue;
 import java.util.stream.Collectors;
 
 public class PbftServer extends Server
@@ -66,13 +67,24 @@ public class PbftServer extends Server
      */
     public PBFTState status = PBFTState.NULL;
 
+    /**
+     * Commit counter to monitor performance.
+     */
     public int counter = 0;
+
+    /**
+     * Cache which holds the messages to send in the future (Produced by Server).
+     */
+    public final LinkedBlockingQueue<PrePrepareWrapper> persistenceQueue = new LinkedBlockingQueue<>();
 
     /**
      * List of pending client messages to be proposed.
      */
     private List<MessageProto.PersistClientMessage> pendingClientLog = new ArrayList<>();
 
+    /*
+     * Loader for the Message handler.
+     */
     static
     {
         // Load the PbtMessageHandlerRegistry.
@@ -89,22 +101,66 @@ public class PbftServer extends Server
     public PbftServer(final int id, final String ip, final int port)
     {
         super(id, ip, port);
+        new CommitValidator(this).start();
     }
 
     /**
-     * Persist the current consensus result.
-     * @param prep
+     * The commit validator thread.
      */
-    public void persistConsensusResult(final Pair<Integer, PrePrepareWrapper> prep)
+    public class CommitValidator extends Thread
     {
-        prep.getSecond().getMessage().getPrePrepare().getInputList().forEach(
-          m -> {
-              persist(m.getMsg());
-              counter++;
-          });
+        /**
+         * The server this belongs to.
+         */
+        public PbftServer server;
 
-        Log.getLogger().warn(counter);
-        //state.forEach((key, value) -> Log.getLogger().warn("New State for client: " + key.getEncoded()[0] + ": " + value));
+        /**
+         * Constructor for the validator to set the server object.
+         * @param server the server to set.
+         */
+        public CommitValidator(final PbftServer server)
+        {
+            this.server = server;
+        }
+
+        @Override
+        public void run()
+        {
+            while ( true )
+            {
+                try
+                {
+                    final PrePrepareWrapper prep = server.persistenceQueue.take();
+
+                    // Verify is message log is valid.
+                    if (!ValidationUtils.isMessageLogValid(prep.message.getPrePrepare(), server))
+                    {
+                        return;
+                    }
+
+                    prep.getMessage().getPrePrepare().getInputList().forEach(
+                      m -> {
+                          server.persist(m.getMsg());
+                          server.counter++;
+                      });
+
+                    Log.getLogger().warn(server.counter);
+                    //state.forEach((key, value) -> Log.getLogger().warn("New State for client: " + key.getEncoded()[0] + ": " + value));
+                }
+                catch (InterruptedException e)
+                {
+                    // Waking up.
+                }
+            }
+        }
+    }
+    /**
+     * Persist the current consensus result.
+     * @param prep the prepare to commit.
+     */
+    public void persistConsensusResult(final PrePrepareWrapper prep)
+    {
+       persistenceQueue.add(prep);
     }
 
     /**
@@ -141,8 +197,8 @@ public class PbftServer extends Server
         // Check if we have univerified prepares.
         if (!this.unverifiedPrepareSet.getOrDefault(msgViewId, new ArrayList<>()).isEmpty())
         {
-            this.unverifiedPrepareSet.remove(msgViewId);
             this.prepareSet.addAll(this.unverifiedPrepareSet.getOrDefault(msgViewId, new ArrayList<>()).stream().filter(this::validatePrepare).collect(Collectors.toList()));
+            this.unverifiedPrepareSet.remove(msgViewId);
         }
 
         // Check if we have enough verified prepares to advance state.
@@ -168,11 +224,10 @@ public class PbftServer extends Server
             this.getView().updateView(this.currentPrePrepare.getSecond().getMessage().getPrePrepare().getView(), this);
             this.pastPrePrepare.put(currentPrePrepare.getFirst(), currentPrePrepare.getSecond());
             final Pair<Integer, PrePrepareWrapper> prep = this.currentPrePrepare;
+            this.persistConsensusResult(prep.getSecond());
             this.currentPrePrepare = null;
             this.prepareSet.clear();
             this.status = PBFTState.NULL;
-
-            this.persistConsensusResult(prep);
         }
     }
 
@@ -250,7 +305,7 @@ public class PbftServer extends Server
     public void handleClientMessage(final MessageProto.Message message)
     {
         pendingClientLog.add(new PersistClientMessageWrapper(this, message.getClientMsg(), message.getSig()).message.getPersClientMsg());
-        if ( pendingClientLog.size() > 300 && getView().getCoordinator() == getServerData().getId() && status == PBFTState.NULL)
+        if ( pendingClientLog.size() > 200 && getView().getCoordinator() == getServerData().getId() && status == PBFTState.NULL)
         {
             Log.getLogger().warn(pendingClientLog.size());
             this.outputQueue.add(new BroadcastOperation(PrePrepareWrapper.createPrePrepareWrapper(this, pendingClientLog)));

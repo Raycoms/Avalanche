@@ -6,11 +6,7 @@ import com.ray.mcu.communication.wrappers.AbstractMessageWrapper;
 import com.ray.mcu.proto.MessageProto;
 import com.ray.mcu.server.IServer;
 import com.ray.mcu.server.Server;
-import com.ray.mcu.server.ServerData;
-import com.ray.mcu.utils.Log;
 import com.ray.mcu.views.GlobalView;
-
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -18,6 +14,11 @@ import java.util.List;
  */
 public class PrePrepareWrapper extends AbstractMessageWrapper
 {
+    /**
+     * Retry of the PrePrepare
+     */
+    public int retry = 0;
+
     /**
      * Wrap an existing preprepare message.
      *
