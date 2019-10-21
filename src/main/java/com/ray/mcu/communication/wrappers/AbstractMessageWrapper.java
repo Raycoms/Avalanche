@@ -60,6 +60,10 @@ public abstract class AbstractMessageWrapper implements IMessageWrapper
     @Override
     public byte[] buildMessage(final IServer serverSender)
     {
+        if (this.alreadySigned)
+        {
+            return this.message.build().toByteArray();
+        }
         return message.setSig(ByteString.copyFrom(serverSender.signMessage(this.getPackagedMessage().toByteArray()))).build().toByteArray();
     }
 }

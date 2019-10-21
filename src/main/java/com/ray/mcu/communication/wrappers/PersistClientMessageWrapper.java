@@ -46,14 +46,4 @@ public class PersistClientMessageWrapper extends AbstractMessageWrapper
     {
         return message.getPersClientMsg();
     }
-
-    @Override
-    public byte[] buildMessage(final IServer serverSender)
-    {
-        if (this.alreadySigned)
-        {
-            return message.build().toByteArray();
-        }
-        return super.buildMessage(serverSender);
-    }
 }

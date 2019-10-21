@@ -51,7 +51,6 @@ public class ServerNettyReceiverHandler extends SimpleChannelInboundHandler<Size
                 {
                     Log.getLogger().error("----------------------------------------------------------");
                     Log.getLogger().error(server.getServerData().getId() + " Received invalid signature supposedly from replica: " + msg.id);
-                    Log.getLogger().warn(Arrays.toString(m));
                     Log.getLogger().error("Discarding Message");
                     Log.getLogger().error("----------------------------------------------------------");
                     return;

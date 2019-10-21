@@ -181,16 +181,16 @@ public class PbftMessageHandlerRegistry
             // If we don't have a prepare at the moment.
             if ( pbftServer.currentPrePrepare == null )
             {
-                if (((PrepareWrapper)message).retry++ > 5)
+                if (((PrepareWrapper)message).retry++ > 5 && server.getView().getCoordinator() != server.getServerData().getId())
                 {
+                    final List<PrepareWrapper> list = pbftServer.unverifiedPrepareSet.getOrDefault(incViewId, new ArrayList<>());
+                    list.add((PrepareWrapper) message);
                     if (!pbftServer.unverifiedPrepareSet.containsKey(incViewId))
                     {
-                        final List<PrepareWrapper> list = pbftServer.unverifiedPrepareSet.getOrDefault(incViewId, new ArrayList<>());
-                        list.add((PrepareWrapper) message);
-                        pbftServer.unverifiedPrepareSet.put(incViewId, list);
                         server.addToOutputQueue(new UnicastOperation(new RequestRecoverPrePrepareWrapper(server, incViewId),
                           message.getSender()));
                     }
+                    pbftServer.unverifiedPrepareSet.put(incViewId, list);
                 }
                 else
                 {
@@ -210,13 +210,13 @@ public class PbftMessageHandlerRegistry
             // If we have a prepare which is older than the incoming view id.
             if (pbftServer.currentPrePrepare.getFirst() < incViewId)
             {
+                final List<PrepareWrapper> list = pbftServer.unverifiedPrepareSet.getOrDefault(incViewId, new ArrayList<>());
+                list.add((PrepareWrapper) message);
                 if (!pbftServer.unverifiedPrepareSet.containsKey(incViewId))
                 {
-                    final List<PrepareWrapper> list = pbftServer.unverifiedPrepareSet.getOrDefault(incViewId, new ArrayList<>());
-                    list.add((PrepareWrapper) message);
-                    pbftServer.unverifiedPrepareSet.put(incViewId, list);
                     server.addToOutputQueue(new UnicastOperation(new RequestRecoverCommitWrapper(server, incViewId), message.getMessage().getPrepare().getView().getCoordinator()));
                 }
+                pbftServer.unverifiedPrepareSet.put(incViewId, list);
                 return;
             }
 
@@ -286,27 +286,27 @@ public class PbftMessageHandlerRegistry
             // Current preprepare missing -> recover
             if (pbftServer.currentPrePrepare == null)
             {
+                final List<CommitWrapper> list = pbftServer.unverifiedcommitMap.getOrDefault(incViewId, new ArrayList<>());
+                list.add((CommitWrapper) message);
                 if (!pbftServer.unverifiedcommitMap.containsKey(incViewId))
                 {
-                    final List<CommitWrapper> list = pbftServer.unverifiedcommitMap.getOrDefault(incViewId, new ArrayList<>());
-                    list.add((CommitWrapper) message);
-                    pbftServer.unverifiedcommitMap.put(incViewId, list);
                     server.addToOutputQueue(new UnicastOperation(new RequestRecoverPrePrepareWrapper(server, incViewId),
                       message.getSender()));
                 }
+                pbftServer.unverifiedcommitMap.put(incViewId, list);
                 return;
             }
 
             // Current preprepare outdated, recover past commits.
             if (pbftServer.currentPrePrepare.getFirst() < incViewId)
             {
+                final List<CommitWrapper> list = pbftServer.unverifiedcommitMap.getOrDefault(incViewId, new ArrayList<>());
+                list.add((CommitWrapper) message);
                 if (!pbftServer.unverifiedcommitMap.containsKey(incViewId))
                 {
-                    final List<CommitWrapper> list = pbftServer.unverifiedcommitMap.getOrDefault(incViewId, new ArrayList<>());
-                    list.add((CommitWrapper) message);
-                    pbftServer.unverifiedcommitMap.put(incViewId, list);
                     server.addToOutputQueue(new UnicastOperation(new RequestRecoverCommitWrapper(server, incViewId), message.getSender()));
                 }
+                pbftServer.unverifiedcommitMap.put(incViewId, list);
             }
 
             if (! pbftServer.validateCommit((CommitWrapper) message))
@@ -347,12 +347,12 @@ public class PbftMessageHandlerRegistry
         @Override
         public void handle(final IMessageWrapper message, final Server server)
         {
-            Log.getLogger().warn(server.getServerData().getId() + " Received RequestRecoverPrePrepare on: " + message.getSender());
+            Log.getLogger().warn(server.getServerData().getId() + " Received RequestRecoverPrePrepare from: " + message.getSender());
 
             final int requestViewId = message.getMessage().getRequestRecoverPrePrepare().getViewId();
             if (( ( PbftServer ) server ).currentPrePrepare != null && server.getView().getId() == requestViewId)
             {
-                server.addToOutputQueue(new UnicastOperation( new PrePrepareWrapper(( ( PbftServer ) server ).currentPrePrepare.getSecond().sender, ( ( PbftServer ) server ).currentPrePrepare.getSecond().getMessage().toBuilder()), message.getSender()));
+                server.addToOutputQueue(new UnicastOperation( new PrePrepareWrapper(( ( PbftServer ) server ).currentPrePrepare.getSecond().sender, ( ( PbftServer ) server ).currentPrePrepare.getSecond().getMessage().toBuilder(), true), message.getSender()));
             }
             else if (requestViewId > server.getView().getId())
             {
@@ -362,7 +362,7 @@ public class PbftMessageHandlerRegistry
             }
             else if ( (( PbftServer ) server ).pastPrePrepare.containsKey(requestViewId))
             {
-                server.addToOutputQueue(new UnicastOperation( new PrePrepareWrapper(( ( PbftServer ) server ).pastPrePrepare.get(requestViewId).sender, ( ( PbftServer ) server ).pastPrePrepare.get(requestViewId).getMessage().toBuilder()), message.getSender()));
+                server.addToOutputQueue(new UnicastOperation( new PrePrepareWrapper(( ( PbftServer ) server ).pastPrePrepare.get(requestViewId).sender, ( ( PbftServer ) server ).pastPrePrepare.get(requestViewId).getMessage().toBuilder(), true), message.getSender()));
             }
         }
 

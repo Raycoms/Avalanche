@@ -36,10 +36,21 @@ public class PrePrepareWrapper extends AbstractMessageWrapper
      * @param sender  the sender.
      * @param message the message.
      */
+    public PrePrepareWrapper(final int sender, final MessageProto.Message.Builder message, final boolean signedAlready)
+    {
+        super(sender, message);
+        this.alreadySigned = signedAlready;
+    }
+
+    /**
+     * Wrap an existing preprepare message.
+     *
+     * @param sender  the sender.
+     * @param message the message.
+     */
     public PrePrepareWrapper(final IServer sender, final MessageProto.PrePrepare message)
     {
         this(sender.getServerData().getId(), MessageProto.Message.newBuilder().setPrePrepare(message));
-
     }
 
     /**
