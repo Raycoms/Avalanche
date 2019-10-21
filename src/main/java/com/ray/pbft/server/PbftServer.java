@@ -105,6 +105,17 @@ public class PbftServer extends Server
     }
 
     /**
+     * Create a server object from the view.
+     *
+     * @param id   the server id.
+     */
+    public PbftServer(final int id)
+    {
+        super(id);
+        new CommitValidator(this).start();
+    }
+
+    /**
      * The commit validator thread.
      */
     public class CommitValidator extends Thread
@@ -169,6 +180,14 @@ public class PbftServer extends Server
      */
     public static void main(final String[] args)
     {
+        if (args.length == 1)
+        {
+            final int id = Integer.parseInt(args[0]);
+            final PbftServer server = new PbftServer(id);
+            server.start();
+            return;
+        }
+
         if (args.length < 3)
         {
             Log.getLogger().warn("Invalid arguments, at least 3 necessary!");

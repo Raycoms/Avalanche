@@ -81,6 +81,23 @@ public class Server extends Thread implements IServer
     public AtomicBoolean isActive = new AtomicBoolean(true);
 
     /**
+     * Create a server object from the view..
+     * @param id the server id.
+     */
+    public Server(final int id)
+    {
+        this.view = ViewLoader.loadView(Constants.CONFIG_LOCATION,  "view.json");
+        this.server = this.view.getServer(id);
+
+        KeyUtilities.generateOrLoadKey(server, Constants.CONFIG_LOCATION);
+        this.privateKey = KeyUtilities.loadPrivateKeyFromFile(Constants.CONFIG_LOCATION, this.server);
+        for (final ServerData data: view.getServers())
+        {
+            data.loadPublicKey(Constants.CONFIG_LOCATION);
+        }
+    }
+
+    /**
      * Create a server object.
      * @param id the server id.
      * @param ip the server ip.
